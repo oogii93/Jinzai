@@ -156,7 +156,7 @@
                     <!-- Black overlay with opacity -->
                     <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
 
-                    <img src="{{ asset('images/com2.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/com.jpg') }}" alt="" class="w-full h-full object-cover">
 
                     <!-- Text always visible -->
                     <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
@@ -168,7 +168,7 @@
                     <!-- Black overlay with opacity -->
                     <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
 
-                    <img src="{{ asset('images/com3.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/com.jpg') }}" alt="" class="w-full h-full object-cover">
 
                     <!-- Text always visible -->
                     <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">

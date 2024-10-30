@@ -5,6 +5,7 @@
 
 
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
@@ -131,11 +132,61 @@
 
     <!--Service-->
 
+
+
     <div id="service" class="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="text-center max-w-full mx-auto py-20">
             <h1 class="mb-20 text-sky-800 text-4xl font-bold gsap-reveal">Service</h1>
 
-            <div class="container mt-5 gsap-reveal2">
+            <div class="container mt-5">
+                <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-8 p-2 rounded-lg mx-auto">
+
+                    <!-- First Card -->
+                    <a href="#business" class="card group relative overflow-hidden rounded-lg shadow-lg h-72">
+                        <!-- Black overlay -->
+                        <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
+
+                        <img src="{{ asset('images/com.jpg') }}" alt="" class="w-full h-full object-cover">
+
+                        <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
+                            Business
+                        </p>
+                    </a>
+
+                    <!-- Second Card -->
+                    <a href="#job facility" class="card group relative overflow-hidden rounded-lg shadow-lg h-72">
+                        <!-- Black overlay -->
+                        <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
+
+                        <img src="{{ asset('images/aba.jpg') }}" alt="" class="w-full h-full object-cover">
+
+                        <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
+                            Job Facility
+                        </p>
+                    </a>
+
+                    <!-- Third Card -->
+                    <a href="#job categories" class="card group relative overflow-hidden rounded-lg shadow-lg h-72">
+                        <!-- Black overlay -->
+                        <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
+
+                        <img src="{{ asset('images/shu.jpg') }}" alt="" class="w-full h-full object-cover">
+
+                        <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
+                            Job Categories
+                        </p>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- <div id="service" class="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="text-center max-w-full mx-auto py-20">
+            <h1 class="mb-20 text-sky-800 text-4xl font-bold gsap-reveal">Service</h1>
+            <div class="container mt-5">
                 <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-8 p-2 rounded-lg mx-auto">
                     <!-- Content goes here -->
 
@@ -156,7 +207,7 @@
                     <!-- Black overlay with opacity -->
                     <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
 
-                    <img src="{{ asset('images/com.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/aba.jpg') }}" alt="" class="w-full h-full object-cover">
 
                     <!-- Text always visible -->
                     <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
@@ -168,7 +219,7 @@
                     <!-- Black overlay with opacity -->
                     <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
 
-                    <img src="{{ asset('images/com.jpg') }}" alt="" class="w-full h-full object-cover">
+                    <img src="{{ asset('images/shu.jpg') }}" alt="" class="w-full h-full object-cover">
 
                     <!-- Text always visible -->
                     <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
@@ -176,22 +227,11 @@
                     </p>
                 </a>
 
-
-
-
-
-
-
-
-
-
-
         </div>
-
 
           </div>
 
-    </div>
+    </div> --}}
 </div>
 
     <div id="about" class=" mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -751,6 +791,29 @@
 </body>
 <script>
 
+document.addEventListener('DOMContentLoaded', () => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Select all cards
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach((card, index) => {
+        // Create animation for each card
+        gsap.from(card, {
+            rotationY: 90,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+            delay: index * 0.2, // Sequential delay for each card
+
+            scrollTrigger: {
+                trigger: card,
+                start: "top bottom-=100",
+                toggleActions: "play none none reverse"
+            }
+        });
+    });
+});
     // Initialize all animations when document is ready
 window.addEventListener('DOMContentLoaded', () => {
     // 1. Original gsap-reveal animations

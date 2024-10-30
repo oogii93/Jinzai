@@ -1,0 +1,40 @@
+{
+    "人材紹介": "人材紹介",
+    "Home": "ホーム",
+    "About": "約",
+    "Service": "サービス",
+    "Company": "会社",
+    "Work Flow": "ワークフロー",
+    "Sign Up": "サインアップ",
+    "Log In": "ログイン",
+    "Login form": "ログインフォーム",
+    "Sign up Form":"エントリーシート",
+
+    "Furigana":"ふりがな",
+    "Name":"氏名",
+    "Date of Birth":"生年月日",
+    "Address":"現住所",
+    "Phone number":"電話番号",
+    "Mobile number":"携帯番号",
+    "Email address":"e-mail",
+    "Education":"学歴",
+    "Appear point":"アピールポイント",
+    "Reason for studying in Japan":"日本に留学した理由",
+    "Skill":"スキル",
+    "Reasons for applying":"志望動機",
+    "Language Ability":"語学力",
+    "Driver licence and Qualifications":"免許、資格",
+    "Hobby and speciality":"趣味、特徴",
+    "Part time job experience":"アルバイト経験",
+    "Select Image":"写真選択",
+    "Gender":"性別",
+    "Cancel":"キャンセル",
+    "Save and Sent":"保存",
+        "Male":"男性",
+    "Female":"女性",
+    "School name" : "学校名",
+        "Select": "選択"
+
+
+
+}

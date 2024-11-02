@@ -20,7 +20,7 @@
     <div class="fixed bottom-4 right-5 z-50">
         <a href="{{ route('register') }}">
         <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-5 px-8 rounded-full shadow-lg">
-            <span>{{ __('Login form') }}</span>
+            <span>{{ __('Sign Up For Job Seeker') }}</span>
         </button>
         </a>
     </div>
@@ -46,11 +46,19 @@
                         {{ __('Home') }}
 
                     </a>
-                    <a href="#about" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">{{ __('About') }}</a>
+
                     <a href="#service" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">{{ __('Service') }}</a>
-                    <a href="#company" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-24 h-16 hover:text-white group flex items-center px-4">{{ __('Company') }}</a>
-                    <a href="#work" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-30 h-16 hover:text-white group flex items-center px-4">{{ __('Work Flow') }}</a>
-                    <a href="{{ route('register') }}" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-30 h-16 hover:text-white group flex items-center px-4">{{ __('Sign Up') }}</a>
+
+                    <a href="#job facility" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-30 h-16 hover:text-white group flex items-center px-4">{{ __('Occupation') }}</a>
+
+                    <a href="#job company" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-30 h-16 hover:text-white group flex items-center px-4">{{ __('Company Flow') }}</a>
+
+                    <a href="#job seeker" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-30 h-16 hover:text-white group flex items-center px-4">{{ __('Job seeker Flow') }}</a>
+
+                    <a href="{{ route('register.company') }}" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-30 h-16 hover:text-white group flex items-center px-4">{{ __('Sign Up Company') }}</a>
+
+
+
                     <a href="{{ route('login') }}" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">{{ __('Log In') }}</a>
 
                     <!-- Mail Icon -->
@@ -134,56 +142,8 @@
 
 
 
+
     <div id="service" class="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="text-center max-w-full mx-auto py-20">
-            <h1 class="mb-20 text-sky-800 text-4xl font-bold gsap-reveal">Service</h1>
-
-            <div class="container mt-5">
-                <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-8 p-2 rounded-lg mx-auto">
-
-                    <!-- First Card -->
-                    <a href="#business" class="card group relative overflow-hidden rounded-lg shadow-lg h-72">
-                        <!-- Black overlay -->
-                        <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
-
-                        <img src="{{ asset('images/com.jpg') }}" alt="" class="w-full h-full object-cover">
-
-                        <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
-                            Business
-                        </p>
-                    </a>
-
-                    <!-- Second Card -->
-                    <a href="#job facility" class="card group relative overflow-hidden rounded-lg shadow-lg h-72">
-                        <!-- Black overlay -->
-                        <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
-
-                        <img src="{{ asset('images/aba.jpg') }}" alt="" class="w-full h-full object-cover">
-
-                        <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
-                            Job Facility
-                        </p>
-                    </a>
-
-                    <!-- Third Card -->
-                    <a href="#job categories" class="card group relative overflow-hidden rounded-lg shadow-lg h-72">
-                        <!-- Black overlay -->
-                        <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
-
-                        <img src="{{ asset('images/shu.jpg') }}" alt="" class="w-full h-full object-cover">
-
-                        <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
-                            Job Categories
-                        </p>
-                    </a>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    {{-- <div id="service" class="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div class="text-center max-w-full mx-auto py-20">
             <h1 class="mb-20 text-sky-800 text-4xl font-bold gsap-reveal">Service</h1>
             <div class="container mt-5">
@@ -231,35 +191,10 @@
 
           </div>
 
-    </div> --}}
+    </div>
 </div>
 
-    <div id="about" class=" mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
-        <div  class="mt-50 inset-0 flex items-center justify-center text-sky-800 text-3xl font-bold gsap-reveal">
-            About
-        </div>
-
-
-        <div class="w-full  grid grid-cols-1 sm:grid-cols-2 gap-4 p-4  rounded-lg mx-auto">
-
-            <div class="mr-4 p-2 items-center justify-center rounded-2xl">
-                <img src="images/a.jpg" alt="Taisei Holdings" class="w-200 h-200  object-cover rounded-2xl">
-            </div>
-
-            <div class="mr-4 p-2 w-200 h-200 flex rounded-2xl bg-sky-100">
-                <h2 class="px-2 py-2 text-lg font-medium">委落41禁ヲレ集棋がぼ断違チツウロ購判ネ念額ニ岡矢岐ぴ線31正チヤヲヒ受婦項川ゃに。聞うぱ損路け図7石てぐ体追ょル定3住ねに治改ヲスツ意攻ツトテ勝笑報ヒ発6目もい著競ヱヌサマ渡回く設抑判柴りぽ。阻ウコ香玲沢の能済アソク世来蓄じそ投期メミト意語載ム幻人ぱ玉都びぴどっ体伊お戦瞬コ治児ちレ。
-
-                    止もほ幕正ケヤル別制エキヒ参統クムテレ施9畑へょくば販戒だの決変ヱ阜気ネヤ込約ノ球終アフル暮策ク朝版外善先すがわつ。意ヤセトヒ楽場ざに際鼻計み十害でぜ応害も白昨つをひ詳私ずぱ将奪ースっ約継きたむ演投提よゃだ与9豆ナフ文策がへひち平百壮憶軒おぼい。報わレ意革不日ニワ式横ノヨハ確象げかぞぽ者18后嘘0覧やい先化エラメ韓記権げてじ際治転90代払メルイレ換速江ミ無備さリ多卓捨縦舗クおあせ。
-
-                    会かざ熊56芸すン禁連宿すごる馬治ーむド件建ウロヲネ丘災って聞集関ヲ銀始りざじ育著面ユスナ雑納よびく表怒ばぜ渡金来し代努レキ定時併カワキト観留ぶフによ。共ぴ申陸日ぴ合日方ワ投57抑いげ料部クワ点参スレぎゆ手期閣れぎへ具属ア詐遂ヱチ時覚ぶひるな旅代トリ囲赤谷ればぱ動開ツイハメ禁携申のれ.</h2>
-
-            </div>
-
-
-
-
-    </div>
 
 
 
@@ -411,7 +346,7 @@
 
 
         <div class="min-h-screen flex items-center justify-center">
-            <div id="job categories" class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div id="job company" class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <h1 class="mt-50 mb-2 text-center text-sky-800 text-3xl font-bold gsap-reveal">
                     サービスのフロー（企業様）
                 </h1>
@@ -584,7 +519,7 @@
         </div>
 
 
-        <div  id="job categories" class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div  id="job seeker" class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
             <h1 class="mt-50 mb-2 inset-0 flex items-center justify-center text-sky-800 text-3xl font-bold gsap-reveal">サービスのフロー（求職者様）
 
@@ -791,29 +726,29 @@
 </body>
 <script>
 
-document.addEventListener('DOMContentLoaded', () => {
-    gsap.registerPlugin(ScrollTrigger);
+// document.addEventListener('DOMContentLoaded', () => {
+//     gsap.registerPlugin(ScrollTrigger);
 
-    // Select all cards
-    const cards = document.querySelectorAll('.card');
+//     // Select all cards
+//     const cards = document.querySelectorAll('.card');
 
-    cards.forEach((card, index) => {
-        // Create animation for each card
-        gsap.from(card, {
-            rotationY: 90,
-            opacity: 0,
-            duration: 1,
-            ease: "power2.out",
-            delay: index * 0.2, // Sequential delay for each card
+//     cards.forEach((card, index) => {
+//         // Create animation for each card
+//         gsap.from(card, {
+//             rotationY: 90,
+//             opacity: 0,
+//             duration: 1,
+//             ease: "power2.out",
+//             delay: index * 0.2, // Sequential delay for each card
 
-            scrollTrigger: {
-                trigger: card,
-                start: "top bottom-=100",
-                toggleActions: "play none none reverse"
-            }
-        });
-    });
-});
+//             scrollTrigger: {
+//                 trigger: card,
+//                 start: "top bottom-=100",
+//                 toggleActions: "play none none reverse"
+//             }
+//         });
+//     });
+// });
     // Initialize all animations when document is ready
 window.addEventListener('DOMContentLoaded', () => {
     // 1. Original gsap-reveal animations

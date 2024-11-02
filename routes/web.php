@@ -13,6 +13,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\VideoProfileController;
 
+use App\Http\Controllers\Auth\RegisteredUserController;
+
 Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])
     ->name('language.switch');
 

@@ -12,9 +12,22 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordChangeController;
 
+
+
 Route::middleware('guest')->group(function () {
+
+
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
+
+    // For COmpany register
+
+        // New company registration route
+        Route::get('register/company', [RegisteredUserController::class, 'createCompany'])
+        ->name('register.company');
+
+
+
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 

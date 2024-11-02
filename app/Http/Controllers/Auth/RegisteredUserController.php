@@ -27,17 +27,89 @@ class RegisteredUserController extends Controller
      */
 
 
+     protected $jobseekerFields = [
+        'furigana',
+        'date_of_birth',
+        'gender',
+        'address',
+        'phone_number',
+        'mobile_number',
+        'education_year_1',
+        'education_month_1',
+        'education_school_1',
+        'education_year_2',
+        'education_month_2',
+        'education_school_2',
+        'education_year_3',
+        'education_month_3',
+        'education_school_3',
+        'appear_point',
+        'study_japan',
+        'skill',
+        'reason',
+        'language',
+        'license',
+        'hobby',
+        'part_time'
+    ];
+
+
+    protected $companyFields = [
+        'company_name' => 'name',  // maps to name field
+        'address',
+        'phone_number',
+        'mobile_number'
+        // Add any other company-specific fields
+    ];
+
+
+
+
+
+
+
 
     public function create(): View
     {
         return view('auth.register');
     }
 
+
+
+    public function createCompany()
+    {
+        return view('auth.register-company');  // New company registration view
+    }
+
+
+
+
     /**
      * Handle an incoming registration request.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+
+     public function store(Request $request)
+     {
+         // Get validation rules based on role
+         $validationRules = $this->getValidationRules($request->role);
+
+         // Validate the request
+         $validated = $request->validate($validationRules);
+
+         // Create user with role-specific fields
+         $userData = $this->getUserData($request);
+
+         $user = User::create($userData);
+
+         event(new Registered($user));
+
+         Auth::login($user);
+
+         return redirect($this->getRedirectRoute($user->role));
+     }
     public function store(Request $request): RedirectResponse
     {
         $request->validate([

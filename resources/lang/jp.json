@@ -33,7 +33,60 @@
         "Male":"男性",
     "Female":"女性",
     "School name" : "学校名",
-        "Select": "選択"
+        "Select": "選択",
+
+
+
+
+        "If you are looking for job": "仕事を探しているなら",
+        "or worker feel free to contact us!!": "または労働者はお気軽にお問い合わせください!!",
+        "Find Job. Talk to Boss": "仕事を探す。上司と話す",
+        "Business": "仕事",
+        "Job Facility": "仕事施設",
+        "Job Categories": "職種",
+        "Occupation": "職業",
+        "Can introduce in a wide range of fields":"幅広い分野で導入可能",
+        "IT": "IT",
+        "Mechanical Electrical": "機械 電気",
+        "Construction Management": "建設管理",
+        "Administration Sales": "管理 営業",
+        "Other industries and occupations you may be looking for": "その他お探しの業種・職種は",
+        "Contact us": "お問い合わせください",
+        "Discuss recruitment": "採用について相談する",
+        "How to use": "ご利用の流れ",
+        "Service flow (for businesses)": "サービスフロー（企業向け）",
+        "START":"START",
+        "Contract":"契約",
+        "Nursing care":"介護",
+        "Agriculture":"農業",
+        "Food and beverage manufacturing":"飲食料品製造業",
+        "Dining out":"外食",
+
+        "First, please register using the form below.":"まずは下記フォームよりご登録をお願いいたします。",
+        "Job Posting Create":"求人票作成",
+        "After confirming your registration information, a career advisor will contact you regarding an interview.":"ご登録情報を確認後、キャリアアドバイザーから面談の日程について、ご連絡いたします。",
+        "Examination by our company":"弊社にて審査",
+        "We will review and examine the job postings you have registered.":"登録していただいた求人票の確認・審査をさせていただきます。",
+        "Publish":"掲載",
+        "Once the review is complete, the results will be posted on a dedicated website.":"審査完了後、専用Webサイトに掲載します。",
+        "Job seeker interviews and tests":"求職者面接・試験の実施",
+        "We will hold a meeting with the job seeker to determine the desired date for your company and then arrange a date to conduct the interview and employment test.":"求職者と貴社の希望日のヒアリングをし、日程調整後、面接・採用試験を実施します。",
+        "Job offer/Joining the company":"内定・入社",
+        "After we confirm that you joined the company on the joining date,you will be asked to pay the invoiced amount.":"入社日に入社したことを確認後、請求額をお支払いいただきます",
+        "Service flow (for Job Seekers)":"サービスのフロー（求職者様）",
+        "Create Resume":"履歴書作成",
+        "Company information available":"企業情報閲覧可能",
+        "Once you have filled out all the required fields, you will be able to view the job posting.":"必要項目をすべて記入していただいた後、求人票が閲覧可能となります",
+        "Apply":"応募",
+        "Once you find a company you would like to apply to, apply and we will schedule an interview with you. (We will hold an interview before introducing you to the company.)":"応募したい企業が見つかったら応募をし、弊社との面談日程を調整します。（企業様へご紹介する前にヒアリングを行います。）",
+        "Interviews and exams":"面接・試験の実施",
+        "We will arrange an interview date between the job seeker and the company to which they are applying. After arranging the schedule, the interview and employment test will be conducted.":"求職者様と応募先の企業様との面接日程を調整します。日程調整後、面接・採用試験を実施します。",
+        "Joining the company":"内定・入社",
+        "Contact":"問い合わせ",
+        "Please feel free to contact us here":"お気軽く問い合わせください。"
+
+
+
 
 
 

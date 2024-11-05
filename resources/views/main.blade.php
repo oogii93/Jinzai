@@ -40,7 +40,7 @@
             </div>
             <button
                 type="submit"
-                class="px-6 bg-pink-500 text-white font-medium hover:bg-pink-600 focus:bg-pink-700 transition duration-200 flex items-center justify-center min-w-[100px]"
+                class="px-6 bg-blue-500 text-white font-medium hover:bg-blue-600 focus:bg-blue-700 transition duration-200 flex items-center justify-center min-w-[100px]"
             >
                 検索
             </button>
@@ -56,7 +56,7 @@
                     <div class="flex gap-6">
                         <!-- Left Column (2/5 width) -->
                         <div class="w-1/5 bg-white p-4 shadow">
-                            <h2 class="text-2xl font-semibold mb-4 text-center text-pink-800">職種</h2>
+                            <h2 class="text-2xl font-semibold mb-4 text-center text-gray-700">職種</h2>
                             <ul class="space-y-2 text-l mb-2">
                         @foreach ($categories as $item)
 
@@ -84,9 +84,11 @@
                                 <!-- Job Card 1 -->
 
                                 @foreach ($jobpost as $job)
-                                <div class="flex items-center bg-yellow-50 p-4 rounded-md shadow-md hover:bg-yellow-100">
+                                <div class="flex items-center bg-gray-50 p-4 rounded-md shadow-md hover:bg-gray-100">
                                     <div class="flex items-center space-x-10 w-full">
-                                        <img src="{{ asset('images/sw.png') }}" alt="Company Logo" class="w-36 h-30">
+                                        <img src="{{ asset('storage/' . $job->user->profile_image) }}" alt="User Profile Image" class="w-36 h-30">
+
+
 
                                         <div class="flex-1">
                                             <h3 class="font-semibold text-gray-800 border-b-2 border-gray-400">株式会社　　{{ $job->user->name }}</h3>
@@ -125,7 +127,7 @@
 
                                         <div>
                                             <a href="{{ route('jobpost.show', $job->id) }}">
-                                                <button class="text-white bg-pink-400 rounded-lg px-10 py-5 hover:bg-pink-600 mt-2 font-mono">
+                                                <button class="text-white bg-blue-400 rounded-lg px-10 py-5 hover:bg-blue-600 mt-2 font-mono">
                                                     詳細
                                                 </button>
                                             </a>

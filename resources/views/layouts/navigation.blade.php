@@ -43,14 +43,8 @@
                         {{ __('Main') }}
 
                     </a>
-                    <a href="" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">
-                        {{ __('Index') }}
 
-                    </a>
-                    <a href="" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">
-                        {{ __('Another') }}
 
-                    </a>
 
 
                 @if (Auth::check() && Auth::user()->role===('admin'))
@@ -73,12 +67,32 @@
 
                 @endif
 
+                @if (Auth::check() && Auth::user()->role===('admin'))
+
+                        <a href="{{ route('admin.user.index') }}"
+                        class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">
+                        {{ __('User') }}
+                        </a>
+
+
+                @endif
+
+                @if (Auth::check() && Auth::user()->role===('admin'))
+
+                        <a href="{{ route('admin.company.index') }}"
+                        class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-25 h-16 hover:text-white group flex items-center px-4">
+                        {{ __('Company') }}
+                        </a>
+
+
+                @endif
+
 
 
 
                         <a href="{{ route('jobpost.index') }}"
-                        class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">
-                        {{ __('jobpost') }}
+                        class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-40 h-16 hover:text-white group flex items-center px-4">
+                        {{ __('New Job Post') }}
                         </a>
 
 

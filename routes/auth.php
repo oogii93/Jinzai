@@ -23,7 +23,7 @@ Route::middleware('guest')->group(function () {
     // For COmpany register
 
         // New company registration route
-        Route::get('register/company', [RegisteredUserController::class, 'createCompany'])
+        Route::get('/register/company', [RegisteredUserController::class, 'createCompany'])
         ->name('register.company');
 
 

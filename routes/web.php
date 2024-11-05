@@ -13,7 +13,11 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\VideoProfileController;
 
+
+
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CompanyDashboardController;
+use App\Http\Controllers\UserController;
 
 Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])
     ->name('language.switch');
@@ -22,13 +26,28 @@ Route::get('/', function () {
     return view('home');
 });
 
+//new
+Route::middleware('guest')->group(function () {
+    Route::get('register/jobseeker', [RegisteredUserController::class, 'createJobseeker'])
+        ->name('register.jobseeker');
+
+    Route::get('register/company', [RegisteredUserController::class, 'createCompany'])
+        ->name('register.company');
+
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
+});
 
 
+
+
+//vndesn zar haruulah
 
 Route::get('/main', [MainController::class, 'index']
 
 )->middleware(['auth', 'verified'])
 ->name('main');
+
+
 
 Route::get('/jobpost/{id}/show', [JobPostController::class, 'show'])
 ->name('jobpost.show');
@@ -37,10 +56,6 @@ Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showBy
 
 ->name('categories.jobPosts');
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
@@ -61,32 +76,82 @@ Route::middleware('auth')->group(function () {
 
 
 
+    Route::middleware(['auth'])->group(function () {
+        Route::prefix('jobpost')->group(function () {
+            // Routes for admin and company only
+            Route::middleware(['check.role:admin,company'])->group(function () {
+                Route::get('/', [JobPostController::class, 'index'])->name('jobpost.index');
+                Route::get('/create', [JobPostController::class, 'create'])->name('jobpost.create');
+                Route::post('/', [JobPostController::class, 'store'])->name('jobpost.store');
+                Route::get('/{id}/edit', [JobPostController::class, 'edit'])->name('jobpost.edit');
+                Route::put('/{id}', [JobPostController::class, 'update'])->name('jobpost.update');
+                Route::delete('/{id}', [JobPostController::class, 'destroy'])->name('jobpost.destroy');
+                // ... other routes
+            });
+
+            // Routes accessible by all authenticated users
+            Route::get('/{id}/show', [JobPostController::class, 'show'])->name('jobpost.show');
+        });
+    });
 
 
-                  //Category CRUD route
-                  Route::prefix('jobpost')->group(function () {
-                    Route::get('/', [JobPostController::class, 'index'])->name('jobpost.index');
-                    Route::get('/create', [JobPostController::class, 'create'])->name('jobpost.create');
-                    Route::post('/', [JobPostController::class, 'store'])->name('jobpost.store');
-                    Route::get('/{id}/edit', [JobPostController::class, 'edit'])->name('jobpost.edit');
-                    Route::put('/{id}', [JobPostController::class, 'update'])->name('jobpost.update');
-                    Route::delete('/{id}', [JobPostController::class, 'destroy'])->name('jobpost.destroy');
-                    Route::get('/{id}/show', [JobPostController::class, 'show'])->name('jobpost.show');
-                });
+
+
+
+
+
 });
 
 require __DIR__.'/auth.php';
 
 
+// Default redirect after login
+Route::get('/dashboard', function () {
+    if (auth()->user()->role === 'jobseeker')
+     {
+        return redirect()->route('jobseeker.dashboard');
+    }
+     elseif (auth()->user()->role === 'company')
+     {
+        return redirect()->route('company.dashboard');
 
-// Routes for Job Seekers
+    }
+    elseif(auth()->user()->role === 'admin')
+    {
+        return redirect()->route('admin.dashboard');
+    }
+
+})->middleware(['auth'])->name('dashboard');
+
+
+
+// Jobseeker Routes
 Route::middleware(['auth', 'role:jobseeker'])->group(function () {
     Route::get('/jobseeker/dashboard', function () {
         return view('jobseeker.dashboard');
     })->name('jobseeker.dashboard');
-    // Add more jobseeker routes here
+
+    // Add other jobseeker routes here
+});
 
 
+
+
+
+// Company Routes
+Route::middleware(['auth', 'role:company'])->group(function () {
+
+
+    Route::get('/company/dashboard', [CompanyDashboardController::class, 'index'] )
+
+            ->name('company.dashboard');
+
+
+
+
+
+
+    // Add other company routes here
 });
 
 
@@ -95,24 +160,14 @@ Route::middleware(['auth', 'role:jobseeker'])->group(function () {
 
 
 
-        // Routes for Companies
-        Route::middleware(['auth', 'role:company'])->group(function () {
-            Route::get('/company/dashboard', function () {
-                return view('company.dashboard');
-            })->name('company.dashboard');
-
-
-
-
-
-            // Add more company routes here
-        });
 
                 // Routes for Admins
                 Route::middleware(['auth', 'role:admin'])->group(function () {
                     Route::get('/admin/dashboard', function () {
                         return view('admin.dashboard');
+
                     })->name('admin.dashboard');
+
                     // Add more admin routes here
 
                     //Category CRUD route
@@ -156,6 +211,30 @@ Route::middleware(['auth', 'role:jobseeker'])->group(function () {
 
                 Route::delete('/tags/{tags}', [TagController::class, 'destroy'])
                     ->name('tags.destroy');
+
+
+
+                //User route
+                Route::get('/admin/user', [UserController::class, 'index'])
+                ->name('admin.user.index');
+
+                Route::get('/admin/user/{user}/show', [UserController::class, 'show'])
+                ->name('admin.user.show');
+
+            Route::get('/admin/company', [UserController::class, 'company'])
+                ->name('admin.company.index');
+
+            Route::get('/admin/company/{user}/show', [UserController::class, 'companyShow'])
+                ->name('admin.company.show');
+
+
+
+
+
+
+
+
+
                 });
 
 

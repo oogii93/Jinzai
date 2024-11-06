@@ -1,112 +1,115 @@
 <x-app-layout>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="px-4 py-5 sm:px-6">
+
+                <h1 class="text-lg leading-6 font-medium text-gray-900">{{__('Recruitment Information') }}</h1>
 
 
-
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-
-
-        <div class="bg-white shadow rounded-xl mb-3">
-            <div class="px-4 py-5 bg-yellow-100  text-lg font-semibold">
-                <h2>{{ $jobpost->user->name }}</h2>
 
             </div>
-            <div class="container w-full h-[200px] bg-stone-200">
-                kaisho joho
+            <div class="border-t border-gray-300">
+                <dl class="border border-1">
+
+
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-m font-medium text-gray-500">{{ __('Company Name') }}</dt>
+                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->user->name }}</dd>
+                    </div>
+
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-m font-medium text-gray-500">{{ __('Title') }}</dt>
+                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->title }}</dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Salary') }}</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->salary }}</dd>
+                    </div>
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Working Hours') }}</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->working_hour }}</dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Location') }}</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->working_location }}</dd>
+                    </div>
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Job Details') }}</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->job_detail }}</dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Qualifications') }}</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->qualification }}</dd>
+                    </div>
+                    @if($jobpost->other)
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">{{ __('Additional Information') }}</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->other }}</dd>
+                    </div>
+                    @endif
+                </dl>
             </div>
 
-            <div class="space-y-2 p-6 mb-2">
+            @if(auth()->user()->role === 'jobseeker')
+                <div class="px-4 py-5 sm:px-6">
+                    @if(session('error'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline">{{ session('error') }}</span>
+                        </div>
+                    @endif
+                    @if(session('success'))
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                            <span class="block sm:inline">{{ session('success') }}</span>
+                        </div>
+                    @endif
 
-                <div class="flex justify">
-                    <svg fill="#d1b110" height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 219.376 219.376" xml:space="preserve" stroke="#d1b110"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M127.518,0H40.63c-6.617,0-12,5.383-12,12v195.376c0,6.617,5.383,12,12,12h138.117c6.617,0,12-5.383,12-12V59.227 c0-3.204-1.248-6.217-3.514-8.484l-51.364-47.36C133.619,1.2,130.661,0,127.518,0z M175.747,204.376H43.63V15h71.768v40.236 c0,8.885,7.225,16.114,16.105,16.114h44.244V204.376z M131.503,56.35c-0.609,0-1.105-0.5-1.105-1.114v-31.58l34.968,32.693H131.503z M65.499,97.805c-5.14,0-9.321,4.182-9.321,9.321c0,5.14,4.182,9.321,9.321,9.321c5.14,0,9.321-4.182,9.321-9.321 C74.82,101.987,70.638,97.805,65.499,97.805z M82.499,99.627h79.5v15h-79.5V99.627z M65.499,127.805 c-5.14,0-9.321,4.182-9.321,9.321s4.182,9.321,9.321,9.321c5.14,0,9.321-4.182,9.321-9.321S70.638,127.805,65.499,127.805z M82.499,129.626h79.5v15h-79.5V129.626z M65.499,157.805c-5.14,0-9.321,4.182-9.321,9.321s4.182,9.321,9.321,9.321 c5.14,0,9.321-4.182,9.321-9.321S70.638,157.805,65.499,157.805z M82.499,159.626h79.5v15h-79.5V159.626z"></path> </g>
-                    </svg>
-                    <span class="px-5 py-2 text-xl font-semibold">募集情報</span>
-
-                </div>
-
-                <div class="bg-gray-600 mb-4 border-2 border-yellow-500 mt-2"></div>
-
-                <div class="flex flex-col sm:flex-row justify border-b border-t">
-                    <label for="title" class="block font-semibold text-gray-700 bg-yellow-100 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        企業名
-                    </label>
-                    <p class="px-5 py-5 text-md w-full sm:w-auto">
-                        {{ $jobpost->user->name }}
-                    </p>
-                </div>
-
-                <div class="flex flex-col sm:flex-row justify border-b border-t">
-                    <label for="title" class="block font-semibold text-gray-700 bg-yellow-100 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        職種
-                    </label>
-                    <p class="px-5 py-5 text-md w-full sm:w-auto">
-                        {{ $jobpost->title }}
-                    </p>
-                </div>
-
-              
-
-                <div class="flex flex-col sm:flex-row justify-between border-b border-t">
-                    <label for="title" class="block font-semibold text-gray-700 bg-yellow-100 w-full sm:w-[200px] h-[350px] px-5 py-5 text-md flex-shrink-0">
-                        仕事内容
-                    </label>
-                    <p class="px-5 py-5 text-md w-full sm:w-auto">
-                        {{ $jobpost->job_detail}}
-                    </p>
+                    <!-- Check if user has already applied -->
+                    @if($jobpost->applications()->where('user_id', auth()->id())->exists())
+                        <div class="bg-gray-100 border border-gray-400 text-gray-700 px-4 py-3 rounded relative">
+                            You have already applied for this position.
+                        </div>
+                    @else
+                        <button
+                            onclick="document.getElementById('applicationModal').classList.remove('hidden')"
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                           {{ __('Apply for this Position') }}
+                        </button>
+                    @endif
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify border-b border-t">
-                    <label for="title" class="block font-semibold text-gray-700 bg-yellow-100 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        対象となる方<br>・資格
-                    </label>
-                    <p class="px-5 py-5 text-md w-full sm:w-auto">
-                        {{ $jobpost->qualification }}
-                    </p>
-                </div>
-                <div class="flex flex-col sm:flex-row justify border-b border-t">
-                    <label for="title" class="block font-semibold text-gray-700 bg-yellow-100 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        勤務地
-                    </label>
-                    <p class="px-5 py-5 text-md w-full sm:w-auto">
-                        {{ $jobpost->working_location }}
-                    </p>
-                </div>
-                <div class="flex flex-col sm:flex-row justify border-b border-t">
-                    <label for="title" class="block font-semibold text-gray-700 bg-yellow-100 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        勤務時間<br>・シフト
-                    </label>
-                    <p class="px-5 py-5 text-md w-full sm:w-auto">
-                        {{ $jobpost->working_hour }}
-                    </p>
-                </div>
-                <div class="flex flex-col sm:flex-row justify border-b border-t">
-                    <label for="title" class="block font-semibold text-gray-700 bg-yellow-100 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        給与
-                    </label>
-                    <p class="px-5 py-5 text-md w-full sm:w-auto">
-                        {{ $jobpost->salary }}
-                    </p>
-                </div>
-                <div class="flex flex-col sm:flex-row justify border-b border-t">
-                    <label for="title" class="block font-semibold text-gray-700 bg-yellow-100 w-full sm:w-[200px] h-[200px] px-5 py-5 text-md flex-shrink-0">
-                        その他
-                    </label>
-                    <p class="px-5 py-5 text-md w-full sm:w-auto">
-                        {{ $jobpost->other }}
-                    </p>
-                </div>
 
-                <div class="flex justify-center space-x-3">
-                    <a href="{{ route('jobpost.index') }}"
-                       class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Cancel
-                    </a>
-                    <button type="submit"
-                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" style="height:100px; width:200px">
-                      <span class="text-2xl flex px-8">応募</span>
-                    </button>
+
+
+                <!-- Application Modal -->
+                <div id="applicationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                        <div class="mt-3">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __(' Apply') }}  {{ $jobpost->title }}</h3>
+                            <form action="{{ route('job.apply', $jobpost->id) }}" method="POST" class="mt-4" enctype="multipart/form-data">
+                                @csrf
+
+
+                                <div class="flex justify-end space-x-3">
+                                    <button
+                                        type="button"
+                                        onclick="document.getElementById('applicationModal').classList.add('hidden')"
+                                        class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
+                                    >
+                                        {{ __('Cancel') }}
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                                    >
+                                        {{ __('Submit Application') }}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
-    
-
-    </x-app-layout>
+    </div>
+</x-app-layout>

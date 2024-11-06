@@ -7,17 +7,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LanguageController;
+
+
+
 use App\Http\Controllers\VideoProfileController;
-
-
-
-use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\CompanyDashboardController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminJobApplicationController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])
     ->name('language.switch');
@@ -59,6 +61,49 @@ Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showBy
 
 
 
+// 6. Update routes in web.php
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/jobs/{id}', [JobPostController::class, 'show'])->name('jobpost.show');
+    Route::post('/jobs/{id}/apply', [JobPostController::class, 'apply'])->name('job.apply');
+
+
+    // Jobseeker routes
+    Route::middleware(['check.role:jobseeker'])->group(function () {
+        Route::post('/jobs/{jobPost}/apply', [JobApplicationController::class, 'store'])
+            ->name('jobs.apply');
+        Route::get('/my-applications', [JobApplicationController::class, 'index'])
+            ->name('applications.index');
+    });
+
+    // Admin routes
+    Route::middleware(['check.role:admin'])->group(function () {
+        Route::get('/admin/applications', [AdminJobApplicationController::class, 'index'])
+        ->name('admin.applications.index');
+    Route::post('/admin/applications/{application}/review', [AdminJobApplicationController::class, 'review'])
+        ->name('admin.applications.review');
+    Route::get('/admin/applications/reviewed', [AdminJobApplicationController::class, 'showReviewed'])
+        ->name('admin.applications.reviewed');
+
+
+            Route::get('/company/dashboard', [CompanyDashboardController::class, 'index'])->name('company.dashboard');
+            Route::patch('/company/applications/{application}/status', [CompanyDashboardController::class, 'updateApplicationStatus'])
+                ->name('company.application.update-status');
+            Route::get('/company/applications/{application}', [CompanyDashboardController::class, 'getApplicationDetails']);
+    });
+
+    // Company routes
+    Route::middleware(['check.role:company'])->group(function () {
+        Route::get('/company/applications', [JobApplicationController::class, 'employerApplications'])
+            ->name('applications.employer');
+        Route::patch('/applications/{application}/company-status', [JobApplicationController::class, 'updateCompanyStatus'])
+            ->name('applications.company-status');
+    });
+});
+
+
+
+
 
 
 Route::middleware('auth')->group(function () {
@@ -77,6 +122,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware(['auth'])->group(function () {
+
+
+
+
         Route::prefix('jobpost')->group(function () {
             // Routes for admin and company only
             Route::middleware(['check.role:admin,company'])->group(function () {

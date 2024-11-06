@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\JobPost;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\JobApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -45,7 +46,7 @@ class JobPostController extends Controller
 
     public function show(string $id)
     {
-        $jobpost = JobPost::findOrFail($id);
+        $jobpost = JobPost::with('applications')->findOrFail($id);
 
 
         return view('jobpost.show', compact('jobpost'));
@@ -155,6 +156,49 @@ class JobPostController extends Controller
         $jobpost->delete();
 
         return redirect()->route('jobpost.index')->with('success', 'Job deleted successfully.');
+    }
+
+
+    public function apply(Request $request, $id)
+    {
+        if(auth()->user()->role !== 'jobseeker')
+        {
+            return redirect()->back()->with('error', ' Only jobseekers can apply  for jobs.');
+        }
+
+        $jobpost=JobPost::findOrFail($id);
+
+
+
+        if($jobpost->applications()->where('user_id', auth()->id())->exists()){
+            return redirect()->back()->with('error', 'You have already applied for this job');
+        }
+
+        // $request->validate([
+        //     'cover_letter'=>'required|string|min:50',
+        //     'resume'=>'required|file|mimes:pdf,doc,docx|max:2048'
+        // ]);
+
+
+        // $resumePath=$request->file('resume')->store('resumes', 'public');
+
+        $application=new JobApplication([
+            'user_id'=>auth()->id(),
+            'job_post_id'=>$jobpost->id,
+            // 'cover_letter'=>$request->cover_letter,
+            // 'resume_path'=>$resumePath,
+            'admin_status'=>'pending',
+            'company_status'=>'pending'
+
+        ]);
+
+
+        $application->save();
+
+        return redirect()->back()->with('success', 'Your application has been submitted successfully');
+
+
+
     }
 
 

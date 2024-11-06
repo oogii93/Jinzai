@@ -104,4 +104,18 @@ public function jobPosts()
 }
 
 
+public function jobApplications()
+{
+    return $this->hasMany(JobApplication::class);
+}
+
+
+
+public function appliedJobs()
+{
+    return $this->belongsToMany(JobPost::class, 'job_applications');
+}
+
+
+
 }

@@ -26,7 +26,7 @@ Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])
     ->name('language.switch');
 
 Route::get('/', function () {
-    return view('home');
+    return view('home-Jinzai');
 });
 
 //new

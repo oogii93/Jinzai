@@ -53,6 +53,12 @@
                         </div>
                     </label>
                     <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*" onchange="previewImage(event)">
+
+                    @error('profile_image')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+
+
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
@@ -60,9 +66,12 @@
                         {{ __('Email')}}
                     </label>
                     <input type="text" name="email" id="email"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md"
-                           value="" >
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('email') border-red-300 @enderror"
+                           value="{{ old('email') }}" >
                     </input>
+                    @error('email')
+                        <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
@@ -70,9 +79,13 @@
                         {{ __('Address')}}
                     </label>
                     <input type="text" name="address" id="address"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md"
-                           value="" >
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('address') border-red-300 @enderror"
+                           value="{{ old('address') }}" >
                     </input>
+
+                    @error('address')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
@@ -80,18 +93,28 @@
                         {{ __('Phone number')}}
                     </label>
                     <input type="text" name="phone_number" id="phone_number"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md"
-                           value="" >
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('phone_number') border-red-300 @enderror"
+                           value="{{ old('phone_number') }}" >
                     </input>
+
+                    @error('phone_number')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
                 </div>
+
+
                 <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
                     <label for="mobile_number" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
                         {{ __('Mobile number')}}
                     </label>
                     <input type="text" name="mobile_number" id="mobile_number"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md"
-                           value="" >
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('mobile_number') border-red-300 @enderror"
+                           value="{{ old('mobile_number') }}" >
                     </input>
+
+                    @error('mobile_number')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
                 </div>
 
 
@@ -100,9 +123,14 @@
                         {{ __('Company Name')}}
                     </label>
                     <input type="text" name="name" id="name"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md"
-                           value="" >
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('name') border-red-300 @enderror"
+                           value="{{ old('name') }}" >
                     </input>
+
+                    @error('name')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
@@ -110,18 +138,27 @@
                         {{ __('company_description')}}
                     </label>
                     <input type="text" name="company_description" id="company_description"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md"
-                           value="" >
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('company_description') border-red-300 @enderror"
+                           value="{{ old('company_description') }}" >
                     </input>
+
+                    @error('company_description')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+
+
                 <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
                     <label for="industry" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
                         {{ __('industry')}}
                     </label>
                     <input type="text" name="industry" id="industry"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md"
-                           value="" >
-                    </input>
+                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('industry') border-red-300 @enderror"
+                           value="{{ old('industry') }}" >
+
+                    @error('industry')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Add the missing website field -->
@@ -130,9 +167,12 @@
                         {{ __('Website URL')}}
                     </label>
                     <input type="url" name="website" id="website"
-                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md"
-                        value="" >
-                    </input>
+                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('website') border-red-300 @enderror"
+                        value="{{ old('website') }}" >
+
+                    @error('website')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
 

@@ -48,6 +48,8 @@ class User extends Authenticatable
         'part_time',
         'role',
 
+
+
     ];
 
     /**

@@ -160,6 +160,8 @@ require __DIR__.'/auth.php';
 
 // Default redirect after login
 Route::get('/dashboard', function () {
+
+
     if (auth()->user()->role === 'jobseeker')
      {
         return redirect()->route('jobseeker.dashboard');

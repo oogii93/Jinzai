@@ -10,6 +10,8 @@ class JobSeekerDashboardController extends Controller
 {
     public function dashboard()
     {
+
+
         return view('jobseeker.dashboard');
     }
 

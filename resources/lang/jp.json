@@ -16,7 +16,7 @@
     "Address":"現住所",
     "Phone number":"電話番号",
     "Mobile number":"携帯番号",
-    "Email address":"e-mail",
+    "Email":"メール",
     "Education":"学歴",
     "Appear point":"アピールポイント",
     "Reason for studying in Japan":"日本に留学した理由",
@@ -85,7 +85,29 @@
         "Contact":"問い合わせ",
         "Please feel free to contact us here":"お気軽く問い合わせください。",
         "Job seekers are required to upload a 2 to 4 minute video introducing themselves in Japanese.Upload that video here!!":"求職者は、日本語での自己紹介のために2分から4分のビデオをアップロードする必要があります。そのビデオをここにアップロードしてください!!",
-        "Video limit is up to 100MB.":"ビデオの制限は最大100MBです。"
+        "Video limit is up to 100MB.":"ビデオの制限は最大100MBです。",
+        "My Page":"マイページ管理",
+        "Resume":"履歴書",
+        "Video Upload":"動画アップロード",
+        "Login Profile":"ログイン設定",
+        "Applied History":"申請履歴",
+        "Video Introduction":"自己紹介動画",
+        "Duration:":"期間",
+        "Delete Video":"ビデオの削除",
+        "No video profile uploaded yet.":"動画プロフィールはまだアップロードされていません。",
+        "My CV":"自分の履歴書",
+        "Year":"年",
+        "Month":"月",
+        "Day":"日",
+        "Sign Up Company":"企業登録",
+         "Company Flow":"企業サービス",
+    "Job seeker Flow":"求職者サービス",
+    "Sign Up For Job Seeker":"求職者登録"
+
+
+
+
+
 
 
 

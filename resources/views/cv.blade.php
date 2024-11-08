@@ -1,11 +1,13 @@
 <x-app-layout>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 ">
-    <div class="mb-6">
-        <h2 class="text-2xl font-bold text-gray-800 text-center">{{ __('My CV') }}</h2>
-    </div>
+
 
     <div class="shadow sm:rounded-lg border border-gray-300 bg-white">
+
+        <div class="mb-6 mt-4">
+            <h2 class="text-2xl font-bold text-gray-800 text-center">{{ __('My CV') }}</h2>
+        </div>
         <div class="flex justify-end mb-2 mt-2 px-2">
             <h1>
                 {{ $user->created_at }}
@@ -78,7 +80,7 @@
 
                                 <!-- Year Dropdown -->
                                 <select name="year" class="w-1/3 focus:ring-blue-500 focus:border-blue-500 border-gray-200 rounded-r-md text-gray-700">
-                                    <option value="" selected disabled>Year</option>
+                                    <option value="" selected disabled>{{ __('Year') }}</option>
                                     @for($i = date('Y'); $i >= 1900; $i--)
                                         <option value="{{ $i }}" {{ old('year', $user->date_of_birth ? date('Y', strtotime($user->date_of_birth)) : '') == $i ? 'selected' : '' }}>
                                             {{ $i }}
@@ -88,7 +90,7 @@
 
                                 <!-- Month Dropdown -->
                                 <select name="month" class="w-1/3 focus:ring-blue-500 focus:border-blue-500 border-gray-200 text-gray-700 mr-1">
-                                    <option value="" selected disabled>Month</option>
+                                    <option value="" selected disabled>{{ __('Month') }}</option>
                                     @foreach(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as $key => $month)
                                         <option value="{{ $key + 1 }}" {{ old('month', $user->date_of_birth ? date('n', strtotime($user->date_of_birth)) : '') == $key + 1 ? 'selected' : '' }}>
                                             {{ $month }}
@@ -98,7 +100,7 @@
 
                                 <!-- Day Dropdown -->
                                 <select name="day" class="w-1/3 focus:ring-blue-500 focus:border-blue-500 border-gray-200 rounded-l-md text-gray-700 mr-1">
-                                    <option value="" selected disabled>Day</option>
+                                    <option value="" selected disabled>{{ __('Day') }}</option>
                                     @for($i = 1; $i <= 31; $i++)
                                         <option value="{{ $i }}" {{ old('day', $user->date_of_birth ? date('j', strtotime($user->date_of_birth)) : '') == $i ? 'selected' : '' }}>
                                             {{ $i }}
@@ -122,7 +124,7 @@
 
 
 
-                    <select name="gender" class=" focus:ring-blue-500 focus:border-blue-500 bg-gray-100 border-gray-200 text-gray-700 mr-1">
+                    <select name="gender" class=" focus:ring-blue-500 focus:border-blue-500 bg-gray-100 border-gray-200 text-gray-700 mr-1 rounded-lg">
                         <option value="" >{{ __('Select') }} </option>
                         <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>{{ __('Male') }} </option>
                         <option value="female"{{ old('gender', $user->gender) == 'female' ? 'selected' : '' }} >{{ __('Female') }} </option>

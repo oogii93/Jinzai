@@ -15,7 +15,7 @@
     "Address":"Address",
     "Phone number":"Phone number",
     "Mobile number":"Mobile number",
-    "Email address":"Email address",
+    "Email":"Email",
     "Education":"Education",
     "Appear point":"Appear point",
     "Reason for studying in Japan":"Reason for studying in Japan",
@@ -85,7 +85,24 @@
     "Contact":"Contact",
     "Please feel free to contact us here":"Please feel free to contact us here",
     "Job seekers are required to upload a 2 to 4 minute video introducing themselves in Japanese.Upload that video here!!":"Job seekers are required to upload a 2 to 4 minute video introducing themselves in Japanese.Upload that video here!!",
-    "Video limit is up to 100MB.":"Video limit is up to 100MB."
+    "Video limit is up to 100MB.":"Video limit is up to 100MB.",
+    "My Page":"My Page",
+    "Resume":"Resume",
+    "Video Upload":"Video Upload",
+    "Login Profile":"Login Profile",
+    "Applied History":"Applied History",
+    "Video Introduction":"Video Introduction",
+    "Duration:":"Duration:",
+    "Delete Video":"Delete Video",
+    "No video profile uploaded yet.":"No video profile uploaded yet.",
+    "My CV":"My CV",
+    "Year":"Year",
+    "Month":"Month",
+    "Day":"Day",
+    "Sign Up Company":"Sign Up Company",
+    "Company Flow":"Company Flow",
+    "Job seeker Flow":"Job seeker Flow",
+    "Sign Up For Job Seeker":"Sign Up For Job Seeker"
 
 
 

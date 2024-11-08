@@ -1,13 +1,14 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div class="px-4 py-5 sm:px-6">
+            <div class="px-4 py-5 sm:px-6 bg-blue-300">
 
                 <h1 class="text-lg leading-6 font-medium text-gray-900">{{__('Recruitment Information') }}</h1>
 
 
 
             </div>
+
             <div class="border-t border-gray-300">
                 <dl class="border border-1">
 

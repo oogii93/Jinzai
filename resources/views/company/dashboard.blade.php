@@ -2,14 +2,20 @@
 
 
 
+    <div class="relative flex items-center space-x-10 w-full bg-sky-400 overflow-hidden">
+        <!-- Three.js container -->
+        <div id="three-background" class="absolute inset-0 opacity-50 pointer-events-none"></div>
 
-    <div class="flex items-center space-x-10 w-full bg-sky-300">
-        <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="Company Logo" class="w-40 h-32 px-2 py-2 rounded-xl">
+        <!-- Your existing content -->
+        <div class="relative z-10 flex items-center space-x-10 w-full">
+            <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
+                 alt="Company Logo"
+                 class="w-40 h-32 px-2 py-2 rounded-xl">
 
-        <div class="p-2 font-semibold">
-            <h1 class="">{{ $user->name }}</h1>
+            <div class="p-2 font-semibold">
+                <h1>{{ $user->name }}</h1>
+            </div>
         </div>
-
     </div>
 
 
@@ -313,6 +319,72 @@
                                     modal.classList.remove('hidden');
                                 });
                         }
+
+
+
                     </script>
+
+<script type="module">
+    import * as THREE from 'three';
+
+    // Initialize Three.js scene
+    const container = document.getElementById('three-background');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true }); // Enable transparency
+
+    // Set up renderer
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    // Create multiple cubes
+    const cubes = [];
+    const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+    const cubeMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFFFFFF,
+        transparent: true,
+        opacity: 0.3
+    });
+
+    // Create and position multiple cubes
+    for (let i = 0; i < 10; i++) {
+        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        cube.position.x = (Math.random() - 0.5) * 10;
+        cube.position.y = (Math.random() - 0.5) * 10;
+        cube.position.z = (Math.random() - 0.5) * 10;
+        cube.rotation.x = Math.random() * Math.PI;
+        cube.rotation.y = Math.random() * Math.PI;
+        cubes.push(cube);
+        scene.add(cube);
+    }
+
+    // Position camera
+    camera.position.z = 5;
+
+    // Handle window resize
+    window.addEventListener('resize', onWindowResize, false);
+
+    function onWindowResize() {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Animate each cube
+        cubes.forEach(cube => {
+            cube.rotation.x += 0.002;
+            cube.rotation.y += 0.002;
+            cube.position.y += Math.sin(Date.now() * 0.001) * 0.002;
+        });
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+    </script>
     </div>
 </x-app-layout>

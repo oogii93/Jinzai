@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
+use Illuminate\Support\Facades\Auth;
 use App\Notifications\ApplicationApproved;
 use App\Notifications\ApplicationRejected;
 
@@ -92,6 +93,51 @@ class AdminJobApplicationController extends Controller
             ->paginate(20);
 
         return view('admin.applications.reviewed', compact('applications'));
+    }
+
+
+    public function dashboard()
+
+    {
+
+
+        $user = Auth::user();
+
+        // Get job posts with their admin-approved applications
+        $jobposts = JobPost::where('user_id', $user->id)
+            ->with(['applications' => function($query) {
+                $query->where('admin_status', 'approved')
+                      ->with('user'); // Include applicant details
+            }])
+            ->withCount(['applications as pending_applications' => function($query) {
+                $query->where('admin_status', 'approved')
+                      ->where('company_status', 'pending');
+            }])
+            ->withCount(['applications as total_approved_applications' => function($query) {
+                $query->where('admin_status', 'approved');
+            }])
+            ->get();
+
+        // Get overall statistics
+        $statistics = [
+            'total_jobs' => $jobposts->count(),
+            // 'total_applications' => $jobposts->sum('total_approved_applications'),
+            // 'pending_reviews' => $jobposts->sum('pending_applications'),
+        ];
+
+
+        $statistics2 =[
+            'total_jobseeker'=>$users=User::where('role', 'jobseeker')->count(),
+            'total_company'=>$users=User::where('role', 'company')->count(),
+            'total_application'=>JobApplication::with(['jobPost', 'user'])->count(),
+
+
+
+        ];
+
+        // dd($statistics2);
+
+        return view('admin.dashboard', compact('user', 'jobposts', 'statistics','statistics2'));
     }
 
 }

@@ -121,7 +121,7 @@
 
 
 
-
+            @if (Auth::check() && Auth::user()->role===('admin')|| Auth::user()->role===('company'))
                 <li class="relative group list-none">
                     <a href="{{ route('jobpost.index') }}"
                        class="relative block transform transition-all duration-300 hover:-translate-y-1">
@@ -142,6 +142,7 @@
                         </div>
                     </a>
                 </li>
+            @endif
 
 
 
@@ -189,6 +190,8 @@
                     </div>
                 </li>
 
+
+
                 <a href="" class="relative flex items-center">
                     <!-- Modified this line -->
                     <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -199,6 +202,19 @@
                     </svg>
 
                 </a>
+
+
+                <div class="flex items-center space-x-3 text-sm px-5">
+                    <a href="{{ route('language.switch', 'jp') }}"
+                       class="text-gray-800 hover:text-red-400 font-medium {{ app()->getLocale() == 'jp' ? 'font-bold' : '' }}">
+                        JP
+                    </a>
+                    <span class="text-gray-300">|</span>
+                    <a href="{{ route('language.switch', 'en') }}"
+                       class="text-gray-800 hover:text-blue-600 font-medium {{ app()->getLocale() == 'en' ? 'font-bold' : '' }}">
+                        EN
+                    </a>
+                </div>
 
 
 

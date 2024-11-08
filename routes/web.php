@@ -20,6 +20,7 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\CompanyDashboardController;
 use App\Http\Controllers\AdminJobApplicationController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\JobSeekerDashboardController;
 
 Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])
     ->name('language.switch');
@@ -176,9 +177,15 @@ Route::get('/dashboard', function () {
 
 // Jobseeker Routes
 Route::middleware(['auth', 'role:jobseeker'])->group(function () {
-    Route::get('/jobseeker/dashboard', function () {
-        return view('jobseeker.dashboard');
-    })->name('jobseeker.dashboard');
+
+
+    Route::get('/jobseeker/dashboard', [JobSeekerDashboardController::class, 'dashboard']
+
+    )->name('jobseeker.dashboard');
+
+    Route::get('/jobseeker/history', [JobSeekerDashboardController::class, 'history']
+
+    )->name('jobseeker.history');
 
     // Add other jobseeker routes here
 });
@@ -212,10 +219,10 @@ Route::middleware(['auth', 'role:company'])->group(function () {
 
                 // Routes for Admins
                 Route::middleware(['auth', 'role:admin'])->group(function () {
-                    Route::get('/admin/dashboard', function () {
-                        return view('admin.dashboard');
+                   Route::get('/admin/dashboard', [AdminJobApplicationController::class, 'dashboard'])
+                   ->name('admin.dashboard');
 
-                    })->name('admin.dashboard');
+
 
                     // Add more admin routes here
 

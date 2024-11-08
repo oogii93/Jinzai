@@ -25,9 +25,9 @@ use App\Http\Controllers\JobSeekerDashboardController;
 Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])
     ->name('language.switch');
 
-Route::get('/', function () {
-    return view('home-Jinzai');
-});
+Route::get('/', [HomeController::class, 'index'])
+->name('home-Jinzai');
+
 
 //new
 Route::middleware('guest')->group(function () {

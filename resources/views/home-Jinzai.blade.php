@@ -30,7 +30,7 @@
             <div class="flex justify-between h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="/" class="flex items-center space-x-2">
+                    <a href="" class="flex items-center space-x-2">
 
                         <div class="hover:opacity-70">
                             <span class="text-3xl font-bold text-blue-800 px-2">

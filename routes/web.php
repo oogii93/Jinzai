@@ -23,12 +23,12 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\JobSeekerDashboardController;
 
 
-Route::redirect('/', '/home');
+
 
 Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])
     ->name('language.switch');
 
-Route::get('/home', [HomeController::class, 'index'])
+Route::get('/', [HomeController::class, 'index'])
 ->name('home');
 
 

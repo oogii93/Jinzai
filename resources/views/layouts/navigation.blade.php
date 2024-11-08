@@ -9,7 +9,7 @@
 
               <!-- Logo -->
               <div class="flex items-center">
-                <a href="/home-Jinzai" class="flex items-center space-x-2">
+                <a href="/home" class="flex items-center space-x-2">
                     <img src="{{ asset('images/1.png') }}" alt="" class="h-8">
                     <div class="hover:opacity-70">
                         <span class="text-3xl font-bold text-blue-800 px-2">

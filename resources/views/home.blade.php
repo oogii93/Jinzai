@@ -30,7 +30,7 @@
             <div class="flex justify-between h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="" class="flex items-center space-x-2">
+                    <a href="/home" class="flex items-center space-x-2">
 
                         <div class="hover:opacity-70">
                             <span class="text-3xl font-bold text-blue-800 px-2">
@@ -42,7 +42,7 @@
 
                 <!-- Desktop Navigation Links -->
                 <div class="hidden md:flex md:items-center md:space-x-1 py-12">
-                    <a href="/" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">
+                    <a href="/home" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm w-20 h-16 hover:text-white group flex items-center px-4">
                         {{ __('Home') }}
 
                     </a>

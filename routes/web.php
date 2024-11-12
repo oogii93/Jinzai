@@ -144,6 +144,15 @@ Route::middleware('auth')->group(function () {
 
             // Routes accessible by all authenticated users
             Route::get('/{id}/show', [JobPostController::class, 'show'])->name('jobpost.show');
+
+            Route::get('/jobs', [JobPostController::class, 'index'])->name('jobs.index');
+            Route::get('/jobs/tag/{tag}', [MainController::class, 'getPostsByTag'])->name('posts.tag');
+
+            Route::get('/categories/{category}/posts', [MainController::class, 'getJobPostsByCategory'])
+                 ->name('categories.jobPosts');
+
+                 Route::get('/categories/{category}', [MainController::class, 'filterByCategory'])->name('categories.jobPosts');
+Route::get('/tags/{tag}', [MainController::class, 'filterByTag'])->name('tags.jobPosts');
         });
     });
 

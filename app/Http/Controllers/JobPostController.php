@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\JobPost;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -15,6 +16,19 @@ class JobPostController extends Controller
     use AuthorizesRequests;
 
 
+    // public function getPostsByTag(Tag $tag)
+    // {
+    //     $jobposts=JobPost::whereHas('tags', function ($query) use ($tag){
+    //         $query->where('tags.id', $tag->id);
+
+    //     })->with(['category', 'user','tags'])->latest()->get();
+
+    //     $categories=Category::get();
+
+    //     return view('main',compact('jobposts', 'categories'));
+    // }
+
+
 
     public function index()
     {
@@ -24,7 +38,9 @@ class JobPostController extends Controller
         }
         // For company, show only their posts
         elseif (auth()->user()->role === 'company') {
-            $jobpost = JobPost::where('user_id', auth()->id())->get();
+            $jobpost = JobPost::where('user_id', auth()->id())
+            ->with(['category', 'user', 'tags'])
+            ->get();
         }
         // For jobseeker, redirect to homepage or show error
         else {
@@ -41,12 +57,15 @@ class JobPostController extends Controller
         abort(403, 'unauthorized action.');
     }
         $categories=Category::all();
-        return view('jobpost.create', compact('categories'));
+
+        $tags = Tag::all();
+        // dd($tags);
+        return view('jobpost.create', compact('categories','tags'));
     }
 
     public function show(string $id)
     {
-        $jobpost = JobPost::with('applications')->findOrFail($id);
+        $jobpost = JobPost::with('applications','category', 'user', 'tags')->findOrFail($id);
 
 
         return view('jobpost.show', compact('jobpost'));
@@ -74,6 +93,8 @@ class JobPostController extends Controller
             'qualification'=>'required',
             'other'=>'nullable',
             'category_id' => 'required|exists:categories,id',
+            'tags' => 'nullable|array',  // Changed validation rule
+            'tags.*' => 'exists:tags,id' // Added validation for each tag ID
 
         ]);
 
@@ -88,6 +109,11 @@ class JobPostController extends Controller
         $jobpost->category_id=$validatedData['category_id'];
         $jobpost->user_id=Auth::id();
         $jobpost->save();
+
+        //
+        if($request->has('tags')){
+            $jobpost->tags()->attach($request->tags);
+        }
 
 
 

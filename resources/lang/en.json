@@ -96,13 +96,40 @@
     "Delete Video":"Delete Video",
     "No video profile uploaded yet.":"No video profile uploaded yet.",
     "My CV":"My CV",
-    "Year":"Year",
-    "Month":"Month",
+
     "Day":"Day",
     "Sign Up Company":"Sign Up Company",
     "Company Flow":"Company Flow",
     "Job seeker Flow":"Job seeker Flow",
-    "Sign Up For Job Seeker":"Sign Up For Job Seeker"
+    "Sign Up For Job Seeker":"Sign Up For Job Seeker",
+
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
+    "Year": "Year",
+    "Month": "Month",
+    "Lets find great Job Together!!":"Lets find great Job Together!!",
+    "Search jobs..":"Search jobs..",
+    "New post":"New post",
+    "See Details":"See Details",
+    "Working hours":"Working hours",
+    "Salary":"Salarly",
+    "Location":"Location",
+    "Posted Date":"Posted Date"
+
+
+
+
+
 
 
 

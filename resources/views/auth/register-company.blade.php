@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
 
 
@@ -16,8 +16,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-    <div class="mb-6">
+
+
+<div class="max-w-5xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden mt-8">
+
+    <div class="bg-gradient-to-r from-sky-600 to-green-600 px-8 py-12">
         <h2 class="text-2xl font-bold text-gray-800 text-center">{{ __('Sign up Form for Company') }}</h2>
 
 
@@ -30,166 +33,190 @@
 
 
 
-        <div class="flex justify-between space-x-3">
+        <div class="w-full space-x-3">
 
-            <div class="w-4/5">
+            <div class="w-full">
 
                 <input type="hidden" name="role" value="company">
 
                 <div class="mt-4 hidden">
                     <label for="role">Role</label>
-                    <select id="role" name="role" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                    <select id="role" name="role"
+                        class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
                         <option value="jobseeker">Job Seeker</option>
                         <option value="company" selected>Company</option>
                     </select>
                 </div>
 
 
-                <div class="w-1/5 bg-gray-100 p-4 flex flex-col items-center space-y-2">
+                <div class="w-40 h-40 bg-gray-100 p-4 flex flex-col items-center space-y-2 rounded-lg mb-2">
                     <label for="imageUpload" class="cursor-pointer">
-                        <div class="w-full h-full bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
-                            <img id="selectedImage" src="#" alt="Selected Image" class="hidden w-full h-full object-cover">
+                        <div
+                            class="w-full h-full bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
+                            <img id="selectedImage" src="#" alt="Selected Image"
+                                class="hidden w-32 h-32 object-cover">
                             <span class="text-gray-500" id="placeholderText">{{ __('Select Image') }}</span>
                         </div>
                     </label>
-                    <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*" onchange="previewImage(event)">
+                    <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*"
+                        onchange="previewImage(event)">
 
                     @error('profile_image')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
 
 
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
-                    <label for="email" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        {{ __('Email')}}
+
+
+                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                    <label for="email" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        {{ __('Email') }}
                     </label>
-                    <input type="text" name="email" id="email"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('email') border-red-300 @enderror"
-                           value="{{ old('email') }}" >
+                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('email') border-red-300 @enderror"
+                        name="email" id="email" type="email" value="{{ old('email') }}" required placeholder="{{ __('Please enter company email address') }}">
                     </input>
+
                     @error('email')
-                        <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+
+
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
-                    <label for="address" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        {{ __('Address')}}
+                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                    <label for="address" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        {{ __('Address') }}
                     </label>
-                    <input type="text" name="address" id="address"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('address') border-red-300 @enderror"
-                           value="{{ old('address') }}" >
+                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('address') border-red-300 @enderror"
+                        name="address" id="address" type="text" value="{{ old('address') }}" required placeholder="{{ __('Please enter company address') }}">
                     </input>
 
                     @error('address')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                 @enderror
+
+
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
-                    <label for="phone_number" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        {{ __('Phone number')}}
+
+                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                    <label for="phone_number" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        {{ __('Phone number') }}
                     </label>
-                    <input type="text" name="phone_number" id="phone_number"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('phone_number') border-red-300 @enderror"
-                           value="{{ old('phone_number') }}" >
+                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('phone_number') border-red-300 @enderror"
+                        name="phone_number" id="phone_number" type="text" value="{{ old('phone_number') }}" required placeholder="{{ __('Please enter phone number') }}">
                     </input>
 
                     @error('phone_number')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                 @enderror
+
+
                 </div>
 
-
-                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
-                    <label for="mobile_number" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        {{ __('Mobile number')}}
+                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                    <label for="mobile_number" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        {{ __('Mobile number') }}
                     </label>
-                    <input type="text" name="mobile_number" id="mobile_number"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('mobile_number') border-red-300 @enderror"
-                           value="{{ old('mobile_number') }}" >
+                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('mobile_number') border-red-300 @enderror"
+                        name="mobile_number" id="mobile_number" type="text" value="{{ old('mobile_number') }}" required placeholder="{{ __('Please enter mobile number') }}">
                     </input>
 
                     @error('mobile_number')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                 @enderror
+
+
                 </div>
 
 
-                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
-                    <label for="name" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        {{ __('Company Name')}}
+
+                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                    <label for="name" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        {{ __('Company Name') }}
                     </label>
-                    <input type="text" name="name" id="name"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('name') border-red-300 @enderror"
-                           value="{{ old('name') }}" >
+                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('name') border-red-300 @enderror"
+                        name="name" id="name" type="text" value="{{ old('name') }}" required placeholder="{{ __('Please enter company name') }}">
                     </input>
 
                     @error('name')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                @enderror
+
 
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
-                    <label for="company_description" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        {{ __('company_description')}}
+
+
+
+                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                    <label for="company_description" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        {{ __('Company description') }}
                     </label>
-                    <input type="text" name="company_description" id="company_description"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('company_description') border-red-300 @enderror"
-                           value="{{ old('company_description') }}" >
+                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('company_description') border-red-300 @enderror"
+                        name="company_description" id="company_description" type="text" value="{{ old('company_description') }}" required placeholder="{{ __('Please enter company description') }}">
                     </input>
 
                     @error('company_description')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                @enderror
+
+
                 </div>
 
 
-                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
-                    <label for="industry" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        {{ __('industry')}}
+
+
+                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                    <label for="industry" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        {{ __('Industry') }}
                     </label>
-                    <input type="text" name="industry" id="industry"
-                           class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('industry') border-red-300 @enderror"
-                           value="{{ old('industry') }}" >
+                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('industry') border-red-300 @enderror"
+                        name="industry" id="industry" type="text" value="{{ old('industry') }}" required placeholder="{{ __('Please enter industry') }}">
+                    </input>
 
                     @error('industry')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                    @enderror
+                @enderror
+
+
                 </div>
 
                 <!-- Add the missing website field -->
-                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
-                    <label for="website" class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-[100px] px-5 py-5 text-md flex-shrink-0">
-                        {{ __('Website URL')}}
+                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                    <label for="industry" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        {{ __('Website URL') }}
                     </label>
-                    <input type="url" name="website" id="website"
-                        class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-100 rounded-md @error('website') border-red-300 @enderror"
-                        value="{{ old('website') }}" >
+                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('website') border-red-300 @enderror"
+                    name="website" id="website" type="text" value="{{ old('website') }}" required placeholder="{{ __('Please enter website') }}">
+                </input>
 
-                    @error('website')
-                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                        @error('website')
+                        <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
 
 
 
-            <div class="flex items-center justify-end mt-4 mb-5">
 
 
-                <button type="submit" class="px-2 py-3 bg-blue-500 rounded-2xl text-white font-semibold hover:bg-blue-700">
-                 {{ __('Save and Sent') }}
-                </button>
-            </div>
+
+                <div class="flex items-center justify-end mt-4 mb-5">
 
 
-     </form>
+                    <button type="submit"
+                        class="px-2 py-3 bg-blue-500 rounded-2xl text-white font-semibold hover:bg-blue-700">
+                        {{ __('Save and Sent') }}
+                    </button>
+                </div>
 
-     <script>
+
+    </form>
+
+    <script>
         function previewImage(event) {
             const input = event.target;
             const preview = document.getElementById('selectedImage');
@@ -223,7 +250,7 @@
                 reader.readAsDataURL(file);
             }
         }
-        </script>
+    </script>
 
 
 

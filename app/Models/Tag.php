@@ -10,7 +10,13 @@ class Tag extends Model
 
     use HasFactory;
     protected $fillable=['name'];
+
+        public function jobPost()
+        {
+            return $this->belongsToMany(JobPost::class);
+        }
 }
+
 
 
 

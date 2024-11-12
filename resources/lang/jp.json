@@ -100,9 +100,31 @@
         "Month":"月",
         "Day":"日",
         "Sign Up Company":"企業登録",
-         "Company Flow":"企業サービス",
-    "Job seeker Flow":"求職者サービス",
-    "Sign Up For Job Seeker":"求職者登録"
+        "Company Flow":"企業サービス",
+        "Job seeker Flow":"求職者サービス",
+        "Sign Up For Job Seeker":"求職者登録",
+
+        "January": "1月",
+        "February": "2月",
+        "March": "3月",
+        "April": "4月",
+        "May": "5月",
+        "June": "6月",
+        "July": "7月",
+        "August": "8月",
+        "September": "9月",
+        "October": "10月",
+        "November": "11月",
+        "December": "12月",
+          "Lets find great Job Together!!":"一緒に素晴らしい仕事を見つけましょう!!",
+          "Search jobs..":"求人を検索..",
+          "New post":"新着",
+        "See Details":"詳細を見る",
+        "Working hours":"勤務時間",
+        "Salary":"給与",
+        "Location":"勤務地",
+        "Posted Date":"投稿日"
+
 
 
 

@@ -121,6 +121,8 @@
 
 
 
+
+
             @if (Auth::check() && Auth::user()->role===('admin')|| Auth::user()->role===('company'))
                 <li class="relative group list-none">
                     <a href="{{ route('jobpost.index') }}"

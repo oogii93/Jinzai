@@ -83,6 +83,24 @@
                 </div>
 
 
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Tags') }}</label>
+                    <select
+                        name="tags[]"
+                        multiple
+                        class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                    >
+                        @foreach($tags as $tag)
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                        @endforeach
+                    </select>
+
+                    @error('tags')
+                        <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+
 
 
                 <div class="flex justify-end space-x-3">

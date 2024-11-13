@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
 
 
 
@@ -14,6 +15,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>JP Jobs</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+      .japanese-text {
+        font-size: 1.25rem; /* Adjust as needed */
+        line-height: 2rem; /* Adjust as needed */
+        word-spacing: 0.2em; /* Extra spacing */
+    }
+    </style>
 </head>
 <body class="min-h-screen bg-white">
 
@@ -113,22 +122,13 @@
 
         <div class="container mx-auto px-4 py-12 text-white stagger-text mt-2">
 
-
-            <div class="py-20 flex flex-col md:flex-row justify-between items-center ml-20 gsap-reveal2 mt-20">
-              <div class="px-10 md:w-1/3 mb-8 md:mb-0">
-                <h2 class="text-2xl font-semibold mb-4">
-                  <span class="underline decoration-blue-500 underline-offset-8">{{ __('If you are looking for job') }}</span>{{ __('or worker feel free to contact us!!') }}<br>
-
-                </h2>
-                <p class="text-4xl py-2 font-semibold">
-                    {{__('Find Job. Talk to Boss') }}<br class="">
-
-                </p>
-              </div>
-
-
-
-              </div>
+            <div class="relative py-20 flex items-end justify-center h-[500px] bg-cover bg-center" style="background-image: url('path/to/your/image.jpg');">
+                <div class="absolute bottom-5 px-20 w-full md:w-2/3 text-center">
+                    <h2 class="text-white text-3xl md:text-4xl font-semibold leading-relaxed gsap-reveal">
+                        {{ __('We are a partner that connects the region with human resources and creates the future together. We fully support companies and job seekers.') }}
+                    </h2>
+                </div>
+            </div>
 
 
             </div>
@@ -151,7 +151,7 @@
                 <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-8 p-2 rounded-lg mx-auto">
                     <!-- Content goes here -->
 
-                <a href="#business"
+                <a href="#ourService"
                 class="group relative overflow-hidden rounded-lg shadow-lg">
                     <!-- Black overlay with opacity -->
                     <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
@@ -163,19 +163,8 @@
                         {{ __('Business') }}
                     </p>
                 </a>
-               <a href="#job facility"
-                class="group relative overflow-hidden rounded-lg shadow-lg">
-                    <!-- Black overlay with opacity -->
-                    <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
 
-                    <img src="{{ asset('images/aba.jpg') }}" alt="" class="w-full h-full object-cover">
-
-                    <!-- Text always visible -->
-                    <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
-                        {{ __('Job Facility') }}
-                    </p>
-                </a>
-            <a href="#job categories"
+                <a href="#job facility"
                 class="group relative overflow-hidden rounded-lg shadow-lg">
                     <!-- Black overlay with opacity -->
                     <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
@@ -187,12 +176,27 @@
                         {{ __('Job Categories') }}
                     </p>
                 </a>
+               <a href=""
+                class="group relative overflow-hidden rounded-lg shadow-lg">
+                    <!-- Black overlay with opacity -->
+                    <div class="absolute inset-0 bg-black opacity-20 transition-opacity duration-300 ease-in-out group-hover:opacity-10"></div>
+
+                    <img src="{{ asset('images/aba.jpg') }}" alt="" class="w-full h-full object-cover">
+
+                    <!-- Text always visible -->
+                    <p class="absolute bottom-4 left-4 px-3 text-3xl font-bold text-white z-10">
+                        {{ __('Job Facility') }}
+                    </p>
+                </a>
+
 
         </div>
 
           </div>
 
     </div>
+
+
 </div>
 
 
@@ -221,6 +225,24 @@
 
 
 {{-- <div class="bg-sky-400 min-h-screen p-8"> --}}
+
+
+
+
+
+    <div id="ourService" class="bg-sky-400 py-16 px-6 lg:px-20">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-white text-4xl lg:text-5xl font-bold mb-10 lg:mb-12 gsap-reveal" style="font-family: 'Noto Serif JP', serif;" >
+                {{ __('Our Service') }}
+            </h1>
+            <div class="bg-white rounded-2xl px-8 lg:px-16 py-12 shadow-lg transform transition hover:scale-105 duration-300">
+                <p class="text-gray-700 text-base lg:text-2xl leading-loose tracking-wide japanese-text" style="font-family: 'Noto Serif JP', serif; word-spacing: 0.3em;">
+                    {{ __("We provide a specialized recruitment service connecting companies in Mie Prefecture with foreign nationals seeking employment in Japan. For local businesses, foreign talent represents a key to new development and growth. However, due to Mie Prefecture's regional location, companies face chronic labor shortages and limited opportunities to connect with foreign candidates. We aim to create an environment where local businesses and talented foreign professionals can come together and mutually foster growth. Our mission is to facilitate ideal matches that meet companies' needs while maximizing the excellent academic backgrounds, technical skills, and innovative ideas that foreign talent brings. We are committed to serving as a bridge that expands global possibilities from Mie Prefecture, providing full support to help both the region and its human resources enhance each other's potential.") }}
+                </p>
+            </div>
+        </div>
+    </div>
+
 
 
 

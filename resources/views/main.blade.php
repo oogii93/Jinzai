@@ -28,7 +28,7 @@
                                 id="searchInput"
                                 value="{{ request('search') }}"
                                 class="border border-gray-400 block w-full h-20 rounded-lg pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                placeholder="{{ __('Search jobs..') }}"
+                                placeholder="求人検索"
                                 autocomplete="off"
                                 >
 
@@ -37,7 +37,7 @@
                     </form>
 
 
-                   <h1 class="text-white font-bold text-3xl p-20">{{ __('Lets find great Job Together!!') }}</h1>
+                   <h1 class="text-white font-bold text-3xl p-20">一緒に素晴らしい仕事を見つけましょう!!</h1>
 
                 </div>
 
@@ -68,7 +68,7 @@
                     <div class="flex gap-6 px-2">
                         <!-- Left Column (2/5 width) -->
                         <div class="md:w-1/5 sm:w-2/5 bg-white p-4 shadow rounded-lg px-2">
-                            <h2 class="text-2xl font-semibold mb-4 text-center text-gray-700">{{ __('Job Categories') }}</h2>
+                            <h2 class="text-xl font-semibold mb-4 text-center text-gray-700">職種</h2>
                             <ul class="space-y-2 text-l mb-2">
                                 @foreach ($categories as $item)
                                     <li class="px-2 hover:bg-gray-100 rounded {{ isset($category) && $category->id === $item->id ? 'bg-gray-100' : '' }}">
@@ -222,9 +222,9 @@
                                                     <div>
                                                         <!-- Company Name -->
                                                         <div class="flex items-center space-x-2">
-                                                            <h3 class="text-sm font-semibold text-gray-700">{{ __('Company') }} {{ $jobpost->user->name }}</h3>
+                                                            <h3 class="text-sm font-semibold text-gray-700">株式会社 {{ $jobpost->user->name }}</h3>
                                                             <span class="px-2 py-1 text-xs font-medium text-blue-700 bg-blue-100 rounded-full">
-                                                                {{ __('New') }}
+                                                              新着
                                                             </span>
                                                         </div>
                                                         <!-- Job Title -->
@@ -232,13 +232,7 @@
                                                     </div>
 
                                                     <!-- Apply Button -->
-                                                    <a href="{{ route('jobpost.show', $jobpost->id) }}"
-                                                       class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-medium rounded-lg shadow-sm transition-transform duration-300 transform hover:scale-105">
-                                                        {{ __('See Details') }}
-                                                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                                                        </svg>
-                                                    </a>
+
                                                 </div>
 
                                                 <!-- Job Metadata -->
@@ -251,7 +245,7 @@
                                                             </svg>
                                                         </div>
                                                         <div>
-                                                            <div class="text-xs font-medium text-gray-500">{{ __('Working hours') }}</div>
+                                                            <div class="text-xs font-medium text-gray-500">勤務時間</div>
                                                             <div class="text-sm text-gray-800">{{ $jobpost->working_hour }}</div>
                                                         </div>
                                                     </div>
@@ -264,7 +258,7 @@
                                                             </svg>
                                                         </div>
                                                         <div>
-                                                            <div class="text-xs font-medium text-gray-500">{{ __('Salary') }}</div>
+                                                            <div class="text-xs font-medium text-gray-500">給与</div>
                                                             <div class="text-sm font-medium text-green-600">{{ $jobpost->salary }}</div>
                                                         </div>
                                                     </div>
@@ -278,7 +272,7 @@
                                                             </svg>
                                                         </div>
                                                         <div>
-                                                            <div class="text-xs font-medium text-gray-500">{{ __('Location') }}</div>
+                                                            <div class="text-xs font-medium text-gray-500">勤務地</div>
                                                             <div class="text-sm text-gray-800">{{ $jobpost->working_location }}</div>
                                                         </div>
                                                     </div>
@@ -286,7 +280,7 @@
 
                                                 <!-- Posted Date -->
                                                 <div class="mt-4 text-sm text-gray-500">
-                                                    {{ __('Posted Date') }} {{ \Carbon\Carbon::parse($jobpost->created_at)->format('Y年m月d日') }}
+                                                    投稿日 {{ \Carbon\Carbon::parse($jobpost->created_at)->format('Y年m月d日') }}
                                                 </div>
 
                                                 <!-- Tags -->
@@ -298,6 +292,35 @@
                                                         </a>
                                                     @endforeach
                                                 </div>
+                                            <div class="flex justify-end">
+
+                                                <div class="flex px-5">
+                                                    <a href=""
+                                                        class="inline-flex items-center px-6 py-3.5 bg-gray-300 rounded-xl text-gray-800 font-semibold text-lg shadow-lg shadow-indigo-500/30 hover:shadow-yellow-300/60 transition-all duration-200 hover:-translate-y-0.5">
+
+                                                        <svg
+                                                        class="w-8 h-8"
+                                                        viewBox="0 -0.5 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path> </g>
+                                                        </svg>
+                                                        詳細
+
+                                                    </a>
+
+                                                </div>
+                                                <div class="flex justify-end">
+                                                    <a href="{{ route('jobpost.show', $jobpost->id) }}"
+                                                        class="inline-flex items-center px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white font-semibold text-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-200 hover:-translate-y-0.5">
+
+                                                        詳細
+                                                        <svg class="ml-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/>
+                                                        </svg>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+
+
                                             </div>
                                         </div>
                                     </div>

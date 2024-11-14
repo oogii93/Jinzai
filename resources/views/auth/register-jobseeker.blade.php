@@ -22,8 +22,8 @@
 <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
     <!-- Form Header -->
     <div class="bg-gradient-to-r from-sky-500 to-sky-700 py-6 px-8">
-        <h2 class="text-2xl font-bold text-white">{{ __('Sign up Form') }}</h2>
-        <p class="text-sky-100 mt-2">{{ __('Please fill in your information to create an account') }}</p>
+        <h2 class="text-2xl font-bold text-white">申請登録</h2>
+        <p class="text-sky-100 mt-2">アカウント作成のために情報をご入力ください。</p>
     </div>
 
     <!-- Main Form -->
@@ -35,13 +35,13 @@
             <div class="flex-1 space-y-6">
                 <!-- Furigana Input -->
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Furigana') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">ふりがな</label>
                     <input type="text"
                            name="furigana"
                            id="furigana"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md"
                            value="{{ old('furigana') }}"
-                           placeholder="{{ __('Please enter furigana') }}">
+                           placeholder="ふりがなを入力してください。">
                         @error('furigana')
                         <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                         @enderror
@@ -50,13 +50,13 @@
 
                 <!-- Name Input -->
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Name') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">氏名</label>
                     <input type="text"
                            name="name"
                             id="name"
                             value="{{ old('name') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md "
-                           placeholder="{{ __('Please enter your name') }}">
+                           placeholder="氏名を入力してください。">
 
                            @error('name')
                              <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -66,12 +66,12 @@
 
             <!-- Image Upload Section -->
             <div class="w-48">
-                <div class="text-sm font-medium text-gray-700 mb-2">{{ __('Profile Photo') }}</div>
+                <div class="text-sm font-semibold text-gray-700 mb-2">プロフィール写真</div>
                 <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-sky-500 transition-colors cursor-pointer">
                     <label for="imageUpload" class="cursor-pointer">
                         <div class="w-40 h-40 bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
                             <img id="selectedImage" src="#" alt="Selected Image" class="hidden w-40 h-40 object-cover">
-                            <span class="text-gray-500" id="placeholderText">{{ __('Select Image') }}</span>
+                            <span class="text-gray-500" id="placeholderText">写真選択</span>
                         </div>
                     </label>
                     <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*" onchange="previewImage(event)">
@@ -82,23 +82,23 @@
         <!-- Birth Date and Gender Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700">{{ __('Date of Birth') }}</label>
+                <label class="block text-sm font-semibold text-gray-700">生年月日</label>
                 <div class="grid grid-cols-3 gap-2">
-                    <select name="year" class="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-                        <option value="">{{ __('Year') }}</option>
+                    <select name="year" class="px-3 py-2 border border-gray-300 rounded-md ">
+                        <option value="">年</option>
                         @for($i = date('Y'); $i >= 1950; $i--)
                             <option value="{{ $i }}">{{ $i }}</option>
                         @endfor
                     </select>
-                    <select name="month" class="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-                        <option value="">{{ __('Month') }}</option>
+                    <select name="month" class="px-3 py-2 border border-gray-300 rounded-md ">
+                        <option value="">月</option>
                         @foreach(range(1, 12) as $month)
                             <option value="{{ $month }}">{{ __($month . '月') }}</option>
                         @endforeach
                     </select>
 
-                    <select name="day" class="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-                        <option value="">{{ __('Day') }}</option>
+                    <select name="day" class="px-3 py-2 border border-gray-300 rounded-md ">
+                        <option value="">日</option>
                         @foreach(range(1, 31) as $day)
                             <option value="{{ $day }}">{{ $day }}</option>
                         @endforeach
@@ -107,11 +107,11 @@
             </div>
 
             <div class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700">{{ __('Gender') }}</label>
-                <select name="gender" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-                    <option value="">{{ __('Select Gender') }}</option>
-                    <option value="male">{{ __('Male') }}</option>
-                    <option value="female">{{ __('Female') }}</option>
+                <label class="block text-sm font-semibold text-gray-700">性別</label>
+                <select name="gender" class="w-full px-3 py-2 border border-gray-300 ">
+                    <option value="">性別選択</option>
+                    <option value="male">男性</option>
+                    <option value="female">女性</option>
 
                 </select>
             </div>
@@ -129,13 +129,13 @@
         <!-- Contact Information -->
         <div class="space-y-6">
             <div class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700">{{ __('Address') }}</label>
+                <label class="block text-sm font-semibold text-gray-700">住所</label>
                 <input type="text"
                        name="address"
                        id="address"
                        value="{{ old('address') }}"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                       placeholder="{{ __('Please enter your address') }}">
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md "
+                       placeholder="在住所を入力してください。">
 
                        @error('address')
                            <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -144,13 +144,13 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Phone number') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">電話番号</label>
                     <input type="tel"
                            name="phone_number"
                            id="phone_number"
                            value="{{ old('phone_number') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                           placeholder="{{ __('Please enter your phone number') }}" required>
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md "
+                           placeholder="電話番号を入力してください。" required>
 
                            @error('phone_number')
                                  <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -159,13 +159,13 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Mobile number') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">携帯電話番号</label>
                     <input type="tel"
                            name="mobile_number"
                            id="mobile_number"
                            value="{{ old('mobile_number') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                           placeholder="{{ __('Please enter your mobile number') }}" required>
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md "
+                           placeholder="携帯電話番号を入力してください。" required>
 
                         @error('mobile_number')
                          <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -175,13 +175,13 @@
             </div>
 
             <div class="space-y-2">
-                <label class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
+                <label class="block text-sm font-semibold text-gray-700">メールアドレス</label>
                 <input type="email"
                        name="email"
                        id="email"
                        value="{{ old('email') }}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-md "
-                       placeholder="{{ __('Please enter your email') }}" required>
+                       placeholder="メールアドレスを入力してください。" required>
 
                     @error('email')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -191,14 +191,14 @@
 
 
         <div class="space-y-2 mt-4">
-            <label class="block text-sm font-medium text-gray-700">{{ __('Education') }}</label>
+            <label class="block text-sm font-semibold text-gray-700">学歴</label>
 
             <div class="grid grid-cols-3 gap-2">
                 <select
                     name="education_year_1"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
-                    <option value="">{{ __('Year') }}</option>
+                    <option value="">年</option>
                     @for($i = date('Y'); $i >= 1950; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
@@ -208,7 +208,7 @@
                     name="education_month_1"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
-                    <option value="">{{ __('Month') }}</option>
+                    <option value="">月</option>
                     @foreach(range(1, 12) as $month)
                         <option value="{{ $month }}">{{ __($month . '月') }}</option>
                     @endforeach
@@ -217,7 +217,7 @@
                 <input
                     type="text"
                     name="education_school_1"
-                    placeholder="{{ __('School name') }}"
+                    placeholder="学校名"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
                     @error('education_school_1')
@@ -229,7 +229,7 @@
                     name="education_year_2"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
-                    <option value="">{{ __('Year') }}</option>
+                    <option value="">年</option>
                     @for($i = date('Y'); $i >= 1950; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
@@ -239,7 +239,7 @@
                     name="education_month_2"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
-                    <option value="">{{ __('Month') }}</option>
+                    <option value="">月</option>
                     @foreach(range(1, 12) as $month)
                         <option value="{{ $month }}">{{ __($month . '月') }}</option>
                     @endforeach
@@ -248,7 +248,7 @@
                 <input
                     type="text"
                     name="education_school_2"
-                    placeholder="{{ __('School name') }}"
+                    placeholder="学校名"
                     value="{{ old('education_school_2') }}"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
@@ -261,7 +261,7 @@
                     name="education_year_3"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
-                    <option value="">{{ __('Year') }}</option>
+                    <option value="">年</option>
                     @for($i = date('Y'); $i >= 1950; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
@@ -271,7 +271,7 @@
                     name="education_month_3"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
-                    <option value="">{{ __('Month') }}</option>
+                    <option value="">月</option>
                     @foreach(range(1, 12) as $month)
                         <option value="{{ $month }}">{{ __($month . '月') }}</option>
                     @endforeach
@@ -280,7 +280,7 @@
                 <input
                     type="text"
                     name="education_school_3"
-                    placeholder="{{ __('School name') }}"
+                    placeholder="学校名"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
                     @error('education_school_3')
@@ -294,13 +294,13 @@
             <!-- Information -->
             <div class="space-y-6 mt-3">
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Appear point') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">アピールポイント</label>
                     <textarea type="text"
                            name="appear_point"
                            id="appear_point"
                            value="{{ old('appear_point') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md @error('appear_point')  @enderror"
-                           placeholder="{{ __('Please enter your appear point') }}">
+                           placeholder="アピールポイントを押してください">
 
                            {{ old('appear_point') }}
                         </textarea>
@@ -311,13 +311,13 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Reason for studying in Japan') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">日本に留学した理由</label>
                     <textarea type="text"
                            name="study_japan"
                            id="study_japan"
                            value="{{ old('study_japan') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md @error('study_japan')  @enderror "
-                           placeholder="{{ __('Please enter your reason for studying japan') }}">
+                           placeholder="日本に留学した理由を押してください">
 
                            {{ old('study_japan') }}
                         </textarea>
@@ -328,13 +328,13 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Skill') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">スキル</label>
                     <input type="text"
                            name="skill"
                            id="skill"
                            value="{{ old('skill') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md @error('skill')  @enderror"
-                           placeholder="{{ __('Please enter your skill') }}" required>
+                           placeholder="スキルを押してください" required>
 
                         @error('skill')
                         <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -342,13 +342,13 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Reasons for applying') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">志望動機</label>
                     <textarea type="text"
                            name="reason"
                            id="reason"
                            value="{{ old('reason') }}"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-md @error('reason')  @enderror focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
-                           placeholder="{{ __('Please enter your reason for applying') }}">
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md @error('reason')  @enderror "
+                           placeholder="志望動機を入力してください">
 
                            {{ old('reason') }}
                         </textarea>
@@ -360,13 +360,13 @@
 
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Langueage Ability') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">語学力</label>
                     <input type="text"
                            name="language"
                            id="language"
                            value="{{ old('language') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md @error('language')  @enderror"
-                           placeholder="{{ __('Please enter your language skill') }}" required>
+                           placeholder="語学力を押してください" required>
 
                         @error('language')
                         <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -374,13 +374,13 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Langueage Ability') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">免許、資格</label>
                     <input type="text"
                            name="license"
                            id="license"
                            value="{{ old('license') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md @error('license')  @enderror"
-                           placeholder="{{ __('Please enter your licenses') }}" required>
+                           placeholder="免許、資格を入力してください" required>
 
                         @error('license')
                         <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -388,13 +388,13 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Hobby and speciality') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">趣味、特徴</label>
                     <input type="text"
                            name="hobby"
                            id="hobby"
                            value="{{ old('hobby') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md @error('hobby')  @enderror"
-                           placeholder="{{ __('Please enter your hobby') }}" required>
+                           placeholder="趣味、特徴を入力してください" required>
 
                         @error('hobby')
                         <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -402,13 +402,13 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">{{ __('Part time job experience') }}</label>
+                    <label class="block text-sm font-semibold text-gray-700">アルバイト経験</label>
                     <input type="text"
                            name="part_time"
                            id="part_time"
                            value="{{ old('part_time') }}"
                            class="w-full px-4 py-2 border border-gray-300 rounded-md @error('part_time')  @enderror"
-                           placeholder="{{ __('Please enter your part time job experience') }}" required>
+                           placeholder="アルバイト経験を押してください" required>
 
                         @error('part_time')
                         <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
@@ -420,8 +420,8 @@
         <!-- Submit Button -->
         <div class="mt-8">
             <button type="submit"
-                    class="w-full bg-sky-600 text-white py-3 px-4 rounded-md hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors">
-                {{ __('Save and Sent') }}
+                    class="w-full bg-sky-600 text-white py-3 px-4 rounded-md hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 transition-colors font-semibold">
+                    申し込む
             </button>
         </div>
     </form>

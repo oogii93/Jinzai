@@ -42,14 +42,14 @@
                                 <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class="p-6">
                                         <div class="text-xl font-semibold text-gray-800">{{ $statistics2['total_jobseeker'] }}</div>
-                                        <div class="text-sm text-gray-600">{{ __('Total Job Seeker') }}</div>
+                                        <div class="text-md text-gray-600 font-semibold">求職者総数</div>
                                     </div>
                                 </div>
 
                                     <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
                                         <div class="p-6">
                                             <div class="text-xl font-semibold text-gray-800">{{ $statistics2['total_company'] }}</div>
-                                            <div class="text-sm text-gray-600">{{ __('Total Company') }}</div>
+                                            <div class="text-md text-gray-600 font-semibold">企業総数</div>
                                         </div>
                                     </div>
 
@@ -59,13 +59,13 @@
                                 <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class="p-6">
                                         <div class="text-xl font-semibold text-gray-800">{{ $statistics['total_jobs'] }}</div>
-                                        <div class="text-sm text-gray-600">{{ __('Active Job Posts') }}</div>
+                                        <div class="text-md text-gray-600 font-semibold">求人投稿</div>
                                     </div>
                                 </div>
                                 <div class="bg-gray-200 overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class="p-6">
                                         <div class="text-xl font-semibold text-gray-800">{{ $statistics2['total_application'] }}</div>
-                                        <div class="text-sm text-gray-600">{{ __('Total Applications') }}</div>
+                                        <div class="text-md text-gray-600 font-semibold">総申請数</div>
                                     </div>
                                 </div>
 

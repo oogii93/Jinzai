@@ -17,15 +17,17 @@
             @endif
 
 
-    <div class="min-h-screen bg-gray-50/50">
-        <div class="p-4 sm:p-6 lg:p-8">
-            <!-- Page Header -->
-            <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-white rounded-lg ">
-                <div>
-                    <h2 class="text-2xl font-semibold text-gray-900 px-2 mt-10">企業管理</h2>
-                    <h2 class="text-lg font-semibold text-gray-900 px-2 mt-5 mb-5">企業一覧</h2>
-                </div>
-            </div>
+            <div class="min-h-screen bg-gray-200">
+                <div class="p-4 sm:p-6 lg:p-8">
+                    <!-- Page Header -->
+                    <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-white rounded-lg ">
+                        <div class="px-5 py-10 p-5">
+                            <h2 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">申請管理</h2>
+                            <h2 class="mt-4 text-sm text-gray-600">申請一覧</h2>
+                        </div>
+
+
+                    </div>
 
             <div class="mb-6 bg-white p-4 rounded-lg shadow">
                 <div class="border-b border-gray-200">

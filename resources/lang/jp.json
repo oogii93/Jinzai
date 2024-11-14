@@ -72,7 +72,7 @@
         "Job seeker interviews and tests":"求職者面接・試験の実施",
         "We will hold a meeting with the job seeker to determine the desired date for your company and then arrange a date to conduct the interview and employment test.":"求職者と貴社の希望日のヒアリングをし、日程調整後、面接・採用試験を実施します。",
         "Job offer/Joining the company":"内定・入社",
-        "After we confirm that you joined the company on the joining date,you will be asked to pay the invoiced amount.":"入社日に入社したことを確認後、請求額をお支払いいただきます",
+        "The invoice amount is to be paid one month after your date of employment.":"入社日から一ヶ月後に、請求額をお支払いいただきます",
         "Service flow (for Job Seekers)":"サービスのフロー（求職者様）",
         "Create Resume":"履歴書作成",
         "Company information available":"企業情報閲覧可能",
@@ -116,7 +116,7 @@
         "October": "10月",
         "November": "11月",
         "December": "12月",
-          "Lets find great Job Together!!":"一緒に素晴らしい仕事を見つけましょう!!",
+
           "Search jobs..":"求人を検索..",
           "New post":"新着",
         "See Details":"詳細を見る",
@@ -126,7 +126,25 @@
         "Posted Date":"投稿日",
     "We are a partner that connects the region with human resources and creates the future together. We fully support companies and job seekers.":"地域と人材を結び、共に未来を創るパートナー企業と求職者を全力でサポートします。",
     "Our Service":"私たちのサービス",
-    "We provide a specialized recruitment service connecting companies in Mie Prefecture with foreign nationals seeking employment in Japan. For local businesses, foreign talent represents a key to new development and growth. However, due to Mie Prefecture's regional location, companies face chronic labor shortages and limited opportunities to connect with foreign candidates. We aim to create an environment where local businesses and talented foreign professionals can come together and mutually foster growth. Our mission is to facilitate ideal matches that meet companies' needs while maximizing the excellent academic backgrounds, technical skills, and innovative ideas that foreign talent brings. We are committed to serving as a bridge that expands global possibilities from Mie Prefecture, providing full support to help both the region and its human resources enhance each other's potential.":"私たちは、三重県の企業と日本で働きたい外国人をつなぐ外国人専用の人材紹介サービスを提供しています。地域の企業にとって、外国人材は新たな発展と成長の鍵となる存在です。しかし、三重県は地方に位置するため、慢性的な人手不足に悩まされ、外国人との出会いの機会も限られています。私たちは、そうした地元企業と優秀な外国人材をつなぎ、お互いに成長し合える環境を創り出したいと考えています。外国人材の持つ優れた学力・技術・アイデアを最大限に活かし、企業のニーズに応えるマッチングを実現することが私たちの使命です。地域と人材が共に高め合い、三重県からグローバルな可能性を広げていく架け橋となるべく、全力でサポートしてまいります。"
+    "We provide a specialized recruitment service connecting companies in Mie Prefecture with foreign nationals seeking employment in Japan. For local businesses, foreign talent represents a key to new development and growth. However, due to Mie Prefecture's regional location, companies face chronic labor shortages and limited opportunities to connect with foreign candidates. We aim to create an environment where local businesses and talented foreign professionals can come together and mutually foster growth. Our mission is to facilitate ideal matches that meet companies' needs while maximizing the excellent academic backgrounds, technical skills, and innovative ideas that foreign talent brings. We are committed to serving as a bridge that expands global possibilities from Mie Prefecture, providing full support to help both the region and its human resources enhance each other's potential.":"私たちは、三重県の企業と日本で働きたい外国人をつなぐ外国人専用の人材紹介サービスを提供しています。地域の企業にとって、外国人材は新たな発展と成長の鍵となる存在です。しかし、三重県は地方に位置するため、慢性的な人手不足に悩まされ、外国人との出会いの機会も限られています。私たちは、そうした地元企業と優秀な外国人材をつなぎ、お互いに成長し合える環境を創り出したいと考えています。外国人材の持つ優れた学力・技術・アイデアを最大限に活かし、企業のニーズに応えるマッチングを実現することが私たちの使命です。地域と人材が共に高め合い、三重県からグローバルな可能性を広げていく架け橋となるべく、全力でサポートしてまいります。",
+    "Registration":"登録",
+    "If you find a company that interests you, please apply.":"気になる企業が見つかったら、ご応募ください",
+    "Interview with a career adviser":"キャリアアドバイザーとのヒアリング・面談",
+    "We will arrange an interview to confirm whether the VISA you hold is suitable for the position and to assess if your skills and abilities can be effectively utilized.":"日程を調整し、保有するVISAが応募職種に適しているか、技術や能力が十分に活かせるかを確認するための面談を行います。",
+    "Is there a cost associated with using the service?":"サービスの利用には費用がかかりますか？",
+    "Job seekers can use this service free of charge.":"求職者の方は、当サービスを無料でご利用いただけます。",
+    "Can applicants select multiple companies?":" 応募企業は複数選択できますか？",
+    "Yes, you can apply to multiple companies. Our career advisors will provide detailed support.":" はい、複数の企業に応募することが可能です。詳細はキャリアアドバイザーがサポートいたします。",
+    "How are interviews with career advisors conducted?":"キャリアアドバイザーとの面談はどのように行われますか？",
+    "Interviews are conducted either online or in person, with scheduling arranged to accommodate the job seekers availability.":"面談はオンラインまたは対面で行われ、求職者のスケジュールに合わせて日程調整をいたします。",
+    "How long does it take to receive the selection results after applying?":"応募後、選考結果が出るまでどのくらい時間がかかりますか？",
+    "Typically, the selection process takes about 1 to 2 weeks, but this may vary depending on the company.":"通常、選考には1〜2週間程度かかりますが、企業により異なる場合があります。",
+    "What is the fee structure upon successful hiring?":"採用成功時の費用体系はどうなっていますか？",
+    "We charge a success fee only upon a successful hire, and the detailed fee structure will be provided at the time of contract.":"採用が成功した場合にのみ成功報酬をいただいており、詳細な費用体系は契約時にご案内いたします。",
+    "Is there an opportunity to speak directly with job seekers before they apply?":"応募前に求職者と直接会話する機会はありますか？",
+    "Yes, it is possible to arrange an online meeting with the job seeker prior to the interview. Please consult with us as needed.":"はい、面接前に求職者とオンライン面談を設定することが可能です。必要に応じてご相談ください。",
+    "Is support available for obtaining a VISA?":" VISAの取得に関するサポートはありますか？",
+    "Yes, we provide information relevant to the position regarding obtaining a VISA and can refer you to a certified immigration specialist firm that we partner with. You can rely on professional support if needed.":"はい、VISA取得に関しては、対象職種に応じた情報提供を行うとともに、弊社が提携している行政書士機関をご紹介いたします。専門的なサポートが必要な場合も安心してご利用いただけます。"
 
 
 

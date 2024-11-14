@@ -22,8 +22,8 @@
     <!-- Page Header -->
     <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-gradient-to-r from-sky-600 to-blue-500 rounded-lg ">
         <div>
-            <h2 class="text-2xl font-semibold text-white px-2 mt-10">{{ __('My History') }}</h2>
-            <h2 class="text-lg font-semibold text-white px-2 mt-5 mb-5">{{ __('See all my application') }}</h2>
+            <h2 class="text-2xl font-semibold text-white px-2 mt-10">申請歴管理</h2>
+            <h2 class="text-lg font-semibold text-white px-2 mt-5 mb-5">申請歴一覧</h2>
         </div>
     </div>
 

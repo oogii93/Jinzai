@@ -505,7 +505,7 @@
                         fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.001 47.001" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g id="Layer_1_120_"> <g> <g> <path d="M31.736,10.307c-0.111-0.112-0.249-0.193-0.398-0.24l-8.975-2.818c-3.589-1.127-5.924,0.839-6.553,1.47 c-0.367,0.367-0.648,0.754-0.792,1.091l-3.998,9.404c-0.229,0.538-0.151,1.255,0.208,1.97c0.514,1.021,1.44,1.757,2.547,2.022 c1.239,0.297,2.524-0.106,3.53-1.111c0.263-0.263,0.487-0.553,0.619-0.799l1.344-2.493c0.221-0.413,0.542-0.841,0.88-1.179 c1.153-1.154,1.701-0.626,1.934-0.402c2.011,1.941,12.554,12.529,12.554,12.529c0.375,0.375,0.297,1.086-0.172,1.554 c-0.468,0.467-1.18,0.547-1.554,0.174l-2.962-2.961c-0.382-0.383-0.998-0.383-1.38,0c-0.382,0.379-0.382,0.998,0,1.379 l2.962,2.963c0.374,0.373,0.296,1.084-0.172,1.551c-0.468,0.469-1.181,0.547-1.553,0.174l-2.963-2.961 c-0.382-0.382-1-0.382-1.38,0c-0.382,0.379-0.382,0.998,0,1.38l2.962,2.962c0.374,0.374,0.293,1.085-0.174,1.553 c-0.467,0.467-1.178,0.547-1.553,0.172l-2.962-2.961c-0.38-0.381-0.999-0.381-1.38,0c-0.38,0.381-0.38,1,0,1.379l2.962,2.963 c0.375,0.375,0.295,1.086-0.172,1.554c-0.47,0.468-1.181,0.547-1.554,0.173l-3.606-3.609c0.515-0.774,0.375-1.897-0.389-2.664 c-0.856-0.855-2.173-0.934-2.935-0.17c0.762-0.763,0.687-2.078-0.171-2.935c-0.858-0.856-2.172-0.935-2.934-0.173 c0.762-0.762,0.685-2.076-0.174-2.932c-0.856-0.858-2.17-0.936-2.934-0.174c0.764-0.762,0.685-2.076-0.172-2.935 c-0.802-0.802-1.997-0.911-2.774-0.3l-5.839-5.839c-0.381-0.382-1-0.382-1.381,0c-0.38,0.38-0.38,0.999,0,1.381l5.824,5.823 l-1.727,1.727c-0.762,0.761-0.685,2.075,0.174,2.934c0.856,0.856,2.17,0.935,2.933,0.172c-0.763,0.763-0.685,2.076,0.173,2.934 c0.856,0.855,2.171,0.936,2.934,0.173c-0.763,0.763-0.686,2.076,0.172,2.933c0.858,0.858,2.172,0.936,2.934,0.174 c-0.762,0.761-0.685,2.074,0.173,2.933c0.857,0.856,2.17,0.935,2.934,0.172l1.824-1.823l3.581,3.58 c1.143,1.143,3.076,1.063,4.314-0.173c0.603-0.603,0.925-1.373,0.97-2.135c0.762-0.045,1.533-0.368,2.135-0.972 c0.604-0.603,0.928-1.373,0.974-2.135c0.761-0.045,1.529-0.367,2.135-0.971c0.603-0.604,0.926-1.373,0.97-2.136 c0.763-0.044,1.533-0.366,2.137-0.972c1.236-1.236,1.312-3.172,0.172-4.313l-1.51-1.511l6.2-6.199 c0.381-0.38,0.381-0.999,0-1.38L31.736,10.307z"></path> </g> <g> <path d="M46.43,12.489l-7.901-7.901c-0.762-0.763-1.999-0.763-2.762,0l-2.762,2.76c-0.762,0.762-0.762,1.999,0,2.761 l7.902,7.903c0.763,0.762,2,0.762,2.762,0l2.761-2.761C47.191,14.488,47.191,13.251,46.43,12.489z M42.283,16.513 c-0.884,0-1.602-0.717-1.602-1.602c0-0.885,0.718-1.603,1.602-1.603c0.885,0,1.603,0.717,1.603,1.603 C43.885,15.795,43.168,16.513,42.283,16.513z"></path> </g> </g> </g> </g> </g></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">{{ __('Job offer/Joining the company') }}</h3>
-                    <p class="text-sm">{{ __('After we confirm that you joined the company on the joining date,you will be asked to pay the invoiced amount.') }}</p>
+                    <p class="text-sm">{{ __('The invoice amount is to be paid one month after your date of employment.') }}</p>
                 </div>
             </div>
         </div>
@@ -688,7 +688,7 @@
               {{ __('Service flow (for Job Seekers)') }}
             </h1>
 
-            <div class="grid grid-cols-1 md:grid-cols-6 gap-6 max-w-7xl mx-auto mt-10">
+            <div class="grid grid-cols-1 md:grid-cols-7 gap-5 max-w-8xl mx-auto mt-10">
                 <!-- Step 01 -->
                 <div class="bg-white rounded-lg p-6 shadow-lg">
                     <h2 class="font-bold text-xl mb-4">START</h2>
@@ -702,7 +702,7 @@
                          class="w-24 h-24"
                         fill="#000000" height="200px" width="200px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 315.75 315.75" xml:space="preserve" stroke="#000000" stroke-width="0.0031575200000000005"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M263.89,8.743c-3.039,0-5.503,2.464-5.503,5.503v257.607c0,0.854,0.199,1.696,0.581,2.461l14.829,29.654 c0.932,1.864,2.837,3.042,4.922,3.042c2.084,0,3.989-1.178,4.922-3.042l14.828-29.654c0.382-0.765,0.581-1.606,0.581-2.461V14.246 c0-3.039-2.464-5.503-5.503-5.503H263.89z M288.044,270.552l-9.325,18.649l-9.326-18.649V19.749h18.651V270.552z"></path> <path d="M304.746,48.037v87.789c0,3.039,2.464,5.503,5.503,5.503c3.039,0,5.503-2.464,5.503-5.503V48.037 c0-3.039-2.464-5.503-5.503-5.503C307.21,42.534,304.746,44.998,304.746,48.037z"></path> <path d="M186.526,164.64H47.204c-3.039,0-5.503,2.465-5.503,5.504c0,3.039,2.464,5.502,5.503,5.502h139.322 c3.039,0,5.503-2.463,5.503-5.502C192.029,167.105,189.565,164.64,186.526,164.64z"></path> <path d="M186.526,246.068H47.204c-3.039,0-5.503,2.464-5.503,5.503c0,3.039,2.464,5.503,5.503,5.503h139.322 c3.039,0,5.503-2.464,5.503-5.503C192.029,248.532,189.565,246.068,186.526,246.068z"></path> <path d="M186.526,129.295H47.204c-3.039,0-5.503,2.464-5.503,5.503c0,3.039,2.464,5.503,5.503,5.503h139.322 c3.039,0,5.503-2.464,5.503-5.503C192.029,131.759,189.565,129.295,186.526,129.295z"></path> <path d="M47.204,104.959h82.709c3.039,0,5.503-2.465,5.503-5.504c0-3.039-2.464-5.502-5.503-5.502H47.204 c-3.039,0-5.503,2.463-5.503,5.502C41.701,102.494,44.165,104.959,47.204,104.959z"></path> <path d="M47.204,69.615h82.709c3.039,0,5.503-2.463,5.503-5.502c0-3.039-2.464-5.504-5.503-5.504H47.204 c-3.039,0-5.503,2.465-5.503,5.504C41.701,67.152,44.165,69.615,47.204,69.615z"></path> <path d="M5.488,306.568h222.754c3.031,0,5.488-2.457,5.488-5.488V87.843l0,0l0,0c0-0.008-0.001-0.015-0.001-0.022 c-0.001-0.177-0.01-0.353-0.027-0.525c-0.013-0.134-0.036-0.265-0.059-0.396c-0.008-0.045-0.012-0.091-0.02-0.136 c-0.031-0.154-0.071-0.308-0.115-0.459c-0.006-0.02-0.01-0.04-0.016-0.061c-0.047-0.15-0.102-0.299-0.16-0.446 c-0.008-0.019-0.014-0.039-0.021-0.058c-0.057-0.138-0.122-0.271-0.191-0.402c-0.014-0.027-0.025-0.057-0.04-0.084 c-0.064-0.119-0.136-0.234-0.208-0.349c-0.024-0.037-0.045-0.077-0.069-0.113c-0.069-0.103-0.146-0.202-0.223-0.301 c-0.033-0.043-0.064-0.089-0.098-0.132c-0.095-0.115-0.197-0.225-0.303-0.333c-0.02-0.021-0.036-0.043-0.057-0.063l-73.174-73.173 c-0.127-0.127-0.26-0.246-0.397-0.359c-0.036-0.029-0.075-0.055-0.111-0.083c-0.105-0.082-0.211-0.164-0.32-0.237 c-0.032-0.021-0.067-0.04-0.1-0.061c-0.118-0.076-0.238-0.15-0.361-0.217c-0.022-0.012-0.047-0.021-0.069-0.033 c-0.137-0.071-0.275-0.139-0.417-0.197c-0.016-0.007-0.032-0.012-0.047-0.018c-0.15-0.061-0.303-0.116-0.457-0.164 c-0.018-0.005-0.035-0.008-0.053-0.013c-0.153-0.046-0.309-0.086-0.467-0.118c-0.043-0.008-0.089-0.012-0.132-0.02 c-0.133-0.023-0.266-0.047-0.4-0.06c-0.181-0.019-0.364-0.028-0.548-0.028l0,0H5.488C2.457,9.183,0,11.64,0,14.671V301.08 C0,304.111,2.457,306.568,5.488,306.568z M214.995,82.357l-54.434,0.006l-0.003-54.441L214.995,82.357z M10.976,20.16h138.605 l0.004,67.692c0,1.456,0.578,2.852,1.607,3.881c1.029,1.028,2.426,1.606,3.881,1.606l67.682-0.008v202.261H10.976V20.16z"></path> </g> </g></svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">{{ __('Contract') }}</h3>
+                    <h3 class="text-xl font-bold mb-2">{{ __('Registration') }}</h3>
                     <p class="text-sm">{{ __('First, please register using the form below.') }}</p>
                 </div>
                 <!-- Step 01 -->
@@ -742,12 +742,25 @@
                         viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-.997-4L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path> </g> </g></svg>
                     </div>
                     <h3 class="text-xl font-bold mb-2">{{ __('Apply') }}</h3>
-                    <p class="text-sm">{{ __('Once you find a company you would like to apply to, apply and we will schedule an interview with you. (We will hold an interview before introducing you to the company.)') }}</p>
+                    <p class="text-sm">{{ __('If you find a company that interests you, please apply.') }}</p>
                 </div>
+
 
                 <!-- Step 04 -->
                 <div class="bg-white rounded-lg p-6 shadow-lg">
                     <h2 class="font-bold text-xl mb-4">STEP <span class="text-green-600">04</span></h2>
+                    <div class="flex justify-center mb-4">
+                  <svg
+                  class="w-24 h-24"
+                  fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 943.118 943.118" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <g> <path d="M54.182,670.915v189.128c0,11.047,8.955,20,20,20h362.347c-3.137-6.688-4.899-14.143-4.899-22.006V670.915H54.182z"></path> <path d="M30,639.904h24.182h377.446V622.67v-24.418c0-0.229,0.007-0.456,0.009-0.685c0.107-15.218,3.8-29.6,10.277-42.337 c2.796-5.496,6.107-10.688,9.873-15.506c4.478-5.729,9.597-10.934,15.245-15.507c16.361-13.248,37.182-21.197,59.827-21.197 h22.555v-43.313c0-32.846-26.627-59.473-59.473-59.473h-53.809c-10.504,0-19.628,7.229-22.029,17.455l-25.013,106.529 l-3.642,15.507l-2.578,10.977c-0.36,1.538-0.785,3.049-1.271,4.528h-16.584c-0.183-5.188-0.711-10.367-1.577-15.506 c-0.148-0.892-0.306-1.779-0.476-2.666l-3.326-12.841l-19.571-75.542l15.62-34.473c2.965-6.545-1.82-13.968-9.006-13.968h-33.525 c-7.186,0-11.972,7.423-9.006,13.968l15.62,34.473l-20.313,75.542l-3.086,11.478c-0.268,1.339-0.506,2.683-0.728,4.029 c-0.848,5.14-1.36,10.317-1.527,15.506h-15.88c-0.484-1.48-0.909-2.99-1.271-4.528l-2.578-10.977l-3.641-15.508l-25.013-106.525 c-2.401-10.227-11.524-17.455-22.029-17.455h-53.808c-32.846,0-59.473,26.627-59.473,59.473v64.513v15.506v15.506H30 c-16.568,0-30,13.431-30,30v24.674C0,626.474,13.432,639.904,30,639.904z"></path> <path d="M329.919,368.094c73.717,0,133.477-59.76,133.477-133.477V92.744c0-18.391-16.561-32.347-34.686-29.233 c-39.276,6.747-128.839,24.62-184.565,35.864c-27.752,5.599-47.704,29.986-47.704,58.297v76.946 C196.442,308.335,256.202,368.094,329.919,368.094z"></path> <path d="M526.859,533.021c-10.345,0-20.121,2.418-28.812,6.703c-7.723,3.809-14.576,9.102-20.201,15.506 c-9.95,11.325-16.036,26.118-16.204,42.337c-0.002,0.229-0.017,0.455-0.017,0.685v24.418v17.234v15.505v15.506v187.122 c0,12.154,9.853,22.006,22.005,22.006h334.086h103.396c12.153,0,22.006-9.852,22.006-22.006V598.252 c0-31.565-22.422-57.893-52.209-63.928c-4.207-0.852-8.562-1.303-13.021-1.303H549.414H526.859L526.859,533.021z"></path> <path d="M702.375,497.769c80.854,0,146.4-65.546,146.4-146.4v-84.396c0-31.052-21.886-57.8-52.322-63.941 c-61.123-12.332-159.355-31.935-202.434-39.336c-1.879-0.323-3.743-0.478-5.577-0.478c-17.574,0-32.468,14.276-32.468,32.542 v155.609C555.975,432.223,621.52,497.769,702.375,497.769z"></path> </g> </g> </g> </g></svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">{{ __('Interview with a career adviser') }}</h3>
+                    <p class="text-sm">{{ __('We will arrange an interview to confirm whether the VISA you hold is suitable for the position and to assess if your skills and abilities can be effectively utilized.') }}</p>
+                </div>
+
+                <!-- Step 05 -->
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h2 class="font-bold text-xl mb-4">STEP <span class="text-green-600">05</span></h2>
                     <div class="flex justify-center mb-4">
                         {{-- <svg class="w-24 h-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -761,7 +774,7 @@
                 </div>
                 <!-- Step 04 -->
                 <div class="bg-white rounded-lg p-6 shadow-lg">
-                    <h2 class="font-bold text-xl mb-4">STEP <span class="text-green-600">05</span></h2>
+                    <h2 class="font-bold text-xl mb-4">STEP <span class="text-green-600">06</span></h2>
                     <div class="flex justify-center mb-4">
                         {{-- <svg class="w-24 h-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -791,8 +804,10 @@
 
 
 
-                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 ">
-                      <div class="relative space-y-12">
+                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 gsap-reveal">
+
+
+                      <div class="relative space-y-8">
                           <div class="flex items-start space-x-4">
                               <div class="flex-shrink-0">
                                   <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
@@ -800,28 +815,78 @@
                                   </div>
                               </div>
                               <div class="flex-grow justify-between">
-                                  <h3 class="text-lg font-semibold text-gray-900">太陽光PPAとは何ですか？</h3>
+                                  <h3 class="text-lg font-semibold text-gray-900">{{ __('Is there a cost associated with using the service?') }}</h3>
                               </div>
 
-                              <!-- Arrow for toggling -->
-                              <div class="arrow-container">
-                                  <span class="arrow-up cursor-pointer text-blue-600">&#9650;</span> <!-- Up Arrow -->
-                                  <span class="arrow-down cursor-pointer hidden text-blue-600">&#9660;</span> <!-- Down Arrow -->
-                              </div>
+
                           </div>
 
                           <!-- Divider line -->
                           <hr class="border-gray-200">
 
-                          <div class="text-content mt-2">
+                          <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-green-400 flex items-center justify-center text-white font-bold">
+                                    A
+                                </div>
+                            </div>
+
+                            <div class="flex-grow justify-between text-content mt-2 px-4">
+
+
+                                <p class="text-gray-700 text-m">
+                               {{ __('Job seekers can use this service free of charge.') }}
+                                </p>
+                            </div>
+
+                          </div>
+
+
+
+
+                      </div>
+                  </div>
+
+
+                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 gsap-reveal2">
+                      <div class="relative space-y-8">
+                          <div class="flex items-start space-x-4">
+                              <div class="flex-shrink-0">
+                                  <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                                      Q
+                                  </div>
+                              </div>
+                              <div class="flex-grow justify-between">
+                                  <h3 class="text-lg font-semibold text-gray-900">{{ __('Can applicants select multiple companies?') }}</h3>
+                              </div>
+
+
+                          </div>
+
+                          <!-- Divider line -->
+                          <hr class="border-gray-200">
+
+                          <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-green-400 flex items-center justify-center text-white font-bold">
+                                    A
+                                </div>
+                            </div>
+
+                            <div class="flex-grow justify-between text-content mt-2 px-4">
+
+
                               <p class="text-gray-700 text-m">
-                                  太陽光PPA  (Power Purchase Agreement) は、事業者が設置した太陽光発電システムで発電された電力を契約者が長期間にわたって購入する契約です。設備の設置費用やメンテナンスは事業者が負担し、契約者はその電力を低価格で利用できます。
+                                  {{ __('Yes, you can apply to multiple companies. Our career advisors will provide detailed support.') }}
                               </p>
                           </div>
                       </div>
+                    </div>
                   </div>
-                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 ">
-                      <div class="relative space-y-12">
+
+                  <!--3-->
+                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 gsap-reveal">
+                      <div class="relative space-y-8">
                           <div class="flex items-start space-x-4">
                               <div class="flex-shrink-0">
                                   <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
@@ -829,28 +894,36 @@
                                   </div>
                               </div>
                               <div class="flex-grow justify-between">
-                                  <h3 class="text-lg font-semibold text-gray-900">太陽光PPAとは何ですか？</h3>
+                                  <h3 class="text-lg font-semibold text-gray-900">{{ __('How are interviews with career advisors conducted?') }}</h3>
                               </div>
 
-                              <!-- Arrow for toggling -->
-                              <div class="arrow-container">
-                                  <span class="arrow-up cursor-pointer text-blue-600">&#9650;</span> <!-- Up Arrow -->
-                                  <span class="arrow-down cursor-pointer hidden text-blue-600">&#9660;</span> <!-- Down Arrow -->
-                              </div>
+
                           </div>
 
                           <!-- Divider line -->
                           <hr class="border-gray-200">
+                          <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-green-400 flex items-center justify-center text-white font-bold">
+                                    A
+                                </div>
+                            </div>
 
-                          <div class="text-content mt-2">
+                            <div class="flex-grow justify-between text-content mt-2 px-4">
+
+
+
+
                               <p class="text-gray-700 text-m">
-                                  太陽光PPA  (Power Purchase Agreement) は、事業者が設置した太陽光発電システムで発電された電力を契約者が長期間にわたって購入する契約です。設備の設置費用やメンテナンスは事業者が負担し、契約者はその電力を低価格で利用できます。
+                             {{ __('Interviews are conducted either online or in person, with scheduling arranged to accommodate the job seekers availability.') }}
                               </p>
+                          </div>
                           </div>
                       </div>
                   </div>
-                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 ">
-                      <div class="relative space-y-12">
+                  <!--4-->
+                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 gsap-reveal2">
+                      <div class="relative space-y-8">
                           <div class="flex items-start space-x-4">
                               <div class="flex-shrink-0">
                                   <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
@@ -858,23 +931,131 @@
                                   </div>
                               </div>
                               <div class="flex-grow justify-between">
-                                  <h3 class="text-lg font-semibold text-gray-900">太陽光PPAとは何ですか？</h3>
+                                  <h3 class="text-lg font-semibold text-gray-900">{{ __('How long does it take to receive the selection results after applying?') }}</h3>
                               </div>
 
-                              <!-- Arrow for toggling -->
-                              <div class="arrow-container">
-                                  <span class="arrow-up cursor-pointer text-blue-600">&#9650;</span> <!-- Up Arrow -->
-                                  <span class="arrow-down cursor-pointer hidden text-blue-600">&#9660;</span> <!-- Down Arrow -->
-                              </div>
+
                           </div>
 
                           <!-- Divider line -->
                           <hr class="border-gray-200">
 
-                          <div class="text-content mt-2">
+                          <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-green-400 flex items-center justify-center text-white font-bold">
+                                    A
+                                </div>
+                            </div>
+
+                            <div class="flex-grow justify-between text-content mt-2 px-4">
                               <p class="text-gray-700 text-m">
-                                  太陽光PPA  (Power Purchase Agreement) は、事業者が設置した太陽光発電システムで発電された電力を契約者が長期間にわたって購入する契約です。設備の設置費用やメンテナンスは事業者が負担し、契約者はその電力を低価格で利用できます。
+                             {{ __('Typically, the selection process takes about 1 to 2 weeks, but this may vary depending on the company.') }}
                               </p>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!--5-->
+                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 gsap-reveal">
+                      <div class="relative space-y-8">
+                          <div class="flex items-start space-x-4">
+                              <div class="flex-shrink-0">
+                                  <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                                      Q
+                                  </div>
+                              </div>
+                              <div class="flex-grow justify-between">
+                                  <h3 class="text-lg font-semibold text-gray-900">{{ __('What is the fee structure upon successful hiring?') }}</h3>
+                              </div>
+
+
+                          </div>
+
+                          <!-- Divider line -->
+                          <hr class="border-gray-200">
+
+                          <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-green-400 flex items-center justify-center text-white font-bold">
+                                    A
+                                </div>
+                            </div>
+
+                            <div class="flex-grow justify-between text-content mt-2 px-4">
+                              <p class="text-gray-700 text-m">
+                             {{ __('We charge a success fee only upon a successful hire, and the detailed fee structure will be provided at the time of contract.') }}
+                              </p>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!--6-->
+                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 gsap-reveal2">
+                      <div class="relative space-y-8">
+                          <div class="flex items-start space-x-4">
+                              <div class="flex-shrink-0">
+                                  <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                                      Q
+                                  </div>
+                              </div>
+                              <div class="flex-grow justify-between">
+                                  <h3 class="text-lg font-semibold text-gray-900">{{ __('Is there an opportunity to speak directly with job seekers before they apply?') }}</h3>
+                              </div>
+
+                          </div>
+
+                          <!-- Divider line -->
+                          <hr class="border-gray-200">
+
+                          <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-green-400 flex items-center justify-center text-white font-bold">
+                                    A
+                                </div>
+                            </div>
+
+                            <div class="flex-grow justify-between text-content mt-2 px-4">
+                              <p class="text-gray-700 text-m">
+                             {{ __('Yes, it is possible to arrange an online meeting with the job seeker prior to the interview. Please consult with us as needed.') }}
+                              </p>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!--7-->
+                    <div class="max-w-4xl mx-auto bg-white p-6 rounded-3xl shadow-lg mb-5 gsap-reveal">
+                      <div class="relative space-y-8">
+                          <div class="flex items-start space-x-4">
+                              <div class="flex-shrink-0">
+                                  <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                                      Q
+                                  </div>
+                              </div>
+                              <div class="flex-grow justify-between">
+                                  <h3 class="text-lg font-semibold text-gray-900">{{ __('Is support available for obtaining a VISA?') }}</h3>
+                              </div>
+
+
+                          </div>
+
+                          <!-- Divider line -->
+                          <hr class="border-gray-200">
+
+                          <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-green-400 flex items-center justify-center text-white font-bold">
+                                    A
+                                </div>
+                            </div>
+
+                            <div class="flex-grow justify-between text-content mt-2 px-4">
+                              <p class="text-gray-700 text-m">
+                             {{ __('Yes, we provide information relevant to the position regarding obtaining a VISA and can refer you to a certified immigration specialist firm that we partner with. You can rely on professional support if needed.') }}
+                              </p>
+                          </div>
                           </div>
                       </div>
                   </div>

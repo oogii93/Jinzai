@@ -21,7 +21,7 @@
 <div class="max-w-5xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden mt-8">
 
     <div class="bg-gradient-to-r from-sky-600 to-green-600 px-8 py-12">
-        <h2 class="text-2xl font-bold text-gray-800 text-center">{{ __('Sign up Form for Company') }}</h2>
+        <h2 class="text-2xl font-bold text-gray-800 text-center">企業登録フォーム</h2>
 
 
     </div>
@@ -55,7 +55,7 @@
                             class="w-full h-full bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
                             <img id="selectedImage" src="#" alt="Selected Image"
                                 class="hidden w-32 h-32 object-cover">
-                            <span class="text-gray-500" id="placeholderText">{{ __('Select Image') }}</span>
+                            <span class="text-gray-500" id="placeholderText">写真選択</span>
                         </div>
                     </label>
                     <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*"
@@ -72,10 +72,10 @@
 
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="email" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        {{ __('Email') }}
+                        メール
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('email') border-red-300 @enderror"
-                        name="email" id="email" type="email" value="{{ old('email') }}" required placeholder="{{ __('Please enter company email address') }}">
+                        name="email" id="email" type="email" value="{{ old('email') }}" required placeholder="会社のメールアドレスを入力してください">
                     </input>
 
                     @error('email')
@@ -87,10 +87,10 @@
 
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="address" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        {{ __('Address') }}
+                        現住所
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('address') border-red-300 @enderror"
-                        name="address" id="address" type="text" value="{{ old('address') }}" required placeholder="{{ __('Please enter company address') }}">
+                        name="address" id="address" type="text" value="{{ old('address') }}" required placeholder="企業の住所を入力してください。">
                     </input>
 
                     @error('address')
@@ -103,10 +103,10 @@
 
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="phone_number" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        {{ __('Phone number') }}
+                        電話番号
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('phone_number') border-red-300 @enderror"
-                        name="phone_number" id="phone_number" type="text" value="{{ old('phone_number') }}" required placeholder="{{ __('Please enter phone number') }}">
+                        name="phone_number" id="phone_number" type="text" value="{{ old('phone_number') }}" required placeholder="電話番号を入力してください。">
                     </input>
 
                     @error('phone_number')
@@ -118,10 +118,10 @@
 
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="mobile_number" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        {{ __('Mobile number') }}
+                     携帯電話番号
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('mobile_number') border-red-300 @enderror"
-                        name="mobile_number" id="mobile_number" type="text" value="{{ old('mobile_number') }}" required placeholder="{{ __('Please enter mobile number') }}">
+                        name="mobile_number" id="mobile_number" type="text" value="{{ old('mobile_number') }}" required placeholder="携帯電話番号を入力してください。">
                     </input>
 
                     @error('mobile_number')
@@ -135,10 +135,10 @@
 
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="name" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        {{ __('Company Name') }}
+                       企業名
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('name') border-red-300 @enderror"
-                        name="name" id="name" type="text" value="{{ old('name') }}" required placeholder="{{ __('Please enter company name') }}">
+                        name="name" id="name" type="text" value="{{ old('name') }}" required placeholder="企業名を入力してください。">
                     </input>
 
                     @error('name')
@@ -153,10 +153,10 @@
 
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="company_description" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        {{ __('Company description') }}
+                        企業情報
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('company_description') border-red-300 @enderror"
-                        name="company_description" id="company_description" type="text" value="{{ old('company_description') }}" required placeholder="{{ __('Please enter company description') }}">
+                        name="company_description" id="company_description" type="text" value="{{ old('company_description') }}" required placeholder="企業情報を入力してください。">
                     </input>
 
                     @error('company_description')
@@ -171,10 +171,10 @@
 
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="industry" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        {{ __('Industry') }}
+                        行動の方向性
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('industry') border-red-300 @enderror"
-                        name="industry" id="industry" type="text" value="{{ old('industry') }}" required placeholder="{{ __('Please enter industry') }}">
+                        name="industry" id="industry" type="text" value="{{ old('industry') }}" required placeholder="行動の方向性を入力してください。">
                     </input>
 
                     @error('industry')
@@ -186,11 +186,11 @@
 
                 <!-- Add the missing website field -->
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="industry" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        {{ __('Website URL') }}
+                    <label for="website" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
+                        ウェブサイト
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('website') border-red-300 @enderror"
-                    name="website" id="website" type="text" value="{{ old('website') }}" required placeholder="{{ __('Please enter website') }}">
+                    name="website" id="website" type="text" value="{{ old('website') }}" required placeholder="ウェブサイトのURLを入力してください。">
                 </input>
 
                         @error('website')

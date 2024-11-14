@@ -3,7 +3,7 @@
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6 bg-blue-300">
 
-                <h1 class="text-lg leading-6 font-medium text-gray-900">{{__('Recruitment Information') }}</h1>
+                <h1 class="text-lg leading-6 font-medium text-gray-900">採用情報</h1>
 
 
 
@@ -14,37 +14,37 @@
 
 
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-m font-medium text-gray-500">{{ __('Company Name') }}</dt>
+                        <dt class="text-m font-medium text-gray-500">企業名</dt>
                         <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->user->name }}</dd>
                     </div>
 
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-m font-medium text-gray-500">{{ __('Title') }}</dt>
+                        <dt class="text-m font-medium text-gray-500">タイトル</dt>
                         <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->title }}</dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">{{ __('Salary') }}</dt>
+                        <dt class="text-sm font-medium text-gray-500">給料</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->salary }}</dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">{{ __('Working Hours') }}</dt>
+                        <dt class="text-sm font-medium text-gray-500">勤務時間</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->working_hour }}</dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">{{ __('Location') }}</dt>
+                        <dt class="text-sm font-medium text-gray-500">勤務地</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->working_location }}</dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">{{ __('Job Details') }}</dt>
+                        <dt class="text-sm font-medium text-gray-500">内容</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->job_detail }}</dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">{{ __('Qualifications') }}</dt>
+                        <dt class="text-sm font-medium text-gray-500">資格</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->qualification }}</dd>
                     </div>
                     @if($jobpost->other)
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">{{ __('Additional Information') }}</dt>
+                        <dt class="text-sm font-medium text-gray-500">その他</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->other }}</dd>
                     </div>
                     @endif

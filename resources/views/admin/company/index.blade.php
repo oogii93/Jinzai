@@ -1,13 +1,18 @@
 <x-app-layout>
-    <div class="min-h-screen bg-gray-50/50">
+
+
+    <div class="min-h-screen bg-gray-200">
         <div class="p-4 sm:p-6 lg:p-8">
             <!-- Page Header -->
             <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-white rounded-lg ">
-                <div>
-                    <h2 class="text-2xl font-semibold text-gray-900 px-2 mt-10">企業管理</h2>
-                    <h2 class="text-lg font-semibold text-gray-900 px-2 mt-5 mb-5">企業一覧</h2>
+                <div class="px-5 py-10 p-5">
+                    <h2 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">企業管理</h2>
+                    <h2 class="mt-4 text-sm text-gray-600">企業一覧</h2>
                 </div>
+
+
             </div>
+
 
 
             <!-- Success Message -->
@@ -26,22 +31,32 @@
                 </div>
             @endif
 
-            <!-- Search and Filter Section -->
-            <div class="mb-6">
-                <div class="mt-1 flex rounded-lg shadow-sm">
-                    <div class="relative flex-grow focus-within:z-10">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <input type="text" name="search" class="block w-full rounded-lg border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Search users...">
-                    </div>
-                </div>
-            </div>
 
             <!-- Table Section -->
             <div class="bg-white rounded-lg shadow overflow-hidden">
+
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                            </div>
+                            <input type="text"
+                                   class="block w-full pl-10 pr-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-100"
+                                   placeholder="検索...">
+                        </div>
+{{--
+                        <div class="flex items-center space-x-2">
+                            <select class="block w-full py-2 pl-3 pr-10 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                <option>All Categories</option>
+                                <option>Category 1</option>
+                                <option>Category 2</option>
+                            </select>
+                        </div> --}}
+                    </div>
+                </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-green-200">

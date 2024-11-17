@@ -5,22 +5,23 @@ use App\Models\JobPost;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+
+
+
 use App\Http\Controllers\LanguageController;
-
-
-
 use App\Http\Controllers\VideoProfileController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\CompanyDashboardController;
+use App\Http\Controllers\JobSeekerDashboardController;
 use App\Http\Controllers\AdminJobApplicationController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\JobSeekerDashboardController;
 
 
 
@@ -127,6 +128,16 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['auth'])->group(function () {
 
+
+
+        //Chat Routes
+
+
+        Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+        Route::get('/chat/{otherUser}', [ChatController::class, 'show'])->name('chat.show');
+        Route::post('/chat/{receiver}', [ChatController::class, 'store'])->name('chat.store');
+
+        //END Chat Routes
 
 
 
@@ -273,13 +284,13 @@ Route::middleware(['auth', 'role:company'])->group(function () {
                 Route::post('/tags', [TagController::class, 'store'])
                     ->name('tags.store');
 
-                Route::get('/tags/{tags}/edit', [TagController::class, 'edit'])
+                Route::get('/tags/{tag}/edit', [TagController::class, 'edit'])
                     ->name('tags.edit');
 
-                Route::put('/tags/{tags}', [TagController::class, 'update'])
+                Route::put('/tags/{tag}', [TagController::class, 'update'])
                     ->name('tags.update');
 
-                Route::delete('/tags/{tags}', [TagController::class, 'destroy'])
+                Route::delete('/tags/{tag}', [TagController::class, 'destroy'])
                     ->name('tags.destroy');
 
 

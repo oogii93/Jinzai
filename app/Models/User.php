@@ -119,5 +119,11 @@ public function appliedJobs()
 }
 
 
+public function messages()
+{
+    return $this->hasMany(Message::class, 'sender_id');
+}
+
+
 
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\JobPost;
 use App\Models\Tag;
+use App\Models\User;
+use App\Models\JobPost;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
@@ -14,6 +16,17 @@ class MainController extends Controller
         $categories = Category::get();
 
         $tags=Tag::get();
+
+        $user=Auth::user();
+
+
+            if ($user->role === 'admin') {
+                // Admin can see all non-admin users
+                $users = User::where('role', '!=', 'admin')->get();
+            } else {
+                // Non-admin users can only see admins
+                $users = User::where('role', 'admin')->get();
+            }
 
 
         $query=JobPost::with(['category', 'user','tags']);
@@ -54,7 +67,7 @@ class MainController extends Controller
         }
 
 
-        return view('main', compact('categories', 'jobposts','tags'));
+        return view('main', compact('categories', 'jobposts','tags','users'));
     }
 
 

@@ -20,25 +20,25 @@
 
 
     <div class="py-12 bg-gray-200">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 bg-sky-400 rounded-lg mb-2 px-5">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 bg-white rounded-lg mb-2 px-5">
 
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <!-- Statistics Section -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-400 hover:bg-orange-100">
                             <div class="p-6">
                                 <div class="text-xl font-semibold text-gray-800">{{ $statistics['total_jobs'] }}</div>
                                 <div class="text-sm text-gray-600 font-semibold">弊社の投稿</div>
                             </div>
                         </div>
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-400 hover:bg-orange-100">
                             <div class="p-6">
                                 <div class="text-xl font-semibold text-gray-800">{{ $statistics['total_applications'] }}</div>
                                 <div class="text-sm text-gray-600 font-semibold">採用申請</div>
                             </div>
                         </div>
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-400 hover:bg-orange-100">
                             <div class="p-6">
                                 <div class="text-xl font-semibold text-gray-800">{{ $statistics['pending_reviews'] }}</div>
                                 <div class="text-sm text-gray-600 font-semibold">流れ</div>

@@ -32,5 +32,11 @@
                 {{ $slot }}
             </main>
         </div>
+        @auth
+        <x-chat-box />
+    @endauth
+
+    <!-- Your existing scripts -->
+    <script src="{{ asset('js/chat-box.js') }}"></script>
     </body>
 </html>

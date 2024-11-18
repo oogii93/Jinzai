@@ -108,6 +108,7 @@ class MainController extends Controller
         $categories=Category::get();
         $tags = Tag::get();
 
+
         return view('main',compact('jobposts', 'categories','tags'));
     }
 

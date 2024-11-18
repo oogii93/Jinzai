@@ -23,7 +23,7 @@
                     <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-white rounded-lg ">
                         <div class="px-5 py-10 p-5">
                             <h2 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">申請管理</h2>
-                            <h2 class="mt-4 text-sm text-gray-600">申請一覧</h2>
+                            <h2 class="mt-4 text-md text-gray-600 font-semibold">申請一覧</h2>
                         </div>
 
 
@@ -33,20 +33,20 @@
                 <div class="border-b border-gray-200">
                     <nav class="-mb-px flex space-x-8">
                         <a href="{{ route('admin.applications.index', ['status' => 'pending']) }}"
-                           class="@if($status === 'pending') border-indigo-500 text-indigo-600 @else border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 @endif whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
-                            Pending ({{ $counts['pending'] }})
+                           class="@if($status === 'pending') border-indigo-500 text-indigo-600 @else border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 @endif whitespace-nowrap border-b-2 py-4 px-1 text-sm font-semibold">
+                            中 ({{ $counts['pending'] }})
                         </a>
                         <a href="{{ route('admin.applications.index', ['status' => 'approved']) }}"
-                           class="@if($status === 'approved') border-indigo-500 text-indigo-600 @else border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 @endif whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
-                            Approved ({{ $counts['approved'] }})
+                           class="@if($status === 'approved') border-indigo-500 text-indigo-600 @else border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 @endif whitespace-nowrap border-b-2 py-4 px-1 text-sm font-semibold">
+                           合格  ({{ $counts['approved'] }})
                         </a>
                         <a href="{{ route('admin.applications.index', ['status' => 'rejected']) }}"
-                           class="@if($status === 'rejected') border-indigo-500 text-indigo-600 @else border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 @endif whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
-                            Rejected ({{ $counts['rejected'] }})
+                           class="@if($status === 'rejected') border-indigo-500 text-indigo-600 @else border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 @endif whitespace-nowrap border-b-2 py-4 px-1 text-sm font-semibold">
+                           不合格({{ $counts['rejected'] }})
                         </a>
                         <a href="{{ route('admin.applications.index', ['status' => 'all']) }}"
-                           class="@if($status === 'all') border-indigo-500 text-indigo-600 @else border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 @endif whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">
-                            All Applications
+                           class="@if($status === 'all') border-indigo-500 text-indigo-600 @else border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 @endif whitespace-nowrap border-b-2 py-4 px-1 text-sm font-semibold">
+                            全申請
                         </a>
                     </nav>
                 </div>
@@ -64,7 +64,7 @@
                                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
                             </svg>
                         </div>
-                        <input type="text" name="search" class="block w-full h-20 rounded-lg border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="Search users...">
+                        <input type="text" name="search" class="block w-full h-20 rounded-lg border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="検索...">
                     </div>
                 </div>
             </div>
@@ -81,11 +81,15 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">採用会社</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">ジョーブタイトル</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">申請者</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">申請者メール</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">申請者電話</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">自己紹介動画</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">申請日付け</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">作動</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">TaiseiHDs面談日付け</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">TaiseiHDs面談結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">書選</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">ウェブ面接日</th>
+
+
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">最終結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">入社日付</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">作動</th>
                             </tr>
                         </thead>
@@ -120,11 +124,11 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400" style="width: 150px;">
                                         <div class="flex flex-col items-start space-y-2">
                                             <div class="text-sm font-semibold text-gray-800">
-                                                {{ $application->jobPost->title }}
+                                                {{ $application->jobPost->id }}
                                             </div>
 
                                             <a href="{{ route('jobpost.show', $application->jobPost->id) }}" class="flex items-center justify-center w-full text-white bg-orange-400 px-3 py-1.5 rounded-lg font-semibold hover:bg-orange-500 transition duration-150 ease-in-out shadow-md">
-                                                採用投稿詳細
+                                                採用詳細
                                             </a>
                                         </div>
                                     </td>
@@ -136,27 +140,14 @@
                                         <div class="flex items-center">
 
                                             <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">{{ $application->user->name }}</div>
+                                                <div class="text-sm font-medium text-gray-900">{{ $application->user->name }}
+                                                    <br><small>{{ $application->user->email }}</small>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <div class="flex items-center">
 
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">{{ $application->user->email }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <div class="flex items-center">
-
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">{{ $application->user->mobile_number }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
                                         @if ($application->user && $application->user->videoProfile)
                                             <a href="{{ asset('storage/' . $application->user->videoProfile->video_path) }}"
@@ -204,16 +195,35 @@
                                         </a>
                                     </td>
 
+
+
+
+
+
+
+
+
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        {{ $application->created_at }}
+                                        <form action="" method="POST" class="space-y-2">
+                                            @csrf
+
+                                            <div class="flex justify-normal items-center space-x-2">
+
+                                                <input
+                                                type="date"
+                                                name="" id="" class="border-2 border-gray-300 rounded-md p-1 text-sm">
+
+
+                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
+                                                決定
+                                            </button>
+                                        </input>
+                                            </div>
+
+
+
+                                        </form>
                                     </td>
-
-
-
-
-
-
-
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
                                         <form action="{{ route('admin.applications.review', $application) }}" method="POST" class="space-y-2">
@@ -221,10 +231,10 @@
 
                                             <div class="flex justify-normal items-center space-x-2">
 
-                                                <select name="admin_status" id="admin_status" class="border-2 border-gray-300 rounded-md p-1 text-sm">
+                                                <select name="admin_status" id="admin_status" class="border-2 border-gray-300 rounded-md p-1 text-sm font-md">
                                                     <option value="">選択</option>
-                                                    <option value="approved">承認</option>
-                                                    <option value="rejected">拒否</option>
+                                                    <option value="合格">合格</option>
+                                                    <option value="不合格" class="text-red-500">不合格</option>
                                                 </select>
 
 
@@ -237,6 +247,95 @@
 
                                         </form>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <form action="{{ route('admin.applications.review', $application) }}" method="POST" class="space-y-2">
+                                            @csrf
+
+                                            <div class="flex justify-normal items-center space-x-2">
+
+                                                <select name="admin_status" id="admin_status" class="border-2 border-gray-300 rounded-md p-1 text-sm font-md">
+                                                    <option value="">選択</option>
+                                                    <option value="合格">合格</option>
+                                                    <option value="不合格" class="text-red-500">不合格</option>
+                                                </select>
+
+
+                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
+                                                提出
+                                            </button>
+                                            </div>
+
+
+
+                                        </form>
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <form action="" method="POST" class="space-y-2">
+                                            @csrf
+
+                                            <div class="flex justify-normal items-center space-x-2">
+
+                                                <input
+                                                type="date"
+                                                name="" id="" class="border-2 border-gray-300 rounded-md p-1 text-sm">
+
+
+                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
+                                                決定
+                                            </button>
+                                        </input>
+                                            </div>
+
+
+
+                                        </form>
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <form action="{{ route('admin.applications.review', $application) }}" method="POST" class="space-y-2">
+                                            @csrf
+
+                                            <div class="flex justify-normal items-center space-x-2">
+
+                                                <select name="admin_status" id="admin_status" class="border-2 border-gray-300 rounded-md p-1 text-sm">
+                                                    <option value="">選択</option>
+                                                    <option value="approved">合格</option>
+                                                    <option value="rejected">不合格</option>
+                                                </select>
+
+
+                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
+                                                提出
+                                            </button>
+                                            </div>
+
+
+
+                                        </form>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <form action="" method="POST" class="space-y-2">
+                                            @csrf
+
+                                            <div class="flex justify-normal items-center space-x-2">
+
+                                                <input
+                                                type="date"
+                                                name="" id="" class="border-2 border-gray-300 rounded-md p-1 text-sm">
+
+
+                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
+                                                決定
+                                            </button>
+                                        </input>
+                                            </div>
+
+
+
+                                        </form>
+                                    </td>
+
 
 
 

@@ -20,7 +20,33 @@ class JobPost extends Model
         'qualification',
         'other',
         'user_id',
-        'category_id'
+        'category_id',
+
+
+        'company_name',
+        'company_furigana',
+        'company_address',
+        'home_url',
+        'type',
+        'my_car',
+        'trial_period',
+        'overtime',
+        'other_allowance',
+        'salary_increase_option',
+        'salary_increase_from',
+        'salary_increase_to',
+        'bonus_increase_option',
+        'bonus_increase_from',
+        'bonus_increase_to',
+
+        'overtime_hour',
+        'break',
+        'holidays',
+        'insurance',
+        'fire_option',
+        'house_option',
+        'childcare_option'
+
     ];
 
 

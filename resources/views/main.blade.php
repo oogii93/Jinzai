@@ -6,7 +6,7 @@
 
 
 
-            <div id="chatBox" class="fixed bottom-4 right-5 z-50 bg-white shadow-lg border rounded-2xl p-6 w-80 transition-all duration-300">
+            {{-- <div id="chatBox" class="fixed bottom-4 right-5 z-50 bg-white shadow-lg border rounded-2xl p-6 w-80 transition-all duration-300">
                 <svg
                 class="w-8 h-8"
                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M8 10.5H16" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M8 14H13.5" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> <path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"></path> </g>
@@ -44,7 +44,7 @@
                         <p class="text-sm text-gray-500 text-center">No admin available for chat.</p>
                     @endif
                 @endif
-            </div>
+            </div> --}}
 
 
 
@@ -93,8 +93,8 @@
                     <div class="mt-5 flex flex-wrap justify-start px-5 gap-2">
                         @foreach ($tags as $item)
                             <a href="{{ route('tags.jobPosts', $item) }}"
-                               class="px-4 py-2 bg-orange-300 rounded-md hover:bg-orange-400 text-md font-medium text-gray-600 hover:text-white
-                                      {{ isset($tag) && $tag->id === $item->id ? 'bg-sky-400 text-white' : '' }}">
+                               class="px-4 py-2 bg-orange-300 rounded-md hover:bg-orange-400 text-md font-semibold text-gray-600 hover:text-white
+                                      {{ isset($tag) && $tag->id === $item->id ? 'bg-orange-400 text-white' : '' }}">
                                 {{ $item->name }}
                             </a>
                         @endforeach
@@ -136,7 +136,7 @@
                         <!-- Right Column (3/5 width) -->
 
 
-                        <div class="md:w-4/5 sm:w-4/5 mx-auto p-6">
+                        <div class="md:w-3/5 sm:w-3/5 mx-auto p-6">
                             <div class="space-y-6">
                                 @foreach ($jobposts as $jobpost)
                                     <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-500 overflow-hidden border border-gray-200">

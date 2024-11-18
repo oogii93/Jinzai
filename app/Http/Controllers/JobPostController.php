@@ -82,6 +82,8 @@ class JobPostController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
+        // dd($request->all());
+
 
 
         $validatedData = $request->validate([
@@ -94,21 +96,79 @@ class JobPostController extends Controller
             'other'=>'nullable',
             'category_id' => 'required|exists:categories,id',
             'tags' => 'nullable|array',  // Changed validation rule
-            'tags.*' => 'exists:tags,id' // Added validation for each tag ID
+            'tags.*' => 'exists:tags,id', // Added validation for each tag ID
+
+            //new added
+            'company_name'=>'required',
+            'company_furigana'=>'required',
+            'company_address'=>'required',
+            'homepage_url'=>'required',
+            'type'=>'required',
+            'my_car' => 'required|in:可,不可', // Validates radio selection
+            'trial_period'=>'required',
+            'overtime'=>'required',
+            'other_allowance'=>'required',
+
+            'salary_increase_option' => 'required|in:可,不可', // Validates radio selection
+            'salary_increase_from' => 'nullable|string|required_if:salary_increase_option,可', // Required if "yes"
+            'salary_increase_to' => 'nullable|string|required_if:salary_increase_option,可', // Required if "yes"
+
+            'bonus_increase_option' => 'required|in:可,不可', // Validates radio selection
+            'bonus_increase_from' => 'nullable|string|required_if:bonus_increase_option,可', // Required if "yes"
+            'bonus_increase_to' => 'nullable|string|required_if:bonus_increase_option,可', // Required if "yes"
+
+            'overtime_hour'=>'required',
+            'break'=>'required',
+            'holidays'=>'required',
+            'insurance'=>'required',
+            'fire_option' => 'required|in:可,不可',
+            'house_option' => 'required|in:可,不可',
+            'childcare_option' => 'required|in:可,不可',
+
+
+
+
 
         ]);
 
-        $jobpost=new JobPost;
-        $jobpost->title=$validatedData['title'];
-        $jobpost->salary=$validatedData['salary'];
-        $jobpost->working_hour=$validatedData['working_hour'];
-        $jobpost->working_location=$validatedData['working_location'];
-        $jobpost->job_detail=$validatedData['job_detail'];
-        $jobpost->qualification=$validatedData['qualification'];
-        $jobpost->other=$validatedData['other'];
-        $jobpost->category_id=$validatedData['category_id'];
-        $jobpost->user_id=Auth::id();
-        $jobpost->save();
+
+        $jobpost = JobPost::create([
+            'title' => $validatedData['title'],
+            'salary' => $validatedData['salary'],
+            'working_hour' => $validatedData['working_hour'],
+            'working_location' => $validatedData['working_location'],
+            'job_detail' => $validatedData['job_detail'],
+            'qualification' => $validatedData['qualification'],
+            'other' => $validatedData['other'],
+            'category_id' => $validatedData['category_id'],
+            'user_id' => Auth::id(),
+
+            'company_name' => $validatedData['company_name'],
+            'company_furigana' => $validatedData['company_furigana'],
+            'company_address' => $validatedData['company_address'],
+            'homepage_url' => $validatedData['homepage_url'],
+            'type' => $validatedData['type'],
+            'my_car' => $validatedData['my_car'],
+            'trial_period' => $validatedData['trial_period'],
+            'overtime' => $validatedData['overtime'],
+            'other_allowance' => $validatedData['other_allowance'],
+
+            'salary_increase_option' => $validatedData['salary_increase_option'],
+            'salary_increase_from' => $validatedData['salary_increase_option'] === 'yes' ? $validatedData['salary_increase_from'] : null,
+            'salary_increase_to' => $validatedData['salary_increase_option'] === 'yes' ? $validatedData['salary_increase_to'] : null,
+
+            'bonus_increase_option' => $validatedData['bonus_increase_option'],
+            'bonus_increase_from' => $validatedData['bonus_increase_option'] === 'yes' ? $validatedData['bonus_increase_from'] : null,
+            'bonus_increase_to' => $validatedData['bonus_increase_option'] === 'yes' ? $validatedData['bonus_increase_to'] : null,
+
+            'overtime_hour' => $validatedData['overtime_hour'],
+            'break' => $validatedData['break'],
+            'holidays' => $validatedData['holidays'],
+            'insurance' => $validatedData['insurance'],
+            'fire_option' => $validatedData['fire_option'],
+            'house_option' => $validatedData['house_option'],
+            'childcare_option' => $validatedData['childcare_option'],
+        ]);
 
         //
         if($request->has('tags')){

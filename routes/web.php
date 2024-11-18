@@ -99,8 +99,10 @@ Route::middleware(['auth'])->group(function () {
 
     // Company routes
     Route::middleware(['check.role:company'])->group(function () {
+
         Route::get('/company/applications', [JobApplicationController::class, 'employerApplications'])
-            ->name('applications.employer');
+            ->name('company.employer');
+
         Route::patch('/applications/{application}/company-status', [JobApplicationController::class, 'updateCompanyStatus'])
             ->name('applications.company-status');
     });

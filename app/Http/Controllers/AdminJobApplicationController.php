@@ -13,15 +13,7 @@ use App\Notifications\ApplicationRejected;
 
 class AdminJobApplicationController extends Controller
 {
-    // public function index()
-    // {
-    //     $applications=JobApplication::where('admin_status', 'pending')
-    //                                 ->with(['jobPost', 'user'])
-    //                                 ->latest()
-    //                                 ->paginate(20);
 
-    //                                 return view('admin.applications.index', compact('applications'));
-    // }
 
     public function index(Request $request)
     {

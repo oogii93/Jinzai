@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobApplication;
+use App\Models\User;
 use App\Models\JobPost;
 
 use Illuminate\Http\Request;
+use App\Models\JobApplication;
 
 class JobApplicationController extends Controller
 {
@@ -39,23 +40,7 @@ class JobApplicationController extends Controller
         return view('applications.index', compact('applications'));
     }
 
-    public function employerApplications()
-    {
 
-
-
-        // For employers to view applications to their job posts
-        $applications = JobApplication::whereHas('jobPost', function ($query) {
-            $query->where('user_id', auth()->id());
-        })
-
-        ->where('admin_status', 'approved')
-        ->with(['jobPost', 'user'])
-        ->latest()
-        ->get();
-
-        return view('applications.employer-index', compact('applications'));
-    }
 
     public function updateCompanyStatus(Request $request, JobApplication $application)
     {
@@ -75,4 +60,53 @@ class JobApplicationController extends Controller
 
         return redirect()->back()->with('success', 'Application status updated!');
     }
+
+
+    public function employerApplications(Request $request)
+    {
+        $authUser = auth()->user(); // Get the authenticated user
+
+        $jobpost = JobPost::with(['category', 'user']) // Add user to eager loading
+            ->where('user_id', $authUser->id) // Only fetch job posts created by the authenticated user
+            ->latest()
+            ->get();
+
+        $status = $request->get('status', 'pending');
+
+        $users = User::where('role', 'jobseeker')
+            ->with('videoProfile')
+            ->get();
+
+        $company = User::where('role', 'company')->get();
+
+        $applications = JobApplication::with([
+                'jobPost',
+                'user'
+            ])
+            ->whereHas('jobPost', function ($query) use ($authUser) {
+                $query->where('user_id', $authUser->id); // Only applications for the authenticated user's job posts
+            })
+            ->when($status !== 'all', function ($query) use ($status) {
+                return $query->where('admin_status', $status);
+            })
+            ->latest()
+            ->paginate();
+
+        $counts = [
+            'pending' => JobApplication::whereHas('jobPost', function ($query) use ($authUser) {
+                $query->where('user_id', $authUser->id); // Count only applications for this user's job posts
+            })->where('admin_status', 'pending')->count(),
+            'approved' => JobApplication::whereHas('jobPost', function ($query) use ($authUser) {
+                $query->where('user_id', $authUser->id); // Count only applications for this user's job posts
+            })->where('admin_status', 'approved')->count(),
+            'rejected' => JobApplication::whereHas('jobPost', function ($query) use ($authUser) {
+                $query->where('user_id', $authUser->id); // Count only applications for this user's job posts
+            })->where('admin_status', 'rejected')->count(),
+        ];
+
+        return view('company.employer', compact('applications', 'counts', 'status', 'users', 'company', 'jobpost'));
+    }
+
+
+
 }

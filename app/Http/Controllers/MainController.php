@@ -31,6 +31,21 @@ class MainController extends Controller
 
         $query=JobPost::with(['category', 'user','tags']);
 
+        if($user){
+            if($user->role ==='admin')
+            {
+
+            }elseif($user->role==='company')
+            {
+                $query->where(function($q) use($user){
+                    $q->where('user_id', $user->id)
+                    ->orWhere('status','approved');
+                });
+            }else{
+                $query->where('status','approved');
+            }
+        }
+
            // Add tag filter
     if ($request->has('tag')) {
         $query->whereHas('tags', function($q) use ($request) {

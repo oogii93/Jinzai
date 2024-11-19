@@ -45,7 +45,8 @@ class JobPost extends Model
         'insurance',
         'fire_option',
         'house_option',
-        'childcare_option'
+        'childcare_option',
+        'status',
 
     ];
 

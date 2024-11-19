@@ -3,18 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class JobApplication extends Model
 {
+
+    protected $cast=[
+        'taisei_interview'=>'datetime'
+    ];
     protected $fillable=[
         'job_post_id',
         'user_id',
         'admin_status',
         'company_status',
-        'admin_remarks',
-        'cover_letter',
-        'resume_path'
+
+        'taisei_interview',
+        'taisei_result',
+        'document_result',
+        'web_interview',
+        'work_start'
+
     ];
+
+
 
     public function jobPost()
     {

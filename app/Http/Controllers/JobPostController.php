@@ -168,6 +168,8 @@ class JobPostController extends Controller
             'fire_option' => $validatedData['fire_option'],
             'house_option' => $validatedData['house_option'],
             'childcare_option' => $validatedData['childcare_option'],
+
+            'status' => '進行中',
         ]);
 
         //
@@ -288,6 +290,50 @@ class JobPostController extends Controller
     }
 
 
+
+    public function pendingPosts()
+    {
+        if(auth()->user()->role !=='admin')
+        {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $pendingPosts=JobPost::where('status', '進行中')->paginate(10);
+        return view('admin.pending-posts', compact('pendingPosts'));
+    }
+
+    public function approve($id)
+    {
+        if(auth()->user()->role !=='admin')
+        {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $jobpost=JobPost::findOrFail($id);
+
+        $jobpost->update(['status'=>'承認']);
+
+          // Optional: Notify the company that their post was approved
+    // You can implement notification logic here
+
+
+        return redirect()->back()->with('success','求人投稿が正常に承認されました。');
+    }
+
+
+    public function reject(Request $request,$id)
+    {
+        if(auth()->user()->role !=='admin')
+        {
+            abort(403, 'Unauthorized action');
+        }
+     $jobpost=JobPost::findOrFail($id);
+     $jobpost->update([
+        'status'=>'拒否'
+     ]);
+
+     return redirect()->back()->with('success','求人投稿は拒否されました。');
+    }
 
     /**
      * Display the specified resource.

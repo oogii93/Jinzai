@@ -132,4 +132,47 @@ class AdminJobApplicationController extends Controller
         return view('admin.dashboard', compact('user', 'jobposts', 'statistics','statistics2'));
     }
 
+
+            public function setDate(Request $request, JobApplication $application)
+        {
+            $request->validate([
+                'taisei_interview' => 'required|date'
+            ]);
+
+            $application->update([
+                'taisei_interview' => $request->taisei_interview
+            ]);
+
+            return redirect()->back()->with('success', '面接日程が設定されました。'); // Success message in Japanese
+        }
+
+            public function setTaiseiInterviewResult(Request $request, JobApplication $application)
+            {
+              $request->validate([
+                'taisei_result'=>'required|in:合格,不合格'
+              ]);
+
+              $application->update([
+                'taisei_result'=>$request->taisei_result
+              ]);
+
+              return redirect()->back()->with('success', '面接の結果が設定されました。');
+            }
+
+
+            public function setDocumentResult(Request $request, JobApplication $application)
+            {
+                $request->validate([
+                    'document_result'=>'required|in:合格,不合格'
+                ]);
+
+                $application->update([
+                    'document_result'=>$request->document_result
+                ]);
+
+                return redirect()->back()->with('success','Documentの結果が設定されました。');
+            }
+
+
+
 }

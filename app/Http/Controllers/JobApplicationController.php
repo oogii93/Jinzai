@@ -13,8 +13,7 @@ class JobApplicationController extends Controller
     public function store(Request $request, JobPost $jobPost)
     {
         $request->validate([
-            'cover_letter' => 'nullable|string',
-            'resume' => 'nullable|file|mimes:pdf,doc,docx|max:2048'
+
         ]);
 
         // Handle file upload if resume is provided
@@ -26,8 +25,7 @@ class JobApplicationController extends Controller
         $application = JobApplication::create([
             'job_post_id' => $jobPost->id,
             'user_id' => auth()->id(),
-            'cover_letter' => $request->cover_letter,
-            'resume_path' => $resumePath
+
         ]);
 
         return redirect()->back()->with('success', 'Application submitted successfully!');
@@ -60,6 +58,15 @@ class JobApplicationController extends Controller
 
         return redirect()->back()->with('success', 'Application status updated!');
     }
+
+
+
+
+
+
+
+
+
 
 
     public function employerApplications(Request $request)

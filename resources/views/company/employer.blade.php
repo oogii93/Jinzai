@@ -69,7 +69,11 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">応募した仕事</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">応募者</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">自己紹介動画</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">応募日付け</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">太成HDs面談結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">書類選考結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">ウェブ面接日</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">最終結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">入社日付</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">作動</th>
                             </tr>
                         </thead>
@@ -99,7 +103,13 @@
                                         <div class="flex items-center">
 
                                             <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">{{ $application->user->name }}</div>
+                                                <div class="text-sm font-medium text-gray-900">{{ $application->user->name }}
+                                                    <br>
+                                                    <small>
+                                                        <span class="text-blue-500 font-semibold">応募日付け</span>
+                                                        {{ $application->created_at->format('Y-m') }}月-{{ $application->created_at->format('d') }}日
+                                                    </small>
+                                                </div>
                                             </div>
                                         </div>
                                     </td>
@@ -153,8 +163,46 @@
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        {{ $application->created_at }}
+                                        <span class="{{ empty($application->taisei_result)
+                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                            {{ $application->taisei_result ?? '進行中' }}
+                                        </span>
                                     </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <span class="{{ empty($application->document_result)
+                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                            {{ $application->document_result ?? '進行中' }}
+                                        </span>
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <span class="{{ empty($application->web_interview)
+                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                            {{ $application->web_interview ?? '進行中' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <span class="{{ empty($application->web_interview)
+                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                            {{ $application->web_interview ?? '進行中' }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <span class="{{ empty($application->web_interview)
+                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                            {{ $application->web_interview ?? '進行中' }}
+                                        </span>
+                                    </td>
+
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        {{ $application->document_result ?? '進行中' }}
+                                    </td> --}}
 
 
 

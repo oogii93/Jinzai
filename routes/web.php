@@ -83,12 +83,42 @@ Route::middleware(['auth'])->group(function () {
 
     // Admin routes
     Route::middleware(['check.role:admin'])->group(function () {
-        Route::get('/admin/applications', [AdminJobApplicationController::class, 'index'])
-        ->name('admin.applications.index');
-    Route::post('/admin/applications/{application}/review', [AdminJobApplicationController::class, 'review'])
-        ->name('admin.applications.review');
-    Route::get('/admin/applications/reviewed', [AdminJobApplicationController::class, 'showReviewed'])
-        ->name('admin.applications.reviewed');
+
+
+            Route::get('/admin/applications', [AdminJobApplicationController::class, 'index'])
+
+            ->name('admin.applications.index');
+
+            Route::post('/admin/applications/{application}/review', [AdminJobApplicationController::class, 'review'])
+
+            ->name('admin.applications.review');
+
+            Route::get('/admin/applications/reviewed', [AdminJobApplicationController::class, 'showReviewed'])
+
+            ->name('admin.applications.reviewed');
+
+
+            //New Application Routes for actions
+
+            //mensetsu udur
+
+            Route::post('/job-applications/{application}/set-date', [AdminJobApplicationController::class, 'setDate'])
+
+            ->name('job-applications.set-date');
+            //mensetsu hariu
+
+            Route::post('job-applications/{application}/set-result',[AdminJobApplicationController::class, 'setTaiseiInterviewResult'])
+
+            ->name('job-applications.set-result');
+
+            //document hariu
+            Route::post('job-applications/{application}/document-result',[AdminJobApplicationController::class, 'setDocumentResult'])
+
+            ->name('job-applications.document-result');
+
+
+            //End Application Routes for actions
+
 
 
             Route::get('/company/dashboard', [CompanyDashboardController::class, 'index'])->name('company.dashboard');
@@ -96,6 +126,9 @@ Route::middleware(['auth'])->group(function () {
                 ->name('company.application.update-status');
             Route::get('/company/applications/{application}', [CompanyDashboardController::class, 'getApplicationDetails']);
     });
+
+
+
 
     // Company routes
     Route::middleware(['check.role:company'])->group(function () {
@@ -309,6 +342,13 @@ Route::middleware(['auth', 'role:company'])->group(function () {
 
             Route::get('/admin/company/{user}/show', [UserController::class, 'companyShow'])
                 ->name('admin.company.show');
+
+                //Admin route for approval
+
+
+                Route::get('/admin/pending-posts', [JobPostController::class, 'pendingPosts'])->name('jobpost.pending');
+                Route::post('/admin/posts/{id}/approve', [JobPostController::class, 'approve'])->name('jobpost.approve');
+                Route::post('/admin/posts/{id}/reject', [JobPostController::class, 'reject'])->name('jobpost.reject');
 
 
 

@@ -165,7 +165,7 @@
                                 @foreach ($categories as $category)
                                     <li class="rounded-md">
                                         {{-- Main Category --}}
-                                        <div class="px-2 py-2 bg-sky-100 border border-sky-400 hover:bg-gray-100 flex justify-between items-center">
+                                        <div class="px-2 py-2 bg-sky-100 border border-sky-200 hover:bg-gray-100 flex justify-between items-center">
                                             <a href="{{ route('categories.jobPosts', $category) }}"
                                                class="flex-1 text-gray-700  font-semibold hover:text-sky-600 {{ request()->route('category')?->id === $category->id ? 'font-semibold text-sky-600' : '' }}">
                                                 {{ $category->name }}

@@ -15,7 +15,10 @@
     </button>
 
     @if(auth()->user()->role === 'admin')
+    <h2 class="text-sm font-semibold">チャト一覧</h2>
         <div class="space-y-2 py-3">
+
+
             @foreach($users as $user)
                 @if($user->id !== auth()->id())
                     <a href="{{ route('chat.show', $user) }}"

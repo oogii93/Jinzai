@@ -109,10 +109,10 @@
                                 </div> --}}
 
                                 <div class="mb-4">
-                                    <label for="category_id" class="block text-sm font-medium text-gray-700">Category</label>
+                                    <label for="category_id" class="block text-sm font-medium text-gray-700">業種</label>
                                     <select id="category_id" name="category_id"
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <option value="">Select Category</option>
+                                            class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">業種選択</option>
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
@@ -120,10 +120,10 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="category2_id" class="block text-sm font-medium text-gray-700">Subcategory</label>
+                                    <label for="category2_id" class="block text-sm font-medium text-gray-700">職種</label>
                                     <select id="category2_id" name="category2_id"
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                        <option value="">Select Subcategory</option>
+                                            class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">職種選択</option>
                                     </select>
                                 </div>
 
@@ -495,12 +495,12 @@
         const categoryId = this.value;
 
         // Clear current subcategories
-        subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+        subcategorySelect.innerHTML = '<option value="">職種選択</option>';
 
         if (categoryId) {
             // Disable subcategory select while loading
             subcategorySelect.disabled = true;
-            subcategorySelect.innerHTML = '<option value="">Loading...</option>';
+            subcategorySelect.innerHTML = '<option value="">読み込み中...</option>';
 
             // Use the correct URL with Laravel's route
             fetch(`{{ route('get.subcategories', '') }}/${categoryId}`, {
@@ -517,7 +517,7 @@
                 return response.json();
             })
             .then(data => {
-                subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+                subcategorySelect.innerHTML = '<option value="">職種選択</option>';
                 data.forEach(subcategory => {
                     const option = document.createElement('option');
                     option.value = subcategory.id;

@@ -64,8 +64,8 @@ class MainController extends Controller
         $searchQuery = $request->input('search');
         if ($searchQuery) {
             $query->where(function ($q) use ($searchQuery) {
-                $q->where('title', 'like', '%' . $searchQuery . '%')
-                    ->orWhere('salary', 'like', '%' . $searchQuery . '%')
+                $q->where('salary', 'like', '%' . $searchQuery . '%')
+                    // ->orWhere('salary', 'like', '%' . $searchQuery . '%')
                     ->orWhere('working_location', 'like', '%' . $searchQuery . '%')
                     ->orWhere('working_hour', 'like', '%' . $searchQuery . '%')
                     ->orWhere('qualification', 'like', 'like', '%' . $searchQuery . '%');

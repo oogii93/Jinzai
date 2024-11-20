@@ -165,9 +165,9 @@
                                 @foreach ($categories as $category)
                                     <li class="rounded-md">
                                         {{-- Main Category --}}
-                                        <div class="px-2 py-2 hover:bg-gray-50 flex justify-between items-center">
+                                        <div class="px-2 py-2 bg-sky-100 border border-sky-400 hover:bg-gray-100 flex justify-between items-center">
                                             <a href="{{ route('categories.jobPosts', $category) }}"
-                                               class="flex-1 text-gray-700 font-semibold hover:text-blue-600 {{ request()->route('category')?->id === $category->id ? 'font-semibold text-blue-600' : '' }}">
+                                               class="flex-1 text-gray-700  font-semibold hover:text-sky-600 {{ request()->route('category')?->id === $category->id ? 'font-semibold text-sky-600' : '' }}">
                                                 {{ $category->name }}
                                             </a>
                                             @if($category->subcategories->count() > 0)
@@ -186,9 +186,9 @@
 
                                             <ul id="subcategories-{{ $category->id }}"
                                                 class="ml-4 mt-1 border-l-2 border-gray-100 hidden transition-all duration-200">
-                                                <h3 class="text-center text-md font-semibold text-sky-500">職種</h3>
+                                                <h3 class="text-center text-lg font-semibold text-sky-600 mb-2 bg-gray-200 py-2 border border-gray-300">職種</h3>
                                                 @foreach($category->subcategories as $subcategory)
-                                                    <li class="pl-2 border border-gray-200">
+                                                    <li class="pl-2 border border-gray-200 bg-gray-50">
                                                         {{-- <a href="{{ route('categories.jobPosts', ['category' => $category, 'subcategory' => $subcategory]) }}"
                                                            class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md
                                                                   {{ request()->query('subcategory') == $subcategory->id ? 'bg-blue-50 text-blue-600 font-medium' : '' }}">
@@ -197,8 +197,8 @@
 
 
                                                         <a href="{{ route('categories.subcategory', ['category' => $category, 'subcategory' => $subcategory]) }}"
-                                                            class="block px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md
-                                                                   {{ request()->route('subcategory')?->id === $subcategory->id ? 'bg-blue-50 text-blue-600 font-medium' : '' }}">
+                                                            class="block px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-sky-100 hover:text-sky-700
+                                                                   {{ request()->route('subcategory')?->id === $subcategory->id ? 'bg-blue-50 text-sky-700 font-medium' : '' }}">
                                                              {{ $subcategory->name }}
                                                          </a>
 

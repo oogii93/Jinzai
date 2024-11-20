@@ -14,4 +14,13 @@ class Category extends Model
     {
         return $this->hasMany(JobPost::class);
     }
+
+    public function subcategories()
+    {
+        return $this->hasMany(Category2::class, 'category_id');
+    }
+
+
+
+
 }

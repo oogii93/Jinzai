@@ -174,5 +174,19 @@ class AdminJobApplicationController extends Controller
             }
 
 
+            public function setDate2(Request $request, JobApplication $application)
+        {
+            $request->validate([
+                'web_interview' => 'required|date'
+            ]);
+
+            $application->update([
+                'web_interview' => $request->web_interview
+            ]);
+
+            return redirect()->back()->with('success', 'ウェブ面接日が設定されました。'); // Success message in Japanese
+        }
+
+
 
 }

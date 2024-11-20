@@ -93,6 +93,8 @@
 
                         <a href="{{ route('categories.index') }}"
                             class="block px-4 py-2 w-48 hover:bg-sky-500 hover:text-white transition duration-300 font-mono">カテゴリー</a>
+                        <a href="{{ route('categories2.index') }}"
+                            class="block px-4 py-2 w-48 hover:bg-sky-500 hover:text-white transition duration-300 font-mono">カテゴリー2</a>
 
                         <a href="{{ route('tags.index') }}"
                             class="block px-4 py-2 w-48 hover:bg-sky-500 hover:text-white transition duration-300 font-mono">タグ</a>

@@ -47,6 +47,8 @@ class JobPost extends Model
         'house_option',
         'childcare_option',
         'status',
+        'category2_id',
+
 
     ];
 
@@ -74,4 +76,10 @@ class JobPost extends Model
 {
     return $this->belongsTo(User::class, 'company_id');
 }
+
+
+    public function category2()
+    {
+        return $this->belongsTo(Category2::class, 'category2_id');
+    }
 }

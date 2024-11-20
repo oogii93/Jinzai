@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\JobPost;
 use App\Models\Category;
+use App\Models\Category2;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,18 @@ class JobPostController extends Controller
 
     //     return view('main',compact('jobposts', 'categories'));
     // }
+
+
+    public function getSubcategories(Category $category)
+    {
+        try {
+            $subcategories = $category->subcategories()->select('id', 'name')->get();
+            return response()->json($subcategories);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to load subcategories'], 500);
+        }
+    }
+
 
 
 
@@ -57,10 +70,11 @@ class JobPostController extends Controller
         abort(403, 'unauthorized action.');
     }
         $categories=Category::all();
+        $categories2=Category2::all();
 
         $tags = Tag::all();
         // dd($tags);
-        return view('jobpost.create', compact('categories','tags'));
+        return view('jobpost.create', compact('categories','tags','categories2'));
     }
 
     public function show(string $id)
@@ -87,7 +101,7 @@ class JobPostController extends Controller
 
 
         $validatedData = $request->validate([
-            'title' => 'required',
+            'title' => 'nullable',
             'salary' => 'required',
             'working_hour'=>'required',
             'working_location'=>'required',
@@ -124,6 +138,7 @@ class JobPostController extends Controller
             'fire_option' => 'required|in:可,不可',
             'house_option' => 'required|in:可,不可',
             'childcare_option' => 'required|in:可,不可',
+            'category2_id' => 'required|exists:categories2,id',
 
 
 
@@ -133,7 +148,7 @@ class JobPostController extends Controller
 
 
         $jobpost = JobPost::create([
-            'title' => $validatedData['title'],
+            // 'title' => $validatedData['title'],
             'salary' => $validatedData['salary'],
             'working_hour' => $validatedData['working_hour'],
             'working_location' => $validatedData['working_location'],
@@ -170,6 +185,7 @@ class JobPostController extends Controller
             'childcare_option' => $validatedData['childcare_option'],
 
             'status' => '進行中',
+            'category2_id'=>$validatedData['category2_id']
         ]);
 
         //
@@ -334,6 +350,8 @@ class JobPostController extends Controller
 
      return redirect()->back()->with('success','求人投稿は拒否されました。');
     }
+
+
 
     /**
      * Display the specified resource.

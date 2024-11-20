@@ -21,7 +21,7 @@
 
 
 
-                            <div class="space-y-2">
+                            {{-- <div class="space-y-2">
                                 <label for="title" class="block text-sm font-mono text-gray-700">
                                     役職
                                     <span class="text-red-500">*</span>
@@ -29,7 +29,7 @@
                                 <input type="text" name="title" id="title"
                                     class="w-full rounded-md border border-gray-400"
                                     placeholder="役職名を入力してください" required>
-                            </div>
+                            </div> --}}
 
 
                             <div class="space-y-2">
@@ -45,28 +45,15 @@
 
                             <div class="space-y-2">
                                 <label for="title" class="block text-sm font-mono text-gray-700">
-                                    会社名（ふりがな）
+                                    会社名（フリガナ）
                                     <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" name="company_furigana" id="company_furigana"
                                     class="w-full rounded-md border border-gray-400"
-                                    placeholder="ふりがなを入力してください" required>
+                                    placeholder="フリガナを入力してください" required>
                             </div>
 
-                            <div class="space-y-2">
-                                <label for="tags" class="block text-sm font-medium text-gray-700">
-                                   分類
-                                </label>
-                                <select name="tags[]" multiple
-                                    class="w-full rounded-md border border-gray-400 ">
-                                    @foreach($tags as $tag)
-                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('tags')
-                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
+
 
                             <div class="space-y-2">
                                 <label for="company_address" class="block text-sm font-mono text-gray-700">
@@ -91,9 +78,9 @@
                             </div>
 
                                   <!-- Category -->
-                                  <div class="space-y-2">
+                                  {{-- <div class="space-y-2">
                                     <label for="category" class="block text-sm font-medium text-gray-700">
-                                        募集職種
+                                        業種
                                         <span class="text-red-500">*</span>
                                     </label>
                                     <select name="category_id" id="category"
@@ -104,6 +91,43 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                  <!-- Category２ -->
+
+                                  <div class="space-y-2">
+                                    <label for="category2" class="block text-sm font-medium text-gray-700">
+                                        業種
+                                        <span class="text-red-500">*</span>
+                                    </label>
+                                    <select name="category2_id" id="category2"
+                                        class="w-full rounded-md border border-gray-400">
+                                        <option value="default">選択</option>
+                                        @foreach($categories2 as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+
+                                <div class="mb-4">
+                                    <label for="category_id" class="block text-sm font-medium text-gray-700">Category</label>
+                                    <select id="category_id" name="category_id"
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">Select Category</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="category2_id" class="block text-sm font-medium text-gray-700">Subcategory</label>
+                                    <select id="category2_id" name="category2_id"
+                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                        <option value="">Select Subcategory</option>
+                                    </select>
+                                </div>
+
+
 
                         <!-- Job Details -->
                         <div class="space-y-2">
@@ -407,6 +431,21 @@
                             placeholder="その他の情報を入力してください。"></textarea>
                     </div>
 
+                    <div class="space-y-2">
+                        <label for="tags" class="block text-sm font-medium text-gray-700">
+                           分類
+                        </label>
+                        <select name="tags[]" multiple
+                            class="w-full rounded-md border border-gray-400 ">
+                            @foreach($tags as $tag)
+                                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('tags')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                         <!-- Form Actions -->
                         <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-100">
                             <a href="{{ route('jobpost.index') }}"
@@ -444,5 +483,60 @@
                     rangeInputs2.classList.add('hidden');
                 }
             }
+
+            document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('category_id');
+    const subcategorySelect = document.getElementById('category2_id');
+
+    // Add CSRF token to all fetch requests
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    categorySelect.addEventListener('change', function() {
+        const categoryId = this.value;
+
+        // Clear current subcategories
+        subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+
+        if (categoryId) {
+            // Disable subcategory select while loading
+            subcategorySelect.disabled = true;
+            subcategorySelect.innerHTML = '<option value="">Loading...</option>';
+
+            // Use the correct URL with Laravel's route
+            fetch(`{{ route('get.subcategories', '') }}/${categoryId}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                subcategorySelect.innerHTML = '<option value="">Select Subcategory</option>';
+                data.forEach(subcategory => {
+                    const option = document.createElement('option');
+                    option.value = subcategory.id;
+                    option.textContent = subcategory.name;
+                    subcategorySelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                subcategorySelect.innerHTML = '<option value="">Error loading subcategories</option>';
+            })
+            .finally(() => {
+                subcategorySelect.disabled = false;
+            });
+        }
+    });
+});
+
+
+
         </script>
     </x-app-layout>

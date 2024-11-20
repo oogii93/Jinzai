@@ -179,60 +179,74 @@
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+
+
                                         <span class="{{ empty($application->web_interview)
-                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
-                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                            {{ $application->web_interview ?? '進行中' }}
-                                        </span>
+                                            ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                            : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                                {{ Carbon\Carbon::parse($application->web_interview)->format('Y-m-d H:i') ?? '進行中' }}
+                                            </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <span class="{{ empty($application->web_interview)
-                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
-                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                            {{ $application->web_interview ?? '進行中' }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <span class="{{ empty($application->web_interview)
-                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
-                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                            {{ $application->web_interview ?? '進行中' }}
-                                        </span>
-                                    </td>
-
-                                    {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        {{ $application->document_result ?? '進行中' }}
-                                    </td> --}}
+                         <!--Employer controller -->
 
 
 
+                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+
+                            {{-- <form action="{{ route('job-applications.set-date2',$application) }}" method="POST" class="space-y-2"> --}}
+
+                            <form action="{{ route('applications.company-status',$application) }}" method="POST" class="space-y-2">
+                                @csrf
+
+                                <div class="flex justify-normal items-center space-x-2">
+
+                                    <select name="company_status" id="company_status" class="border-2 border-gray-300 rounded-md p-1 text-sm">
+                                        <option value="">選択</option>
+                                        <option value="approved">合格</option>
+                                        <option value="rejected">不合格</option>
+                                    </select>
+
+
+                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
+                                    提出
+                                </button>
+                                </div>
+
+
+
+                            </form>
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                            <form action="" method="POST" class="space-y-2">
+                                @csrf
+
+                                <div class="flex justify-normal items-center space-x-2">
+
+                                    <input
+                                    type="date"
+                                    name="" id="" class="border-2 border-gray-300 rounded-md p-1 text-sm">
+
+
+                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
+                                    決定
+                                </button>
+                            </input>
+                                </div>
+
+
+
+                            </form>
+                        </td>
 
 
 
 
 
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <form action="{{ route('admin.applications.review', $application) }}" method="POST" class="space-y-2">
-                                            @csrf
-
-                                            <div class="flex justify-normal items-center space-x-2">
-
-                                                <select name="admin_status" id="admin_status" class="border-2 border-gray-300 rounded-md p-1 text-sm">
-                                                    <option value="">選択</option>
-                                                    <option value="approved">承認</option>
-                                                    <option value="rejected">拒否</option>
-                                                </select>
-
-
-                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
-                                                提出
-                                            </button>
-                                            </div>
 
 
 
-                                        </form>
-                                    </td>
+
 
 
 

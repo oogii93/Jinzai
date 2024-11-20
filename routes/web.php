@@ -16,6 +16,7 @@ use App\Http\Controllers\CategoryController;
 
 
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\Category2Controller;
 use App\Http\Controllers\VideoProfileController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\CompanyDashboardController;
@@ -116,6 +117,10 @@ Route::middleware(['auth'])->group(function () {
 
             ->name('job-applications.document-result');
 
+            Route::post('/job-applications/{application}/set-date2', [AdminJobApplicationController::class, 'setDate2'])
+
+            ->name('job-applications.set-date2');
+
 
             //End Application Routes for actions
 
@@ -185,6 +190,12 @@ Route::middleware('auth')->group(function () {
                 Route::get('/{id}/edit', [JobPostController::class, 'edit'])->name('jobpost.edit');
                 Route::put('/{id}', [JobPostController::class, 'update'])->name('jobpost.update');
                 Route::delete('/{id}', [JobPostController::class, 'destroy'])->name('jobpost.destroy');
+
+                Route::get('get-subcategories/{category}', [JobPostController::class, 'getSubcategories'])
+
+                ->name('get.subcategories');
+
+
                 // ... other routes
             });
 
@@ -197,8 +208,21 @@ Route::middleware('auth')->group(function () {
             Route::get('/categories/{category}/posts', [MainController::class, 'getJobPostsByCategory'])
                  ->name('categories.jobPosts');
 
-                 Route::get('/categories/{category}', [MainController::class, 'filterByCategory'])->name('categories.jobPosts');
-Route::get('/tags/{tag}', [MainController::class, 'filterByTag'])->name('tags.jobPosts');
+            Route::get('/categories/{category}', [MainController::class, 'filterByCategory'])
+
+            ->name('categories.jobPosts');
+
+            Route::get('/tags/{tag}', [MainController::class, 'filterByTag'])
+
+            ->name('tags.jobPosts');
+
+            Route::get('/categories/{category}/subcategory/{subcategory}',[MainController::class, 'filterBySubcategory'])
+
+            ->name('categories.subcategory');
+
+
+
+
         });
     });
 
@@ -305,6 +329,33 @@ Route::middleware(['auth', 'role:company'])->group(function () {
 
                 Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])
                     ->name('categories.destroy');
+
+
+                    // SUB Category CRUD route
+
+                    Route::get('/categories2', [Category2Controller::class, 'index'])
+                    ->name('categories2.index');
+
+                Route::get('/categories2/create', [Category2Controller::class, 'create'])
+                    ->name('categories2.create');
+
+                Route::post('/categories2', [Category2Controller::class, 'store'])
+                    ->name('categories2.store');
+
+
+
+                Route::get('/categories2/{category}/edit', [Category2Controller::class, 'edit'])
+                    ->name('categories2.edit');
+
+                Route::put('/categories2/{category}', [Category2Controller::class, 'update'])
+                    ->name('categories2.update');
+
+                Route::delete('/categories2/{category2}', [Category2Controller::class, 'destroy'])
+                    ->name('categories2.destroy');
+
+
+
+
 
 
 

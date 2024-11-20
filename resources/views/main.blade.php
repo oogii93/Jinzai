@@ -1,4 +1,29 @@
 <x-app-layout>
+    <style>
+        /* Add these to your CSS file if you want the dropdown arrow transition */
+.category-arrow {
+    @apply transition-transform duration-200 ease-in-out;
+}
+
+.category-expanded .category-arrow {
+    @apply transform rotate-180;
+}
+
+/* Optional: Add these custom styles to your existing Tailwind CSS */
+@layer components {
+    .category-link {
+        @apply block w-full px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200;
+    }
+
+    .subcategory-link {
+        @apply block w-full px-3 py-1.5 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200;
+    }
+
+    .active-category {
+        @apply font-semibold text-blue-600 bg-blue-50;
+    }
+}
+    </style>
 
 
 
@@ -93,8 +118,8 @@
                     <div class="mt-5 flex flex-wrap justify-start px-5 gap-2">
                         @foreach ($tags as $item)
                             <a href="{{ route('tags.jobPosts', $item) }}"
-                               class="px-4 py-2 bg-orange-300 rounded-md hover:bg-orange-400 text-md font-semibold text-gray-600 hover:text-white
-                                      {{ isset($tag) && $tag->id === $item->id ? 'bg-orange-400 text-white' : '' }}">
+                               class="px-4 py-2 bg-green-300 rounded-md hover:bg-green-400 text-md font-semibold text-gray-600 hover:text-white
+                                      {{ isset($tag) && $tag->id === $item->id ? 'bg-green-400 text-white' : '' }}">
                                 {{ $item->name }}
                             </a>
                         @endforeach
@@ -117,8 +142,8 @@
                     <div class="flex gap-6 px-2">
 
                         <!-- Left Column (2/5 width) -->
-                        <div class="md:w-1/5 sm:w-3/5 bg-white p-4 shadow rounded-lg px-2">
-                            <h2 class="text-xl font-semibold mb-4 text-center text-gray-700">職種</h2>
+                        {{-- <div class="md:w-1/5 sm:w-3/5 bg-white p-4 shadow rounded-lg px-2">
+                            <h2 class="text-xl font-semibold mb-4 text-center text-gray-700">業種</h2>
                             <ul class="space-y-2 text-l mb-2">
                                 @foreach ($categories as $item)
                                     <li class="px-2 hover:bg-gray-100 rounded {{ isset($category) && $category->id === $item->id ? 'bg-gray-100' : '' }}">
@@ -126,6 +151,62 @@
                                            class="hover:underline hover:text-stone-800 px-2 {{ isset($category) && $category->id === $item->id ? 'font-semibold' : '' }}">
                                             {{ $item->name }}
                                         </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div> --}}
+
+                        <div class="md:w-1/5 sm:w-3/5 bg-white p-4 shadow rounded-lg px-2">
+                            <h2 class="text-2xl font-semibold mb-4 text-center text-sky-700">業種</h2>
+                            <ul class="space-y-2">
+
+
+
+                                @foreach ($categories as $category)
+                                    <li class="rounded-md">
+                                        {{-- Main Category --}}
+                                        <div class="px-2 py-2 hover:bg-gray-50 flex justify-between items-center">
+                                            <a href="{{ route('categories.jobPosts', $category) }}"
+                                               class="flex-1 text-gray-700 font-semibold hover:text-blue-600 {{ request()->route('category')?->id === $category->id ? 'font-semibold text-blue-600' : '' }}">
+                                                {{ $category->name }}
+                                            </a>
+                                            @if($category->subcategories->count() > 0)
+                                                <button
+                                                    onclick="toggleSubcategories(event, 'subcategories-{{ $category->id }}')"
+                                                    class="text-gray-400 hover:text-gray-600 transform transition-transform duration-200 focus:outline-none"
+                                                    data-rotation="0">
+                                                    ▼
+                                                </button>
+                                            @endif
+                                        </div>
+
+                                        {{-- Subcategories --}}
+                                        @if($category->subcategories->count() > 0)
+
+
+                                            <ul id="subcategories-{{ $category->id }}"
+                                                class="ml-4 mt-1 border-l-2 border-gray-100 hidden transition-all duration-200">
+                                                <h3 class="text-center text-md font-semibold text-sky-500">職種</h3>
+                                                @foreach($category->subcategories as $subcategory)
+                                                    <li class="pl-2 border border-gray-200">
+                                                        {{-- <a href="{{ route('categories.jobPosts', ['category' => $category, 'subcategory' => $subcategory]) }}"
+                                                           class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md
+                                                                  {{ request()->query('subcategory') == $subcategory->id ? 'bg-blue-50 text-blue-600 font-medium' : '' }}">
+                                                            {{ $subcategory->name }}
+                                                        </a> --}}
+
+
+                                                        <a href="{{ route('categories.subcategory', ['category' => $category, 'subcategory' => $subcategory]) }}"
+                                                            class="block px-3 py-2 text-sm font-semibold text-gray-600 hover:bg-gray-50 hover:text-blue-600 rounded-md
+                                                                   {{ request()->route('subcategory')?->id === $subcategory->id ? 'bg-blue-50 text-blue-600 font-medium' : '' }}">
+                                                             {{ $subcategory->name }}
+                                                         </a>
+
+
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
                                     </li>
                                 @endforeach
                             </ul>
@@ -406,6 +487,42 @@
         }
         isSmall = !isSmall;
     });
+});
+
+
+
+function toggleSubcategories(event, subcategoriesId) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const button = event.currentTarget;
+    const subcategoriesList = document.getElementById(subcategoriesId);
+    const currentRotation = parseInt(button.getAttribute('data-rotation')) || 0;
+
+    // Toggle subcategories visibility
+    if (subcategoriesList.classList.contains('hidden')) {
+        subcategoriesList.classList.remove('hidden');
+        button.style.transform = 'rotate(180deg)';
+        button.setAttribute('data-rotation', '180');
+    } else {
+        subcategoriesList.classList.add('hidden');
+        button.style.transform = 'rotate(0deg)';
+        button.setAttribute('data-rotation', '0');
+    }
+}
+
+// Optionally: Show active category's subcategories by default
+document.addEventListener('DOMContentLoaded', function() {
+    const activeCategory = document.querySelector('.text-blue-600')?.closest('li');
+    if (activeCategory) {
+        const subcategoriesList = activeCategory.querySelector('ul');
+        const button = activeCategory.querySelector('button');
+        if (subcategoriesList && button) {
+            subcategoriesList.classList.remove('hidden');
+            button.style.transform = 'rotate(180deg)';
+            button.setAttribute('data-rotation', '180');
+        }
+    }
 });
 
     </script>

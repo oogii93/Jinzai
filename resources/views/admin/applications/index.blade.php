@@ -84,7 +84,7 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">自己紹介動画</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">TaiseiHDs面談日付け</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">TaiseiHDs面談結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">書選</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">書類選考</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">ウェブ面接日</th>
 
 
@@ -285,15 +285,19 @@
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <form action="" method="POST" class="space-y-2">
+
+                                        <form action="{{ route('job-applications.set-date2',$application) }}" method="POST" class="space-y-2">
                                             @csrf
 
                                             <div class="flex justify-normal items-center space-x-2">
 
                                                 <input
-                                                type="date"
-                                                name="" id="" class="border-2 border-gray-300 rounded-md p-1 text-sm">
-
+                                                type="datetime-local"
+                                                name="web_interview"
+                                                id="web_interview"
+                                                class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                value="{{ old('web_interview', $application->web_interview ? Carbon\Carbon::parse($application->web_interview)->format('Y-m-d\TH:i') : '') }}"
+                                            >
 
                                             <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
                                                 決定
@@ -305,6 +309,12 @@
 
                                         </form>
                                     </td>
+
+
+
+
+
+
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
                                         <form action="{{ route('admin.applications.review', $application) }}" method="POST" class="space-y-2">

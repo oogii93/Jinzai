@@ -47,9 +47,6 @@ class JobApplicationController extends Controller
             abort(403);
         }
 
-        if($application->admin_status !== 'approved'){
-            abort(403, 'This application is not yet approved by admin');
-        }
 
         $request->validate([
             'company_status' => 'required|in:pending,under_review,accepted,rejected'

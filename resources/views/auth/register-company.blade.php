@@ -171,10 +171,10 @@
 
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="industry" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        行動の方向性
+                        業種
                     </label>
                     <input class="px-5 py-3 text-sm text-gray-700 w-full @error('industry') border-red-300 @enderror"
-                        name="industry" id="industry" type="text" value="{{ old('industry') }}" required placeholder="行動の方向性を入力してください。">
+                        name="industry" id="industry" type="text" value="{{ old('industry') }}" required placeholder=" 業種を入力してください。">
                     </input>
 
                     @error('industry')

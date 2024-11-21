@@ -64,27 +64,37 @@
                     <div class="container bg-white-100 px-5 py-2">
 
 
-                        @foreach($pendingPosts as $post)
-                        <div class="card mb-3 border border-gray-300 px-2 py-2 rounded-lg">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $post->title }}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ $post->company_name }}</h6>
+                        <div class="job-posts-container">
+                            @forelse($pendingPosts as $post)
+                                <div class="job-post-item" id="job-post-{{ $post->id }}">
+                                    <div class="job-post-content border border-blue-200">
+                                        <h3><span class="text-gray-700 font-semibold text-lg">投稿タイトル: </span>{{ $post->title }}</h3>
+                                        <p> <span class="text-gray-700 font-semibold text-md">会社:</span> {{ $post->user->name }}</p>
+                                        <p> <span class="text-gray-700 font-semibold text-md">ステータス: </span><span class="status-text" id="status-{{ $post->id }}">{{ $post->status }}</span></p>
+                                        <!-- Add other job post details as needed -->
+                                    </div>
 
-                                <div class="mt-3">
-                                    <form action="{{ route('jobpost.approve', $post->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success">Approve</button>
-                                    </form>
+                                    <div class="action-buttons mt-2">
+                                        <button
+                                            class="bg-sky-400 px-2 py-2 rounded-lg text-white font-semibold hover:bg-sky-600 "
+                                            onclick="updateStatus('{{ $post->id }}', '承認')"
+                                            {{ $post->status === '承認' ? 'disabled' : '' }}
+                                        >
+                                            承認する
+                                        </button>
 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal{{ $post->id }}">
-                                        Reject
-                                    </button>
+                                        <button
+                                               class="bg-orange-400 px-2 py-2 rounded-lg text-white font-semibold hover:bg-orange-600"
+                                            onclick="updateStatus('{{ $post->id }}', '拒否')"
+                                            {{ $post->status === '拒否' ? 'disabled' : '' }}
+                                        >
+                                            拒否する
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-
-                        @endforeach
+                            @empty
+                                <p>承認待ちの求人はありません。</p>
+                            @endforelse
 
                         {{ $pendingPosts->links() }}
                     </div>
@@ -97,6 +107,59 @@
                 </div>
             </div>
         </div>
+
+
+        <script>
+            function updateStatus(id, status) {
+    const url = status === '承認'
+        ? `/admin/posts/${id}/approve`
+        : `/admin/posts/${id}/reject`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update status text
+            document.querySelector(`#status-${id}`).textContent = data.status;
+
+            // Update buttons state
+            const approveBtn = document.querySelector(`#job-post-${id} .approve-btn`);
+            const rejectBtn = document.querySelector(`#job-post-${id} .reject-btn`);
+
+            if (status === '承認') {
+                approveBtn.disabled = true;
+                rejectBtn.disabled = false;
+            } else if (status === '拒否') {
+                approveBtn.disabled = false;
+                rejectBtn.disabled = true;
+            }
+
+            // Show success message
+            alert(data.message);
+
+            // Optionally remove from pending list if needed
+            if (status === '承認' || status === '拒否') {
+                const jobPost = document.querySelector(`#job-post-${id}`);
+                if (jobPost) {
+                    jobPost.remove();
+                }
+            }
+        }
+    })
+    // .catch(error => {
+    //     console.error('Error:', error);
+    //     alert('エラーが発生しました。');
+    // });
+}
+
+        </script>
     </x-app-layout>
 
 

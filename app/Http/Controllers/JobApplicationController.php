@@ -56,6 +56,38 @@ class JobApplicationController extends Controller
         return redirect()->back()->with('success', 'Application status updated!');
     }
 
+    public function companyResult(Request $request, JobApplication $application)
+    {
+
+          // Validate the request
+        $request->validate([
+            'company_result' => 'required|in:合格,不合格',
+        ]);
+
+        $application->update([
+            'company_result'=>$request->company_result
+        ]);
+
+        return redirect()->back()->with('success','Documentの結果が設定されました。');
+
+    }
+
+    public function companyStartDate(Request $request, JobApplication $application)
+    {
+
+          // Validate the request
+        $request->validate([
+            'work_start' => 'required|date',
+        ]);
+
+        $application->update([
+            'work_start'=>$request->work_start
+        ]);
+
+        return redirect()->back()->with('success','Documentの結果が設定されました。');
+
+    }
+
 
 
 

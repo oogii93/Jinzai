@@ -21,7 +21,7 @@
 
 
 
-                            {{-- <div class="space-y-2">
+                         {{-- <div class="space-y-2">
                                 <label for="title" class="block text-sm font-mono text-gray-700">
                                     役職
                                     <span class="text-red-500">*</span>
@@ -31,9 +31,19 @@
                                     placeholder="役職名を入力してください" required>
                             </div> --}}
 
-
                             <div class="space-y-2">
                                 <label for="title" class="block text-sm font-mono text-gray-700">
+                                    投稿タイトル
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" name="title" id="title"
+                                    class="w-full rounded-md border border-gray-400"
+                                    placeholder="投稿タイトルを入力してください" required>
+                            </div>
+
+
+                            <div class="space-y-2">
+                                <label for="company_name" class="block text-sm font-mono text-gray-700">
                                     会社名
                                     <span class="text-red-500">*</span>
                                 </label>
@@ -68,7 +78,7 @@
 
 
                             <div class="space-y-2">
-                                <label for="working_location" class="block text-sm font-mono text-gray-700">
+                                <label for="homepage_url" class="block text-sm font-mono text-gray-700">
                                     ホームページURL
                                     <span class="text-red-500">*</span>
                                 </label>
@@ -77,36 +87,7 @@
                                     placeholder="URLを入力" required>
                             </div>
 
-                                  <!-- Category -->
-                                  {{-- <div class="space-y-2">
-                                    <label for="category" class="block text-sm font-medium text-gray-700">
-                                        業種
-                                        <span class="text-red-500">*</span>
-                                    </label>
-                                    <select name="category_id" id="category"
-                                        class="w-full rounded-md border border-gray-400">
-                                        <option value="default">選択</option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
 
-                                  <!-- Category２ -->
-
-                                  <div class="space-y-2">
-                                    <label for="category2" class="block text-sm font-medium text-gray-700">
-                                        業種
-                                        <span class="text-red-500">*</span>
-                                    </label>
-                                    <select name="category2_id" id="category2"
-                                        class="w-full rounded-md border border-gray-400">
-                                        <option value="default">選択</option>
-                                        @foreach($categories2 as $category)
-                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div> --}}
 
                                 <div class="mb-4">
                                     <label for="category_id" class="block text-sm font-medium text-gray-700">業種</label>
@@ -142,7 +123,7 @@
 
 
                         <div class="space-y-2">
-                            <label for="working_location" class="block text-sm font-mono text-gray-700">
+                            <label for="type" class="block text-sm font-mono text-gray-700">
                                雇用形態
                                 <span class="text-red-500">*</span>
                             </label>
@@ -213,7 +194,102 @@
                             placeholder="給料を入力してください" required>
                     </div>
 
-                    <div class="space-y-2">
+
+                   <div class="space-y-2">
+                        <label for="working_hour" class="block text-sm font-mono text-gray-700">
+                          労働時間
+                            <span class="text-red-500">*</span>
+                        </label>
+                        <!-- Radio Buttons -->
+                        <div class="flex items-center space-x-4">
+
+                            <label class="flex items-center space-x-2">
+                                <input
+
+                                type="radio"
+                                name="working_hour"
+                                id="working_hour"
+                                value="固定"
+                                class="rounded border-gray-400"
+                                onclick="toggleWorkingHours('fixed')">
+
+                                <span>固定</span>
+                            </label>
+
+                            <label class="flex items-center space-x-2">
+
+                                <input
+                                    type="radio"
+                                    name="working_hour"
+                                    id="working_hour"
+                                    value="シフト制"
+                                    class="rounded border-gray-400"
+                                    onclick="toggleWorkingHours('shift')">
+
+                                <span>シフト制</span>
+                            </label>
+                        </div>
+
+
+                        <!-- Conditional Inputs for "Yes" -->
+                        <div id="fixed_hours_input" class="hidden space-y-2 justify-normal">
+                            <div class="flex items-center space-x-2">
+
+                                <input type="text"
+                                        id="working_hour_a"
+                                        name="working_hour_a"
+                                        class="rounded-md border border-gray-400 p-2 w-full"
+                                        placeholder="例: 9:00～18:00">
+                            </div>
+                        </div>
+
+                           <!-- Shift Hours Inputs (シフト制) -->
+                         <div id="shift_hours_inputs" class="hidden space-y-4">
+                            <div class="space-y-2">
+                                <label class="block text-sm text-gray-700">シフト1</label>
+
+                                <input type="text"
+                                       id="working_hour_b_1"
+                                       name="working_hour_b_1"
+                                       class="rounded-md border border-gray-400 p-2 w-full"
+                                       placeholder="例: 早番 8:00～16:00">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm text-gray-700">シフト2</label>
+
+                                <input type="text"
+                                       id="working_hour_b_2"
+                                       name="working_hour_b_2"
+                                       class="rounded-md border border-gray-400 p-2 w-full"
+                                       placeholder="例: 日勤 11:00～19:00">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-sm text-gray-700">シフト3</label>
+
+                                <input type="text"
+                                       id="working_hour_b_3"
+                                       name="working_hour_b_3"
+                                       class="rounded-md border border-gray-400 p-2 w-full"
+                                       placeholder="例: 遅番 16:00～24:00">
+                            </div>
+
+                        </div>
+                    </div>
+
+                 <div class="space-y-2">
+                        <label for="holiday_type" class="block text-sm font-mono text-gray-700">
+                            休暇
+                            <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" name="holiday_type" id="holiday_type"
+                            class="w-full rounded-md border border-gray-400"
+                            placeholder="休暇を入力してください" required>
+                    </div>
+
+
+                    {{-- <div class="space-y-2">
                         <label for="overtime" class="block text-sm font-mono text-gray-700">
                             時間外手当
                             <span class="text-red-500">*</span>
@@ -221,9 +297,9 @@
                         <input type="text" name="overtime" id="overtime"
                             class="w-full rounded-md border border-gray-400"
                             placeholder="時間外手当を入力してください" required>
-                    </div>
+                    </div> --}}
 
-                    <div class="space-y-2">
+                    {{-- <div class="space-y-2">
                         <label for="other_allowance" class="block text-sm font-mono text-gray-700">
                             その他手当
                             <span class="text-red-500">*</span>
@@ -231,10 +307,10 @@
                         <input type="text" name="other_allowance" id="other_allowance"
                             class="w-full rounded-md border border-gray-400"
                             placeholder="通勤手当・住宅手当など" required>
-                    </div>
+                    </div> --}}
 
 
-                    <div class="space-y-2">
+                    {{-- <div class="space-y-2">
                         <label for="salary_increase" class="block text-sm font-mono text-gray-700">
                             昇給
                             <span class="text-red-500">*</span>
@@ -268,10 +344,10 @@
                                        placeholder="〇〇～〇〇">
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
-                    <div class="space-y-2">
+                    {{-- <div class="space-y-2">
                         <label for="bonus" class="block text-sm font-mono text-gray-700">
                             賞与
                             <span class="text-red-500">*</span>
@@ -306,11 +382,11 @@
                                        placeholder="〇〇～〇〇">
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!--data baigaa-->
 
-                    <div class="space-y-2">
+                    {{-- <div class="space-y-2">
                         <label for="working_hour" class="block text-sm font-mono text-gray-700">
                             労働時間
                             <span class="text-red-500">*</span>
@@ -318,7 +394,7 @@
                         <input type="text" name="working_hour" id="working_hour"
                             class="w-full rounded-md border border-gray-400"
                             placeholder="勤務時間を入力してください" required>
-                    </div>
+                    </div> --}}
 
                     <div class="space-y-2">
                         <label for="overtime_hour" class="block text-sm font-mono text-gray-700">
@@ -483,6 +559,29 @@
                     rangeInputs2.classList.add('hidden');
                 }
             }
+
+
+            function toggleWorkingHours(type)
+            {
+                const fixedHoursInput=document.getElementById('fixed_hours_input');
+                const shiftHoursInputs =document.getElementById('shift_hours_inputs');
+
+                if(type==='fixed'){
+                    fixedHoursInput.classList.remove('hidden');
+                    shiftHoursInputs.classList.add('hidden');
+
+                    document.getElementById('working_hour_b_1').value='';
+                    document.getElementById('working_hour_b_2').value='';
+                    document.getElementById('working_hour_b_3').value='';
+                }else{
+                    fixedHoursInput.classList.add('hidden');
+                    shiftHoursInputs.classList.remove('hidden');
+
+                    document.getElementById('working_hour_a').value='';
+                }
+            }
+
+
 
             document.addEventListener('DOMContentLoaded', function() {
     const categorySelect = document.getElementById('category_id');

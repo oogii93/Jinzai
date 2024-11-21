@@ -142,18 +142,27 @@
                                         {{ $application->web_interview ?? '進行中' }}
                                     </span>
                             </td>
+
+
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                <span class="{{ empty($application->admin_status)
-                                    ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
-                                    : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                        {{ $application->admin_status ?? '進行中' }}
-                                    </span>
+                                <span class="{{
+                                    $application->company_result === '合格'
+                                        ? 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1'
+                                        : ($application->company_result === '不合格'
+                                            ? 'bg-red-400 rounded-xl px-2 text-white font-semibold py-1'
+                                            : 'bg-orange-500 rounded-xl px-2 text-white font-semibold py-1') }}">
+                                    {{ $application->company_result ?? '進行中' }}
+                                </span>
                             </td>
+
+
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+
+
                                 <span class="{{ empty($application->work_start)
                                     ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
                                     : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                        {{ $application->work_start ?? '進行中' }}
+                                        {{ Carbon\Carbon::parse($application->work_start)->format('Y-m-d') ?? '' }}
                                     </span>
                             </td>
 

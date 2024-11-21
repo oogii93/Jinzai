@@ -125,7 +125,7 @@
 
 
 
-            @if (Auth::check() && Auth::user()->role===('admin')|| Auth::user()->role===('company'))
+            @if (Auth::check() && Auth::user()->role===('admin'))
                 <li class="relative group list-none">
                     <a href="{{ route('jobpost.index') }}"
                        class="relative block transform transition-all duration-300 hover:-translate-y-1">

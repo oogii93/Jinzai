@@ -331,18 +331,38 @@
                                                     </a>
 
                                                 </div>
+
+
                                             </div>
+                                            <div class="mt-2 text-sm text-gray-500">
+                                             公開情報:
+                                                @if ($jobpost->status === '承認')
+                                                    <span class="text-green-600 font-bold">公開中</span>
+                                                @elseif ($jobpost->status === '進行中')
+                                                    <span class="text-yellow-600 font-bold">未発表</span>
+                                                @elseif ($jobpost->status === '拒否')
+                                                    <span class="text-red-600 font-bold">拒否</span>
+                                                @endif
+                                            </div>
+
 
 
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
+
+
+
                             </div>
+
+
                             <div class="mt-6">
                                 {{ $jobposts->links() }}
                             </div>
                         </div>
+
+
 
 
 

@@ -317,48 +317,25 @@
 
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <form action="{{ route('admin.applications.review', $application) }}" method="POST" class="space-y-2">
-                                            @csrf
-
-                                            <div class="flex justify-normal items-center space-x-2">
-
-                                                <select name="admin_status" id="admin_status" class="border-2 border-gray-300 rounded-md p-1 text-sm">
-                                                    <option value="">選択</option>
-                                                    <option value="approved">合格</option>
-                                                    <option value="rejected">不合格</option>
-                                                </select>
-
-
-                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
-                                                提出
-                                            </button>
-                                            </div>
-
-
-
-                                        </form>
+                                        <span class="{{
+                                            $application->company_result === '合格'
+                                                ? 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1'
+                                                : ($application->company_result === '不合格'
+                                                    ? 'bg-red-400 rounded-xl px-2 text-white font-semibold py-1'
+                                                    : 'bg-orange-500 rounded-xl px-2 text-white font-semibold py-1') }}">
+                                            {{ $application->company_result ?? '進行中' }}
+                                        </span>
                                     </td>
 
+
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <form action="" method="POST" class="space-y-2">
-                                            @csrf
-
-                                            <div class="flex justify-normal items-center space-x-2">
-
-                                                <input
-                                                type="date"
-                                                name="" id="" class="border-2 border-gray-300 rounded-md p-1 text-sm">
 
 
-                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
-                                                決定
-                                            </button>
-                                        </input>
-                                            </div>
-
-
-
-                                        </form>
+                                        <span class="{{ empty($application->work_start)
+                                            ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                            : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                                {{ Carbon\Carbon::parse($application->work_start)->format('Y-m-d') ?? '' }}
+                                            </span>
                                     </td>
 
 
@@ -385,6 +362,8 @@
                                             </form>
                                         </div>
                                     </td>
+
+
                                 </tr>
                             @endforeach
                         </tbody>

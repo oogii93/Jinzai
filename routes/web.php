@@ -141,8 +141,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/company/applications', [JobApplicationController::class, 'employerApplications'])
             ->name('company.employer');
 
-        Route::patch('/applications/{application}/company-status', [JobApplicationController::class, 'updateCompanyStatus'])
-            ->name('applications.company-status');
+            Route::patch('/applications/{application}/company-result', [JobApplicationController::class, 'companyResult'])
+            ->name('applications.company-result');
+            Route::patch('/applications/{application}/company-start-date', [JobApplicationController::class, 'companyStartDate'])
+            ->name('applications.company-start-date');
     });
 });
 

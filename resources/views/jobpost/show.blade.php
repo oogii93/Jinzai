@@ -1,6 +1,53 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5">
         <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+
+            @if(session('error'))
+            <div class="fixed top-4 right-4 z-50 max-w-sm w-full transition-all duration-300 ease-in-out transform hover:scale-102 animate-slide-in">
+                <div class="bg-white shadow-2xl rounded-xl border-l-4 border-red-500 overflow-hidden">
+                    <div class="flex items-center p-4 space-x-4">
+                        <div class="flex-shrink-0">
+                            <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900">{{ session('error') }}</p>
+                        </div>
+                        <a href="#" onclick="this.parentElement.parentElement.parentElement.remove(); return false;"
+                           class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if(session('success'))
+            <div class="fixed top-4 right-4 z-50 max-w-sm w-full transition-all duration-300 ease-in-out transform hover:scale-102 animate-slide-in">
+                <div class="bg-white shadow-2xl rounded-xl border-l-4 border-green-500 overflow-hidden">
+                    <div class="flex items-center p-4 space-x-4">
+                        <div class="flex-shrink-0">
+                            <svg class="w-8 h-8 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900">{{ session('success') }}</p>
+                        </div>
+                        <a href="#" onclick="this.parentElement.parentElement.parentElement.remove(); return false;"
+                           class="text-gray-400 hover:text-gray-500 focus:outline-none">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
+
             <div class="px-4 py-5 sm:px-6 bg-sky-400">
 
                 <h1 class="text-lg leading-6 font-bold text-white">採用情報</h1>
@@ -19,7 +66,7 @@
 
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
 
-                        <dt class="text-lg font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">役職</dt>
+                        <dt class="text-lg font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">投稿タイトル </dt>
                         <dd class="mt-1 text-lg text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->title }}</dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
@@ -44,8 +91,13 @@
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
 
-                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">職種</dt>
+                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">業種</dt>
                         <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->category->name }}</dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
+
+                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">職種</dt>
+                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->category2->name }}</dd>
                     </div>
 
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
@@ -90,34 +142,48 @@
                         <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->salary}}</dd>
                     </div>
 
-                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
-
-                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">時間外手当</dt>
-                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->overtime}}</dd>
-                    </div>
-
-                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
-
-                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">その他手当</dt>
-                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->other_allowance}}</dd>
-                    </div>
-
-                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
-
-                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">昇給</dt>
-                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->salary_increase_option}}</dd>
-                    </div>
-
-                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
-
-                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">賞与</dt>
-                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->bonus_increase_option}}</dd>
-                    </div>
 
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
 
                         <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">労働時間</dt>
                         <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->working_hour}}</dd>
+                    </div>
+
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
+
+                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">労働時間</dt>
+                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">
+                            @if($jobpost->working_hour =='固定')
+                            <span class="text-md font-semibold text-blue-600">固定:</span> {{ $jobpost->working_hour_a ?? 'なし' }}
+
+                            @elseif($jobpost->working_hour =='シフト制')
+
+                            @if($jobpost->working_hour_b_1)
+                            <span class="text-md font-semibold text-blue-600">シフト1:</span> {{ $jobpost->working_hour_b_1 }}<br>
+                            @endif
+
+                            @if($jobpost->working_hour_b_2)
+                                  <span class="text-md font-semibold text-blue-600">シフト2:</span> {{ $jobpost->working_hour_b_2 }}<br>
+                            @endif
+                            @if($jobpost->working_hour_b_3)
+                            <span class="text-md font-semibold text-blue-600">シフト3:</span>  {{ $jobpost->working_hour_b_3 }}<br>
+                            @endif
+
+                        @else
+                          未設定
+                        @endif
+                        </dd>
+                    </div>
+
+
+
+
+
+
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
+
+                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">休暇</dt>
+                        <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->holiday_type}}</dd>
                     </div>
 
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
@@ -175,7 +241,7 @@
 
             @if(auth()->user()->role === 'jobseeker')
                 <div class="px-4 py-5 sm:px-6">
-                    @if(session('error'))
+                    {{-- @if(session('error'))
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
                             <span class="block sm:inline">{{ session('error') }}</span>
                         </div>
@@ -184,7 +250,7 @@
                         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                             <span class="block sm:inline">{{ session('success') }}</span>
                         </div>
-                    @endif
+                    @endif --}}
 
                     <!-- Check if user has already applied -->
                     @if($jobpost->applications()->where('user_id', auth()->id())->exists())
@@ -208,7 +274,7 @@
                 <div id="applicationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
                     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
                         <div class="mt-3">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ __(' Apply') }}  {{ $jobpost->title }}</h3>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">{{ $jobpost->title }} <span class="font-mono text-lg">応募する</span></h3>
                             <form action="{{ route('job.apply', $jobpost->id) }}" method="POST" class="mt-4" enctype="multipart/form-data">
                                 @csrf
 
@@ -219,13 +285,13 @@
                                         onclick="document.getElementById('applicationModal').classList.add('hidden')"
                                         class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
                                     >
-                                        {{ __('Cancel') }}
+                                      キャンセル
                                     </button>
                                     <button
                                         type="submit"
                                         class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
                                     >
-                                        {{ __('Submit Application') }}
+                                      申請する
                                     </button>
                                 </div>
                             </form>
@@ -235,4 +301,34 @@
             @endif
         </div>
     </div>
+
+    <style>
+        @keyframes slide-in {
+            0% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-slide-in {
+            animation: slide-in 0.5s ease-out;
+        }
+    </style>
+
+    <script>
+           // Auto-remove notifications after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const notifications = document.querySelectorAll('[class*="animate-slide-in"]');
+        notifications.forEach(notification => {
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 500);
+            }, 5000);
+        });
+    });
+    </script>
 </x-app-layout>

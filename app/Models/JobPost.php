@@ -12,9 +12,9 @@ class JobPost extends Model
 
     protected $fillable=[
 
-        'title',
+
         'salary',
-        'working_hour',
+        // 'working_hour',
         'working_location',
         'job_detail',
         'qualification',
@@ -26,18 +26,18 @@ class JobPost extends Model
         'company_name',
         'company_furigana',
         'company_address',
-        'home_url',
+        'homepage_url',
         'type',
         'my_car',
         'trial_period',
-        'overtime',
-        'other_allowance',
-        'salary_increase_option',
-        'salary_increase_from',
-        'salary_increase_to',
-        'bonus_increase_option',
-        'bonus_increase_from',
-        'bonus_increase_to',
+        // 'overtime',
+        // 'other_allowance',
+        // 'salary_increase_option',
+        // 'salary_increase_from',
+        // 'salary_increase_to',
+        // 'bonus_increase_option',
+        // 'bonus_increase_from',
+        // 'bonus_increase_to',
 
         'overtime_hour',
         'break',
@@ -48,6 +48,15 @@ class JobPost extends Model
         'childcare_option',
         'status',
         'category2_id',
+
+        'title',
+        'working_hour',
+        'working_hour_a',
+        'working_hour_b_1',
+        'working_hour_b_2',
+        'working_hour_b_3',
+        'holiday_type',
+
 
 
     ];

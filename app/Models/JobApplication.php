@@ -21,7 +21,8 @@ class JobApplication extends Model
         'taisei_result',
         'document_result',
         'web_interview',
-        'work_start'
+        'work_start',
+        'company_result'
 
     ];
 

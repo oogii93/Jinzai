@@ -92,45 +92,46 @@ class JobPostController extends Controller
     {
 
 
+
         if (!in_array(auth()->user()->role, ['admin', 'company'])) {
             abort(403, 'Unauthorized action.');
         }
+
 
         // dd($request->all());
 
 
 
+
+
         $validatedData = $request->validate([
-            'title' => 'nullable',
-            'salary' => 'required',
-            'working_hour'=>'required',
-            'working_location'=>'required',
-            'job_detail'=>'required',
-            'qualification'=>'required',
-            'other'=>'nullable',
-            'category_id' => 'required|exists:categories,id',
-            'tags' => 'nullable|array',  // Changed validation rule
-            'tags.*' => 'exists:tags,id', // Added validation for each tag ID
+            // 'title' => 'nullable',
+
+            // 'working_hour'=>'required',
 
             //new added
+            'title'=>'required',
             'company_name'=>'required',
             'company_furigana'=>'required',
             'company_address'=>'required',
             'homepage_url'=>'required',
+            'category_id' => 'required|exists:categories,id',
+            'category2_id' => 'required|exists:categories2,id',
+            'job_detail'=>'required',
             'type'=>'required',
+            'working_location'=>'required',
             'my_car' => 'required|in:可,不可', // Validates radio selection
+            'qualification'=>'required',
             'trial_period'=>'required',
-            'overtime'=>'required',
-            'other_allowance'=>'required',
+            'salary' => 'required',
 
-            'salary_increase_option' => 'required|in:可,不可', // Validates radio selection
-            'salary_increase_from' => 'nullable|string|required_if:salary_increase_option,可', // Required if "yes"
-            'salary_increase_to' => 'nullable|string|required_if:salary_increase_option,可', // Required if "yes"
+            'working_hour' => 'required|in:固定,シフト制',
+            'working_hour_a' => 'required_if:working_hour,固定',
+            'working_hour_b_1' => 'required_if:working_hour,シフト制',
+            'working_hour_b_2' => 'nullable',
+            'working_hour_b_3' => 'nullable',
 
-            'bonus_increase_option' => 'required|in:可,不可', // Validates radio selection
-            'bonus_increase_from' => 'nullable|string|required_if:bonus_increase_option,可', // Required if "yes"
-            'bonus_increase_to' => 'nullable|string|required_if:bonus_increase_option,可', // Required if "yes"
-
+            'holiday_type'=>'required',
             'overtime_hour'=>'required',
             'break'=>'required',
             'holidays'=>'required',
@@ -138,19 +139,44 @@ class JobPostController extends Controller
             'fire_option' => 'required|in:可,不可',
             'house_option' => 'required|in:可,不可',
             'childcare_option' => 'required|in:可,不可',
-            'category2_id' => 'required|exists:categories2,id',
+            'other'=>'nullable',
+            'tags' => 'nullable|array',  // Changed validation rule
+            'tags.*' => 'exists:tags,id', // Added validation for each tag ID
+
+
+
+
+
+        // Required if "yes"
+
+
+
+
+
+            // 'overtime'=>'required',
+            // 'other_allowance'=>'required',
+
+            // 'salary_increase_option' => 'required|in:可,不可', // Validates radio selection
+            // 'salary_increase_from' => 'nullable|string|required_if:salary_increase_option,可', // Required if "yes"
+            // 'salary_increase_to' => 'nullable|string|required_if:salary_increase_option,可', // Required if "yes"
+
+            // 'bonus_increase_option' => 'required|in:可,不可', // Validates radio selection
+            // 'bonus_increase_from' => 'nullable|string|required_if:bonus_increase_option,可', // Required if "yes"
+            // 'bonus_increase_to' => 'nullable|string|required_if:bonus_increase_option,可', // Required if "yes"
+
 
 
 
 
 
         ]);
+        // dd($validatedData);
+
+
 
 
         $jobpost = JobPost::create([
-            // 'title' => $validatedData['title'],
             'salary' => $validatedData['salary'],
-            'working_hour' => $validatedData['working_hour'],
             'working_location' => $validatedData['working_location'],
             'job_detail' => $validatedData['job_detail'],
             'qualification' => $validatedData['qualification'],
@@ -165,16 +191,7 @@ class JobPostController extends Controller
             'type' => $validatedData['type'],
             'my_car' => $validatedData['my_car'],
             'trial_period' => $validatedData['trial_period'],
-            'overtime' => $validatedData['overtime'],
-            'other_allowance' => $validatedData['other_allowance'],
 
-            'salary_increase_option' => $validatedData['salary_increase_option'],
-            'salary_increase_from' => $validatedData['salary_increase_option'] === 'yes' ? $validatedData['salary_increase_from'] : null,
-            'salary_increase_to' => $validatedData['salary_increase_option'] === 'yes' ? $validatedData['salary_increase_to'] : null,
-
-            'bonus_increase_option' => $validatedData['bonus_increase_option'],
-            'bonus_increase_from' => $validatedData['bonus_increase_option'] === 'yes' ? $validatedData['bonus_increase_from'] : null,
-            'bonus_increase_to' => $validatedData['bonus_increase_option'] === 'yes' ? $validatedData['bonus_increase_to'] : null,
 
             'overtime_hour' => $validatedData['overtime_hour'],
             'break' => $validatedData['break'],
@@ -185,7 +202,26 @@ class JobPostController extends Controller
             'childcare_option' => $validatedData['childcare_option'],
 
             'status' => '進行中',
-            'category2_id'=>$validatedData['category2_id']
+            'category2_id'=>$validatedData['category2_id'],
+            'title'=>$validatedData['title'],
+
+
+            'working_hour' => $validatedData['working_hour'],
+            'working_hour_a'=>$validatedData['working_hour'] ==='固定' ?
+            ($validatedData['working_hour_a'] ?? null):null,
+
+            'working_hour_b_1'=>$validatedData['working_hour'] ==='シフト制' ?
+            ($validatedData['working_hour_b_1'] ?? null):null,
+
+            'working_hour_b_2'=>$validatedData['working_hour'] ==='シフト制' ?
+            ($validatedData['working_hour_b_2'] ?? null):null,
+
+            'working_hour_b_3'=>$validatedData['working_hour'] ==='シフト制' ?
+            ($validatedData['working_hour_b_3'] ?? null):null,
+
+
+            'holiday_type'=>$validatedData['holiday_type'],
+
         ]);
 
         //
@@ -195,7 +231,9 @@ class JobPostController extends Controller
 
 
 
-        return redirect()->route('jobpost.index')->with('success', 'job created successfully.');
+
+
+        return redirect()->route('jobpost.index')->with('success', 'ジョブが正常に作成されました。');
     }
 
 
@@ -243,7 +281,7 @@ class JobPostController extends Controller
 
         $jobpost->update($validatedData);
 
-        return redirect()->route('jobpost.index')->with('success', 'Job updated successfully.');
+        return redirect()->route('jobpost.index')->with('success', 'ジョブが正常に更新されました。');
     }
 
     public function destroy(string $id)
@@ -259,7 +297,7 @@ class JobPostController extends Controller
 
         $jobpost->delete();
 
-        return redirect()->route('jobpost.index')->with('success', 'Job deleted successfully.');
+        return redirect()->route('jobpost.index')->with('success', 'ジョブは正常に削除されました。');
     }
 
 
@@ -267,7 +305,7 @@ class JobPostController extends Controller
     {
         if(auth()->user()->role !== 'jobseeker')
         {
-            return redirect()->back()->with('error', ' Only jobseekers can apply  for jobs.');
+            return redirect()->back()->with('error', ' 求人に応募できるのは求職者のみです。');
         }
 
         $jobpost=JobPost::findOrFail($id);
@@ -275,7 +313,7 @@ class JobPostController extends Controller
 
 
         if($jobpost->applications()->where('user_id', auth()->id())->exists()){
-            return redirect()->back()->with('error', 'You have already applied for this job');
+            return redirect()->back()->with('error', 'あなたはすでにこの仕事に応募しています');
         }
 
         // $request->validate([
@@ -299,7 +337,7 @@ class JobPostController extends Controller
 
         $application->save();
 
-        return redirect()->back()->with('success', 'Your application has been submitted successfully');
+        return redirect()->back()->with('success', 'お申し込みは正常に送信されました。');
 
 
 
@@ -318,37 +356,110 @@ class JobPostController extends Controller
         return view('admin.pending-posts', compact('pendingPosts'));
     }
 
+    // public function approve($id)
+    // {
+    //     if(auth()->user()->role !=='admin')
+    //     {
+    //         abort(403, 'Unauthorized action.');
+    //     }
+
+    //     $jobpost=JobPost::findOrFail($id);
+
+
+
+    //     $jobpost->update(['status'=>'承認']);
+
+    //       // Optional: Notify the company that their post was approved
+    // // You can implement notification logic here
+
+
+    //     return redirect()->back()->with('success','求人投稿が正常に承認されました。');
+    // }
+
+
     public function approve($id)
     {
-        if(auth()->user()->role !=='admin')
-        {
+        if(auth()->user()->role !=='admin'){
             abort(403, 'Unauthorized action.');
         }
-
         $jobpost=JobPost::findOrFail($id);
+        try{
+            $jobpost->status='承認';
+            $jobpost->save();
 
-        $jobpost->update(['status'=>'承認']);
+            if(request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => '求人投稿が正常に承認されました。',
+                    'status' => $jobpost->status
+                ]);
+            }
 
-          // Optional: Notify the company that their post was approved
-    // You can implement notification logic here
+            return redirect()->back()->with('success', '求人投稿が正常に承認されました。');
+
+        }
+        catch(\Exception $e)
+        {
+            if(request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'エラーが発生しました。'
+                ], 500);
+            }
 
 
-        return redirect()->back()->with('success','求人投稿が正常に承認されました。');
+            return redirect()->vack()->with('error','エラーが発生しました。');
+        }
     }
 
 
-    public function reject(Request $request,$id)
+    // public function reject(Request $request,$id)
+    // {
+    //     if(auth()->user()->role !=='admin')
+    //     {
+    //         abort(403, 'Unauthorized action');
+    //     }
+    //  $jobpost=JobPost::findOrFail($id);
+    //  $jobpost->update([
+    //     'status'=>'拒否'
+    //  ]);
+
+    //  return redirect()->back()->with('success','求人投稿は拒否されました。');
+    // }
+
+    public function reject(Request $request, $id)
     {
-        if(auth()->user()->role !=='admin')
-        {
+        if(auth()->user()->role !== 'admin') {
             abort(403, 'Unauthorized action');
         }
-     $jobpost=JobPost::findOrFail($id);
-     $jobpost->update([
-        'status'=>'拒否'
-     ]);
 
-     return redirect()->back()->with('success','求人投稿は拒否されました。');
+        $jobpost = JobPost::findOrFail($id);
+
+        try {
+            $jobpost->status = '拒否';
+            $jobpost->save();
+
+            // If it's an AJAX request
+            if(request()->ajax()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => '求人投稿は拒否されました。',
+                    'status' => $jobpost->status
+                ]);
+            }
+
+            return redirect()->back()->with('success', '求人投稿は拒否されました。');
+        } catch (\Exception $e) {
+            // If it's an AJAX request
+            if(request()->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'エラーが発生しました。'
+                ], 500);
+            }
+
+            return redirect()->back()->with('error', 'エラーが発生しました。');
+        }
     }
 
 

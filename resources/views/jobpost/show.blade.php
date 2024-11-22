@@ -270,6 +270,7 @@
 
 
 
+
                 <!-- Application Modal -->
                 <div id="applicationModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
                     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
@@ -299,6 +300,40 @@
                     </div>
                 </div>
             @endif
+
+
+            @if(auth()->user()->role === 'admin')
+
+            <div class="flex space-x-3 px-5 py-2 mb-5 mt-2">
+                <!-- Approve Button -->
+                <form action="{{ route('jobpost.approve', $jobpost->id) }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                            {{ $jobpost->status === '承認' ? 'disabled' : '' }}
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white
+                                   {{ $jobpost->status === '承認' ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500' }}">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        承認する
+                    </button>
+                </form>
+
+                <!-- Reject Button -->
+                <form action="{{ route('jobpost.reject', $jobpost->id) }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                            {{ $jobpost->status === '拒否' ? 'disabled' : '' }}
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white
+                                   {{ $jobpost->status === '拒否' ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500' }}">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                        拒否する
+                    </button>
+                </form>
+            </div>
+@endif
         </div>
     </div>
 

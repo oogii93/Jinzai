@@ -191,6 +191,25 @@
                         </div>
                     </a>
                 </li>
+
+
+                <li class="relative group list-none">
+                    <a href="{{ route('jobpost.create') }}"
+                       class="relative block transform transition-all duration-300 hover:-translate-y-1">
+                        <div class="flex flex-col items-center justify-center w-24 h-16 cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 transition-all duration-300">
+                        <img width="32" height="32" src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/external-job-working-stress-flaticons-lineal-color-flat-icons.png" alt="external-job-working-stress-flaticons-lineal-color-flat-icons"/>
+                            {{-- Main Icon SVG with hover animation --}}
+
+                            {{-- Label with hover effect --}}
+                            <span class="mr-2 mt-1 text-gray-800 text-[11px] font-medium group-hover:text-blue-600 transition-colors duration-300 font-semibold">
+                            新規投稿作成
+                            </span>
+
+                            {{-- Subtle hover indicator line --}}
+                            <div class="absolute bottom-0 left-0 w-full h-[2px] bg-blue-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
+                        </div>
+                    </a>
+                </li>
             @endif
 
 
@@ -201,22 +220,20 @@
 
 
                         <svg
-                              class="w-32 h-32 mt-1"
+                              class="w-8 h-8 mt-1"
                         fill="#153c60" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 866.477 866.477" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M256.274,227.431V126.358c0-38.084,26.84-70.887,64.172-78.419C394.391,33.022,512.36,9.486,564.216,0.578 c24.029-4.128,45.986,14.375,45.986,38.757v188.096c0,97.734-79.229,176.964-176.964,176.964 C335.503,404.395,256.274,325.165,256.274,227.431z M645.245,447.008h-70.188c-13.928,0-26.022,9.584-29.206,23.142 l-41.408,176.348c-3.917,16.678-13.453,30.846-26.311,40.713c3.661-19.416,3.647-39.363-0.082-58.801l-30.357-117.181 l20.709-45.702c3.933-8.679-2.413-18.519-11.939-18.519h-46.446c-9.527,0-15.872,9.84-11.94,18.519l20.709,45.702l-30.357,117.181 c-3.731,19.438-3.745,39.385-0.083,58.801c-12.857-9.867-22.394-24.033-26.311-40.713l-41.408-176.348 c-3.184-13.558-15.278-23.142-29.206-23.142h-70.189c-44.183,0-80,35.816-80,80v309.469c0,16.568,13.432,30,30,30h262.007h262.007 c16.568,0,30-13.432,30-30V527.008C725.245,482.824,689.429,447.008,645.245,447.008z"></path> </g> </g> </g></svg>
-                       <a href="" class="relative block transform transition-all duration-300 hover:-translate-y-1">
+
+                        <div class="relative block">
+
                         <span class="mr-2 mt-1 text-gray-800 text-[11px]  group-hover:text-blue-600 transition-colors duration-300 font-semibold">
                             プロフィール
                         </span>
                         <div class="absolute bottom-0 left-0 w-full h-[2px] bg-blue-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
 
-                    </a>
                     </div>
 
-
-
-
-
-                    <div class="absolute z-10 hidden bg-white divide-y divide-gray-100 shadow-lg group-hover:block top-full left-0">
+                    <div class="absolute z-50 hidden bg-white divide-y divide-gray-100 shadow-lg group-hover:block top-full left-0 w-48 rounded-md border border-gray-200">
+                        <!-- User Info -->
 
                         <p class="text-xs font-medium text-gray-900 mt-2 px-2">{{ Auth::user()->name }}</p>
                         <p class="text-xs text-gray-500 truncate mt-2 px-2 mb-2">{{ Auth::user()->email }}</p>

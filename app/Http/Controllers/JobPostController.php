@@ -356,122 +356,47 @@ class JobPostController extends Controller
         return view('admin.pending-posts', compact('pendingPosts'));
     }
 
-    // public function approve($id)
-    // {
-    //     if(auth()->user()->role !=='admin')
-    //     {
-    //         abort(403, 'Unauthorized action.');
-    //     }
-
-    //     $jobpost=JobPost::findOrFail($id);
-
-
-
-    //     $jobpost->update(['status'=>'承認']);
-
-    //       // Optional: Notify the company that their post was approved
-    // // You can implement notification logic here
-
-
-    //     return redirect()->back()->with('success','求人投稿が正常に承認されました。');
-    // }
-
-
     public function approve($id)
     {
-        if(auth()->user()->role !=='admin'){
+        if(auth()->user()->role !=='admin')
+        {
             abort(403, 'Unauthorized action.');
         }
+
         $jobpost=JobPost::findOrFail($id);
-        try{
-            $jobpost->status='承認';
-            $jobpost->save();
-
-            if(request()->ajax()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => '求人投稿が正常に承認されました。',
-                    'status' => $jobpost->status
-                ]);
-            }
-
-            return redirect()->back()->with('success', '求人投稿が正常に承認されました。');
-
-        }
-        catch(\Exception $e)
-        {
-            if(request()->ajax()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'エラーが発生しました。'
-                ], 500);
-            }
 
 
-            return redirect()->vack()->with('error','エラーが発生しました。');
-        }
+
+        $jobpost->update(['status'=>'承認']);
+
+          // Optional: Notify the company that their post was approved
+    // You can implement notification logic here
+
+
+        return redirect()->back()->with('success','求人投稿が正常に承認されました。');
     }
 
 
-    // public function reject(Request $request,$id)
-    // {
-    //     if(auth()->user()->role !=='admin')
-    //     {
-    //         abort(403, 'Unauthorized action');
-    //     }
-    //  $jobpost=JobPost::findOrFail($id);
-    //  $jobpost->update([
-    //     'status'=>'拒否'
-    //  ]);
 
-    //  return redirect()->back()->with('success','求人投稿は拒否されました。');
-    // }
 
-    public function reject(Request $request, $id)
+
+    public function reject(Request $request,$id)
     {
-        if(auth()->user()->role !== 'admin') {
+        if(auth()->user()->role !=='admin')
+        {
             abort(403, 'Unauthorized action');
         }
+     $jobpost=JobPost::findOrFail($id);
+     $jobpost->update([
+        'status'=>'拒否'
+     ]);
 
-        $jobpost = JobPost::findOrFail($id);
-
-        try {
-            $jobpost->status = '拒否';
-            $jobpost->save();
-
-            // If it's an AJAX request
-            if(request()->ajax()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => '求人投稿は拒否されました。',
-                    'status' => $jobpost->status
-                ]);
-            }
-
-            return redirect()->back()->with('success', '求人投稿は拒否されました。');
-        } catch (\Exception $e) {
-            // If it's an AJAX request
-            if(request()->ajax()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'エラーが発生しました。'
-                ], 500);
-            }
-
-            return redirect()->back()->with('error', 'エラーが発生しました。');
-        }
+     return redirect()->back()->with('success','求人投稿は拒否されました。');
     }
 
 
 
-    /**
-     * Display the specified resource.
-     */
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
 
 
 

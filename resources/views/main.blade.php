@@ -315,7 +315,7 @@
                                                         class="w-8 h-8"
                                                         viewBox="0 -0.5 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path> </g>
                                                         </svg>
-                                                        気に入り
+                                                         お気に入り
 
                                                     </a>
 
@@ -337,11 +337,11 @@
                                             <div class="mt-2 text-sm text-gray-500">
                                              公開情報:
                                                 @if ($jobpost->status === '承認')
-                                                    <span class="text-green-600 font-bold">公開中</span>
+                                                    <span class="text-white bg-green-600 px-2 py-2 rounded-lg font-bold">公開中</span>
                                                 @elseif ($jobpost->status === '進行中')
-                                                    <span class="text-yellow-600 font-bold">未発表</span>
+                                                    <span class="text-white bg-yellow-500 px-2 py-2 rounded-lg  font-bold">申請中</span>
                                                 @elseif ($jobpost->status === '拒否')
-                                                    <span class="text-red-600 font-bold">拒否</span>
+                                                    <span class="text-white bg-red-500 px-2 py-2 rounded-lg font-bold">拒否</span>
                                                 @endif
                                             </div>
 

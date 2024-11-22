@@ -278,15 +278,7 @@
                         </div>
                     </div>
 
-                 <div class="space-y-2">
-                        <label for="holiday_type" class="block text-sm font-mono text-gray-700">
-                            休暇
-                            <span class="text-red-500">*</span>
-                        </label>
-                        <input type="text" name="holiday_type" id="holiday_type"
-                            class="w-full rounded-md border border-gray-400"
-                            placeholder="休暇を入力してください" required>
-                    </div>
+
 
 
                     {{-- <div class="space-y-2">
@@ -424,6 +416,16 @@
                         <input type="text" name="holidays" id="holidays"
                             class="w-full rounded-md border border-gray-400"
                             placeholder="休日を入力してください。" required>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="holiday_type" class="block text-sm font-mono text-gray-700">
+                            休暇
+                            <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" name="holiday_type" id="holiday_type"
+                            class="w-full rounded-md border border-gray-400"
+                            placeholder="休暇を入力してください" required>
                     </div>
 
                     <div class="space-y-2">

@@ -307,19 +307,37 @@
                                                 </div>
                                             <div class="flex justify-end">
 
+
+
+
+
                                                 <div class="flex px-5">
-                                                    <a href=""
+                                                    <button
+                                                        id="favorite-btn-{{ $jobpost->id }}"
+                                                        onclick="toggleFavorite({{ $jobpost->id }})"
                                                         class="inline-flex items-center px-6 py-3.5 bg-gray-200 rounded-xl text-gray-800 font-semibold text-lg shadow-lg shadow-yellow-500/30 hover:shadow-yellow-300/60 transition-all duration-200 hover:-translate-y-0.5">
 
                                                         <svg
                                                         class="w-8 h-8"
-                                                        viewBox="0 -0.5 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path> </g>
-                                                        </svg>
-                                                         お気に入り
+                                                        viewBox="0 -0.5 32 32"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                        <g id="SVGRepo_iconCarrier">
+                                                            <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path>
+                                                        </g>
+                                                    </svg>
 
-                                                    </a>
+                                                    <span id="favorite-text-{{ $jobpost->id }}">
+                                                        {{ $jobpost->is_favorited ? 'お気に入り済' : 'お気に入り' }}
+
+                                                    </span>
+
+                                                    </button>
 
                                                 </div>
+
                                                 <div class="flex justify-end">
                                                     <a href="{{ route('jobpost.show', $jobpost->id) }}"
                                                         class="inline-flex items-center px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white font-semibold text-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-200 hover:-translate-y-0.5">
@@ -544,6 +562,81 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+function toggleFavorite(jobId){
+    const favoriteBtn=document.querySelector(`#favorite-btn-${jobId}`);
+    const favoriteText=favoriteBtn.querySelector('span');
+
+        fetch(`/jobs/${jobId}/favorite`,{
+            method:'POST',
+            headers:{
+                  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            'Content-Type': 'application/json'
+            },
+        })
+
+        .then(response=>response.json())
+     .then(data => {
+        if (data.isFavorited) {
+            favoriteBtn.classList.add('favorited');
+            favoriteText.textContent = 'お気に入り済';
+            favoriteBtn.innerHTML = `
+                <svg class="w-8 h-8" viewBox="0 -0.5 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path>
+                    </g>
+                </svg>
+                <span>お気に入り済</span>
+            `;
+        } else {
+            favoriteBtn.classList.remove('favorited');
+            favoriteText.textContent = 'お気に入り';
+            favoriteBtn.innerHTML = `
+                <svg class="w-8 h-8" viewBox="0 -0.5 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path>
+                    </g>
+                </svg>
+                <span>お気に入り</span>
+            `;
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Optional: Initialize favorite buttons on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const favoriteButtons = document.querySelectorAll('[id^="favorite-btn-"]');
+
+    favoriteButtons.forEach(btn => {
+        const jobId = btn.id.replace('favorite-btn-', '');
+
+        // Check current favorite status from server
+        fetch(`/jobs/${jobId}/check-favorite`, {
+            method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.isFavorited) {
+                btn.classList.add('favorited');
+                btn.querySelector('span').textContent = 'お気に入り済';
+            }
+        })
+        .catch(error => console.error('Error checking favorite status:', error));
+    });
+});
+
+
+
+
 
     </script>
 </x-app-layout>

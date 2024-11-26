@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\User;
 use App\Models\JobPost;
 use App\Models\Category;
 use App\Models\Category2;
@@ -10,6 +11,10 @@ use Illuminate\Http\Request;
 use App\Models\JobApplication;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+use Illuminate\Support\Facades\Notification;
+
+use App\Notifications\NewPostNotification;
 
 class JobPostController extends Controller
 {
@@ -224,10 +229,14 @@ class JobPostController extends Controller
 
         ]);
 
+
+        $users=User::where('id', '!=', auth()->id())->get();
+
+        Notification::send($users, new NewPostNotification($jobpost));
+
         //
-        if($request->has('tags')){
-            $jobpost->tags()->attach($request->tags);
-        }
+
+
 
 
 
@@ -356,25 +365,7 @@ class JobPostController extends Controller
         return view('admin.pending-posts', compact('pendingPosts'));
     }
 
-    public function approve($id)
-    {
-        if(auth()->user()->role !=='admin')
-        {
-            abort(403, 'Unauthorized action.');
-        }
 
-        $jobpost=JobPost::findOrFail($id);
-
-
-
-        $jobpost->update(['status'=>'承認']);
-
-          // Optional: Notify the company that their post was approved
-    // You can implement notification logic here
-
-
-        return redirect()->back()->with('success','求人投稿が正常に承認されました。');
-    }
 
 
 
@@ -393,6 +384,36 @@ class JobPostController extends Controller
 
      return redirect()->back()->with('success','求人投稿は拒否されました。');
     }
+
+    // protected function notifyJobSeekers(JobPost $jobPost)
+    // {
+    //     $jobSeekers = User::where('role', 'job_seeker')->get();
+
+    //     foreach ($jobSeekers as $jobSeeker) {
+    //         $jobSeeker->notify(new NewJobPostApprovedNotification($jobPost));
+    //     }
+    // }
+
+
+
+    public function approve($id)
+{
+    if (auth()->user()->role !== 'admin') {
+        abort(403, 'Unauthorized action.');
+    }
+
+    $jobPost = JobPost::findOrFail($id);
+    $jobPost->update(['status' => '承認']);
+
+    // $this->notifyJobSeekers($jobPost);
+
+
+
+
+    return redirect()->back()->with('success', '求人投稿が正常に承認されました。');
+}
+
+
 
 
 

@@ -17,6 +17,8 @@ use App\Http\Controllers\CategoryController;
 
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Category2Controller;
+use App\Http\Controllers\JobFavoriteController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\VideoProfileController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\CompanyDashboardController;
@@ -63,6 +65,33 @@ Route::get('/jobpost/{id}/show', [JobPostController::class, 'show'])
 Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showByCategory'])
 
 ->name('categories.jobPosts');
+
+
+// Favorited
+Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggleFavorite'])
+    ->middleware('auth')
+    ->name('jobs.favorite');
+
+Route::get('/jobFavorite', [JobFavoriteController::class, 'show'])
+    ->middleware('auth')
+    ->name('jobFavorite');
+
+ Route::get('/jobs/{jobId}/check-favorite', [JobFavoriteController::class, 'checkFavoriteStatus'])
+    ->middleware('auth');
+
+ Route::delete('/favorites/{favoriteId}', [JobFavoriteController::class, 'destroy'])->name('favorites.destroy')
+    ->middleware('auth');
+
+
+    //Notification Route
+
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::patch('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
+    });
+
+
 
 
 

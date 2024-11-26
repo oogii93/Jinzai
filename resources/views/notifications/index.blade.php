@@ -12,7 +12,7 @@
 
             <div class="p-6 bg-white border-b border-gray-200">
                 @foreach($notifications as $notification)
-                <div class="mb-6 p-6 rounded-lg shadow-sm transition-all duration-200 ease-in-out bg-emerald-100
+                <div class="mb-6 p-6 rounded-lg shadow-sm transition-all duration-200 ease-in-out bg-sky-200
                     {{ $notification->unread() ? 'list-group-item-unread' : '' }}">
                     @if($notification->type === 'App\Notifications\NewPostNotification')
                         <div class="d-flex w-100 justify-content-between">
@@ -20,9 +20,9 @@
                             <small>{{ $notification->created_at->diffForHumans() }}</small>
                         </div>
                         <p class="mb-1">
-                            New job post "{{ $notification->data['title'] }}"
+                            新しい求人情報 "{{ $notification->data['title'] }}"
 
-                            <br>created by {{ $notification->data['created_by'] }}
+                            <br>作成者 {{ $notification->data['created_by'] }}
                         </p>
 
                         @if($notification->unread())
@@ -31,7 +31,7 @@
                                 @csrf
                                 @method('PATCH')
                                 <button type="submit" class="btn btn-sm btn-outline-secondary">
-                                    Mark as Read
+                                    既読にする
                                 </button>
                             </form>
                         @endif

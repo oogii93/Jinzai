@@ -80,7 +80,7 @@ Route::get('/jobFavorite', [JobFavoriteController::class, 'show'])
     ->middleware('auth');
 
  Route::delete('/favorites/{favoriteId}', [JobFavoriteController::class, 'destroy'])->name('favorites.destroy')
-    ->middleware('auth');
+    ->middleware('auth','web');
 
 
     //Notification Route

@@ -11,16 +11,44 @@ class JobFavoriteController extends Controller
 
     public function checkFavoriteStatus($jobId)
     {
+        try {
+            // Comprehensive logging
+            \Log::channel('daily')->info('Favorite Status Check', [
+                'user_id' => auth()->id(),
+                'job_id' => $jobId,
+                'authenticated' => auth()->check()
+            ]);
 
-        $user=auth()->user();
+            // Explicit authentication check
+            if (!auth()->check()) {
+                return response()->json([
+                    'error' => 'Unauthorized',
+                    'message' => 'User not authenticated'
+                ], 401);
+            }
 
-        $isFavorited=JobFavorite::where([
-            'user_id'=>$user->id,
-            'job_post_id'=>$jobId
-        ])->exists();
-        return response()->json([
-            'isFavorited'=>$isFavorited
-        ]);
+            $user = auth()->user();
+
+            $isFavorited = JobFavorite::where([
+                'user_id' => $user->id,
+                'job_post_id' => $jobId
+            ])->exists();
+
+            return response()->json([
+                'isFavorited' => $isFavorited
+            ]);
+        } catch (\Exception $e) {
+            // Detailed error logging
+            \Log::channel('daily')->error('Favorite Status Check Error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return response()->json([
+                'error' => 'Internal Server Error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
     public function toggleFavorite(Request $request, $jobId)
     {

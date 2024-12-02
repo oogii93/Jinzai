@@ -68,7 +68,7 @@
 
 
 
-                                    <h2 class="font-medium text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">情報</span>  {{ $user->companyProfile->company_description }}</h2>
+                                    <h2 class="font-medium text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">情報</span>  {{ $user->companyProfile->company_description ?? ''}}</h2>
                                     <p class="mt-4 text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">行動の方向性</span>  {{ $user->companyProfile->industry }}</p>
                                     <p class="mt-4 text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">ウェブサイト</span>  {{ $user->companyProfile->website }}</p>
 

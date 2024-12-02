@@ -414,6 +414,21 @@
                         <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                         @enderror
                 </div>
+                <div class="space-y-2">
+                    <label class="block text-m font-semibold text-gray-700">個人情報の求人者への提供について同意いたします。</label>
+                    <input type="checkbox"
+                           name="check_approve"
+                           id="check_approve"
+                           value="1"
+                           class="w-8 h-8"
+                           {{ old('check_approve') ? 'checked' : '' }}
+                           placeholder="" required>
+                           <small class="px-2 text-yellow-600">チェックボックスをチェックしてください。</small>
+
+                        @error('check_approve')
+                        {{-- <p class="text-red-300 text-xs mt-1">{{ $message }}</p> --}}
+                        @enderror
+                </div>
 
         </div>
 

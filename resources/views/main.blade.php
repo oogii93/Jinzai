@@ -114,6 +114,8 @@
 
 
 
+
+
                 <div class="bg-gray-100 overflow-hidden shadow-sm sm:rounded-b-xl">
                     <div class="mt-5 flex flex-wrap justify-start px-5 gap-2">
                         @foreach ($tags as $item)
@@ -127,6 +129,8 @@
 
 
                        <!-- Search and Filter Section -->
+
+
 
 
 

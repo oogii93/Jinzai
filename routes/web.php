@@ -9,12 +9,13 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Chat2Controller;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\ProfileController;
+
+
+
 use App\Http\Controllers\CategoryController;
-
-
-
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Category2Controller;
 use App\Http\Controllers\JobFavoriteController;
@@ -90,6 +91,10 @@ Route::get('/jobFavorite', [JobFavoriteController::class, 'show'])
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
         Route::patch('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
     });
+
+    Route::get('/favorite/check/{jobId}', [JobFavoriteController::class, 'checkFavoriteStatus'])
+    ->middleware(['auth', 'web'])
+    ->name('favorite.check');
 
 
 
@@ -440,6 +445,12 @@ Route::middleware(['auth', 'role:company'])->group(function () {
 
 
 
+                });
+
+
+                Route::middleware(['auth'])->group(function () {
+                    Route::post('/send-message', [Chat2Controller::class, 'sendMessage'])->name('send.message');
+                    Route::get('/get-chat-history/{receiverId}', [Chat2Controller::class, 'getChatHistory'])->name('chat.history');
                 });
 
 

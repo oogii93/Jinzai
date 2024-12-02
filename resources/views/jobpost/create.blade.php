@@ -195,6 +195,51 @@
                     </div>
 
 
+
+
+
+                            <!-- 賃金締切日 -->
+                    <div class="flex flex-col lg:flex-row lg:justify-between gap-4">
+                        <!-- 賃金締切日 -->
+                        <div class="flex-1">
+                            <label for="salary_deadline" class="block text-sm font-mono text-gray-700">
+                                賃金締切日
+                                <span class="text-red-500">*</span>
+                            </label>
+                            <select name="salary_deadline" id="salary_deadline" class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm " required>
+                                <option value="" class="">締切日選択</option>
+                                @for ($i = 1; $i <= 31; $i++)
+                                    <option class="" value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+
+                        <!-- 賃金支払い日 -->
+                        <div class="flex-1">
+                            <label for="salary_payment_month" class="block text-sm font-mono text-gray-700">
+                                賃金支払い日
+                                <span class="text-red-500">*</span>
+                            </label>
+                            <div class="flex gap-2 mt-1">
+                                <!-- Month Selector -->
+                                <select name="salary_payment_month" id="salary_payment_month" class="w-1/3 mt-1 block rounded-md border border-gray-400 shadow-sm " required>
+                                    <option value="">選択してください。</option>
+                                    <option value="当月">当月</option>
+                                    <option value="翌月">翌月</option>
+                                </select>
+                                <!-- Day Selector -->
+                                <select name="salary_payment_day" id="salary_payment_day" class="w-2/3 mt-1 block rounded-md border border-gray-400 shadow-sm " required>
+                                    <option value="" class="">支払い日選択してください。</option>
+                                    @for ($i = 1; $i <= 31; $i++)
+                                        <option class="" value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                    <div class="space-y-2">
                         <label for="working_hour" class="block text-sm font-mono text-gray-700">
                           労働時間
@@ -493,6 +538,27 @@
                             </label>
                             <label class="flex items-center space-x-2">
                                 <input type="radio" name="childcare_option" id="childcare_option" value="不可"
+                                       class="rounded border-gray-400" >
+                                <span>なし</span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <!---->
+                    <div class="space-y-2">
+                        <label for="smoke" class="block text-sm font-mono text-gray-700">
+                            敷地内禁煙喫煙場所
+                            <span class="text-red-500">*</span>
+                        </label>
+
+                        <div class="flex items-center space-x-4">
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="smoke_option" id="smoke_option" value="可"
+                                       class="rounded border-gray-400" >
+                                <span>あり</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="smoke_option" id="smoke_option" value="不可"
                                        class="rounded border-gray-400" >
                                 <span>なし</span>
                             </label>

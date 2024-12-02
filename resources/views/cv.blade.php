@@ -359,6 +359,13 @@
                            value="{{ $user->part_time }}" required>
                 </div>
             </div>
+            <div>
+                <div class="flex flex-col sm:flex-row justify-between border-2 border-gray-200 rounded-sm">
+                    <p class="px-5 py-3 text-md text-gray-700">
+                        {{ $user->check_approve ? '個人情報の提供に同意しました' : '個人情報の提供に同意していません' }}
+                    </p>
+                </div>
+            </div>
         </div>
 
 

@@ -301,9 +301,11 @@ class RegisteredUserController extends Controller
                 'license' => ['nullable', 'string'],
                 'hobby' => ['nullable', 'string'],
                 'part_time' => ['nullable', 'string'],
+                'check_approve'=>['required','accepted'],
             ]  ;
 
     }
+
 
 
 
@@ -375,7 +377,9 @@ class RegisteredUserController extends Controller
             'license' => $request->license,
             'hobby' => $request->hobby,
             'part_time' => $request->part_time,
+            'check_approve'=>$request->check_approve
         ]);
+
 
 
         }else{

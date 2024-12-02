@@ -148,6 +148,12 @@ class JobPostController extends Controller
             'tags' => 'nullable|array',  // Changed validation rule
             'tags.*' => 'exists:tags,id', // Added validation for each tag ID
 
+            'salary_deadline'=>'nullable|integer|min:1|max:31',
+            'salary_payment_month'=>'nullable|in:当月,翌月',
+            'salary_payment_day'=>'nullable|integer|min:1|max:31',
+
+            'smoke_option' => 'required|in:可,不可',
+
 
 
 
@@ -175,8 +181,8 @@ class JobPostController extends Controller
 
 
         ]);
-        // dd($validatedData);
 
+    //  dd($validatedData);
 
 
 
@@ -226,6 +232,10 @@ class JobPostController extends Controller
 
 
             'holiday_type'=>$validatedData['holiday_type'],
+            'salary_deadline'=>$validatedData['salary_deadline'],
+            'salary_payment_month'=>$validatedData['salary_payment_month'],
+            'salary_payment_day'=>$validatedData['salary_payment_day'],
+            'smoke_option'=>$validatedData['smoke_option']
 
         ]);
 

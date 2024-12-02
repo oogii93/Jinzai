@@ -48,6 +48,7 @@ class User extends Authenticatable
         'hobby',
         'part_time',
         'role',
+        'check_approve',
 
 
 

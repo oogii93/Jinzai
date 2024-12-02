@@ -56,6 +56,10 @@ class JobPost extends Model
         'working_hour_b_2',
         'working_hour_b_3',
         'holiday_type',
+        'salary_deadline',
+        'salary_payment_month',
+        'salary_payment_day',
+        'smoke_option'
 
 
 

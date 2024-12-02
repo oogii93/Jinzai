@@ -34,7 +34,7 @@
         <div class="p-8">
             <!-- Personal Information Section -->
             <div class="mb-10">
-                <h2 class="text-xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-blue-500">{{ __('Personal Information') }}</h2>
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-blue-500">個人情報</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-1 gap-2">
                     <!-- Name Card -->
@@ -45,7 +45,7 @@
                         <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                             <label for="furigana"
                                 class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md ">
-                                {{ __('Furigana') }}
+                             フリガナ
                             </label>
                             <p class="px-5 py-3 text-sm text-gray-700">
                                 {{ $user->furigana }}
@@ -56,7 +56,7 @@
                         <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm mt-2">
                             <label for="name"
                                 class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                                {{ __('Name') }}
+                        氏名
                             </label>
                             <p class="px-5 py-3 text-sm text-gray-700">
                                 {{ $user->name }}
@@ -81,7 +81,7 @@
                         <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                             <label for="name"
                                 class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[60px] px-5 py-5 text-md">
-                                {{ __('Date of Birth') }}
+                                生年月日
                             </label>
 
                             <p class="px-5 py-3 text-md text-gray-700">
@@ -306,6 +306,17 @@
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->part_time }}
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                        <label for="part_time"
+                            class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
+                            {{ __('Part time job experience') }}
+                        </label>
+                        <p class="px-5 py-3 text-md text-gray-700">
+                            {{ $user->check_approve ? '個人情報の提供に同意しました' : '個人情報の提供に同意していません' }}
                         </p>
                     </div>
                 </div>

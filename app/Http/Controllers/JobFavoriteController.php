@@ -11,26 +11,17 @@ class JobFavoriteController extends Controller
 
     public function checkFavoriteStatus($jobId)
     {
+        // Explicit checks
+        if (!auth()->check()) {
+            return response()->json([
+                'error' => 'Unauthorized',
+                'message' => 'You must be logged in'
+            ], 401);
+        }
+
         try {
-            // Comprehensive logging
-            \Log::channel('daily')->info('Favorite Status Check', [
-                'user_id' => auth()->id(),
-                'job_id' => $jobId,
-                'authenticated' => auth()->check()
-            ]);
-
-            // Explicit authentication check
-            if (!auth()->check()) {
-                return response()->json([
-                    'error' => 'Unauthorized',
-                    'message' => 'User not authenticated'
-                ], 401);
-            }
-
-            $user = auth()->user();
-
             $isFavorited = JobFavorite::where([
-                'user_id' => $user->id,
+                'user_id' => auth()->id(),
                 'job_post_id' => $jobId
             ])->exists();
 
@@ -38,11 +29,7 @@ class JobFavoriteController extends Controller
                 'isFavorited' => $isFavorited
             ]);
         } catch (\Exception $e) {
-            // Detailed error logging
-            \Log::channel('daily')->error('Favorite Status Check Error', [
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
+            \Log::error('Favorite Check Error: ' . $e->getMessage());
 
             return response()->json([
                 'error' => 'Internal Server Error',

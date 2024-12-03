@@ -7,12 +7,26 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users=User::where('role', 'jobseeker')
-                    ->with('videoProfile')
-                    ->latest()
-                    ->paginate(10);
+        // $users=User::where('role', 'jobseeker')
+        //             ->with('videoProfile')
+        //             ->latest()
+        //             ->paginate(10);
+
+        $query = User::where('role', 'jobseeker')->with('videoProfile');
+
+        if($request->filled('search')){
+
+            $searchTerm = $request->input('search');
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('name', 'like', "%{$searchTerm}%")
+                  ->orWhere('email', 'like', "%{$searchTerm}%")
+                  ->orWhere('phone_number', 'like', "%{$searchTerm}%");
+
+            });
+        }
+        $users = $query->latest()->paginate(10);
 
         // dd($users);
 
@@ -42,6 +56,37 @@ class UserController extends Controller
         $user=User::findOrFail($id);
 
         return view('admin.company.show' ,compact('user'));
+    }
+
+    public function approve(User $user)
+    {
+         // Ensure only an admin can do this
+         if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized action');
+        }
+
+        $user->update([
+            'admin_check_approve'=>true
+        ]);
+        return redirect()->route('admin.user.index')->with('success','求職者アカウントが承認されました。');
+    }
+
+
+    public function disapprove(User $user)
+    {
+        // Ensure only an admin can do this
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized action');
+        }
+
+        // Mark as disapproved instead of deleting
+        $user->update([
+            'admin_check_approve' => false,
+            'status' => 'disapproved' // Assuming you add a status column
+        ]);
+
+        return redirect()->route('admin.user.index')
+            ->with('success', '求職者アカウントが承認されませんでした');
     }
 
 

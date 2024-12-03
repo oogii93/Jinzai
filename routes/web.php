@@ -55,7 +55,7 @@ Route::middleware('guest')->group(function () {
 
 Route::get('/main', [MainController::class, 'index']
 
-)->middleware(['auth', 'verified'])
+)->middleware(['auth', 'verified','jobseeker.approved'])
 ->name('main');
 
 
@@ -436,6 +436,12 @@ Route::middleware(['auth', 'role:company'])->group(function () {
                 Route::get('/admin/pending-posts', [JobPostController::class, 'pendingPosts'])->name('jobpost.pending');
                 Route::post('/admin/posts/{id}/approve', [JobPostController::class, 'approve'])->name('jobpost.approve');
                 Route::post('/admin/posts/{id}/reject', [JobPostController::class, 'reject'])->name('jobpost.reject');
+
+                //Admin for Jobseeker Approval
+                Route::patch('/admin/users/{user}/approve', [UserController::class, 'approve'])
+                ->name('admin.users.approve');
+           Route::delete('/admin/users/{user}/disapprove', [UserController::class, 'disapprove'])
+                ->name('admin.users.disapprove');
 
 
 

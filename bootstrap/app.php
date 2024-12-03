@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.role' => \App\Http\Middleware\CheckRole::class,
             'role'=>\App\Http\Middleware\CheckRole::class,
           'auth'=>  \App\Http\Middleware\CheckTemporaryPassword::class,
+
+          'jobseeker.approved' => \App\Http\Middleware\JobseekerApproval::class,
         ]);
         $middleware->web(\App\Http\Middleware\SetLocale::class);
 

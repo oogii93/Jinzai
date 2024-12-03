@@ -1,6 +1,79 @@
 
 <x-app-layout>
 
+    @if (session('status') || session('error'))
+    <div id="statusToast" class="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+        <div class="bg-gray-100 border-l-4 @if(session('status')) border-blue-500 @else border-red-500 @endif rounded-r-lg shadow-md overflow-hidden">
+            <div class="p-4 flex items-center">
+                <div class="flex-shrink-0">
+                    @if (session('status'))
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    @else
+                        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    @endif
+                </div>
+                <div class="ml-3 w-0 flex-1">
+                    @if (session('status'))
+                        <p class="text-lg font-semibold text-blue-900">
+                            {!! session('status') !!}
+                        </p>
+                    @endif
+                    @if (session('error'))
+                        <p class="text-sm font-medium text-gray-900">
+                            {{ session('error') }}
+                        </p>
+                    @endif
+
+
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button id="closeToast" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    閉じる
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes slideDown {
+            from { transform: translate(-50%, -100%); }
+            to { transform: translate(-50%, 0); }
+        }
+        #statusToast {
+            animation: slideDown 0.5s ease-out;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var statusToast = document.getElementById('statusToast');
+            var closeToast = document.getElementById('closeToast');
+
+            var hideTimeout = setTimeout(function() {
+                hideToast();
+            }, 8000);
+
+            closeToast.addEventListener('click', function() {
+                clearTimeout(hideTimeout);
+                hideToast();
+            });
+
+            function hideToast() {
+                statusToast.style.transform = 'translate(-50%, -100%)';
+                statusToast.style.transition = 'transform 0.5s ease-in-out';
+                setTimeout(function() {
+                    statusToast.style.display = 'none';
+                }, 500);
+            }
+        });
+    </script>
+@endif
+
     <div class="max-w-5xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden mt-8">
         <!-- Header Section with Profile Image -->
         <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-8 py-12">
@@ -101,7 +174,7 @@
                         <!-- Gender -->
                         <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                             <label for="name" :value=""
-                                class="block font-semibold text-white bg-blue-600 sm:w-[100px] h-auto sm:h-[60px] px-5 py-5 text-md">{{ __('Gender') }}</label>
+                                class="block font-semibold text-white bg-blue-600 sm:w-[100px] h-auto sm:h-[60px] px-5 py-5 text-md">性別</label>
 
 
                                 <p class="px-5 py-3 text-md text-gray-700">
@@ -123,7 +196,7 @@
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="address"
                         class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                        {{ __('Address') }}
+                   住所
                     </label>
                     <p class="px-5 py-3 text-md text-gray-700">
                         {{ $user->address }}
@@ -133,7 +206,7 @@
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="phone_number"
                         class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                        {{ __('Phone number') }}
+                      電話番号
                     </label>
                     <p class="px-5 py-3 text-md text-gray-700">
                         {{ $user->phone_number }}
@@ -143,7 +216,7 @@
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="mobile_number"
                         class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                        {{ __('Mobile number') }}
+                    携帯電話
                     </label>
                     <p class="px-5 py-3 text-md text-gray-700">
                         {{ $user->mobile_number }}
@@ -153,7 +226,7 @@
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="email"
                         class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                        {{ __('Email') }}
+                    メールアドレス
                     </label>
                     <p class="px-5 py-3 text-md text-gray-700">
                         {{ $user->email }}
@@ -164,14 +237,14 @@
                 <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="email"
                         class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[180px] px-5 py-5 text-md">
-                        {{ __('Education') }}
+                        教育
                     </label>
 
                     <!-- Date Selection Column -->
                     <div class="border-b-2 border-gray-200">
                         <!-- First Entry -->
                         <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-2 sm:space-y-0 mb-2">
-                        <small class="ml-2 mt-1 bg-yellow-100 px-2 py-2 rounded-xl">{{ __('Education1') }}</small>
+                        <small class="ml-2 mt-1 bg-yellow-100 px-2 py-2 rounded-xl">学習１</small>
                             <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
                                 {{ $user->education_year_1 }}
                             </p>
@@ -186,7 +259,7 @@
                         <!-- Second Entry -->
                         <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-2 sm:space-y-0 mb-2">
 
-                            <small class="ml-2 bg-yellow-100 px-2 py-2 rounded-xl">{{ __('Education2') }}</small>
+                            <small class="ml-2 bg-yellow-100 px-2 py-2 rounded-xl">学習２</small>
                             <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
                                 {{ $user->education_year_2 }}
                             </p>
@@ -200,7 +273,7 @@
 
                         <!-- Third Entry -->
                         <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-2 sm:space-y-0">
-                            <small class="ml-2 bg-yellow-100 px-2 py-2 rounded-xl">{{ __('Education3') }}</small>
+                            <small class="ml-2 bg-yellow-100 px-2 py-2 rounded-xl">学習３</small>
                             <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
                                 {{ $user->education_year_3 }}
                             </p>
@@ -218,7 +291,7 @@
 
                 <div class="flex flex-col sm:flex-row border-2 border-gray-200 rounded-sm">
                     <label class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[200px] px-5 py-3 text-md">
-                        {{ __('Appear point') }}
+                アピールポイント
                     </label>
                     <p class="px-5 py-3 text-md text-gray-700">
                         {{ $user->appear_point }}
@@ -230,7 +303,7 @@
                     <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                         <label for="name"
                             class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[200px] px-5 py-5 text-md ">
-                            {{ __('Reason for studying in Japan') }}
+                            日本留学の理由
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->study_japan }}
@@ -242,7 +315,7 @@
                     <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                         <label for="skill"
                             class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                            {{ __('Skill') }}
+               スキル
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->skill }}
@@ -254,7 +327,7 @@
                     <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                         <label for="reason"
                             class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[200px] px-5 py-5 text-md">
-                            {{ __('Reasons for applying') }}
+                            応募理由
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->reason }}
@@ -266,7 +339,7 @@
                     <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                         <label for="language"
                             class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                            {{ __('Language Ability') }}
+                            言語能力
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->language }}
@@ -278,7 +351,7 @@
                     <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                         <label for="license"
                             class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                            {{ __('Driver licence and Qualifications') }}
+                            運転免許証と資格
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->license }}
@@ -290,7 +363,7 @@
                     <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                         <label for="hobby"
                             class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                            {{ __('Hobby and speciality') }}
+                            趣味と特技
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->hobby }}
@@ -302,7 +375,7 @@
                     <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                         <label for="part_time"
                             class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                            {{ __('Part time job experience') }}
+                        アルバイト経験
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->part_time }}
@@ -313,13 +386,37 @@
                     <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                         <label for="part_time"
                             class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                            {{ __('Part time job experience') }}
+                            個人情報の提供
                         </label>
                         <p class="px-5 py-3 text-md text-gray-700">
                             {{ $user->check_approve ? '個人情報の提供に同意しました' : '個人情報の提供に同意していません' }}
                         </p>
                     </div>
                 </div>
+
+
+                <div class="mt-4 flex space-x-4">
+                    <form action="{{ route('admin.users.approve', $user->id) }}" method="POST" class="inline">
+                        @csrf
+                        @method('PATCH')
+                        <button type="submit"
+                                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300">
+                                求職者の承認
+                        </button>
+                    </form>
+
+                    <form action="{{ route('admin.users.disapprove', $user->id) }}" method="POST" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300">
+                                求職者を不承認にする
+                        </button>
+                    </form>
+
+                  <a href="{{ route('admin.user.index') }}"  class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition duration-300">戻り</a>
+                </div>
+
         </div>
 
 

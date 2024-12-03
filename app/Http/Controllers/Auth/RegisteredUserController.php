@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Notifications\NewUserRegisterNotification;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use App\Notifications\TempPasswordNotification;
 use App\Notifications\SetupPasswordNotification;
+use Illuminate\Support\Facades\Notification;
 
 class RegisteredUserController extends Controller
 {
@@ -399,8 +401,14 @@ class RegisteredUserController extends Controller
 
         $user->notify(new TempPasswordNotification($tempPassword));
 
+        $admins=User::where('role', 'admin')->get();
+        if($admins->count()>0){
+            Notification::send($admins, new NewUserRegisterNotification($user, $request->role));
+
+        }
+
         return redirect()->route('login')
-        ->with('status', 'Registration successful! Please check your email for your temporary password.');
+        ->with('success', '登録が完了しました。仮パスワードはメールでご確認ください。');
 
     }
 

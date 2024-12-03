@@ -49,6 +49,7 @@ class User extends Authenticatable
         'part_time',
         'role',
         'check_approve',
+        'admin_check_approve',
 
 
 
@@ -136,6 +137,12 @@ public function unreadNotificationsCount()
 {
     return $this->unreadNotifications()->count();
 }
+
+    // Check if user is an approved jobseeker
+    public function isApprovedJobseeker()
+    {
+        return $this->role === 'jobseeker' && $this->admin_check_approve;
+    }
 
 
 

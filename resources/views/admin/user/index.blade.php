@@ -1,4 +1,76 @@
 <x-app-layout>
+    @if (session('success') || session('error'))
+    <div id="statusToast" class="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+        <div class="bg-gray-100 border-l-4 @if(session('success')) border-blue-500 @else border-red-500 @endif rounded-r-lg shadow-md overflow-hidden">
+            <div class="p-4 flex items-center">
+                <div class="flex-shrink-0">
+                    @if (session('success'))
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    @else
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    @endif
+                </div>
+                <div class="ml-3 w-0 flex-1">
+                    @if (session('success'))
+                        <p class="text-lg font-semibold text-blue-900">
+                            {!! session('success') !!}
+                        </p>
+                    @endif
+                    @if (session('error'))
+                        <p class="text-sm font-medium text-gray-900">
+                            {{ session('error') }}
+                        </p>
+                    @endif
+
+
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button id="closeToast" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    閉じる
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes slideDown {
+            from { transform: translate(-50%, -100%); }
+            to { transform: translate(-50%, 0); }
+        }
+        #statusToast {
+            animation: slideDown 0.5s ease-out;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var statusToast = document.getElementById('statusToast');
+            var closeToast = document.getElementById('closeToast');
+
+            var hideTimeout = setTimeout(function() {
+                hideToast();
+            }, 8000);
+
+            closeToast.addEventListener('click', function() {
+                clearTimeout(hideTimeout);
+                hideToast();
+            });
+
+            function hideToast() {
+                statusToast.style.transform = 'translate(-50%, -100%)';
+                statusToast.style.transition = 'transform 0.5s ease-in-out';
+                setTimeout(function() {
+                    statusToast.style.display = 'none';
+                }, 500);
+            }
+        });
+    </script>
+@endif
     <div class="min-h-screen bg-gray-200">
         <div class="p-4 sm:p-6 lg:p-8">
             <!-- Page Header -->
@@ -13,21 +85,6 @@
 
 
 
-            <!-- Success Message -->
-            @if (session('success'))
-                <div class="rounded-lg bg-green-50 p-4 mb-6 border border-green-200">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm font-medium text-green-800">{{ session('success') }}</p>
-                        </div>
-                    </div>
-                </div>
-            @endif
 
 
 
@@ -36,26 +93,52 @@
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="p-6 border-b border-gray-200">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                                </svg>
-                            </div>
-                            <input type="text"
-                                   class="block w-full pl-10 pr-3 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent bg-gray-100"
-                                   placeholder="検索...">
+                        <div class="md:w-3/5 sm:w-full">
+                            <form action="{{ route('admin.user.index') }}" method="GET" class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>
+
+                                <input
+                                    type="search"
+                                    name="search"
+                                    value="{{ request('search') }}"
+                                    placeholder="検索（名前、メール、電話番号）"
+                                    class="block w-full py-3 pl-10 pr-24 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out"
+                                >
+
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    @if(request('search'))
+                                        <a href="{{ route('admin.user.index') }}" class="mr-2 text-gray-500 hover:text-gray-700 transition">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    @endif
+
+                                    <button
+                                        type="submit"
+                                        class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 ease-in-out"
+                                    >
+                                        検索
+                                    </button>
+                                </div>
+                            </form>
+
+                            @if(request('search'))
+                                <div class="mt-2 text-sm text-gray-500">
+                                    <span>検索結果: </span>
+                                    <span class="font-semibold">{{ $users->total() }}件</span>
+                                    <span class="ml-2 text-gray-400">"|"</span>
+                                    <span class="ml-2">検索キーワード: "{{ request('search') }}"</span>
+                                </div>
+                            @endif
                         </div>
-{{--
-                        <div class="flex items-center space-x-2">
-                            <select class="block w-full py-2 pl-3 pr-10 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
-                                <option>All Categories</option>
-                                <option>Category 1</option>
-                                <option>Category 2</option>
-                            </select>
-                        </div> --}}
                     </div>
                 </div>
+            </div>
 
 
                 <div class="overflow-x-auto">
@@ -69,6 +152,8 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">携帯電話</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">自己紹介動画</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">履歴書</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">管理者の承認</th>
+
                                 <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">作動</th>
                             </tr>
                         </thead>
@@ -111,6 +196,14 @@
                                             履歴書見る
                                         </a>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="px-2 py-1 rounded
+                                            {{ $item->admin_check_approve ? ' rounded-lg bg-green-200 text-green-800' : 'rounded-lg bg-red-200 text-red-800' }}">
+                                            {{ $item->admin_check_approve ? '承認' : '不承認'}}
+                                        </span>
+                                    </td>
+
+
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end space-x-3">
                                             <a href="{{ route('tags.edit', $item) }}"
@@ -137,32 +230,9 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <!-- Pagination -->
-                <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-                    <div class="flex items-center justify-between">
-                        <div class="flex-1 flex justify-between sm:hidden">
-                            <!-- Mobile pagination controls -->
-                            <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">Previous</a>
-                            <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">Next</a>
-                        </div>
-                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                            <div>
-                                <p class="text-sm text-gray-700">
-                                    Showing
-                                    <span class="font-medium">1</span>
-                                    to
-                                    <span class="font-medium">10</span>
-                                    of
-                                    <span class="font-medium">20</span>
-                                    results
-                                </p>
-                            </div>
-                            <div>
-                                {{-- {{ $users->links() }} --}}
-                            </div>
-                        </div>
-                    </div>
+                {{ $users->appends(request()->query())->links() }}
                 </div>
             </div>
         </div>

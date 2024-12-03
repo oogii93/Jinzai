@@ -30,8 +30,8 @@ class MainController extends Controller
                       // Companies can see their own posts (regardless of status) and approved posts from other companies
                 case 'company':
                     $query->where(function ($q) use($user){
-                        $q->where('user_id', $user->id)
-                        ->orWhere('status', '承認');
+                        $q->where('user_id', $user->id);
+                        // ->orWhere('status', '承認');
                     });
 
                     break;
@@ -119,8 +119,18 @@ class MainController extends Controller
         if ($searchQuery) {
             $query->where(function ($q) use ($searchQuery) {
                 $q->where('salary', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('title', 'like', '%' . $searchQuery . '%')
+
                   ->orWhere('working_location', 'like', '%' . $searchQuery . '%')
                   ->orWhere('working_hour', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('job_detail', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('other', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('company_name', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('company_furigana', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('company_address', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('type', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('my_car', 'like', '%' . $searchQuery . '%')
+                  ->orWhere('trial_period', 'like', '%' . $searchQuery . '%')
                   ->orWhere('qualification', 'like', '%' . $searchQuery . '%');
             });
         }

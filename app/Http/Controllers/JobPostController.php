@@ -252,7 +252,8 @@ class JobPostController extends Controller
 
 
 
-        return redirect()->route('jobpost.index')->with('success', 'ジョブが正常に作成されました。');
+        return redirect()->route('jobpost.index')->with('success', '求人投稿が正常に作成されました。
+管理者の承認後、Web サイトに掲載されます。');
     }
 
 

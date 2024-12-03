@@ -75,40 +75,49 @@
 
             {{-- <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-8 py-12"> --}}
 
-                <div class="relative flex items-center space-x-10 w-full bg-gradient-to-r from-sky-400 to-sky-500 overflow-hidden ">
-                    <!-- Three.js container -->
-
+                <div class="relative flex flex-col items-center justify-center w-full bg-gradient-to-r from-sky-400 to-sky-500 overflow-hidden py-12 px-4 md:px-8 lg:px-16">
+                    <!-- Gradient Background -->
                     <div id="three-background" class="absolute inset-0 opacity-30 pointer-events-none"></div>
 
-
-
-                    <form id="searchForm" action="" class="mb-6 mt-5 px-5">
-                        <div class="mt-1 flex rounded-lg shadow-sm">
-                            <div class="relative flex-grow focus-within:z-10">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
-                                    </svg>
-                                </div>
-                                <input
-
-                                type="text"
-                                name="search"
-                                id="searchInput"
-                                value="{{ request('search') }}"
-                                class="border border-gray-400 block w-full h-20 rounded-lg pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                placeholder="求人検索"
-                                autocomplete="off"
-                                >
-
-                            </div>
-                        </div>
-                    </form>
-
-
-                   <h1 class="text-white font-bold text-3xl p-20">一緒に素晴らしい仕事を見つけましょう!!</h1>
-
+                    <!-- Text/Heading -->
+                    <h1 class="text-white text-3xl md:text-4xl font-bold">仕事探しがより簡単になり</h1>
                 </div>
+
+                <!-- Search Bar -->
+                <div class="bg-gray-100">
+
+
+                <div class="relative -mt-8 z-10">
+                    <form id="searchForm" class="flex items-center w-full max-w-3xl mx-auto h-16 border-2 border-indigo-500 rounded-lg bg-white shadow-md">
+                        <!-- Search Icon -->
+                        <div class="relative flex items-center px-4">
+                            <svg class="h-6 w-6 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <!-- Input Field -->
+                        <input
+                            type="text"
+                            name="search"
+                            id="searchInput"
+                            value="{{ request('search') }}"
+                            class="flex-grow h-full px-4 text-lg text-gray-700 focus:outline-none"
+                            placeholder="職種、企業名など。。。"
+                            autocomplete="off"
+                        />
+                        <!-- Search Button -->
+                        <button
+                            type="submit"
+                            class="flex items-center justify-center px-6 bg-indigo-500 hover:bg-indigo-600 text-white font-medium h-full rounded-r-lg transition-all duration-300"
+                        >
+                            <svg class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
 
 
 
@@ -128,6 +137,8 @@
                     </div>
 
 
+
+
                        <!-- Search and Filter Section -->
 
 
@@ -145,20 +156,7 @@
 
                     <div class="flex gap-6 px-2">
 
-                        <!-- Left Column (2/5 width) -->
-                        {{-- <div class="md:w-1/5 sm:w-3/5 bg-white p-4 shadow rounded-lg px-2">
-                            <h2 class="text-xl font-semibold mb-4 text-center text-gray-700">業種</h2>
-                            <ul class="space-y-2 text-l mb-2">
-                                @foreach ($categories as $item)
-                                    <li class="px-2 hover:bg-gray-100 rounded {{ isset($category) && $category->id === $item->id ? 'bg-gray-100' : '' }}">
-                                        <a href="{{ route('categories.jobPosts', $item) }}"
-                                           class="hover:underline hover:text-stone-800 px-2 {{ isset($category) && $category->id === $item->id ? 'font-semibold' : '' }}">
-                                            {{ $item->name }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div> --}}
+
 
                         <div class="md:w-1/5 sm:w-3/5 bg-white p-4 shadow rounded-lg px-2">
                             <h2 class="text-2xl font-semibold mb-4 text-center text-sky-700">業種</h2>
@@ -215,6 +213,8 @@
                                 @endforeach
                             </ul>
                         </div>
+
+
 
 
 

@@ -41,11 +41,13 @@
                 <div class="flex items-center">
                     <a href="" class="flex items-center space-x-2">
 
-                        <div class="hover:opacity-70">
-                            <span class="text-3xl font-bold text-blue-800 px-2">
-                                人材 <span class="text-orange-400">紹介</span>
-                            </span>
+                        <div class="hover:opacity-80 mt-10 mb-2">
+                            <img src="{{ asset('images/logo22.png') }}" alt="人材紹介" class="w-16 h-16">
+
+
+
                         </div>
+                        <p class="mt-5 text-xl font-bold text-sky-600"><span class="text-orange-500">人材</span>紹介</p>
                     </a>
                 </div>
 

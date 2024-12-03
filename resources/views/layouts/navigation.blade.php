@@ -28,7 +28,7 @@
 
 
               <!-- Logo -->
-              <div class="flex items-center">
+              {{-- <div class="flex items-center">
                 <a href="/" class="flex items-center space-x-2">
                     <img src="{{ asset('images/1.png') }}" alt="" class="h-8">
                     <div class="hover:opacity-70">
@@ -36,6 +36,19 @@
                             人材 <span class="text-orange-400">紹介</span>
                         </span>
                     </div>
+                </a>
+            </div> --}}
+
+            <div class="flex items-center">
+                <a href="" class="flex items-center space-x-2">
+
+                    <div class="hover:opacity-80 ">
+                        <img src="{{ asset('images/logo22.png') }}" alt="人材紹介" class="w-16 h-16">
+
+
+
+                    </div>
+                    <p class=" text-2xl font-bold text-sky-600"><span class="text-orange-500">人材</span>紹介</p>
                 </a>
             </div>
 

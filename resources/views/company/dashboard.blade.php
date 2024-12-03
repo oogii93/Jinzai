@@ -37,6 +37,7 @@
             </div>
         </div>
     </div>
+@endif
 
     <style>
         @keyframes slideDown {

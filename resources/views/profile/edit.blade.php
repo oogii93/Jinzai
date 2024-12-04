@@ -84,13 +84,11 @@
         <div class="max-w-7xl mx-auto  shadow-xl  overflow-hidden  bg-white px-8 py-12">
             <div class="container bg-white px-10  mb-5 rounded-xl border border-gray-400">
                 <header>
-                    <h2 class="text-lg font-medium text-gray-900">
-                        {{ __('Profile Information') }}
+                    <h2 class="text-lg font-semibold text-gray-900 mt-1">
+                        プロフィール情報
                     </h2>
 
-                    <p class="mt-1 text-sm text-gray-600">
-                        {{ __("Update your account's profile information and email address.") }}
-                    </p>
+
                 </header>
 
                 <form id="send-verification" method="post" action="{{ route('verification.send') }}">
@@ -102,14 +100,14 @@
                     @method('patch')
 
                     <div>
-                        <x-input-label for="name" :value="__('Name')" />
-                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+                <label for="" class="font-semibold text-sm">氏名</label>
+                        <x-text-input id="name" name="name" type="text" class="mt-1 block w-full px-2 py-2 border border-gray-400" :value="old('name', $user->name)" required autofocus autocomplete="name" />
                         <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
 
                     <div>
-                        <x-input-label for="email" :value="__('Email')" />
-                        <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <label for="" class="font-semibold text-sm">メールアドレス</label>
+                        <x-text-input id="email" name="email" type="email" class="mt-1 block w-full px-2 py-2 border border-gray-400" :value="old('email', $user->email)" required autocomplete="username" />
                         <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
                         @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -131,8 +129,8 @@
                         @endif
                     </div>
 
-                    <div class="flex items-center gap-4">
-                        <x-primary-button>{{ __('Save') }}</x-primary-button>
+                    <div class="flex items-center gap-4 ">
+                        <x-primary-button class="mb-4">保存</x-primary-button>
 
                         @if (session('status') === 'profile-updated')
                             <p
@@ -141,7 +139,7 @@
                                 x-transition
                                 x-init="setTimeout(() => show = false, 2000)"
                                 class="text-sm text-gray-600"
-                            >{{ __('Saved.') }}</p>
+                            >更新されました。</p>
                         @endif
                     </div>
                 </form>
@@ -155,12 +153,12 @@
 
 
                 <header>
-                    <h2 class="text-lg font-medium text-gray-900">
-                        {{ __('Update Password') }}
+                    <h2 class="text-lg font-semibold text-gray-900 mt-5">
+                        パスワードを更新
                     </h2>
 
-                    <p class="mt-1 text-sm text-gray-600">
-                        {{ __('Ensure your account is using a long, random password to stay secure.') }}
+                    <p class="mt-1 text-sm text-gray-600 bg-gray-200 px-2 py-2 rounded-lg font-md">
+                        新規登録ユーザーの場合は、パスワードを設定するために、ここで送信されたメールのワンタイムパスワードを使用してください。
                     </p>
                 </header>
 
@@ -169,25 +167,26 @@
                     @method('put')
 
                     <div>
-                        <x-input-label for="update_password_current_password" :value="__('Current Password')" />
-                        <x-text-input id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full" autocomplete="current-password" />
+
+                        <x-input-label for="update_password_current_password" :value="__('現在のパスワード')" class="font-semibold" />
+                        <x-text-input id="update_password_current_password" name="current_password" type="password" class="mt-1 block w-full border border-gray-400 py-2 px-2" autocomplete="current-password" placeholder="現在使用しているパスワードまたはメールで来たパスワードを入力してください。" />
                         <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
                     </div>
 
                     <div>
-                        <x-input-label for="update_password_password" :value="__('New Password')" />
-                        <x-text-input id="update_password_password" name="password" type="password" class="mt-1 block w-full" autocomplete="new-password" />
+                        <x-input-label for="update_password_password" :value="__('新しいパスワード')" class="font-semibold" />
+                        <x-text-input id="update_password_password" name="password" type="password" class="mt-1 block w-full border border-gray-400 py-2 px-2" autocomplete="new-password" placeholder="新しいパスワードを入力してください。パスワード フィールドは 8 文字以上である必要があります。" />
                         <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
                     </div>
 
                     <div>
-                        <x-input-label for="update_password_password_confirmation" :value="__('Confirm Password')" />
-                        <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" />
+                        <x-input-label for="update_password_password_confirmation" :value="__('パスワードを認証する')" class="font-semibold" />
+                        <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full border border-gray-400 py-2 px-2" autocomplete="new-password" placeholder="新しいパスワードをもう一度入力してください。"  />
                         <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <x-primary-button>{{ __('Save') }}</x-primary-button>
+                        <x-primary-button class="mb-3">保存</x-primary-button>
 
                         @if (session('status') === 'password-updated')
                             <p
@@ -195,8 +194,8 @@
                                 x-show="show"
                                 x-transition
                                 x-init="setTimeout(() => show = false, 2000)"
-                                class="text-sm text-gray-600"
-                            >{{ __('Saved.') }}</p>
+                                class="text-sm text-gray-600 "
+                            >保存されました</p>
                         @endif
                     </div>
                 </form>

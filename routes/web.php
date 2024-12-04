@@ -140,6 +140,12 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/job-applications/{application}/set-date', [AdminJobApplicationController::class, 'setDate'])
 
             ->name('job-applications.set-date');
+
+
+            Route::get('/test-broadcast/{application}',
+            [AdminJobApplicationController::class, 'testBroadcast'])
+            ->name('test.broadcast');
+
             //mensetsu hariu
 
             Route::post('job-applications/{application}/set-result',[AdminJobApplicationController::class, 'setTaiseiInterviewResult'])

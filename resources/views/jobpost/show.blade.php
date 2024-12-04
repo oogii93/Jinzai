@@ -297,7 +297,7 @@
                     <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
                         <div class="mt-3">
                             <h3 class="text-lg leading-6 font-medium text-gray-900">{{ $jobpost->title }} <span class="font-mono text-lg">応募する</span></h3>
-                            <form action="{{ route('job.apply', $jobpost->id) }}" method="POST" class="mt-4" enctype="multipart/form-data">
+                            <form action="{{ route('job.apply', $jobpost->id) }}" method="POST" class="mt-4">
                                 @csrf
 
 

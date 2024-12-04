@@ -25,7 +25,7 @@ class PasswordChangeController extends Controller
 
         // Verify current password
         if (!Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors(['current_password' => 'The provided password does not match our records.']);
+            return back()->withErrors(['current_password' => '提供されたパスワードは当社の記録と一致しません。']);
         }
 
         $user->update([
@@ -34,6 +34,6 @@ class PasswordChangeController extends Controller
         ]);
 
         return redirect()->route('dashboard')
-            ->with('status', 'Password changed successfully!');
+            ->with('status', 'パスワードが正常に変更されました!');
     }
 }

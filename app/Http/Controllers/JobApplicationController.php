@@ -7,29 +7,29 @@ use App\Models\JobPost;
 
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
+use App\Notifications\JobApplicationNotification;
 
 class JobApplicationController extends Controller
 {
-    public function store(Request $request, JobPost $jobPost)
-    {
-        $request->validate([
+//   public function store(Request $request, JobPost $jobPost)
+//   {
+//     $application=JobApplication::create([
+//         'job_post_id'=>$jobPost->id,
+//         'user_id'=>auth()->id(),
+//     ]);
 
-        ]);
+//     $admins=User::where('role', 'admin')->get();
 
-        // Handle file upload if resume is provided
-        $resumePath = null;
-        if ($request->hasFile('resume')) {
-            $resumePath = $request->file('resume')->store('resumes', 'public');
-        }
+//     foreach ($admins as $admin)
+//     {
+//         $admin->notify(new JobApplicationNotification($application));
+//     }
 
-        $application = JobApplication::create([
-            'job_post_id' => $jobPost->id,
-            'user_id' => auth()->id(),
+//     dd($request->all());
 
-        ]);
 
-        return redirect()->back()->with('success', 'Application submitted successfully!');
-    }
+//     return redirect()->back()->with('success', '応募が正常に送信されました！');
+//   }
 
     public function index()
     {

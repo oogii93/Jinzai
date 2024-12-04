@@ -159,14 +159,13 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                {{-- value="{{ old('taisei_interview', $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d') : '') }}" --}}
-
                                 <span class="{{ empty($application->taisei_interview)
                                     ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
                                     : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                        {{ Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d') ?? '進行中' }}
-                                    </span>
+                                    {{ $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d') : '進行中' }}
+                                </span>
                             </td>
+
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
                                 <span class="{{
                                     empty($application->taisei_result)
@@ -212,15 +211,19 @@
                             </td>
 
 
+
+
+
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-
-
-                                <span class="{{ empty($application->work_start)
-                                    ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
-                                    : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                        {{ Carbon\Carbon::parse($application->work_start)->format('Y-m-d') ?? '' }}
-                                    </span>
+                                <span class="{{
+                                    empty($application->work_start)
+                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                    {{ $application->work_start ? Carbon\Carbon::parse($application->work_start)->format('Y-m-d') : '進行中' }}
+                                </span>
                             </td>
+
+
 
 
 

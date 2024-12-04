@@ -7,8 +7,10 @@ use App\Models\User;
 use App\Models\JobPost;
 use App\Models\Category;
 use App\Models\Category2;
+use App\Notifications\JobApplicationNotification;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
+use App\Notifications\CompanyNotificationForJobPostApproval;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -357,6 +359,13 @@ class JobPostController extends Controller
 
         $application->save();
 
+        $admins=User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin)
+        {
+            $admin->notify(new JobApplicationNotification($application));
+        }
+
         return redirect()->back()->with('success', 'お申し込みは正常に送信されました。');
 
 
@@ -388,10 +397,14 @@ class JobPostController extends Controller
         {
             abort(403, 'Unauthorized action');
         }
-     $jobpost=JobPost::findOrFail($id);
-     $jobpost->update([
+     $jobPost=JobPost::findOrFail($id);
+     $jobPost->update([
         'status'=>'拒否'
      ]);
+
+      // Notify the user who created the job post
+   $jobPost->user->notify(new CompanyNotificationForJobPostApproval($jobPost));
+
 
      return redirect()->back()->with('success','求人投稿は拒否されました。');
     }
@@ -416,13 +429,17 @@ class JobPostController extends Controller
     $jobPost = JobPost::findOrFail($id);
     $jobPost->update(['status' => '承認']);
 
-    // $this->notifyJobSeekers($jobPost);
 
+   // Notify the user who created the job post
+   $jobPost->user->notify(new CompanyNotificationForJobPostApproval($jobPost));
 
 
 
     return redirect()->back()->with('success', '求人投稿が正常に承認されました。');
 }
+
+
+
 
 
 

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 
 use App\Models\JobPost;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Events\JobApplicationUpdated;
 use App\Notifications\ApplicationApproved;
 use App\Notifications\ApplicationRejected;
 
@@ -133,7 +136,32 @@ class AdminJobApplicationController extends Controller
     }
 
 
-            public function setDate(Request $request, JobApplication $application)
+        //     public function setDate(Request $request, JobApplication $application)
+        // {
+        //     $request->validate([
+        //         'taisei_interview' => 'required|date'
+        //     ]);
+
+        //     $application->update([
+        //         'taisei_interview' => $request->taisei_interview
+        //     ]);
+
+        //     return redirect()->back()->with('success', '面接日程が設定されました。'); // Success message in Japanese
+        // }
+        public function testBroadcast(JobApplication $application)
+        {
+            // Simply update the date
+            $application->update([
+                'taisei_interview' => now()->format('Y-m-d')
+            ]);
+
+            return redirect()->back()->with('success', 'Test broadcast completed');
+        }
+
+
+
+
+        public function setDate(Request $request, JobApplication $application)
         {
             $request->validate([
                 'taisei_interview' => 'required|date'
@@ -143,8 +171,16 @@ class AdminJobApplicationController extends Controller
                 'taisei_interview' => $request->taisei_interview
             ]);
 
-            return redirect()->back()->with('success', '面接日程が設定されました。'); // Success message in Japanese
+            // Log the broadcast event
+            event(new JobApplicationUpdated($application));
+
+            // Broadcast the update
+            // broadcast(new JobApplicationUpdated($application))->toOthers();
+
+            return redirect()->back()->with('success', '面接日程が設定されました。');
         }
+
+
 
             public function setTaiseiInterviewResult(Request $request, JobApplication $application)
             {

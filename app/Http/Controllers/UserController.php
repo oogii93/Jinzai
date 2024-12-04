@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\JobSeekerApprovalStatusNotification;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -66,8 +67,14 @@ class UserController extends Controller
         }
 
         $user->update([
-            'admin_check_approve'=>true
+            'admin_check_approve'=>true,
+            'status'=>'approved'
         ]);
+
+        $user->notify(new JobSeekerApprovalStatusNotification(
+            true,
+            auth()->user()->name
+        ));
         return redirect()->route('admin.user.index')->with('success','求職者アカウントが承認されました。');
     }
 
@@ -84,6 +91,12 @@ class UserController extends Controller
             'admin_check_approve' => false,
             'status' => 'disapproved' // Assuming you add a status column
         ]);
+
+          // Send notification to the user
+    $user->notify(new JobSeekerApprovalStatusNotification(
+        false,
+        auth()->user()->name
+    ));
 
         return redirect()->route('admin.user.index')
             ->with('success', '求職者アカウントが承認されませんでした');

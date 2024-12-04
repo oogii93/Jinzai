@@ -388,13 +388,12 @@
 
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-
-
-                                        <span class="{{ empty($application->work_start)
-                                            ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
-                                            : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                                {{ Carbon\Carbon::parse($application->work_start)->format('Y-m-d') ?? '' }}
-                                            </span>
+                                        <span class="{{
+                                            empty($application->work_start)
+                                                ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                                : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                            {{ $application->work_start ? Carbon\Carbon::parse($application->work_start)->format('Y-m-d') : '進行中' }}
+                                        </span>
                                     </td>
 
 
@@ -458,6 +457,37 @@
             </div>
         </div>
     </div>
+
+
+
+    {{-- @push('scripts')
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add a hidden input to store the last known interview date
+        const form = document.querySelector('form');
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'last_interview_date';
+        hiddenInput.value = '{{ $application->taisei_interview }}';
+        form.appendChild(hiddenInput);
+
+        // Periodically check for updates
+        setInterval(() => {
+            fetch('{{ route('job-applications.check-update', $application->id) }}')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.taisei_interview !== hiddenInput.value) {
+                        const statusSpan = document.querySelector('.interview-status');
+                        statusSpan.textContent = data.taisei_interview;
+                        statusSpan.classList.remove('bg-orange-500');
+                        statusSpan.classList.add('bg-sky-500');
+                        hiddenInput.value = data.taisei_interview;
+                    }
+                });
+        }, 5000); // Check every 5 seconds
+    });
+    </script>
+    @endpush --}}
 </x-app-layout>
 
 

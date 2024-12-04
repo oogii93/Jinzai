@@ -143,6 +143,84 @@
                                                         {{ $notification->data['created_by'] }}
                                                     </p>
                                                 </div>
+
+                                                @elseif($notification->type === 'App\Notifications\JobSeekerApprovalStatusNotification')
+                                                    <div class="flex items-center mb-3">
+                                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-md font-medium
+                                                            {{ $notification->data['approval_status'] ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}
+                                                            mr-3">
+                                                            {{ $notification->data['approval_status'] ? '承認' : '不承認' }}
+                                                        </span>
+                                                        <span class="text-sm text-gray-500">
+                                                            {{ $notification->created_at->diffForHumans() }}
+                                                        </span>
+                                                    </div>
+
+                                                    <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                                                        求職者アカウントステータス
+                                                    </h3>
+
+                                                    <div class="text-sm text-gray-600 space-y-1">
+                                                        <p>
+                                                            <span class="font-medium">管理者:</span>
+                                                            {{ $notification->data['admin_name'] }}
+                                                        </p>
+                                                        <p>
+                                                            {{ $notification->data['message'] }}
+                                                        </p>
+                                                    </div>
+
+
+                                                    @elseif($notification->type === 'App\Notifications\JobApplicationNotification')
+
+
+                                                    <div class="flex items-center mb-3 p-4 bg-white shadow rounded-lg">
+                                                        <div class="notification-content">
+                                                            <p class="font-semibold text-gray-600">新しい申請通知</p>
+                                                            <p>
+                                                                <span class="font-semibold"></span>
+                                                                {{ $notification->data['message'] }}
+                                                                henees henrvvg ni ajiluulah
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+
+                                                    @elseif($notification->type === 'App\Notifications\CompanyNotificationForJobPostApproval')
+                                                    <div class="flex items-center mb-3 p-4 bg-white shadow rounded-lg">
+                                                        <div class="notification-content">
+                                                            <p class="font-semibold text-gray-600">公開承認通知</p>
+                                                            <p class="text-gray-700">
+                                                                {{ $notification->data['message'] ?? '通知が届きました。' }}
+                                                            </p>
+                                                            @if(isset($notification->data['job_post_title']))
+                                                                <p class="text-sm text-gray-500 mt-1">
+                                                                    求人タイトル: {{ $notification->data['job_post_title'] }}
+                                                                </p>
+                                                            @endif
+                                                            <div class="mt-2">
+                                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                                                                    {{ isset($notification->data['status']) && $notification->data['status'] === '承認' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                                    {{ $notification->data['status'] ?? '状態不明' }}
+                                                                </span>
+                                                            </div>
+                                                            {{-- @if(isset($notification->data['job_post_id']))
+                                                                <a href="{{ route('job-posts.show', $notification->data['job_post_id']) }}"
+                                                                   class="text-blue-600 hover:underline text-sm mt-2 inline-block">
+                                                                    詳細を見る
+                                                                </a>
+                                                            @endif --}}
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+
+
+
+
                                             @endif
 
                                             @if($notification->unread())
@@ -185,7 +263,7 @@
                             @endforeach
 
                             <div class="mt-6">
-                                {{-- {{ $notifications->links('vendor.pagination.tailwind') }} --}}
+                                {{ $notifications->links('pagination::tailwind') }}
                             </div>
                         </div>
                     @else

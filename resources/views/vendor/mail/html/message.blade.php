@@ -2,7 +2,7 @@
 {{-- Header --}}
 <x-slot:header>
 <x-mail::header :url="config('app.url')">
-{{ config('app.name') }}
+太成ホールディングス人材紹介
 </x-mail::header>
 </x-slot:header>
 

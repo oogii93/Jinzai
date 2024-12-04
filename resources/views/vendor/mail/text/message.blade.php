@@ -10,13 +10,13 @@
     {{ $slot }}
 
     {{-- Subcopy --}}
-    @isset($subcopy)
+    {{-- @isset($subcopy)
         <x-slot:subcopy>
             <x-mail::subcopy>
                 {{ $subcopy }}
             </x-mail::subcopy>
         </x-slot:subcopy>
-    @endisset
+    @endisset --}}
 
     {{-- Footer --}}
     <x-slot:footer>

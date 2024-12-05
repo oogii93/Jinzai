@@ -35,7 +35,7 @@ class JobApplicationUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('job-applications.' . $this->jobApplication->id);
+        return new Channel('job-applications');
     }
 
     public function broadcastWith()

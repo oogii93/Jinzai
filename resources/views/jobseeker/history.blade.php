@@ -158,9 +158,17 @@
                                     </a>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                            {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
                                 <span class="{{ empty($application->taisei_interview)
                                     ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
+                                    : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                    {{ $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d') : '進行中' }}
+                                </span>
+                            </td> --}}
+
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                <span class="interview-status-{{ $application->id }} {{ empty($application->taisei_interview)
+                                    ? 'bg-orange-500 rounded-xl px-2 text-white font-semibold py-1'
                                     : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
                                     {{ $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d') : '進行中' }}
                                 </span>
@@ -279,6 +287,41 @@
     </div>
 </div>
 </div>
+
+
+{{-- @push('script')
+<script type="module">
+    import Echo from 'laravel-echo';
+    import Pusher from 'pusher-js';
+
+    window.Pusher = Pusher;
+
+    const echo = new Echo({
+        broadcaster: 'pusher',
+        key: '{{ env('VITE_PUSHER_APP_KEY') }}',
+        cluster: '{{ env('VITE_PUSHER_APP_CLUSTER') }}',
+        forceTLS: true
+    });
+
+    echo.channel('job-applications')
+        .listen('JobApplicationUpdated', (e) => {
+
+            console.log('Received event:', e);
+            if (e.id === {{ $application->id }}) {
+                const interviewStatusElement = document.querySelector(`.interview-status-${e.id}`);
+                if (interviewStatusElement) {
+                    interviewStatusElement.textContent = e.taisei_interview ? moment(e.taisei_interview).format('YYYY-MM-DD') : '進行中';
+                    interviewStatusElement.className = e.taisei_interview ? 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' : 'bg-orange-500 rounded-xl px-2 text-white font-semibold py-1';
+                }
+            }
+        });
+</script>
+@endpush --}}
+
+
+
+
+
 </x-app-layout>
 
 

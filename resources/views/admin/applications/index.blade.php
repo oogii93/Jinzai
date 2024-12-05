@@ -56,6 +56,10 @@
                     var statusToast = document.getElementById('statusToast');
                     var closeToast = document.getElementById('closeToast');
 
+
+                    if(!statusToast || !closeToast) return ;
+
+
                     var hideTimeout = setTimeout(function() {
                         hideToast();
                     }, 8000);
@@ -460,7 +464,48 @@
 
 
 
-    {{-- @push('scripts')
+
+  @push('script')
+      <script type="module">
+
+        import Echo from 'Laravel-echo';
+        import Pusher from 'pusher-js';
+
+        window.Pusher=Pusher;
+
+        const echo = new Echo([
+            broadcaster:'pusher',
+            key:'{{ env('VITE_PUSHER_APP_KEY') }}',
+            cluster:'{{ env('VITE_PUSHER_APP_CLUSTER') }}',
+
+            forceTLS:true
+        ]);
+
+        echo.channel('job-applications')
+        .listen('JobApplicationUpdated', (e) => {
+            console.log('Event received', e);
+
+            if(e.id === {{ $application->id }}){
+                const interviewInput = document.getElementById('taisei_interview');
+                if(interviewInput && e.taisei_interview){
+                    interviewInput.value = e.taisei_interview;
+                }
+
+                const statusElement = document.querySelector('.interview-status');
+                if(statusElement){
+                    statusElement.textContent = e.taisei_interview;
+                    statusElement.classList.remove('bg-orange-500');
+                    statusElement.classList.add('bg-sky-500');
+                }
+            }
+        });
+
+      </script>
+  @endpush
+
+
+
+   {{-- @push('scripts')
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Add a hidden input to store the last known interview date

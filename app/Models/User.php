@@ -51,6 +51,71 @@ class User extends Authenticatable
         'check_approve',
         'admin_check_approve',
 
+        //newly added
+        'education_startEnd_1',
+        'education_startEnd_2',
+        'education_startEnd_3',
+
+        'education_year_4',
+        'education_month_4',
+        'education_school_4',
+        'education_startEnd_4',
+
+        'education_year_5',
+        'education_month_5',
+        'education_school_5',
+        'education_startEnd_5',
+
+        'education_year_6',
+        'education_month_6',
+        'education_school_6',
+        'education_startEnd_6',
+
+        'education_year_7',
+        'education_month_7',
+        'education_school_7',
+        'education_startEnd_7',
+
+        'education_year_8',
+        'education_month_8',
+        'education_school_8',
+        'education_startEnd_8',
+
+        'education_year_9',
+        'education_month_9',
+        'education_school_9',
+        'education_startEnd_9',
+
+        'education_year_10',
+        'education_month_10',
+        'education_school_10',
+        'education_startEnd_10',
+
+        'education_year_11',
+        'education_month_11',
+        'education_school_11',
+        'education_startEnd_11',
+
+        'education_year_12',
+        'education_month_12',
+        'education_school_12',
+        'education_startEnd_12',
+
+        'education_year_13',
+        'education_month_13',
+        'education_school_13',
+        'education_startEnd_13',
+
+        'education_year_14',
+        'education_month_14',
+        'education_school_14',
+        'education_startEnd_14',
+
+        'education_year_15',
+        'education_month_15',
+        'education_school_15',
+        'education_startEnd_15',
+
 
 
     ];

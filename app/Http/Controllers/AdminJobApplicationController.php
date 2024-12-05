@@ -171,11 +171,18 @@ class AdminJobApplicationController extends Controller
                 'taisei_interview' => $request->taisei_interview
             ]);
 
+            \Log::info('JobApplicationUpdated event triggered', [
+                'application_id' => $application->id,
+                'taisei_interview' => $application->taisei_interview
+            ]);
+
             // Log the broadcast event
             event(new JobApplicationUpdated($application));
 
             // Broadcast the update
             // broadcast(new JobApplicationUpdated($application))->toOthers();
+
+            // dd($request->all(), $application);
 
             return redirect()->back()->with('success', '面接日程が設定されました。');
         }

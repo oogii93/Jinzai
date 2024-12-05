@@ -65,7 +65,7 @@
             </div>
 
             <!-- Image Upload Section -->
-            <div class="w-48">
+            {{-- <div class="w-48">
                 <div class="text-sm font-semibold text-gray-700 mb-2">プロフィール写真</div>
                 <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-sky-500 transition-colors cursor-pointer">
                     <label for="imageUpload" class="cursor-pointer">
@@ -75,6 +75,19 @@
                         </div>
                     </label>
                     <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*" onchange="previewImage(event)">
+                </div>
+            </div> --}}
+
+            <div class="w-48">
+                <div class="text-sm font-semibold text-gray-700 mb-2">プロフィール写真</div>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-sky-500 transition-colors cursor-pointer">
+                    <label for="imageUpload" class="cursor-pointer">
+                        <div class="w-40 h-40 bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
+                            <img id="selectedImage" alt="Selected Image" class="hidden w-40 h-40 object-cover">
+                            <span class="text-gray-500" id="placeholderText">写真選択</span>
+                        </div>
+                    </label>
+                    <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*">
                 </div>
             </div>
         </div>
@@ -189,11 +202,11 @@
             </div>
         </div>
 
-
+<!--dfadfds-->
         <div class="space-y-2 mt-4">
             <label class="block text-sm font-semibold text-gray-700">学歴</label>
 
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-1">
                 <select
                     name="education_year_1"
                     class="px-4 py-2 border border-gray-300 rounded-md "
@@ -220,11 +233,35 @@
                     placeholder="学校名"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
+
+                <select
+                name="education_startEnd_1"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+
+
+
                     @error('education_school_1')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="grid grid-cols-3 gap-2">
+
+
+
+
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-2">
                 <select
                     name="education_year_2"
                     class="px-4 py-2 border border-gray-300 rounded-md "
@@ -252,11 +289,27 @@
                     value="{{ old('education_school_2') }}"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
+
+
+                <select
+                name="education_startEnd_2"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
                     @error('education_school_2')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="grid grid-cols-3 gap-2">
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-3" >
                 <select
                     name="education_year_3"
                     class="px-4 py-2 border border-gray-300 rounded-md "
@@ -283,10 +336,609 @@
                     placeholder="学校名"
                     class="px-4 py-2 border border-gray-300 rounded-md "
                 >
+
+                <select
+                name="education_startEnd_3"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
                     @error('education_school_3')
                     <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-4" style="display: none;">
+                <select
+                    name="education_year_4"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_4"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_4"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_4"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_4')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-5" style="display: none;">
+                <select
+                    name="education_year_5"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_5"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_5"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_5"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_5')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-6" style="display: none;">
+                <select
+                    name="education_year_6"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_6"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_6"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_6"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_6')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-7" style="display: none;">
+                <select
+                    name="education_year_7"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_7"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_7"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_7"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_7')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-8" style="display: none;">
+                <select
+                    name="education_year_8"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_8"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_8"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_8"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_8')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-9" style="display: none;">
+                <select
+                    name="education_year_9"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_9"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_9"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_9"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_9')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-10" style="display: none;">
+                <select
+                    name="education_year_10"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_10"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_10"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_10"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_10')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-11" style="display: none;">
+                <select
+                    name="education_year_11"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_11"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_11"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_11"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_11')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-12" style="display: none;">
+                <select
+                    name="education_year_12"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_12"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_12"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_12"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_12')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-13" style="display: none;">
+                <select
+                    name="education_year_13"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_13"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_13"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_13"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_13')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-14" style="display: none;">
+                <select
+                    name="education_year_14"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_14"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_14"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_14"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_14')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="grid grid-cols-4 gap-2 education-row" id="row-15" style="display: none;">
+                <select
+                    name="education_year_15"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">年</option>
+                    @for($i = date('Y'); $i >= 1950; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+
+                <select
+                    name="education_month_15"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+                    <option value="">月</option>
+                    @foreach(range(1, 12) as $month)
+                        <option value="{{ $month }}">{{ __($month . '月') }}</option>
+                    @endforeach
+                </select>
+
+                <input
+                    type="text"
+                    name="education_school_15"
+                    placeholder="学校名"
+                    class="px-4 py-2 border border-gray-300 rounded-md "
+                >
+
+                <select
+                name="education_startEnd_15"
+                class="px-4 py-2 border border-gray-300 rounded-md "
+            >
+                <option value="" disabled selected class="">選択</option>
+
+                <option value="入学">入学</option>
+                <option value="卒業">卒業</option>
+                <option value="入社">入社</option>
+                <option value="退社">退社</option>
+                <option value="退学">退学</option>
+            </select>
+
+
+
+                    @error('education_school_3')
+                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="mt-4">
+                <button type="button" id="add-row" class="px-4 py-2 bg-sky-400 hover:bg-sky-600 text-white rounded-md font-bold text-2xl">+</button>
+                <button type="button" id="remove-row" class="px-4 py-2 bg-orange-300 hover:bg-orange-400 text-white rounded-md font-bold text-2xl">-</button>
+            </div>
+
+
 
 
         </div>
@@ -443,6 +1095,78 @@
 </div>
 
 <script>
+   document.addEventListener("DOMContentLoaded", () => {
+    let visibleRows = 3; // Initially show 3 rows
+    const maxRows = 15;
+
+    // Row Addition Functionality
+    const addRowButton = document.getElementById("add-row");
+    const removeRowButton = document.getElementById("remove-row");
+
+    addRowButton.addEventListener("click", () => {
+        if (visibleRows < maxRows) {
+            visibleRows++;
+            document.getElementById(`row-${visibleRows}`).style.display = "grid";
+        }
+    });
+
+    removeRowButton.addEventListener("click", () => {
+        if (visibleRows > 1) {
+            document.getElementById(`row-${visibleRows}`).style.display = "none";
+            visibleRows--;
+        }
+    });
+
+    // Image Preview Functionality
+
+
+    const fileInput = document.getElementById('imageUpload');
+    const imageElement = document.getElementById('selectedImage');
+    const placeholderText = document.getElementById('placeholderText');
+
+    fileInput.addEventListener('change', (event) => {
+        const input = event.target;
+        const file = input.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                imageElement.src = e.target.result;
+                imageElement.classList.remove('hidden');
+                placeholderText.classList.add('hidden');
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            // If no file is selected, reset to original state
+            imageElement.src = '';
+            imageElement.classList.add('hidden');
+            placeholderText.classList.remove('hidden');
+        }
+    });
+});
+</script>
+
+{{-- <script>
+
+document.addEventListener("DOMContentLoaded", () => {
+let visibleRows = 3; // Initially show 1 row
+const maxRows = 15;
+
+document.getElementById("add-row").addEventListener("click", () => {
+if (visibleRows < maxRows) {
+    visibleRows++;
+    document.getElementById(`row-${visibleRows}`).style.display = "grid";
+}
+});
+
+document.getElementById("remove-row").addEventListener("click", () => {
+if (visibleRows > 1) {
+    document.getElementById(`row-${visibleRows}`).style.display = "none";
+    visibleRows--;
+}
+});
 
 
 function previewImage(event) {
@@ -467,7 +1191,17 @@ function previewImage(event) {
     const formattedDate = today.toISOString().split('T')[0];
     // Set the formatted date as the default value for the input
     document.getElementById('currentDate').value = formattedDate;
-</script>
+
+
+
+
+
+
+
+
+});
+
+</script> --}}
 </html>
 
 

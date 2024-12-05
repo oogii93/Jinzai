@@ -22,9 +22,22 @@ class JobseekerApproval
 
         $user=Auth::user();
 
-        if($user->role !=='jobseeker'){
+        if($user->role ==='company'){
+            return redirect()->back()
+                    ->with('error', 'このページにアクセスする権限がありません。');
+        }
+
+
+           // Allow admin access unconditionally
+           if ($user->role === 'admin') {
             return $next($request);
         }
+
+
+
+        // if($user->role !=='jobseeker'){
+        //     return $next($request);
+        // }
 
         if (!$user->admin_check_approve) {
             return redirect()->back()

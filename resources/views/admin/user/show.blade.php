@@ -234,55 +234,86 @@
                 </div>
 
 
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
+                {{-- <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
                     <label for="email"
                         class="block font-semibold text-white bg-blue-600 w-full sm:w-[200px] h-auto sm:h-[180px] px-5 py-5 text-md">
-                        教育
+                        学史
                     </label>
 
                     <!-- Date Selection Column -->
                     <div class="border-b-2 border-gray-200">
                         <!-- First Entry -->
-                        <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-2 sm:space-y-0 mb-2">
-                        <small class="ml-2 mt-1 bg-yellow-100 px-2 py-2 rounded-xl">学習１</small>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
+                        <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-2 sm:space-y-0 mb-2 border border-gray-300 rounded-lg mt-2">
+                        <small class="ml-2 mt-1 bg-yellow-100 px-2 py-2 rounded-md border border-gray-300">学史１</small>
+                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl border border-gray-300">
                                 {{ $user->education_year_1 }}
                             </p>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
+                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl border border-gray-300">
                                 {{ $user->education_month_1 }}
                             </p>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
+                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl border border-gray-300">
                                 {{ $user->education_school_1 }}
+                            </p>
+                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl border border-gray-300">
+                                {{ $user->education_startEnd_1 }}
+                            </p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-2 sm:space-y-0 mb-2 border border-gray-300 rounded-lg mt-2">
+                        <small class="ml-2 mt-1 bg-yellow-100 px-2 py-2 rounded-md border border-gray-300">学史１</small>
+                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl border border-gray-300">
+                                {{ $user->education_year_1 }}
+                            </p>
+                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl border border-gray-300">
+                                {{ $user->education_month_1 }}
+                            </p>
+                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl border border-gray-300">
+                                {{ $user->education_school_1 }}
+                            </p>
+                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl border border-gray-300">
+                                {{ $user->education_startEnd_1 }}
                             </p>
                         </div>
 
                         <!-- Second Entry -->
-                        <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-2 sm:space-y-0 mb-2">
 
-                            <small class="ml-2 bg-yellow-100 px-2 py-2 rounded-xl">学習２</small>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
-                                {{ $user->education_year_2 }}
-                            </p>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
-                                {{ $user->education_month_2 }}
-                            </p>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
-                                {{ $user->education_school_2 }}
-                            </p>
-                        </div>
 
-                        <!-- Third Entry -->
-                        <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-2 sm:space-y-0">
-                            <small class="ml-2 bg-yellow-100 px-2 py-2 rounded-xl">学習３</small>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
-                                {{ $user->education_year_3 }}
-                            </p>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
-                                {{ $user->education_month_3 }}
-                            </p>
-                            <p class="px-5 py-3 text-md text-gray-700 bg-white rounded-xl">
-                                {{ $user->education_school_3 }}
-                            </p>
+                    </div>
+                </div> --}}
+
+                <div class="flex flex-col sm:flex-row border border-gray-300 rounded-lg shadow-lg overflow-hidden">
+                    <!-- Sidebar Header -->
+                    <div class="bg-blue-500 text-white px-8 py-6 sm:w-[250px] flex items-center justify-center">
+                        <h3 class="text-2xl font-bold">学史</h3>
+                    </div>
+
+                    <!-- Content Area -->
+                    <div class="flex flex-col w-full">
+                        <div class="p-6 space-y-4">
+                            @for($i = 1; $i <= 15; $i++)
+                                @if($user->{'education_year_' . $i})
+                                    <div class="flex items-center space-x-6 bg-gray-100 p-4 rounded-lg shadow-sm">
+                                        <!-- Tag -->
+                                        <span class="bg-yellow-200 text-yellow-600 px-4 py-2 rounded-full text-sm font-semibold">
+                                            学史 {{ $i }}
+                                        </span>
+                                        <!-- Details -->
+                                        <div class="flex flex-col sm:flex-row sm:space-x-6 space-y-2 sm:space-y-0">
+                                            <p class="text-gray-800 font-medium">
+                                                <span class="font-semibold">年:</span> {{ $user->{'education_year_' . $i} }}
+                                            </p>
+                                            <p class="text-gray-800 font-medium">
+                                                <span class="font-semibold">月:</span> {{ $user->{'education_month_' . $i} }}
+                                            </p>
+                                            <p class="text-gray-800 font-medium">
+                                                <span class="font-semibold">学校名:</span> {{ $user->{'education_school_' . $i} }}
+                                            </p>
+                                            <p class="text-gray-800 font-medium">
+                                                <span class="font-semibold">種類:</span> {{ $user->{'education_startEnd_' . $i} }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endfor
                         </div>
                     </div>
                 </div>

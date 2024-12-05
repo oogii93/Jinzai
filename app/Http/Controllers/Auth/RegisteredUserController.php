@@ -53,7 +53,77 @@ class RegisteredUserController extends Controller
         'language',
         'license',
         'hobby',
-        'part_time'
+        'part_time',
+
+        // new datas
+
+        'education_startEnd_1',
+        'education_startEnd_2',
+        'education_startEnd_3',
+
+        'education_year_4',
+        'education_month_4',
+        'education_school_4',
+        'education_startEnd_4',
+
+        'education_year_5',
+        'education_month_5',
+        'education_school_5',
+        'education_startEnd_5',
+
+        'education_year_6',
+        'education_month_6',
+        'education_school_6',
+        'education_startEnd_6',
+
+        'education_year_7',
+        'education_month_7',
+        'education_school_7',
+        'education_startEnd_7',
+
+        'education_year_8',
+        'education_month_8',
+        'education_school_8',
+        'education_startEnd_8',
+
+        'education_year_9',
+        'education_month_9',
+        'education_school_9',
+        'education_startEnd_9',
+
+        'education_year_10',
+        'education_month_10',
+        'education_school_10',
+        'education_startEnd_10',
+
+        'education_year_11',
+        'education_month_11',
+        'education_school_11',
+        'education_startEnd_11',
+
+        'education_year_12',
+        'education_month_12',
+        'education_school_12',
+        'education_startEnd_12',
+
+        'education_year_13',
+        'education_month_13',
+        'education_school_13',
+        'education_startEnd_13',
+
+        'education_year_14',
+        'education_month_14',
+        'education_school_14',
+        'education_startEnd_14',
+
+        'education_year_15',
+        'education_month_15',
+        'education_school_15',
+        'education_startEnd_15',
+
+
+
+
     ];
 
 
@@ -304,6 +374,76 @@ class RegisteredUserController extends Controller
                 'hobby' => ['nullable', 'string'],
                 'part_time' => ['nullable', 'string'],
                 'check_approve'=>['required','accepted'],
+                //new
+
+        'education_startEnd_1'=>['nullable', 'string'],
+        'education_startEnd_2'=>['nullable', 'string'],
+        'education_startEnd_3'=>['nullable', 'string'],
+
+        'education_year_4' => ['nullable', 'integer'],
+        'education_month_4' =>['nullable', 'integer'],
+        'education_school_4'=>['nullable','string'],
+        'education_startEnd_4'=>['nullable','string'],
+
+        'education_year_5' => ['nullable', 'integer'],
+        'education_month_5' =>['nullable', 'integer'],
+        'education_school_5'=>['nullable','string'],
+        'education_startEnd_5'=>['nullable','string'],
+
+        'education_year_6' => ['nullable', 'integer'],
+        'education_month_6' =>['nullable', 'integer'],
+        'education_school_6'=>['nullable','string'],
+        'education_startEnd_6'=>['nullable','string'],
+
+        'education_year_7' => ['nullable', 'integer'],
+        'education_month_7' =>['nullable', 'integer'],
+        'education_school_7'=>['nullable','string'],
+        'education_startEnd_7'=>['nullable','string'],
+
+        'education_year_8' => ['nullable', 'integer'],
+        'education_month_8' =>['nullable', 'integer'],
+        'education_school_8'=>['nullable','string'],
+        'education_startEnd_8'=>['nullable','string'],
+
+        'education_year_9' => ['nullable', 'integer'],
+        'education_month_9' =>['nullable', 'integer'],
+        'education_school_9'=>['nullable','string'],
+        'education_startEnd_9'=>['nullable','string'],
+
+        'education_year_10' => ['nullable', 'integer'],
+        'education_month_10' =>['nullable', 'integer'],
+        'education_school_10'=>['nullable','string'],
+        'education_startEnd_10'=>['nullable','string'],
+
+        'education_year_11' => ['nullable', 'integer'],
+        'education_month_11' =>['nullable', 'integer'],
+        'education_school_11'=>['nullable','string'],
+        'education_startEnd_11'=>['nullable','string'],
+
+        'education_year_12' => ['nullable', 'integer'],
+        'education_month_12' =>['nullable', 'integer'],
+        'education_school_12'=>['nullable','string'],
+        'education_startEnd_12'=>['nullable','string'],
+
+        'education_year_13' => ['nullable', 'integer'],
+        'education_month_13' =>['nullable', 'integer'],
+        'education_school_13'=>['nullable','string'],
+        'education_startEnd_13'=>['nullable','string'],
+
+        'education_year_14' => ['nullable', 'integer'],
+        'education_month_14' =>['nullable', 'integer'],
+        'education_school_14'=>['nullable','string'],
+        'education_startEnd_14'=>['nullable','string'],
+
+        'education_year_15' => ['nullable', 'integer'],
+        'education_month_15' =>['nullable', 'integer'],
+        'education_school_15'=>['nullable','string'],
+        'education_startEnd_15'=>['nullable','string'],
+
+
+
+
+
             ]  ;
 
     }
@@ -379,7 +519,76 @@ class RegisteredUserController extends Controller
             'license' => $request->license,
             'hobby' => $request->hobby,
             'part_time' => $request->part_time,
-            'check_approve'=>$request->check_approve
+            'check_approve'=>$request->check_approve,
+
+            //new data
+
+            'education_startEnd_1'=>$request->education_startEnd_1,
+            'education_startEnd_2'=>$request->education_startEnd_2,
+            'education_startEnd_3'=>$request->education_startEnd_3,
+
+            'education_year_4'=>$request->education_year_4,
+            'education_month_4'=>$request->education_month_4,
+            'education_school_4'=>$request->education_school_4,
+            'education_startEnd_4'=>$request->education_startEnd_4,
+
+            'education_year_5'=>$request->education_year_5,
+            'education_month_5'=>$request->education_month_5,
+            'education_school_5'=>$request->education_school_5,
+            'education_startEnd_5'=>$request->education_startEnd_5,
+
+            'education_year_6'=>$request->education_year_6,
+            'education_month_6'=>$request->education_month_6,
+            'education_school_6'=>$request->education_school_6,
+            'education_startEnd_6'=>$request->education_startEnd_6,
+
+            'education_year_7'=>$request->education_year_7,
+            'education_month_7'=>$request->education_month_7,
+            'education_school_7'=>$request->education_school_7,
+            'education_startEnd_7'=>$request->education_startEnd_7,
+
+            'education_year_8'=>$request->education_year_8,
+            'education_month_8'=>$request->education_month_8,
+            'education_school_8'=>$request->education_school_8,
+            'education_startEnd_8'=>$request->education_startEnd_8,
+
+            'education_year_9'=>$request->education_year_9,
+            'education_month_9'=>$request->education_month_9,
+            'education_school_9'=>$request->education_school_9,
+            'education_startEnd_9'=>$request->education_startEnd_9,
+
+            'education_year_10'=>$request->education_year_10,
+            'education_month_10'=>$request->education_month_10,
+            'education_school_10'=>$request->education_school_10,
+            'education_startEnd_10'=>$request->education_startEnd_10,
+
+            'education_year_11'=>$request->education_year_11,
+            'education_month_11'=>$request->education_month_11,
+            'education_school_11'=>$request->education_school_11,
+            'education_startEnd_11'=>$request->education_startEnd_11,
+
+            'education_year_12'=>$request->education_year_12,
+            'education_month_12'=>$request->education_month_12,
+            'education_school_12'=>$request->education_school_12,
+            'education_startEnd_12'=>$request->education_startEnd_12,
+
+            'education_year_13'=>$request->education_year_13,
+            'education_month_13'=>$request->education_month_13,
+            'education_school_13'=>$request->education_school_13,
+            'education_startEnd_13'=>$request->education_startEnd_13,
+
+            'education_year_14'=>$request->education_year_14,
+            'education_month_14'=>$request->education_month_14,
+            'education_school_14'=>$request->education_school_14,
+            'education_startEnd_14'=>$request->education_startEnd_14,
+
+            'education_year_15'=>$request->education_year_15,
+            'education_month_15'=>$request->education_month_15,
+            'education_school_15'=>$request->education_school_15,
+            'education_startEnd_15'=>$request->education_startEnd_15,
+
+
+
         ]);
 
 

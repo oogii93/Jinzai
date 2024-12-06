@@ -5,22 +5,25 @@ export function initializeChatBox() {
 
     if (!chatBox || !toggleButton || !toggleIcon) return;
 
-    let isSmall = false;
+    let isExpanded = false;
 
     toggleButton.addEventListener('click', () => {
-        if (isSmall) {
-            chatBox.style.width = '20rem';
-            chatBox.style.height = 'auto';
-            toggleIcon.innerHTML = `
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
-            `;
-        } else {
-            chatBox.style.width = '5rem';
-            chatBox.style.height = '5rem';
+        if (!isExpanded) {
+            // Expand
+            chatBox.classList.remove('w-20', 'h-20');
+            chatBox.classList.add('w-80');
             toggleIcon.innerHTML = `
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             `;
+            isExpanded = true;
+        } else {
+            // Collapse
+            chatBox.classList.add('w-20', 'h-20');
+            chatBox.classList.remove('w-80');
+            toggleIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+            `;
+            isExpanded = false;
         }
-        isSmall = !isSmall;
     });
 }

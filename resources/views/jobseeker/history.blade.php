@@ -98,7 +98,8 @@
 
     <!-- Table Section -->
     <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto bg-sky-200">
+            <img src="{{ asset('images/Group 2.svg') }}" alt="" class="px-4 py-4">
             <!-- Status Tabs -->
 
             <table class="min-w-full border border-gray-400">

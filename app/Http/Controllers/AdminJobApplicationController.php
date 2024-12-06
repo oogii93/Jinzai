@@ -18,45 +18,114 @@ class AdminJobApplicationController extends Controller
 {
 
 
+
     public function index(Request $request)
     {
+        $status=$request->get('status','pending');
+        $searchQuery=$request->get('search');
+
+        $users=User::where('role','jobseeker')
+                ->with('videoProfile')
+                ->when($searchQuery, function ($query) use ($searchQuery){
+                    return $query->where(function ($q) use ($searchQuery){
+                        $q->where('name', 'like', '%' . $searchQuery. '%')
+                            ->orWhere('email', 'like', '%' .$searchQuery . '%')
+                            ->orWhere('phone_number', 'like', '%' .$searchQuery. '%');
+                    });
+                })->get();
 
 
-        $jobpost = JobPost::with(['category', 'user'])  // Add user to eager loading
-        ->latest()
-        ->get();
+                $jobpost=JobPost::with(['category', 'user'])
+                        ->latest()
+                        ->get();
 
 
-        $status=$request->get('status', 'pending');
+                $company=User::where('role', 'company')
+                        ->get();
 
-        $users=User::where('role', 'jobseeker')
-        ->with('videoProfile')
-        ->get();
+                $applications=JobApplication::with([
+                    'jobPost',
+                    'user'=>function ($query) use ($searchQuery){
+                        if($searchQuery){
+                            $query->where('name', 'like', '%' .$searchQuery. '%')
+                                    ->orWhere('email', 'like', '%' . $searchQuery . '%')
+                                    ->orWhere('phone_number', 'like', '%' . $searchQuery . '%');
+                        }
+                    }
+                ])
+                ->when ($status !== 'all', function ($query) use ($status){
 
-        $company=User::where('role', 'company')
-        ->get();
+                    return $query->where('admin_status', $status);
+                })
+                ->when ($searchQuery, function ($query) use($searchQuery){
 
-        $applications=JobApplication::with([
-            'jobPost',
-            'user'
-        ])
-        ->when($status !=='all', function($query) use($status){
-            return $query->where('admin_status', $status);
-        })
-        ->latest()
-        ->paginate();
+                    return $query->whereHas('user', function ($q) use ($searchQuery){
+                        $q->where('name', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('email', 'like', '%' . $searchQuery . '%')
+                        ->orWhere('phone_number', 'like', '%' . $searchQuery . '%');
+                    });
+                })
+                ->latest()
+                ->paginate(10);
 
-        $counts = [
-            'pending' => JobApplication::where('admin_status', 'pending')->count(),
-            'approved' => JobApplication::where('admin_status', 'approved')->count(),
-            'rejected' => JobApplication::where('admin_status', 'rejected')->count(),
-        ];
-        // dd([
-        //     'adfadsf'=>$company
-        // ]);
 
-        return view('admin.applications.index', compact('applications', 'counts', 'status','users','company','jobpost'));
+                $counts=[
+                    'pending'=>JobApplication::where('admin_status', 'pending')->count(),
+                    'approved'=>JobApplication::where('admin_status', 'approved')->count(),
+                    'rejected'=>JobApplication::where('admin_status', 'rejected')->count(),
+                ];
+
+                return view('admin.applications.index', compact(
+                    'applications',
+                    'counts',
+                                'status',
+                                'users',
+                                'company',
+                                'jobpost'
+                ));
+
     }
+
+
+    // public function index(Request $request)
+    // {
+
+
+    //     $jobpost = JobPost::with(['category', 'user'])  // Add user to eager loading
+    //     ->latest()
+    //     ->get();
+
+
+    //     $status=$request->get('status', 'pending');
+
+    //     $users=User::where('role', 'jobseeker')
+    //     ->with('videoProfile')
+    //     ->get();
+
+    //     $company=User::where('role', 'company')
+    //     ->get();
+
+    //     $applications=JobApplication::with([
+    //         'jobPost',
+    //         'user'
+    //     ])
+    //     ->when($status !=='all', function($query) use($status){
+    //         return $query->where('admin_status', $status);
+    //     })
+    //     ->latest()
+    //     ->paginate();
+
+    //     $counts = [
+    //         'pending' => JobApplication::where('admin_status', 'pending')->count(),
+    //         'approved' => JobApplication::where('admin_status', 'approved')->count(),
+    //         'rejected' => JobApplication::where('admin_status', 'rejected')->count(),
+    //     ];
+    //     // dd([
+    //     //     'adfadsf'=>$company
+    //     // ]);
+
+    //     return view('admin.applications.index', compact('applications', 'counts', 'status','users','company','jobpost'));
+    // }
 
     public function review(Request $request, JobApplication $application)
     {

@@ -73,276 +73,174 @@
         });
     </script>
 
-    <div class="relative flex items-center space-x-10 w-full bg-sky-400 overflow-hidden">
-        <!-- Three.js container -->
-        <div id="three-background" class="absolute inset-0 opacity-50 pointer-events-none"></div>
 
-        <!-- Your existing content -->
-        <div class="relative z-10 flex items-center space-x-10 w-full">
-            <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
-                 alt="Company Logo"
-                 class="w-40 h-32 px-2 py-2 rounded-xl">
+<body class="bg-gray-50">
+    <!-- Header with Gradient and Subtle 3D Effect -->
+    <div class="relative bg-gradient-to-r from-sky-500 to-indigo-600 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center space-x-6">
+                <!-- Profile Image with Modern Border -->
+                <div class="ring-4 ring-white/20 rounded-2xl overflow-hidden transform transition-all hover:scale-105">
+                    <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
+                         alt="Company Logo"
+                         class="w-48 h-48 object-cover">
+                </div>
 
-            <div class="p-2 font-semibold">
-                <h1>{{ $user->name }}</h1>
+                <!-- Company Name with Refined Typography -->
+                <div class="flex-1">
+                    <h1 class="text-4xl font-bold text-white drop-shadow-md tracking-tight">
+                        {{ $user->name }}
+                    </h1>
+                </div>
             </div>
         </div>
     </div>
 
-
-    <div class="py-12 bg-gray-200">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 bg-white rounded-lg mb-2 px-5">
-
-            <div class="py-12">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <!-- Statistics Section -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-400 hover:bg-orange-100">
-                            <div class="p-6">
-                                <div class="text-xl font-semibold text-gray-800">{{ $statistics['total_jobs'] }}</div>
-                                <div class="text-sm text-gray-600 font-semibold">弊社の投稿</div>
-                            </div>
-                        </div>
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-400 hover:bg-orange-100">
-                            <div class="p-6">
-                                <div class="text-xl font-semibold text-gray-800">{{ $statistics['total_applications'] }}</div>
-                                <div class="text-sm text-gray-600 font-semibold">採用申請</div>
-                            </div>
-                        </div>
-                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-400 hover:bg-orange-100">
-                            <div class="p-6">
-                                <div class="text-xl font-semibold text-gray-800">{{ $statistics['pending_reviews'] }}</div>
-                                <div class="text-sm text-gray-600 font-semibold">流れ</div>
-                            </div>
-                        </div>
+    <!-- Main Content Grid -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 space-y-8">
+        <!-- Statistics Cards with Hover Effects -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach ([
+                ['label' => '弊社の投稿', 'value' => $statistics['total_jobs'], 'color' => 'bg-emerald-100'],
+                ['label' => '採用申請', 'value' => $statistics['total_applications'], 'color' => 'bg-sky-100'],
+                ['label' => '流れ', 'value' => $statistics['pending_reviews'], 'color' => 'bg-amber-100']
+            ] as $stat)
+                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all {{ $stat['color'] }}">
+                    <div class="p-6 text-center">
+                        <div class="text-3xl font-bold text-gray-800">{{ $stat['value'] }}</div>
+                        <div class="text-sm text-gray-600 mt-2">{{ $stat['label'] }}</div>
                     </div>
+                </div>
+            @endforeach
+        </div>
 
-                    <div class="overflow-x-auto bg-white mb-10 mt-5 p-5 rounded-xl ">
-                        <h1 class="flex justify-center text-md font-semibold text-gray-700 mb-5">企業基本情報</h1>
+        <!-- Company Information Card -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Basic Information -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">企業基本情報</h2>
 
-                        <div class="">
+                @php
+                    $details = [
+                        ['label' => '企業名', 'value' => $user->name],
+                        ['label' => 'メールアドレス', 'value' => $user->email],
+                        ['label' => '電話番号', 'value' => $user->phone_number],
+                        ['label' => '携帯電話', 'value' => $user->mobile_number],
+                        ['label' => '住所', 'value' => $user->address]
+                    ];
+                @endphp
 
-
-                            <div class="px-10">
-
-
-                                <h2 class="font-medium text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">企業名</span>  {{ $user->name }}</h2>
-                                <p class="mt-4 text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">メールアドレス</span>  {{ $user->email }}</p>
-                                <p class="mt-4 text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">電話番号</span>  {{ $user->phone_number }}</p>
-                                <p class="mt-4 text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">携帯電話</span>  {{ $user->mobile_number }}</p>
-                                <p class="mt-4 text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">住所</span>  {{ $user->address }}</p>
-
-
-
-
-
-
-
-
-                                    <h2 class="font-medium text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">情報</span>  {{ $user->companyProfile->company_description ?? ''}}</h2>
-                                    <p class="mt-4 text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">行動の方向性</span>  {{ $user->companyProfile->industry }}</p>
-                                    <p class="mt-4 text-sm"><span class="text-gray-600 font-semibold bg-gray-200 rounded-lg px-2">ウェブサイト</span>  {{ $user->companyProfile->website }}</p>
-
-                            </div>
-
-
+                <div class="space-y-4">
+                    @foreach ($details as $detail)
+                        <div class="flex items-center space-x-4">
+                            <span class="w-32 font-medium text-gray-600">{{ $detail['label'] }}</span>
+                            <span class="flex-1 text-gray-800">{{ $detail['value'] }}</span>
                         </div>
-
-
-                    </div>
-
-                    <!-- Job Posts and Applications Section -->
-
+                    @endforeach
                 </div>
             </div>
 
+            <!-- Company Profile Details -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+                <h2 class="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">会社概要</h2>
 
+                @php
+                    $profile_details = [
+                        ['label' => '情報', 'value' => $user->companyProfile->company_description ?? ''],
+                        ['label' => '行動の方向性', 'value' => $user->companyProfile->industry],
+                        ['label' => 'ウェブサイト', 'value' => $user->companyProfile->website]
+                    ];
+                @endphp
 
-
-
-
-                        <div class="overflow-x-auto bg-white rounded-lg">
-
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <h1 class="flex justify-center text-lg font-semibold mb-5 text-gray-700 mt-2">{{ $user->name }} -- 投稿</h1>
-
-                                <div class="flex justify-end">
-                                <a href="{{ route('jobpost.create') }}" class=" bg-blue-500 hover:bg-blue-700 text-white px-2 py-2 rounded-lg mt-2 mb-2"><span class="4xl font-semibold">+</span>新規投稿</a>
-
-                                </div>
-                                <thead class="bg-orange-200 rounded-lg">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">番号</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">タイトル</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">制作日付け</th>
-                                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">作動</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach ($jobposts as $item)
-                                        <tr class="hover:bg-gray-50">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $loop->iteration }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="flex items-center">
-                                                    <div class="h-8 w-8 flex-shrink-0">
-                                                        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500">
-                                                            <span class="text-sm font-medium leading-none text-white">{{ substr($item->title, 0, 1) }}</span>
-                                                        </span>
-                                                    </div>
-                                                    <div class="ml-4">
-                                                        <div class="text-sm font-medium text-gray-900">{{ $item->title }}</div>
-                                                    </div>
-
-                                                </div>
-                                            </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $item->created_at }}</td>
-
-
-
-
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <div class="flex justify-end space-x-3">
-                                                    <a href="{{ route('tags.edit', $item) }}"
-                                                       class="text-indigo-600 hover:text-indigo-900">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                        </svg>
-                                                    </a>
-                                                    <form action="{{ route('tags.destroy', $item) }}" method="POST" class="inline">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                                class="text-red-600 hover:text-red-900"
-                                                                onclick="return confirm('Are you sure you want to delete this user?')">
-                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
-
-
-                    </div>
-
-
-
-
-
-
-                    </div>
-
-
-
-                    <!-- Application View Modal -->
-                    <div id="applicationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
-                        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
-                            <div class="mt-3" id="applicationModalContent">
-                                <!-- Content will be loaded here -->
-                            </div>
+                <div class="space-y-4">
+                    @foreach ($profile_details as $detail)
+                        <div class="flex flex-col">
+                            <span class="text-sm font-medium text-gray-600 mb-1">{{ $detail['label'] }}</span>
+                            <span class="text-gray-800">{{ $detail['value'] }}</span>
                         </div>
-                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
 
-                    <script>
-                        function viewApplication(applicationId) {
-                            // You'll need to implement this function to show application details in the modal
-                            const modal = document.getElementById('applicationModal');
-                            const content = document.getElementById('applicationModalContent');
+        <!-- Job Posts Section -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+            <div class="px-6 py-4 bg-gray-50 flex justify-between items-center">
+                <h2 class="text-xl font-semibold text-gray-800">{{ $user->name }} -- 投稿</h2>
+                <a href="{{ route('jobpost.create') }}"
+                   class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                    新規投稿
+                </a>
+            </div>
 
-                            // Fetch application details via AJAX and populate the modal
-                            fetch(`/company/applications/${applicationId}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    content.innerHTML = `
-                                        <h3 class="text-lg font-medium text-gray-900 mb-4">Application Details</h3>
-                                        <div class="space-y-4">
-                                            <div>
-                                                <h4 class="text-sm font-medium text-gray-500">Cover Letter</h4>
-                                                <p class="mt-1 text-sm text-gray-900">${data.cover_letter}</p>
-                                            </div>
-                                            <div>
-                                                <h4 class="text-sm font-medium text-gray-500">Resume</h4>
-                                                <a href="/storage/${data.resume_path}" target="_blank" class="text-indigo-600 hover:text-indigo-900">View Resume</a>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            @php
+                                $headers = ['番号', 'タイトル', '制作日付け', '作動']
+                            @endphp
+                            @foreach ($headers as $header)
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    {{ $header }}
+                                </th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach ($jobposts as $item)
+                            <tr class="hover:bg-gray-50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <div class="h-10 w-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">
+                                                {{ substr($item->title, 0, 1) }}
                                             </div>
                                         </div>
-                                        <div class="mt-5 flex justify-end">
-                                            <button onclick="document.getElementById('applicationModal').classList.add('hidden')" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Close</button>
+                                        <div>
+                                            <div class="text-sm font-medium text-gray-900">{{ $item->title }}</div>
                                         </div>
-                                    `;
-                                    modal.classList.remove('hidden');
-                                });
-                        }
-
-
-
-                    </script>
-
-<script type="module">
-    import * as THREE from 'three';
-
-    // Initialize Three.js scene
-    const container = document.getElementById('three-background');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true }); // Enable transparency
-
-    // Set up renderer
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    container.appendChild(renderer.domElement);
-
-    // Create multiple cubes
-    const cubes = [];
-    const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-    const cubeMaterial = new THREE.MeshBasicMaterial({
-        color: 0xFFFFFF,
-        transparent: true,
-        opacity: 0.3
-    });
-
-    // Create and position multiple cubes
-    for (let i = 0; i < 10; i++) {
-        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.position.x = (Math.random() - 0.5) * 10;
-        cube.position.y = (Math.random() - 0.5) * 10;
-        cube.position.z = (Math.random() - 0.5) * 10;
-        cube.rotation.x = Math.random() * Math.PI;
-        cube.rotation.y = Math.random() * Math.PI;
-        cubes.push(cube);
-        scene.add(cube);
-    }
-
-    // Position camera
-    camera.position.z = 5;
-
-    // Handle window resize
-    window.addEventListener('resize', onWindowResize, false);
-
-    function onWindowResize() {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-    }
-
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-
-        // Animate each cube
-        cubes.forEach(cube => {
-            cube.rotation.x += 0.002;
-            cube.rotation.y += 0.002;
-            cube.position.y += Math.sin(Date.now() * 0.001) * 0.002;
-        });
-
-        renderer.render(scene, camera);
-    }
-
-    animate();
-    </script>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ $item->created_at->format('Y-m-d') }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right">
+                                    <div class="flex space-x-3">
+                                        <a href="{{ route('tags.edit', $item) }}"
+                                           class="text-indigo-600 hover:text-indigo-900 transition-colors">
+                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+                                        <form action="{{ route('tags.destroy', $item) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="text-red-600 hover:text-red-900 transition-colors"
+                                                    onclick="return confirm('Are you sure you want to delete this job post?')">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+</body>
+
+
+
+
+
+
 </x-app-layout>

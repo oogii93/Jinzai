@@ -439,7 +439,7 @@ Route::middleware(['auth', 'role:company'])->group(function () {
                 //Admin route for approval
 
 
-                Route::get('/admin/pending-posts', [JobPostController::class, 'pendingPosts'])->name('jobpost.pending');
+                // Route::get('/admin/pending-posts', [JobPostController::class, 'pendingPosts'])->name('jobpost.pending');
                 Route::post('/admin/posts/{id}/approve', [JobPostController::class, 'approve'])->name('jobpost.approve');
                 Route::post('/admin/posts/{id}/reject', [JobPostController::class, 'reject'])->name('jobpost.reject');
 

@@ -83,10 +83,10 @@
             <div class="min-h-screen bg-gray-200">
                 <div class="p-4 sm:p-6 lg:p-8">
                     <!-- Page Header -->
-                    <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-white rounded-lg ">
+                    <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-gradient-to-r from-sky-600 to-blue-500 rounded-lg ">
                         <div class="px-5 py-10 p-5">
-                            <h2 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">申請管理</h2>
-                            <h2 class="mt-4 text-md text-gray-600 font-semibold">申請一覧</h2>
+                            <h2 class="text-3xl font-bold bg-white bg-clip-text text-transparent">申請管理</h2>
+                            <h2 class="mt-4 text-md text-white font-semibold">申請一覧</h2>
                         </div>
 
 
@@ -113,32 +113,63 @@
                         </a>
                     </nav>
                 </div>
-            </div>
+
 
 
 
 
             <!-- Search and Filter Section -->
-            <div class="mb-6">
-                <div class="mt-1 flex rounded-lg shadow-sm">
-                    <div class="relative flex-grow focus-within:z-10">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <input type="text" name="search" class="block w-full h-20 rounded-lg border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="検索...">
+            <div class="md:w-3/5 sm:w-full mt-5 mb-5">
+                <form action="" method="GET" class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
                     </div>
+
+                    <input
+                        type="search"
+                        name="search"
+                        value=""
+                        placeholder="検索（名前、メール、電話番号）"
+                        class="block w-full py-3 pl-10 pr-24 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out"
+                    >
+
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                        @if(request('search'))
+                            <a href="" class="mr-2 text-gray-500 hover:text-gray-700 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        @endif
+
+                        <button
+                            type="submit"
+                            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 ease-in-out"
+                        >
+                            検索
+                        </button>
+                    </div>
+                </form>
+
+                @if(request('search'))
+                <div class="mt-2 text-sm text-gray-500">
+                    <span>検索結果: </span>
+                    <span class="font-semibold">{{ $applications->total() }}件</span>
+                    <span class="ml-2 text-gray-400">"|"</span>
+                    <span class="ml-2">検索キーワード: "{{ request('search') }}"</span>
                 </div>
+            @endif
             </div>
 
-            <!-- Table Section -->
-            <div class="bg-white rounded-lg shadow overflow-hidden">
-                <div class="overflow-x-auto">
-                    <!-- Status Tabs -->
+            <div class="bg-white rounded-lg shadow overflow-hidden w-full">
+                <div class="overflow-x-auto bg-sky-200">
+                    <img src="{{ asset('images/Group 2.svg') }}" alt="" class="justify-center w-full py-4 px-2 ml-60">
 
-                    <table class="min-w-full border border-gray-400">
-                        <thead class="bg-gray-200">
+
+                    <table class="w-full border border-gray-400">
+                        <thead class="bg-sky-100">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">ID</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">採用会社</th>

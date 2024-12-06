@@ -1,16 +1,13 @@
 
 <x-app-layout>
-    <div class="min-h-screen bg-gray-200 py-8">
-        <div class="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header Section -->
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 bg-white p-5 rounded-xl px-10 py-10">
-                <div class="mb-4 md:mb-0">
-                    <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                        申請管理(企業)
-                    </h1>
-                    <p class="mt-4 text-sm font-semibold text-gray-600">
-                        応募者一覧
-                    </p>
+
+    <div class="min-h-screen bg-gray-200">
+        <div class="p-4 sm:p-6 lg:p-8">
+            <!-- Page Header -->
+            <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-gradient-to-r from-sky-600 to-sky-800 rounded-lg ">
+                <div class="px-5 py-10 p-5">
+                    <h2 class="text-3xl font-bold bg-white bg-clip-text text-transparent">申請管理(企業)</h2>
+                    <h2 class="mt-4 text-md text-white font-semibold">申請一覧</h2>
                 </div>
 
 
@@ -119,19 +116,20 @@
                 </div>
 
                 <!-- Table Section -->
-                <div class="overflow-x-auto px-2">
+                <div class="overflow-x-auto px-2 bg-green-200">
+                    <img src="{{ asset('images/Group 2.svg') }}" alt="" class="px-5 py-4">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50/50">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">ID</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">応募した仕事</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">応募者</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">自己紹介動画</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">太成HDs面談結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">書類選考結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">ウェブ面接日</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">最終結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400">入社日付</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">ID</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">応募した仕事</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">応募者</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">自己紹介動画</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">太成HDs面談結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">書類選考結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">ウェブ面接日</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">最終結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">入社日付</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">

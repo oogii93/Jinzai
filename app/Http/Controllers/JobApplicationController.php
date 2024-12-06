@@ -139,6 +139,7 @@ class JobApplicationController extends Controller
                 $query->where('user_id', $authUser->id); // Count only applications for this user's job posts
             })->where('admin_status', 'rejected')->count(),
         ];
+        // dd($applications);
 
         return view('company.employer', compact('applications', 'counts', 'status', 'users', 'company', 'jobpost'));
     }

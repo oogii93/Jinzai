@@ -47,28 +47,54 @@ class JobPostController extends Controller
         }
     }
 
-
-
-
-    public function index()
+    public function index(Request $request)
     {
-        // For admin, show all posts
-        if (auth()->user()->role === 'admin') {
-            $jobpost = JobPost::all();
+        if(auth()->user()->role === 'admin')
+        {
+            $query=JobPost::query();
+
+            if ($request->filled('search')) {
+                $searchTerm = $request->input('search');
+                $query->where(function($q) use ($searchTerm) {
+                    $q->where('title', 'like', '%' .$searchTerm. '%')
+                      ->orWhere('description', 'like', '%' .$searchTerm. '%' )
+                      ->orWhereHas('user', function($userQuery) use ($searchTerm) {
+                          $userQuery->where('name', 'like', '%' .$searchTerm.'%');
+                      })
+                      ->orWhere('status', 'like', '%'.$searchTerm. '%');
+                });
+            }
+
+            $jobpost=$query->with(['category', 'user', 'tags'])->get();
         }
-        // For company, show only their posts
-        elseif (auth()->user()->role === 'company') {
-            $jobpost = JobPost::where('user_id', auth()->id())
-            ->with(['category', 'user', 'tags'])
-            ->get();
+
+        elseif(auth()->user()->role === 'company'){
+            $query=JobPost::where('user_id', auth()->id());
+
+
+         if ($request->filled('search')) {
+            $searchTerm = $request->input('search');
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('title', 'like', "%{$searchTerm}%")
+                  ->orWhere('description', 'like', "%{$searchTerm}%")
+                  ->orWhere('status', 'like', "%{$searchTerm}%");
+            });
         }
-        // For jobseeker, redirect to homepage or show error
-        else {
-            abort(403, 'Unauthorized action.');
+
+        $jobpost = $query->with(['category', 'user', 'tags'])->get();
+    }
+
+
+        else{
+            abort(403, 'unatorized action');
         }
 
         return view('jobpost.index', compact('jobpost'));
     }
+
+
+
+
 
     public function create()
     {
@@ -374,20 +400,39 @@ class JobPostController extends Controller
 
 
 
-    public function pendingPosts()
-    {
-        if(auth()->user()->role !=='admin')
-        {
-            abort(403, 'Unauthorized action.');
-        }
+    // public function pendingPosts()
+    // {
+    //     if(auth()->user()->role !=='admin')
+    //     {
+    //         abort(403, 'Unauthorized action.');
+    //     }
 
-        $pendingPosts=JobPost::where('status', '進行中')->paginate(10);
-        return view('admin.pending-posts', compact('pendingPosts'));
+    //     $pendingPosts=JobPost::where('status', '進行中')->paginate(10);
+    //     return view('admin.pending-posts', compact('pendingPosts'));
+    // }
+
+
+
+
+
+
+    public function approve($id)
+{
+    if (auth()->user()->role !== 'admin') {
+        abort(403, 'Unauthorized action.');
     }
 
+    $jobPost = JobPost::findOrFail($id);
+    $jobPost->update(['status' => '承認']);
+
+
+   // Notify the user who created the job post
+   $jobPost->user->notify(new CompanyNotificationForJobPostApproval($jobPost));
 
 
 
+    return redirect()->back()->with('success', '求人投稿が正常に承認されました。');
+}
 
 
 
@@ -420,23 +465,6 @@ class JobPostController extends Controller
 
 
 
-    public function approve($id)
-{
-    if (auth()->user()->role !== 'admin') {
-        abort(403, 'Unauthorized action.');
-    }
-
-    $jobPost = JobPost::findOrFail($id);
-    $jobPost->update(['status' => '承認']);
-
-
-   // Notify the user who created the job post
-   $jobPost->user->notify(new CompanyNotificationForJobPostApproval($jobPost));
-
-
-
-    return redirect()->back()->with('success', '求人投稿が正常に承認されました。');
-}
 
 
 

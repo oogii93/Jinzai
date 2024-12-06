@@ -6,7 +6,7 @@
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 bg-white p-5 rounded-xl px-10 py-10">
                     <div class="mb-4 md:mb-0">
                         <h1 class="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                           稿管理
+                          sdf
                         </h1>
                         <p class="mt-4 text-sm text-gray-600">
                            稿一覧

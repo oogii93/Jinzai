@@ -26,6 +26,7 @@ use App\Http\Controllers\CompanyDashboardController;
 use App\Http\Controllers\JobSeekerDashboardController;
 use App\Http\Controllers\AdminJobApplicationController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\JobseekerProfileController;
 
 
 
@@ -152,14 +153,7 @@ Route::middleware(['auth'])->group(function () {
 
             ->name('job-applications.set-result');
 
-            //document hariu
-            Route::post('job-applications/{application}/document-result',[AdminJobApplicationController::class, 'setDocumentResult'])
 
-            ->name('job-applications.document-result');
-
-            Route::post('/job-applications/{application}/set-date2', [AdminJobApplicationController::class, 'setDate2'])
-
-            ->name('job-applications.set-date2');
 
 
             //End Application Routes for actions
@@ -181,10 +175,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/company/applications', [JobApplicationController::class, 'employerApplications'])
             ->name('company.employer');
 
-            Route::patch('/applications/{application}/company-result', [JobApplicationController::class, 'companyResult'])
-            ->name('applications.company-result');
-            Route::patch('/applications/{application}/company-start-date', [JobApplicationController::class, 'companyStartDate'])
-            ->name('applications.company-start-date');
+            // Route::patch('/applications/{application}/company-result', [JobApplicationController::class, 'companyResult'])
+            // ->name('applications.company-result');
+            // Route::patch('/applications/{application}/company-start-date', [JobApplicationController::class, 'companyStartDate'])
+            // ->name('applications.company-start-date');
     });
 });
 
@@ -236,6 +230,22 @@ Route::middleware('auth')->group(function () {
                 Route::get('get-subcategories/{category}', [JobPostController::class, 'getSubcategories'])
 
                 ->name('get.subcategories');
+
+
+
+            //document hariu
+            Route::post('job-applications/{application}/document-result',[AdminJobApplicationController::class, 'setDocumentResult'])
+
+            ->name('job-applications.document-result');
+
+            Route::post('/job-applications/{application}/set-date2', [AdminJobApplicationController::class, 'setDate2'])
+
+            ->name('job-applications.set-date2');
+
+            Route::patch('/applications/{application}/company-result', [JobApplicationController::class, 'companyResult'])
+            ->name('applications.company-result');
+            Route::patch('/applications/{application}/company-start-date', [JobApplicationController::class, 'companyStartDate'])
+            ->name('applications.company-start-date');
 
 
                 // ... other routes
@@ -313,6 +323,13 @@ Route::middleware(['auth', 'role:jobseeker'])->group(function () {
 
     )->name('jobseeker.history');
 
+    Route::get('/jobseeker/profile/edit', [JobseekerProfileController::class, 'edit'])
+    ->name('jobseeker.profile.edit');
+
+Route::put('/jobseeker/profile/update', [JobseekerProfileController::class, 'update'])
+    ->name('jobseeker.profile.update');
+
+
     // Add other jobseeker routes here
 });
 
@@ -327,6 +344,14 @@ Route::middleware(['auth', 'role:company'])->group(function () {
     Route::get('/company/dashboard', [CompanyDashboardController::class, 'index'] )
 
             ->name('company.dashboard');
+
+    Route::get('/company/edit', [CompanyDashboardController::class, 'edit'])
+
+    ->name('company.edit');
+
+    Route::put('/company/update', [CompanyDashboardController::class, 'update'])
+
+    ->name('company.update');
 
 
 

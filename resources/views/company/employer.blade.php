@@ -117,7 +117,7 @@
 
                 <!-- Table Section -->
                 <div class="overflow-x-auto px-2 bg-green-200">
-                    <img src="{{ asset('images/Group 2.svg') }}" alt="" class="px-5 py-4">
+                    <img src="{{ asset('images/Group 3.svg') }}" alt="" class="px-5 py-4">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50/50">
                             <tr>
@@ -126,8 +126,8 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">応募者</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">自己紹介動画</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">太成HDs面談結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">書類選考結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">ウェブ面接日</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">書類選考結果</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">面接・採用試験日</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">最終結果</th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">入社日付</th>
                             </tr>
@@ -228,92 +228,129 @@
                                         </span>
                                     </td>
 
+
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        <span class="{{ empty($application->document_result)
-                                        ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
-                                        : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                            {{ $application->document_result ?? '進行中' }}
-                                        </span>
+                                        <form action="{{ route('job-applications.document-result', $application) }}" method="POST" class="space-y-2">
+                                            @csrf
+                                            <div class="flex justify-normal items-center space-x-2">
+                                                <select
+                                                    name="document_result"
+                                                    id="document_result"
+                                                    class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                >
+                                                    <option value="">選択</option>
+                                                    <option value="合格" {{ $application->document_result === '合格' ? 'selected' : '' }} class="text-blue-500">合格</option>
+                                                    <option value="不合格" {{ $application->document_result === '不合格' ? 'selected' : '' }} class="text-red-500">不合格</option>
+                                                </select>
+
+                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
+                                                    提出
+                                                </button>
+                                            </div>
+                                        </form>
+
+                                        @if($application->document_result_updated_by)
+                                        <br>
+                                        <small class="text-gray-500">
+                                            更新者: {{ optional($application->documentResultUpdatedBy)->name ?? 'Unknown' }}<br>
+                                            更新日:
+                                            {{ $application->document_result_updated_at ? $application->document_result_updated_at->format('Y-m-d H:i') : 'N/A' }}
+                                        </small>
+                                    @endif
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
 
+                                        <form action="{{ route('job-applications.set-date2',$application) }}" method="POST" class="space-y-2">
+                                            @csrf
 
-                                        <span class="{{ empty($application->web_interview)
-                                            ? 'bg-orange-500 rounded-xl px-2  text-white font-semibold py-1'
-                                            : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                                {{ Carbon\Carbon::parse($application->web_interview)->format('Y-m-d H:i') ?? '進行中' }}
-                                            </span>
+                                            <div class="flex justify-normal items-center space-x-2">
+                                                <input
+                                                    type="datetime-local"
+                                                    name="web_interview"
+                                                    id="web_interview"
+                                                    class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                    value="{{ old('web_interview', $application->web_interview ? Carbon\Carbon::parse($application->web_interview)->format('Y-m-d\TH:i') : '') }}"
+                                                >
+
+                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
+                                                    決定
+                                                </button>
+                                            </div>
+
+                                            @if($application->web_interview_updated_at)
+                                                <small class="text-gray-500 block mt-2">
+                                                    設定者: {{ optional($application->webInterviewUpdatedBy)->name ?? '不明' }}<br>
+                                                    更新日: {{ optional($application->web_interview_updated_at)->format('Y-m-d H:i') }}
+                                                </small>
+                                            @else
+                                                <small class="text-gray-500 block mt-2">
+                                                    更新情報がありません。
+                                                </small>
+                                            @endif
+                                        </form>
                                     </td>
-                         <!--Employer controller -->
 
 
 
-                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <form action="{{ route('applications.company-result', $application) }}" method="POST" class="space-y-2">
+                                            @csrf
+                                            @method('PATCH')
 
-                            {{-- <form action="{{ route('job-applications.set-date2',$application) }}" method="POST" class="space-y-2"> --}}
+                                            <div class="flex justify-normal items-center space-x-2">
+                                                <select name="company_result" id="company_result"
+                                                    class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                >
+                                                    <option value="">選択</option>
+                                                    <option value="合格" {{ $application->company_result === '合格' ? 'selected' : '' }} class="bg-sky-400 text-white font-semibold">合格</option>
+                                                    <option value="不合格" {{ $application->company_result === '不合格' ? 'selected' : '' }} class="bg-red-400 text-white font-semibold">不合格</option>
+                                                </select>
 
-                                <form action="{{ route('applications.company-result', $application) }}" method="POST" class="space-y-2">
-                                    @csrf
-                                    @method('PATCH')
+                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
+                                                    提出
+                                                </button>
+                                            </div>
+                                        </form>
 
-                                    <div class="flex justify-normal items-center space-x-2">
-                                        <select
-                                        name="company_result"
-                                        id="company_result"
-                                        class="border-2 border-gray-300 rounded-md p-1 text-sm"
-                                        onchange="hangleSelectChange()"
-                                        >
-                                            <option value="">選択</option>
-                                            <option value="合格"{{ $application->company_result ==='合格' ? 'selected' : '' }} class="bg-sky-400 text-white font-semibold">合格</option>
-                                            <option value="不合格"{{ $application->company_result ==='不合格' ? 'selected' : '' }} class="bg-red-400 text-white font-semibold">不合格</option>
+                                        {{-- Show Update Info --}}
+                                        @if($application->company_result_updated_at)
+                                            <small class="text-gray-500 block mt-2">
+                                                更新者: {{ optional($application->companyResultUpdatedBy)->name ?? '不明' }}<br>
+                                                更新日: {{ optional($application->company_result_updated_at)->format('Y-m-d H:i') }}
+                                            </small>
+                                        @else
+                                            <small class="text-gray-500 block mt-2">更新情報はありません。</small>
+                                        @endif
+                                    </td>
 
-                                        </select>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+                                        <form action="{{ route('applications.company-start-date', $application) }}" method="POST" class="space-y-2">
+                                            @csrf
+                                            @method('PATCH')
 
-                                        <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
-                                            提出
-                                        </button>
-                                    </div>
-                                </form>
+                                            <div class="flex justify-normal items-center space-x-2">
+                                                <input type="date" name="work_start" id="work_start"
+                                                    class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                    value="{{ old('work_start', $application->work_start ? Carbon\Carbon::parse($application->work_start)->format('Y-m-d') : '') }}"
+                                                >
 
+                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
+                                                    決定
+                                                </button>
+                                            </div>
+                                        </form>
 
-
-                        </td>
-                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-
-                            {{-- <form action="{{ route('job-applications.set-date2',$application) }}" method="POST" class="space-y-2"> --}}
-
-                                <form action="{{ route('applications.company-start-date',$application) }}" method="POST" class="space-y-2">
-                                    @csrf
-                                    @method('PATCH')
-
-                                    <div class="flex justify-normal items-center space-x-2">
-
-                                        <input
-                                        type="date"
-                                        name="work_start"
-                                        id="work_start"
-                                        class="border-2 border-gray-300 rounded-md p-1 text-sm"
-                                        value="{{ old('work_start', $application->work_start ? Carbon\Carbon::parse($application->work_start)->format('Y-m-d') : '') }}"
-                                    >
-
-                                    <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
-                                        決定
-                                    </button>
-                                </input>
-                                    </div>
-
-
-
-                                </form>
-
-
-
-                        </td>
-
-
-
-
+                                        {{-- Show Update Info --}}
+                                        @if($application->work_start_updated_at)
+                                            <small class="text-gray-500 block mt-2">
+                                                更新者: {{ optional($application->workStartUpdatedBy)->name ?? '不明' }}<br>
+                                                更新日: {{ optional($application->work_start_updated_at)->format('Y-m-d H:i') }}
+                                            </small>
+                                        @else
+                                            <small class="text-gray-500 block mt-2">更新情報はありません。</small>
+                                        @endif
+                                    </td>
 
 
 

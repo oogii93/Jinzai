@@ -1,260 +1,140 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- GSAP Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Tailwind CSS -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
+<body class="bg-gradient-to-tr from-sky-900 via-blue-800 to-sky-900 min-h-screen flex items-center justify-center text-gray-100">
 
+<!-- Form Container -->
+<div class="max-w-6xl w-full bg-white text-gray-900 shadow-xl rounded-3xl p-8">
 
-<div class="max-w-5xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden mt-8">
-
-    <div class="bg-gradient-to-r from-sky-600 to-green-600 px-8 py-12">
-        <h2 class="text-2xl font-bold text-gray-800 text-center">企業登録フォーム</h2>
-
-
+    <!-- Header -->
+    <div class="text-center">
+        <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-500 animate-fade-in">
+            企業登録フォーム
+        </h1>
+        <p class="mt-2 text-lg text-gray-600">詳細な企業情報を入力してください。</p>
     </div>
 
-    <form method="POST" action="{{ route('register') }}" class="space-y-0.5 p-2" enctype="multipart/form-data">
+    <!-- Form Start -->
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" class="mt-8 space-y-8">
         @csrf
 
+        <input type="hidden" name="role" value="company">
 
-
-
-
-        <div class="w-full space-x-3">
-
-            <div class="w-full">
-
-                <input type="hidden" name="role" value="company">
-
-                <div class="mt-4 hidden">
-                    <label for="role">Role</label>
-                    <select id="role" name="role"
-                        class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
-                        <option value="jobseeker">Job Seeker</option>
-                        <option value="company" selected>Company</option>
-                    </select>
+        <!-- Profile Image Upload -->
+        <div class="w-full text-center">
+            <label for="imageUpload" class="cursor-pointer block mx-auto">
+                <div class="w-40 h-40 bg-gray-200 border-4 border-dashed border-gray-300 rounded-xl overflow-hidden shadow-lg">
+                    <img id="selectedImage" src="#" alt="Selected Image" class="hidden w-full h-full object-cover rounded-xl">
+                    <span id="placeholderText" class="text-gray-500 text-lg font-semibold">写真選択</span>
                 </div>
+            </label>
+            <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*" onchange="previewImage(event)">
+            @error('profile_image')
+            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-
-                <div class="w-40 h-40 bg-gray-100 p-4 flex flex-col items-center space-y-2 rounded-lg mb-2">
-                    <label for="imageUpload" class="cursor-pointer">
-                        <div
-                            class="w-full h-full bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
-                            <img id="selectedImage" src="#" alt="Selected Image"
-                                class="hidden w-32 h-32 object-cover">
-                            <span class="text-gray-500" id="placeholderText">写真選択</span>
-                        </div>
+        <!-- Form Fields -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <!-- Field Template -->
+            @foreach([
+                ['label' => 'メール', 'id' => 'email', 'type' => 'email', 'placeholder' => '会社のメールアドレスを入力してください'],
+                ['label' => '現住所', 'id' => 'address', 'type' => 'text', 'placeholder' => '企業の住所を入力してください。'],
+                ['label' => '電話番号', 'id' => 'phone_number', 'type' => 'text', 'placeholder' => '電話番号を入力してください。'],
+                ['label' => '携帯電話番号', 'id' => 'mobile_number', 'type' => 'text', 'placeholder' => '携帯電話番号を入力してください。'],
+                ['label' => '企業名', 'id' => 'name', 'type' => 'text', 'placeholder' => '企業名を入力してください。'],
+                ['label' => '企業情報', 'id' => 'company_description', 'type' => 'text', 'placeholder' => '企業情報を入力してください。'],
+                ['label' => '業種', 'id' => 'industry', 'type' => 'text', 'placeholder' => '業種を入力してください。'],
+                ['label' => 'ウェブサイト', 'id' => 'website', 'type' => 'url', 'placeholder' => 'ウェブサイトのURLを入力してください。'],
+            ] as $field)
+                <div class="relative">
+                    <label for="{{ $field['id'] }}" class="absolute -top-3 left-3 text-gray-500 text-sm px-1 bg-white">
+                        {{ $field['label'] }}
                     </label>
-                    <input type="file" id="imageUpload" name="profile_image" class="hidden" accept="image/*"
-                        onchange="previewImage(event)">
-
-                    @error('profile_image')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-
-
-                </div>
-
-
-
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="email" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        メール
-                    </label>
-                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('email') border-red-300 @enderror"
-                        name="email" id="email" type="email" value="{{ old('email') }}" required placeholder="会社のメールアドレスを入力してください">
-                    </input>
-
-                    @error('email')
-                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                @enderror
-
-
-                </div>
-
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="address" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        現住所
-                    </label>
-                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('address') border-red-300 @enderror"
-                        name="address" id="address" type="text" value="{{ old('address') }}" required placeholder="企業の住所を入力してください。">
-                    </input>
-
-                    @error('address')
-                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                @enderror
-
-
-                </div>
-
-
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="phone_number" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        電話番号
-                    </label>
-                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('phone_number') border-red-300 @enderror"
-                        name="phone_number" id="phone_number" type="text" value="{{ old('phone_number') }}" required placeholder="電話番号を入力してください。">
-                    </input>
-
-                    @error('phone_number')
-                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                @enderror
-
-
-                </div>
-
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="mobile_number" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                     携帯電話番号
-                    </label>
-                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('mobile_number') border-red-300 @enderror"
-                        name="mobile_number" id="mobile_number" type="text" value="{{ old('mobile_number') }}" required placeholder="携帯電話番号を入力してください。">
-                    </input>
-
-                    @error('mobile_number')
-                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                @enderror
-
-
-                </div>
-
-
-
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="name" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                       企業名
-                    </label>
-                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('name') border-red-300 @enderror"
-                        name="name" id="name" type="text" value="{{ old('name') }}" required placeholder="企業名を入力してください。">
-                    </input>
-
-                    @error('name')
-                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                @enderror
-
-
-                </div>
-
-
-
-
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="company_description" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        企業情報
-                    </label>
-                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('company_description') border-red-300 @enderror"
-                        name="company_description" id="company_description" type="text" value="{{ old('company_description') }}" required placeholder="企業情報を入力してください。">
-                    </input>
-
-                    @error('company_description')
-                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                @enderror
-
-
-                </div>
-
-
-
-
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="industry" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        業種
-                    </label>
-                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('industry') border-red-300 @enderror"
-                        name="industry" id="industry" type="text" value="{{ old('industry') }}" required placeholder=" 業種を入力してください。">
-                    </input>
-
-                    @error('industry')
-                    <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
-                @enderror
-
-
-                </div>
-
-                <!-- Add the missing website field -->
-                <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                    <label for="website" class="block font-semibold text-white bg-sky-600 sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md">
-                        ウェブサイト
-                    </label>
-                    <input class="px-5 py-3 text-sm text-gray-700 w-full @error('website') border-red-300 @enderror"
-                    name="website" id="website" type="text" value="{{ old('website') }}" required placeholder="ウェブサイトのURLを入力してください。">
-                </input>
-
-                        @error('website')
-                        <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                    <input type="{{ $field['type'] }}" id="{{ $field['id'] }}" name="{{ $field['id'] }}"
+                           placeholder="{{ $field['placeholder'] }}"
+                           class="w-full px-4 py-3 mt-1 border-gray-300 rounded-md focus:ring focus:ring-green-500 text-gray-800"
+                           value="{{ old($field['id']) }}">
+                    @error($field['id'])
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+            @endforeach
+        </div>
 
-
-
-
-
-
-
-                <div class="flex items-center justify-end mt-4 mb-5">
-
-
-                    <button type="submit"
-                        class="px-2 py-3 bg-blue-500 rounded-2xl text-white font-semibold hover:bg-blue-700">
-                        {{ __('Save and Sent') }}
-                    </button>
-                </div>
-
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit"
+                    class="px-6 py-3 mt-6 text-white font-semibold text-lg rounded-full shadow-lg transition-transform hover:scale-105 bg-gradient-to-r from-blue-500 to-green-500">
+                保存と送信
+            </button>
+        </div>
 
     </form>
-
-    <script>
-        function previewImage(event) {
-            const input = event.target;
-            const preview = document.getElementById('selectedImage');
-            const placeholderText = document.getElementById('placeholderText');
-
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-
-                // Check file size (limit to 2MB)
-                if (file.size > 10 * 1024 * 1024) {
-                    alert('Image size should be less than 2MB');
-                    input.value = '';
-                    return;
-                }
-
-                // Check file type
-                if (!file.type.startsWith('image/')) {
-                    alert('Please select an image file');
-                    input.value = '';
-                    return;
-                }
-
-                const reader = new FileReader();
-
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.classList.remove('hidden');
-                    placeholderText.classList.add('hidden');
-                }
-
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
-
-
-
-
-
-
 </div>
+
+<!-- Preview Image Script -->
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('selectedImage');
+        const placeholderText = document.getElementById('placeholderText');
+
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+
+            if (file.size > 20 * 1024 * 1024) {
+                alert('画像のサイズは2MB以下である必要があります');
+                input.value = '';
+                return;
+            }
+
+            if (!file.type.startsWith('image/')) {
+                alert('画像ファイルを選択してください');
+                input.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                preview.src = e.target.result;
+                preview.classList.remove('hidden');
+                placeholderText.classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+<style>
+    .animate-fade-in {
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+</body>
+</html>

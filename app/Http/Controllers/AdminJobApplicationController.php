@@ -279,8 +279,12 @@ class AdminJobApplicationController extends Controller
                 ]);
 
                 $application->update([
-                    'document_result'=>$request->document_result
+                    'document_result'=>$request->document_result,
+                    'document_result_updated_by'=>Auth::id(),
+          'document_result_updated_at' => \Carbon\Carbon::now()
+
                 ]);
+                // dd($request->all(),$application);
 
                 return redirect()->back()->with('success','Documentの結果が設定されました。');
             }
@@ -293,10 +297,12 @@ class AdminJobApplicationController extends Controller
             ]);
 
             $application->update([
-                'web_interview' => $request->web_interview
+                'web_interview' => $request->web_interview,
+                'web_interview_updated_by' => Auth::id(), // Add the current user's ID
+                'web_interview_updated_at' => \Carbon\Carbon::now()
             ]);
 
-            return redirect()->back()->with('success', 'ウェブ面接日が設定されました。'); // Success message in Japanese
+            return redirect()->back()->with('success', '面接日が設定されました。'); // Success message in Japanese
         }
 
 

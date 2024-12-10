@@ -79,7 +79,7 @@
     <div class="shadow sm:rounded-lg border border-gray-300 bg-white">
 
         <div class="mb-6 mt-4">
-            <h2 class="text-2xl font-bold text-gray-800 text-center">{{ __('My CV') }}</h2>
+            <h2 class="text-2xl font-bold text-gray-800 text-center">履歴書</h2>
         </div>
         <div class="flex justify-end mb-2 mt-2 px-2">
             <h1>

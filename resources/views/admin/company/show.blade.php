@@ -2,7 +2,7 @@
 
     <div class="max-w-5xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden mt-8">
         <!-- Header Section with Profile Image -->
-        <div class="bg-gradient-to-r from-sky-600 to-orange-800 px-8 py-12">
+        <div class="bg-gradient-to-r from-sky-600 to-blue-800 px-8 py-12">
             <div class="flex items-center space-x-8">
                 <!-- Profile Image -->
                 <div class="relative">
@@ -36,68 +36,23 @@
             <!-- Personal Information Section -->
             <div class="mb-10">
                 <h2 class="text-xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-sky-500">
-                    {{ __('Company Information') }}</h2>
+     企業基本情報</h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-1 gap-2">
+                {{-- <div class="grid grid-cols-1 md:grid-cols-1 gap-2">
                     <!-- Name Card -->
 
                     <div class="flex justify-between space-x-3">
 
                         <div class="w-full">
-                            <div class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm">
-                                <label for="furigana"
-                                    class="block font-semibold text-white bg-sky-600 w-full sm:w-[200px] h-auto sm:h-[50px] px-5 py-5 text-md ">
-                                    {{ __('Company Name') }}
-                                </label>
-                                <p class="px-5 py-3 text-sm text-gray-700">
-                                    {{ $user->name }}
-                                </p>
-                            </div>
 
 
-                            <div
-                                class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm mt-2">
-                                <label for="name"
-                                    class="block font-semibold text-white bg-sky-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                                    {{ __('Address') }}
-                                </label>
-                                <p class="px-5 py-3 text-sm text-gray-700">
-                                    {{ $user->address }}
-                                </p>
-                            </div>
 
-                            <div
-                                class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm mt-2">
-                                <label for="name"
-                                    class="block font-semibold text-white bg-sky-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                                    {{ __('Phone number') }}
-                                </label>
-                                <p class="px-5 py-3 text-sm text-gray-700">
-                                    {{ $user->phone_number }}
-                                </p>
-                            </div>
 
-                            <div
-                                class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm mt-2">
-                                <label for="name"
-                                    class="block font-semibold text-white bg-sky-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                                    {{ __('Mobile number') }}
-                                </label>
-                                <p class="px-5 py-3 text-sm text-gray-700">
-                                    {{ $user->mobile_number }}
-                                </p>
-                            </div>
 
-                            <div
-                                class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm mt-2">
-                                <label for="name"
-                                    class="block font-semibold text-white bg-sky-600 w-full sm:w-[200px] h-auto sm:h-[100px] px-5 py-5 text-md">
-                                    {{ __('Email') }}
-                                </label>
-                                <p class="px-5 py-3 text-sm text-gray-700">
-                                    {{ $user->email }}
-                                </p>
-                            </div>
+
+
+
+
 
                             <div
                                 class="flex flex-col sm:flex-row justify-normal border-2 border-gray-200 rounded-sm mt-2">
@@ -136,7 +91,121 @@
 
 
                     </div>
+                </div> --}}
+                   <!-- Main Form -->
+        <div class="p-8">
+
+
+            <!-- Top Section with Image Upload -->
+            <div class="flex flex-wrap gap-8 mb-8">
+                <div class="flex-1 space-y-6">
+
+
+                    <!-- Name Input -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-semibold text-gray-700">企業名</label>
+                        <p class="px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                            {{ $user->name ?? '未設定' }}
+                        </p>
+
+
+                    </div>
                 </div>
+
+
+            </div>
+
+
+
+
+            <!-- Contact Information -->
+            <div class="space-y-6">
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700">企業住所</label>
+
+                    <!-- Read-Only Display -->
+                    <p class="px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                        {{ $user->address ?? '未設定' }}
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-semibold text-gray-700">電話番号</label>
+                        <p class="px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                            {{ $user->phone_number ?? '未設定' }}
+                        </p>
+
+
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-sm font-semibold text-gray-700">携帯電話番号</label>
+                        <p class="px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                            {{ $user->mobile_number ?? '未設定' }}
+                        </p>
+
+
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700">メールアドレス</label>
+                    <p class="px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                        {{ $user->email ?? '未設定' }}
+                    </p>
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!-- Information -->
+            <div class="space-y-6 mt-3">
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700">企業情報</label>
+                    <p class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                        {{ $user->companyProfile->company_description ?? ''}}
+
+                    </p>
+                </div>
+
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700">業種</label>
+                    <p class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                        {{ $user->companyProfile->industry ?? ''  }}
+                    </p>
+
+
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700">ウェブサイト</label>
+                    <p class="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                        {{ $user->companyProfile->website ?? ''}}
+                    </p>
+
+                </div>
+
+
+            </div>
+
+            <!-- Submit Button -->
+
+
+
+
+
+
+        </div>
             </div>
         </div>
 

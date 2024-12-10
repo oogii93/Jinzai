@@ -7,6 +7,7 @@ use App\Models\JobPost;
 
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
+use Illuminate\Support\Facades\Auth;
 use App\Notifications\JobApplicationNotification;
 
 class JobApplicationController extends Controller
@@ -65,7 +66,9 @@ class JobApplicationController extends Controller
         ]);
 
         $application->update([
-            'company_result'=>$request->company_result
+            'company_result'=>$request->company_result,
+            'company_result_updated_by'=>Auth::id(),
+            'company_result_updated_at' => \Carbon\Carbon::now()
         ]);
 
         return redirect()->back()->with('success','Documentの結果が設定されました。');
@@ -81,7 +84,9 @@ class JobApplicationController extends Controller
         ]);
 
         $application->update([
-            'work_start'=>$request->work_start
+            'work_start'=>$request->work_start,
+            'work_start_updated_by'=>Auth::id(),
+            'work_start_updated_at' => \Carbon\Carbon::now()
         ]);
 
         return redirect()->back()->with('success','Documentの結果が設定されました。');

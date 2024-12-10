@@ -219,7 +219,34 @@
 
 
 
+                                                    @elseif($notification->type === 'App\Notifications\JobSeekerProfileNotification')
 
+                                                    <div class="flex items-center mb-3">
+                                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-md font-medium bg-green-100 text-green-800 mr-3">
+                                                            履歴書編集通知
+                                                        </span>
+                                                        <span class="text-sm text-gray-500">
+                                                            {{ $notification->created_at->diffForHumans() }}
+                                                        </span>
+                                                    </div>
+
+
+
+                                                    <div class="text-sm text-gray-600 space-y-1">
+                                                        <p>
+
+                                                            {{ $notification->data['name'] }}さんが履歴書の内容を変更しました。
+                                                        </p>
+
+                                                        @if (!empty($notification->data['link']))
+                                                        <p>
+                                                            <a href="{{ $notification->data['link'] }}" class="text-blue-500 underline hover:text-blue-700">
+                                                                履歴書を見る
+                                                            </a>
+                                                        </p>
+                                                    @endif
+
+                                                    </div>
 
                                             @endif
 

@@ -323,10 +323,10 @@ Route::middleware(['auth', 'role:jobseeker'])->group(function () {
 
     )->name('jobseeker.history');
 
-    Route::get('/jobseeker/profile/edit', [JobseekerProfileController::class, 'edit'])
+    Route::get('/jobseeker/profile/edit', [JobSeekerProfileController::class, 'edit'])
     ->name('jobseeker.profile.edit');
 
-Route::put('/jobseeker/profile/update', [JobseekerProfileController::class, 'update'])
+Route::put('/jobseeker/profile/update', [JobSeekerProfileController::class, 'update'])
     ->name('jobseeker.profile.update');
 
 

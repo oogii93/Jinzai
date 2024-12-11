@@ -582,7 +582,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function toggleFavorite(jobId) {
     const favoriteBtn = document.getElementById(`favorite-btn-${jobId}`);
     const favoriteText = document.getElementById(`favorite-text-${jobId}`);
-    // Use full URL with origin to ensure correct routing
+
     const baseUrl = window.location.origin;
 
     fetch(`${baseUrl}/jobs/${jobId}/favorite`, {
@@ -598,23 +598,45 @@ function toggleFavorite(jobId) {
         credentials: 'same-origin'
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
+        // Log the entire response for debugging
+        console.log('Response status:', response.status);
+        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+        // Try to get response text even if not OK
+        return response.text().then(text => {
+            if (!response.ok) {
+                // Log the error response text
+                console.error('Error response text:', text);
+                throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
+            }
+
+            // Try to parse JSON if response is OK
+            try {
+                return JSON.parse(text);
+            } catch (parseError) {
+                console.error('JSON parse error:', parseError);
+                throw new Error('Failed to parse JSON response');
+            }
+        });
     })
     .then(data => {
-        if (data.isFavorited) {
-            favoriteBtn.classList.add('favorited');
-            favoriteText.textContent = 'お気に入り済';
+        console.log('Received data:', data);
+
+        if (data.isFavorited !== undefined) {
+            favoriteBtn.classList.toggle('favorited', data.isFavorited);
+            favoriteText.textContent = data.isFavorited ? 'お気に入り済' : 'お気に入り';
         } else {
-            favoriteBtn.classList.remove('favorited');
-            favoriteText.textContent = 'お気に入り';
+            console.warn('Unexpected response data:', data);
+            throw new Error('Invalid response format');
         }
     })
     .catch(error => {
-        console.error('Favorite Toggle Error:', error);
-        alert('お気に入りの操作中にエラーが発生しました');
+        console.error('Favorite Toggle Detailed Error:', {
+            message: error.message,
+            stack: error.stack
+        });
+
+        alert(`お気に入りの操作中にエラーが発生しました: ${error.message}`);
     });
 }
 

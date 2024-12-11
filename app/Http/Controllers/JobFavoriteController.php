@@ -15,7 +15,10 @@ class JobFavoriteController extends Controller
         try {
             // Ensure user is authenticated
             if (!Auth::check()) {
-                return response()->json(['error' => 'Unauthorized'], 401);
+                return response()->json([
+                    'error' => 'Unauthorized',
+                    'message' => 'ログインしてください'
+                ], 401);
             }
 
             $user = Auth::user();

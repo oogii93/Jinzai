@@ -74,16 +74,19 @@ Route::get('/jobFavorite', [JobFavoriteController::class, 'show'])
     ->name('jobFavorite');
 
 // Favorited
-Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggleFavorite'])
-    ->middleware('auth');
+
+Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggle'])
+    ->middleware(['web','auth']);
+// Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggleFavorite'])
+//     ->middleware('auth');
 
 
 
- Route::get('/jobs/{jobId}/check-favorite', [JobFavoriteController::class, 'checkFavoriteStatus'])
-    ->middleware('auth');
+//  Route::get('/jobs/{jobId}/check-favorite', [JobFavoriteController::class, 'checkFavoriteStatus'])
+//     ->middleware('auth');
 
- Route::delete('/favorites/{favoriteId}', [JobFavoriteController::class, 'destroy'])->name('favorites.destroy')
-    ->middleware('auth','web');
+//  Route::delete('/favorites/{favoriteId}', [JobFavoriteController::class, 'destroy'])->name('favorites.destroy')
+//     ->middleware('auth','web');
 
 
     //Notification Route

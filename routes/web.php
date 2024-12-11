@@ -69,14 +69,15 @@ Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showBy
 ->name('categories.jobPosts');
 
 
-// Favorited
-Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggleFavorite'])
-    ->middleware('auth')
-    ->name('jobs.favorite');
-
 Route::get('/jobFavorite', [JobFavoriteController::class, 'show'])
     ->middleware('auth')
     ->name('jobFavorite');
+
+// Favorited
+Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggleFavorite'])
+    ->middleware('auth');
+
+
 
  Route::get('/jobs/{jobId}/check-favorite', [JobFavoriteController::class, 'checkFavoriteStatus'])
     ->middleware('auth');

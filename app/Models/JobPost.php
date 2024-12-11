@@ -95,4 +95,9 @@ class JobPost extends Model
     {
         return $this->belongsTo(Category2::class, 'category2_id');
     }
+
+    public function likedByUsers()
+{
+    return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+}
 }

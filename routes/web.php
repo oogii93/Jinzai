@@ -7,26 +7,27 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Chat2Controller;
 use App\Http\Controllers\JobPostController;
+
+
+
 use App\Http\Controllers\ProfileController;
-
-
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LanguageController;
+
 use App\Http\Controllers\Category2Controller;
-use App\Http\Controllers\JobFavoriteController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\VideoProfileController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\CompanyDashboardController;
+use App\Http\Controllers\JobSeekerProfileController;
 use App\Http\Controllers\JobSeekerDashboardController;
 use App\Http\Controllers\AdminJobApplicationController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\JobSeekerProfileController;
 
 
 
@@ -69,24 +70,15 @@ Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showBy
 ->name('categories.jobPosts');
 
 
-Route::get('/jobFavorite', [JobFavoriteController::class, 'show'])
-    ->middleware('auth')
-    ->name('jobFavorite');
+
 
 // Favorited
 
-Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggle'])
-    ->middleware(['web','auth']);
-// Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggleFavorite'])
-//     ->middleware('auth');
 
 
 
-//  Route::get('/jobs/{jobId}/check-favorite', [JobFavoriteController::class, 'checkFavoriteStatus'])
-//     ->middleware('auth');
 
-//  Route::delete('/favorites/{favoriteId}', [JobFavoriteController::class, 'destroy'])->name('favorites.destroy')
-//     ->middleware('auth','web');
+
 
 
     //Notification Route
@@ -95,11 +87,13 @@ Route::post('/jobs/{jobId}/favorite', [JobFavoriteController::class, 'toggle'])
     Route::middleware(['auth'])->group(function () {
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
         Route::patch('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
+
+
+        Route::post('/job-posts/{jobPost}/like', [LikeController::class, 'like'])->name('job-post.like');
+        Route::delete('/job-posts/{jobPost}/unlike', [LikeController::class, 'unlike'])->name('job-post.unlike');
     });
 
-    Route::get('/favorite/check/{jobId}', [JobFavoriteController::class, 'checkFavoriteStatus'])
-    ->middleware(['auth', 'web'])
-    ->name('favorite.check');
+
 
 
 
@@ -317,6 +311,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 
+Route::get('/liked-posts', [LikeController::class, 'index'])
+->name('liked.index');
 
 // Jobseeker Routes
 Route::middleware(['auth', 'role:jobseeker'])->group(function () {
@@ -335,6 +331,9 @@ Route::middleware(['auth', 'role:jobseeker'])->group(function () {
 
 Route::put('/jobseeker/profile/update', [JobSeekerProfileController::class, 'update'])
     ->name('jobseeker.profile.update');
+
+
+
 
 
     // Add other jobseeker routes here

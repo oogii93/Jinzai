@@ -26,7 +26,7 @@
 </head>
 <body class="min-h-screen bg-white">
 
-    <div class="fixed bottom-4 right-5 z-50">
+    <div class="fixed bottom-4 right-5 z-50 hidden md:flex">
         <a href="{{ route('register.jobseeker') }}">
         <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-5 px-8 rounded-full shadow-lg">
             <span>{{ __('Sign Up For Job Seeker') }}</span>
@@ -75,12 +75,7 @@
 
                     <a href="{{ route('login') }}" class="relative text-gray-800 font-medium hover:bg-blue-600 rounded-sm min-w-[80px] h-16 hover:text-white group flex items-center justify-center px-4">{{ __('Log In') }}</a>
 
-                    <!-- Mail Icon -->
-                    <a href="/contact" class="text-gray-800 hover:text-blue-600 px-3">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                    </a>
+
                     <!-- Facebook Icon -->
                     <a href="#" class="text-blue-600 hover:text-blue-700 px-3">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -104,15 +99,83 @@
 
                 </div>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
+            <!-- Mobile Menu Button -->
+            <button id="menu-toggle" class="text-2xl focus:outline-none right-3 fixed text-black lg:hidden mt-3">
+                <svg id="menuIconOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+
+            <div id="nav-menu"
+            class="fixed inset-0 z-50 bg-sky-600 bg-opacity-100 flex justify-center items-start overflow-y-auto transition-all duration-300 transform translate-x-full">
+            <button id="close-menu"
+                class="absolute top-4 right-4 text-4xl text-white hover:text-gray-400 focus:outline-none">&times;</button>
+            <ul class="flex flex-col items-center space-y-4 w-full max-w-md py-8 px-4">
+                <li class="w-full">
+                    <button onclick="window.location.href='#'"
+                        class="w-full text-white hover:text-gray-700 font-semibold text-2xl hover:bg-yellow-300 rounded-lg px-2 py-2">
+                        {{ __('Home') }}
                     </button>
+                </li>
+                <li class="w-full">
+                    <button onclick="window.location.href='#service'"
+                        class="w-full text-white hover:text-gray-700 font-semibold text-2xl hover:bg-yellow-300 rounded-lg px-2 py-2">
+                        {{ __('Service') }}
+                    </button>
+                </li>
+                <li class="w-full">
+                    <button onclick="window.location.href='#job facility'"
+                        class="w-full text-white hover:text-gray-700 font-semibold text-2xl hover:bg-yellow-300 rounded-lg px-2 py-2">
+                        {{ __('Occupation') }}
+
+                    </button>
+                </li>
+                <li class="w-full">
+                    <button onclick="window.location.href='#job company'"
+                        class="w-full text-white hover:text-gray-700 font-semibold text-2xl hover:bg-yellow-300 rounded-lg px-2 py-2">
+                     {{ __('Company Flow') }}
+                    </button>
+                </li>
+                <li class="w-full">
+                    <button onclick="window.location.href='#job seeker'"
+                        class="w-full text-white hover:text-gray-700 font-semibold text-2xl hover:bg-yellow-300 rounded-lg px-2 py-2">
+                        {{ __('Job seeker Flow') }}
+                    </button>
+                </li>
+                <li class="w-full">
+                    <button onclick="window.location.href='{{ route('register.company') }}'"
+                        class="w-full text-white hover:text-gray-700 font-semibold text-2xl hover:bg-yellow-300 rounded-lg px-2 py-2">
+                        {{ __('Sign Up Company') }}
+                    </button>
+                </li>
+
+                <li class="w-full">
+                    <button onclick="window.location.href='{{ route('register.jobseeker') }}'"
+                        class="w-full text-white hover:text-gray-700 font-semibold text-2xl hover:bg-yellow-300 rounded-lg px-2 py-2">
+                        {{ __('Sign Up For Job Seeker') }}
+                    </button>
+                </li>
+
+
+
+                <li class="w-full">
+                    <button onclick="window.location.href='{{ route('login') }}'"
+                        class="w-full text-white hover:text-gray-700 font-semibold text-2xl hover:bg-yellow-300 rounded-lg px-2 py-2">
+                        {{ __('Log In') }}
+                    </button>
+                </li>
+                  <!-- Language Switcher -->
+                  <div class="flex items-center space-x-3 text-lg">
+                    <a href="{{ route('language.switch', 'jp') }}" class="text-white bg-red-300 font-medium px-2 py-1 rounded-full">JP</a>
+                    <span class="text-gray-300">|</span>
+                    <a href="{{ route('language.switch', 'en') }}" class="text-white bg-blue-600 font-medium px-2 py-1 rounded-full">EN</a>
                 </div>
-            </div>
+
+
+
+
+
         </div>
     </nav>
 
@@ -1164,6 +1227,56 @@
 //     });
 // });
     // Initialize all animations when document is ready
+// document.addEventListener("DOMContentLoaded", function(){
+//     const menuToggle=document.getElementById("menuToggle");
+//     const closeMenu=document.getElementById("closeMenu");
+//     const mobileMenu=document.getElementById("mobileMenu");
+
+
+//     if(menuToggle && closeMenu && mobileMenu){
+//         menuToggle.addEventListener("click", ()=>{
+//             mobileMenu.classList.remove("hidden");
+//             mobileMenu.classList.remove("translate-x-full");
+
+//         });
+
+//         closeMenu.addEventListener("click",()=>{
+//             mobileMenu.classList.add("translate-x-full");
+//             setTimeout(() =>mobileMenu.classList.add("hidden"),300);
+//         });
+
+//         document.querySelectorAll(".mobile-link").forEach(link=>{
+//             link.addEventListener("click", () => {
+//                 mobileMenu.classList.add("translate-x-full");
+//                 setTimeout(() => mobileMenu.classList.add("hidden"), 300);
+//             });
+//         });
+
+//     }
+// });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+            const navMenu = document.getElementById('nav-menu');
+            const closeMenu = document.getElementById('close-menu');
+            const menuToggle = document.getElementById('menu-toggle');
+
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeMenu.addEventListener('click', function() {
+                navMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            });
+        });
+
+
+
+
+
 window.addEventListener('DOMContentLoaded', () => {
     // 1. Original gsap-reveal animations
     gsap.utils.toArray('.gsap-reveal2').forEach(element => {

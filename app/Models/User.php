@@ -193,10 +193,7 @@ public function messages()
 }
 
 
-public function favoriteJobs()
-{
-    return $this->hasMany(JobFavorite::class);
-}
+
 
 public function unreadNotificationsCount()
 {
@@ -208,6 +205,16 @@ public function unreadNotificationsCount()
     {
         return $this->role === 'jobseeker' && $this->admin_check_approve;
     }
+
+    public function likedJobPosts()
+{
+    return $this->belongsToMany(JobPost::class, 'likes')->withTimestamps();
+}
+
+
+
+
+
 
 
 

@@ -75,6 +75,80 @@
 
             {{-- <div class="bg-gradient-to-r from-blue-600 to-blue-800 px-8 py-12"> --}}
 
+
+    @if (session('success') || session('error'))
+    <div id="statusToast" class="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+        <div class="bg-gray-100 border-l-4 @if(session('success')) border-blue-500 @else border-red-500 @endif rounded-r-lg shadow-md overflow-hidden">
+            <div class="p-4 flex items-center">
+                <div class="flex-shrink-0">
+                    @if (session('success'))
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    @else
+                        <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    @endif
+                </div>
+                <div class="ml-3 w-0 flex-1">
+                    @if (session('success'))
+                        <p class="text-lg font-semibold text-blue-900">
+                            {!! session('success') !!}
+                        </p>
+                    @endif
+                    @if (session('error'))
+                        <p class="text-sm font-medium text-gray-900">
+                            {{ session('error') }}
+                        </p>
+                    @endif
+
+
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button id="closeToast" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                    閉じる
+                </button>
+            </div>
+        </div>
+    </div>
+@endif
+
+    <style>
+        @keyframes slideDown {
+            from { transform: translate(-50%, -100%); }
+            to { transform: translate(-50%, 0); }
+        }
+        #statusToast {
+            animation: slideDown 0.5s ease-out;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var statusToast = document.getElementById('statusToast');
+            var closeToast = document.getElementById('closeToast');
+
+            var hideTimeout = setTimeout(function() {
+                hideToast();
+            }, 8000);
+
+            closeToast.addEventListener('click', function() {
+                clearTimeout(hideTimeout);
+                hideToast();
+            });
+
+            function hideToast() {
+                statusToast.style.transform = 'translate(-50%, -100%)';
+                statusToast.style.transition = 'transform 0.5s ease-in-out';
+                setTimeout(function() {
+                    statusToast.style.display = 'none';
+                }, 500);
+            }
+        });
+    </script>
+
                 <div class="relative flex flex-col items-center justify-center w-full bg-gradient-to-r from-sky-400 to-sky-500 overflow-hidden py-12 px-4 md:px-8 lg:px-16">
                     <!-- Gradient Background -->
                     <div id="three-background" class="absolute inset-0 opacity-30 pointer-events-none"></div>
@@ -309,66 +383,57 @@
                                                         </a>
                                                     @endforeach
                                                 </div>
-                                            <div class="flex justify-end">
+                                                <div class="flex justify-end items-center space-x-4">
+                                                    @auth
+                                                    @if (auth()->user()->likedJobPosts->contains($jobpost->id))
+                                                        <form action="{{ route('job-post.unlike', $jobpost->id) }}" method="POST" class="inline-block">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" aria-label="Unlike this job post" class="group relative inline-flex items-center justify-center overflow-hidden rounded-lg
+                                                                bg-gradient-to-br from-pink-500 to-red-500 p-0.5 text-sm font-medium text-gray-900
+                                                                hover:text-white focus:outline-none focus:ring-2 focus:ring-red-300
+                                                                transition-all duration-300 ease-in-out transform hover:scale-105">
+                                                                <span class="relative flex items-center px-4 py-2 transition-all duration-300
+                                                                    bg-white group-hover:bg-opacity-0 rounded-md group-hover:text-white">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-red-500 group-hover:text-white"
+                                                                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                                                        clip-rule="evenodd" />
+                                                                    </svg>
+                                                                    Unlike
+                                                                </span>
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('job-post.like', $jobpost->id) }}" method="POST" class="inline-block">
+                                                            @csrf
+                                                            <button type="submit" aria-label="Like this job post" class="group relative inline-flex items-center justify-center overflow-hidden rounded-lg
+                                                                bg-gradient-to-br from-green-400 to-blue-600 p-0.5 text-sm font-medium text-gray-900
+                                                                hover:text-white focus:outline-none focus:ring-2 focus:ring-green-300
+                                                                transition-all duration-300 ease-in-out transform hover:scale-105">
+                                                                <span class="relative flex items-center px-4 py-2 transition-all duration-300
+                                                                    bg-white group-hover:bg-opacity-0 rounded-md group-hover:text-white">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500 group-hover:text-white"
+                                                                        viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                                                        clip-rule="evenodd" />
+                                                                    </svg>
+                                                                    Like
+                                                                </span>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                    @endauth
 
-
-
-
-{{--
-                                                <div class="flex px-5">
-                                                    <button
-                                                        id="favorite-btn-{{ $jobpost->id }}"
-                                                        onclick="toggleFavorite({{ $jobpost->id }})"
-                                                        class="inline-flex items-center px-6 py-3.5 bg-gray-200 rounded-xl text-gray-800 font-semibold text-lg shadow-lg shadow-yellow-500/30 hover:shadow-yellow-300/60 transition-all duration-200 hover:-translate-y-0.5">
-
-                                                        <svg
-                                                        class="w-8 h-8"
-                                                        viewBox="0 -0.5 32 32"
-                                                        fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
-                                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                                        <g id="SVGRepo_iconCarrier">
-                                                            <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path>
-                                                        </g>
-                                                    </svg>
-
-                                                    <span id="favorite-text-{{ $jobpost->id }}">
-                                                        {{ $jobpost->is_favorited ? 'お気に入り済' : 'お気に入り' }}
-
-                                                    </span>
-
-                                                    </button>
-
-                                                </div> --}}
-                                                <button
-                                                id="favorite-btn-{{ $jobpost->id }}"
-                                                onclick="toggleFavorite({{ $jobpost->id }})"
-                                                class="inline-flex items-center px-6 py-3.5 bg-gray-200 rounded-xl text-gray-800 font-semibold text-lg">
-
-                                                <svg class="w-8 h-8" viewBox="0 -0.5 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path>
-                                                </svg>
-
-                                                <span id="favorite-text-{{ $jobpost->id }}">
-                                                    {{ $jobpost->is_favorited ? 'お気に入り済' : 'お気に入り' }}
-                                                </span>
-                                            </button>
-
-                                                <div class="flex justify-end">
                                                     <a href="{{ route('jobpost.show', $jobpost->id) }}"
-                                                        class="inline-flex items-center px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white font-semibold text-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-200 hover:-translate-y-0.5">
-
+                                                       aria-label="View job post details"
+                                                       class="inline-flex items-center px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white font-semibold text-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-200 hover:-translate-y-0.5">
                                                         詳細
-                                                        <svg class="ml-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <svg class="ml-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/>
                                                         </svg>
                                                     </a>
-
                                                 </div>
-
-
-                                            </div>
                                             <div class="mt-2 text-sm text-gray-500">
                                              公開情報:
                                                 @if ($jobpost->status === '承認')
@@ -579,66 +644,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-function toggleFavorite(jobId) {
-    const favoriteBtn = document.getElementById(`favorite-btn-${jobId}`);
-    const favoriteText = document.getElementById(`favorite-text-${jobId}`);
-
-    const baseUrl = window.location.origin;
-
-    fetch(`${baseUrl}/jobs/${jobId}/favorite`, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ||
-                            document.querySelector('meta[name="token"]')?.content ||
-                            'undefined',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        credentials: 'same-origin'
-    })
-    .then(response => {
-        // Log the entire response for debugging
-        console.log('Response status:', response.status);
-        console.log('Response headers:', Object.fromEntries(response.headers.entries()));
-
-        // Try to get response text even if not OK
-        return response.text().then(text => {
-            if (!response.ok) {
-                // Log the error response text
-                console.error('Error response text:', text);
-                throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
-            }
-
-            // Try to parse JSON if response is OK
-            try {
-                return JSON.parse(text);
-            } catch (parseError) {
-                console.error('JSON parse error:', parseError);
-                throw new Error('Failed to parse JSON response');
-            }
-        });
-    })
-    .then(data => {
-        console.log('Received data:', data);
-
-        if (data.isFavorited !== undefined) {
-            favoriteBtn.classList.toggle('favorited', data.isFavorited);
-            favoriteText.textContent = data.isFavorited ? 'お気に入り済' : 'お気に入り';
-        } else {
-            console.warn('Unexpected response data:', data);
-            throw new Error('Invalid response format');
-        }
-    })
-    .catch(error => {
-        console.error('Favorite Toggle Detailed Error:', {
-            message: error.message,
-            stack: error.stack
-        });
-
-        alert(`お気に入りの操作中にエラーが発生しました: ${error.message}`);
-    });
-}
 
     </script>
 </x-app-layout>

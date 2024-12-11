@@ -26,7 +26,7 @@ use App\Http\Controllers\CompanyDashboardController;
 use App\Http\Controllers\JobSeekerDashboardController;
 use App\Http\Controllers\AdminJobApplicationController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\JobseekerProfileController;
+use App\Http\Controllers\JobSeekerProfileController;
 
 
 

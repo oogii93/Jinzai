@@ -12,33 +12,44 @@ class JobFavoriteController extends Controller
 
     public function toggle($jobId)
     {
-        if(!Auth::check()){
-            return response()->json(['error'=>'Unauthorized'], 401);
+        try {
+            // Ensure user is authenticated
+            if (!Auth::check()) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+
+            $user = Auth::user();
+
+            // Check if already favorited
+            $existing = JobFavorite::where('user_id', $user->id)
+                ->where('job_post_id', $jobId)
+                ->first();
+
+            if ($existing) {
+                // Remove from favorites
+                $existing->delete();
+                $isFavorited = false;
+            } else {
+                // Add to favorites
+                JobFavorite::create([
+                    'user_id' => $user->id,
+                    'job_post_id' => $jobId
+                ]);
+                $isFavorited = true;
+            }
+
+            return response()->json([
+                'isFavorited' => $isFavorited
+            ]);
+        } catch (\Exception $e) {
+            // Log the error
+            \Log::error('Favorite Toggle Error: ' . $e->getMessage());
+
+            return response()->json([
+                'error' => 'An error occurred',
+                'message' => $e->getMessage()
+            ], 500);
         }
-
-        $user=Auth::user();
-
-        $existing=JobFavorite::where('user_id', $user->id)
-                            ->where('job_post_id', $jobId)
-                            ->first();
-
-
-                            if($existing)
-                            {
-                                $existing->delete();
-                                $isFavorited=false;
-                            }else{
-                                JobFavorite::create([
-                                    'user_id'=>$user->id,
-                                    'job_post_id'=>$jobId
-                                ]);
-
-                                $isFavorited=true;
-                            }
-
-                        return response()->json([
-                            'isFavorited'=>$isFavorited
-                        ]);
     }
 
     public function show()

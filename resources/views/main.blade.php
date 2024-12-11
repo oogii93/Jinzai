@@ -341,21 +341,19 @@
                                                     </button>
 
                                                 </div> --}}
-                                                <div class="flex px-5">
-                                                    <button
-                                                        id="favorite-btn-{{ $jobpost->id }}"
-                                                        onclick="toggleFavorite({{ $jobpost->id }})"
-                                                        class="inline-flex items-center px-6 py-3.5 bg-gray-200 rounded-xl text-gray-800 font-semibold text-lg">
+                                                <button
+                                                id="favorite-btn-{{ $jobpost->id }}"
+                                                onclick="toggleFavorite({{ $jobpost->id }})"
+                                                class="inline-flex items-center px-6 py-3.5 bg-gray-200 rounded-xl text-gray-800 font-semibold text-lg">
 
-                                                        <svg class="w-8 h-8" viewBox="0 -0.5 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path>
-                                                        </svg>
+                                                <svg class="w-8 h-8" viewBox="0 -0.5 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M16.0005 0L21.4392 9.27275L32.0005 11.5439L24.8005 19.5459L25.889 30.2222L16.0005 25.895L6.11194 30.2222L7.20049 19.5459L0.000488281 11.5439L10.5618 9.27275L16.0005 0Z" fill="#FFCB45"></path>
+                                                </svg>
 
-                                                        <span id="favorite-text-{{ $jobpost->id }}">
-                                                            {{ $jobpost->is_favorited ? 'お気に入り済' : 'お気に入り' }}
-                                                        </span>
-                                                    </button>
-                                                </div>
+                                                <span id="favorite-text-{{ $jobpost->id }}">
+                                                    {{ $jobpost->is_favorited ? 'お気に入り済' : 'お気に入り' }}
+                                                </span>
+                                            </button>
 
                                                 <div class="flex justify-end">
                                                     <a href="{{ route('jobpost.show', $jobpost->id) }}"
@@ -581,123 +579,44 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+function toggleFavorite(jobId) {
+    const favoriteBtn = document.getElementById(`favorite-btn-${jobId}`);
+    const favoriteText = document.getElementById(`favorite-text-${jobId}`);
+    // Use full URL with origin to ensure correct routing
+    const baseUrl = window.location.origin;
 
-function toggleFavorite(jobId){
-    const favoriteBtn=document.getElementById(`favorite-btn-${jobId}`);
-    const favoriteText=document.getElementById(`favorite-text-${jobId}`);
-
-        fetch(`/jobs/${jobId}/favorite`, {
-            method:'POST',
-            headers:{
-                'X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]').content,
-                'Accept':'application/json'
-            }
-        })
-
-        .then(response=>response.json())
-        .then(data=>{
-            if(data.isFavorited){
-                favoriteBtn.classList.add('favorited');
-                favoriteText.textContent='お気に入り済';
-            }else{
-                favoriteBtn.classList.remove('favorited');
-                favoriteText.textContent='お気に入り';
-            }
-        })
-
-        .catch(error=>{
-            console.error('Error:', error);
-            alert('お気に入りの操作中にエラーが発生しました');
-        });
+    fetch(`${baseUrl}/jobs/${jobId}/favorite`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content ||
+                            document.querySelector('meta[name="token"]')?.content ||
+                            'undefined',
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.isFavorited) {
+            favoriteBtn.classList.add('favorited');
+            favoriteText.textContent = 'お気に入り済';
+        } else {
+            favoriteBtn.classList.remove('favorited');
+            favoriteText.textContent = 'お気に入り';
+        }
+    })
+    .catch(error => {
+        console.error('Favorite Toggle Error:', error);
+        alert('お気に入りの操作中にエラーが発生しました');
+    });
 }
-
-// function toggleFavorite(jobId) {
-//     const favoriteBtn = document.querySelector(`#favorite-btn-${jobId}`);
-//     const favoriteText = favoriteBtn.querySelector('span');
-
-//     // Disable button during request to prevent multiple clicks
-//     favoriteBtn.disabled = true;
-
-//     fetch(`/jobs/${jobId}/favorite`, {
-//         method: 'POST',
-//         headers: {
-//             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-//             'Content-Type': 'application/json',
-//             'Accept': 'application/json'
-//         },
-//     })
-//     .then(response => {
-//         // Check if response is ok (status in 200-299 range)
-//         if (!response.ok) {
-//             // Parse error response
-//             return response.json().then(errorData => {
-//                 throw new Error(errorData.message || 'An error occurred');
-//             });
-//         }
-//         return response.json();
-//     })
-//     .then(data => {
-//         if (data.isFavorited !== undefined) {
-//             updateFavoriteButton(favoriteBtn, data.isFavorited);
-//         }
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//         alert(error.message || 'お気に入りの操作中にエラーが発生しました');
-//     })
-//     .finally(() => {
-//         // Re-enable button
-//         favoriteBtn.disabled = false;
-//     });
-// }
-
-// function updateFavoriteButton(btn, isFavorited) {
-//     const favoriteText = btn.querySelector('span');
-
-//     if (isFavorited) {
-//         btn.classList.add('favorited');
-//         favoriteText.textContent = 'お気に入り済';
-//     } else {
-//         btn.classList.remove('favorited');
-//         favoriteText.textContent = 'お気に入り';
-//     }
-// }
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const favoriteButtons = document.querySelectorAll('[id^="favorite-btn-"]');
-
-//     favoriteButtons.forEach(btn => {
-//         const jobId = btn.id.replace('favorite-btn-', '');
-
-//         // Check current favorite status from server
-//         fetch(`/jobs/${jobId}/check-favorite`, {
-//             method: 'GET',
-//             headers: {
-//                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-//                 'Content-Type': 'application/json',
-//                 'Accept': 'application/json'
-//             },
-//         })
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Failed to fetch favorite status');
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             if (data.isFavorited) {
-//                 updateFavoriteButton(btn, true);
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error checking favorite status:', error);
-//         });
-//     });
-// });
-
-
-
-
 
     </script>
 </x-app-layout>

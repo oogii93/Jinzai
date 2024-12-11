@@ -217,18 +217,42 @@ class AdminJobApplicationController extends Controller
 
         //     return redirect()->back()->with('success', '面接日程が設定されました。'); // Success message in Japanese
         // }
-        public function testBroadcast(JobApplication $application)
-        {
-            // Simply update the date
-            $application->update([
-                'taisei_interview' => now()->format('Y-m-d')
-            ]);
+        // public function testBroadcast(JobApplication $application)
+        // {
+        //     // Simply update the date
+        //     $application->update([
+        //         'taisei_interview' => now()->format('Y-m-d')
+        //     ]);
 
-            return redirect()->back()->with('success', 'Test broadcast completed');
-        }
+        //     return redirect()->back()->with('success', 'Test broadcast completed');
+        // }
 
 
 
+
+        // public function setDate(Request $request, JobApplication $application){
+        //     $request->validate([
+        //         'taisei_interview'=>'required|date'
+        //     ]);
+
+        //     $application->update([
+        //         'taisei_interview'=>$request->taisei_interview
+        //     ]);
+
+
+        //     // dd($request->all());
+
+
+        //     \Log::info('JobApplicationUpdated event trigger', [
+        //         'application_id'=>$application->id,
+        //         'taisei_interview'=>$application->taisei_interview
+        //     ]);
+
+        //     broadcast(new JobApplicationUpdated($application));
+        //     // dd($application);
+
+        //     return redirect()->back()->with('suceess', '面接日程が設定されました。');
+        // }
 
         public function setDate(Request $request, JobApplication $application)
         {
@@ -240,13 +264,13 @@ class AdminJobApplicationController extends Controller
                 'taisei_interview' => $request->taisei_interview
             ]);
 
-            \Log::info('JobApplicationUpdated event triggered', [
-                'application_id' => $application->id,
-                'taisei_interview' => $application->taisei_interview
-            ]);
+            // \Log::info('JobApplicationUpdated event triggered', [
+            //     'application_id' => $application->id,
+            //     'taisei_interview' => $application->taisei_interview
+            // ]);
 
-            // Log the broadcast event
-            event(new JobApplicationUpdated($application));
+            // // Log the broadcast event
+            // event(new JobApplicationUpdated($application));
 
             // Broadcast the update
             // broadcast(new JobApplicationUpdated($application))->toOthers();

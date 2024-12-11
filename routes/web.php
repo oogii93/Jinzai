@@ -231,6 +231,9 @@ Route::middleware('auth')->group(function () {
 
                 ->name('get.subcategories');
 
+                Route::get('/admin/user/{user}/show', [UserController::class, 'show'])
+                ->name('admin.user.show');
+
 
 
             //document hariu
@@ -452,8 +455,8 @@ Route::middleware(['auth', 'role:company'])->group(function () {
                 Route::get('/admin/user', [UserController::class, 'index'])
                 ->name('admin.user.index');
 
-                Route::get('/admin/user/{user}/show', [UserController::class, 'show'])
-                ->name('admin.user.show');
+                // Route::get('/admin/user/{user}/show', [UserController::class, 'show'])
+                // ->name('admin.user.show');
 
             Route::get('/admin/company', [UserController::class, 'company'])
                 ->name('admin.company.index');

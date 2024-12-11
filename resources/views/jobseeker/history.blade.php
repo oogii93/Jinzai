@@ -335,12 +335,17 @@
 </div>
 
 
-{{-- @push('script')
+@push('scripts')
 <script type="module">
     import Echo from 'laravel-echo';
     import Pusher from 'pusher-js';
 
     window.Pusher = Pusher;
+
+    // Add global error handling
+    window.onerror = function(message, source, lineno, colno, error) {
+        console.error('Global error:', { message, source, lineno, colno, error });
+    }
 
     const echo = new Echo({
         broadcaster: 'pusher',
@@ -349,20 +354,45 @@
         forceTLS: true
     });
 
-    echo.channel('job-applications')
-        .listen('JobApplicationUpdated', (e) => {
+    // Log all available channels
+    console.log('Available channels:', echo.channel);
 
-            console.log('Received event:', e);
-            if (e.id === {{ $application->id }}) {
-                const interviewStatusElement = document.querySelector(`.interview-status-${e.id}`);
-                if (interviewStatusElement) {
-                    interviewStatusElement.textContent = e.taisei_interview ? moment(e.taisei_interview).format('YYYY-MM-DD') : '進行中';
-                    interviewStatusElement.className = e.taisei_interview ? 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' : 'bg-orange-500 rounded-xl px-2 text-white font-semibold py-1';
+    echo.channel('job-applications')
+    .listen('JobApplicationUpdated', (e) => {
+        console.group('JobApplicationUpdated Event');
+        console.log('Full event data:', e);
+        console.log('Application ID:', e.id);
+        console.log('Interview Date:', e.taisei_interview);
+
+        // Dynamically select all status elements to ensure we catch the right one
+        const statusElements = document.querySelectorAll('[class*="interview-status-"]');
+        console.log('Matching status elements:', statusElements);
+
+        statusElements.forEach(statusElement => {
+            // Extract the application ID from the class
+            const matchId = statusElement.className.match(/interview-status-(\d+)/);
+
+            if (matchId && matchId[1] == e.id) {
+                console.log('Matching element found for ID:', e.id);
+
+                // Update the text content
+                statusElement.textContent = e.taisei_interview || '進行中';
+
+                // Toggle classes based on interview status
+                if (e.taisei_interview) {
+                    statusElement.classList.remove('bg-orange-500');
+                    statusElement.classList.add('bg-sky-500');
+                } else {
+                    statusElement.classList.remove('bg-sky-500');
+                    statusElement.classList.add('bg-orange-500');
                 }
             }
         });
+
+        console.groupEnd();
+    });
 </script>
-@endpush --}}
+@endpush
 
 
 

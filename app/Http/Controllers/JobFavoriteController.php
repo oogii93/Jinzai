@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobFavorite;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class JobFavoriteController extends Controller
 {
@@ -12,7 +15,7 @@ class JobFavoriteController extends Controller
     public function checkFavoriteStatus($jobId)
     {
         // Explicit checks
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             return response()->json([
                 'error' => 'Unauthorized',
                 'message' => 'You must be logged in'
@@ -21,13 +24,14 @@ class JobFavoriteController extends Controller
 
         try {
             $isFavorited = JobFavorite::where([
-                'user_id' => auth()->id(),
+                'user_id' =>Auth::id(),
                 'job_post_id' => $jobId
             ])->exists();
 
             return response()->json([
                 'isFavorited' => $isFavorited
             ]);
+
         } catch (\Exception $e) {
             \Log::error('Favorite Check Error: ' . $e->getMessage());
 
@@ -39,38 +43,51 @@ class JobFavoriteController extends Controller
     }
     public function toggleFavorite(Request $request, $jobId)
     {
-        $user=auth()->user();
+        // Validate the job post exists
+        $jobPost = JobPost::findOrFail($jobId);
 
-        $favorite=JobFavorite::where([
-            'user_id'=>$user->id,
-            'job_post_id'=>$jobId
+        $user = Auth::user();
+
+        $favorite = JobFavorite::where([
+            'user_id' => $user->id,
+            'job_post_id' => $jobId
         ])->first();
 
-        if($favorite){
-            $favorite->delete();
-            $isFavorited=false;
-        }else{
-            JobFavorite::create([
-                'user_id'=>$user->id,
-                'job_post_id'=>$jobId
+        try {
+            if ($favorite) {
+                $favorite->delete();
+                $isFavorited = false;
+                $message = 'お気に入りを解除しました';
+            } else {
+                JobFavorite::create([
+                    'user_id' => $user->id,
+                    'job_post_id' => $jobId
+                ]);
+                $isFavorited = true;
+                $message = 'お気に入りに追加しました';
+            }
+
+            return response()->json([
+                'success' => true,
+                'isFavorited' => $isFavorited,
+                'message' => $message
             ]);
+        } catch (\Exception $e) {
+            Log::error('Favorite Toggle Error: ' . $e->getMessage());
 
-            $isFavorited=true;
+            return response()->json([
+                'success' => false,
+                'error' => 'Internal Server Error',
+                'message' => 'お気に入りの操作中にエラーが発生しました'
+            ], 500);
         }
-
-        return response()->json([
-            'success'=>true,
-            'isFavorited'=>$isFavorited
-        ]);
-
-        //success message ywwuulaad
     }
 
 
     public function show()
     {
 
-        $user = auth()->user();
+        $user = Auth::user();
 
 
 
@@ -83,7 +100,7 @@ class JobFavoriteController extends Controller
 
     public function destroy($favoriteId)
     {
-        $user=auth()->user();
+        $user = Auth::user();
 
         $favorite=JobFavorite::where('id', $favoriteId)
                     ->where('user_id', $user->id)

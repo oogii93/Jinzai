@@ -11,12 +11,16 @@ return [
 'connections' => [
     'pusher' => [
         'driver' => 'pusher',
-        'key' => env('VITE_PUSHER_APP_KEY'), // Use VITE_PUSHER_APP_KEY
-        'secret' => env('VITE_PUSHER_APP_SECRET'), // Use VITE_PUSHER_APP_SECRET
-        'app_id' => env('VITE_PUSHER_APP_ID'), // Use VITE_PUSHER_APP_ID
+        'key' => env('PUSHER_APP_KEY'),
+        'secret' => env('PUSHER_APP_SECRET'),
+        'app_id' => env('PUSHER_APP_ID'),
         'options' => [
-            'cluster' => env('VITE_PUSHER_APP_CLUSTER'),
+            'cluster' => env('PUSHER_APP_CLUSTER'),
             'useTLS' => true,
+            'host' => 'api-' . env('PUSHER_APP_CLUSTER') . '.pusher.com',
+            'port' => 443,
+            'scheme' => 'https',
+            'encrypted' => true,
         ],
     ],
         'ably' => [

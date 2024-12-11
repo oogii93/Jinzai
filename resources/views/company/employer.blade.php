@@ -237,15 +237,14 @@
                                                     name="document_result"
                                                     id="document_result"
                                                     class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                              onchange="this.form.submit();"
                                                 >
                                                     <option value="">選択</option>
                                                     <option value="合格" {{ $application->document_result === '合格' ? 'selected' : '' }} class="text-blue-500">合格</option>
                                                     <option value="不合格" {{ $application->document_result === '不合格' ? 'selected' : '' }} class="text-red-500">不合格</option>
                                                 </select>
 
-                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
-                                                    提出
-                                                </button>
+
                                             </div>
                                         </form>
 
@@ -271,11 +270,10 @@
                                                     id="web_interview"
                                                     class="border-2 border-gray-300 rounded-md p-1 text-sm"
                                                     value="{{ old('web_interview', $application->web_interview ? Carbon\Carbon::parse($application->web_interview)->format('Y-m-d\TH:i') : '') }}"
-                                                >
+                                                              onchange="this.form.submit();"
+                                                    >
 
-                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
-                                                    決定
-                                                </button>
+
                                             </div>
 
                                             @if($application->web_interview_updated_at)
@@ -301,15 +299,14 @@
                                             <div class="flex justify-normal items-center space-x-2">
                                                 <select name="company_result" id="company_result"
                                                     class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                      onchange="this.form.submit();"
                                                 >
                                                     <option value="">選択</option>
                                                     <option value="合格" {{ $application->company_result === '合格' ? 'selected' : '' }} class="bg-sky-400 text-white font-semibold">合格</option>
                                                     <option value="不合格" {{ $application->company_result === '不合格' ? 'selected' : '' }} class="bg-red-400 text-white font-semibold">不合格</option>
                                                 </select>
 
-                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
-                                                    提出
-                                                </button>
+
                                             </div>
                                         </form>
 
@@ -333,11 +330,11 @@
                                                 <input type="date" name="work_start" id="work_start"
                                                     class="border-2 border-gray-300 rounded-md p-1 text-sm"
                                                     value="{{ old('work_start', $application->work_start ? Carbon\Carbon::parse($application->work_start)->format('Y-m-d') : '') }}"
-                                                >
 
-                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
-                                                    決定
-                                                </button>
+                                                  onchange="this.form.submit();"
+                                                    >
+
+
                                             </div>
                                         </form>
 

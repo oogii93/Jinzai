@@ -182,7 +182,7 @@
                                 <th class="px-6 py-3 text-left border-b-2 border-gray-300">採用試験日</th>
                                 <th class="px-6 py-3 text-left border-b-2 border-gray-300">最終結果</th>
                                 <th class="px-6 py-3 text-left border-b-2 border-gray-300">入社日付</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">作動</th>
+                                {{-- <th class="px-6 py-3 text-left border-b-2 border-gray-300">作動</th> --}}
                             </tr>
                         </thead>
 
@@ -308,11 +308,9 @@
                                                 id="taisei_interview"
                                                 class="border-2 border-gray-300 rounded-md p-1 text-sm"
                                                 value="{{ old('taisei_interview', $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d') : '') }}"
+                                                          onchange="this.form.submit();"
                                             >
 
-                                            <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white ">
-                                                決定
-                                            </button>
                                         </input>
                                             </div>
 
@@ -332,15 +330,13 @@
                                                     name="taisei_result"
                                                     id="taisei_result"
                                                     class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                              onchange="this.form.submit();"
                                                 >
                                                     <option value="">選択</option>
                                                     <option value="合格" {{ $application->taisei_result === '合格' ? 'selected' : '' }} class="text-blue-500">合格</option>
                                                     <option value="不合格" {{ $application->taisei_result === '不合格' ? 'selected' : '' }} class="text-red-500">不合格</option>
                                                 </select>
 
-                                                <button type="submit" class="bg-green-400 px-5 py-2 rounded-lg hover:bg-green-500 text-sm text-white">
-                                                    提出
-                                                </button>
                                             </div>
                                         </form>
                                     </td>
@@ -629,15 +625,10 @@
 
 
 
-
+{{--
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
                                         <div class="flex justify-end space-x-3">
-                                            <a href=""
-                                               class="text-indigo-600 hover:text-indigo-900">
-                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                </svg>
-                                            </a>
+
                                             <form action="" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -650,7 +641,7 @@
                                                 </button>
                                             </form>
                                         </div>
-                                    </td>
+                                    </td> --}}
 
 
                                 </tr>
@@ -691,44 +682,27 @@
 
 
 
+    {{-- @push('scripts')
+    <script type="module">
+        // Logging and specific event handling
+        Pusher.logToConsole = true;
 
-  {{-- @push('script')
-      <script type="module">
-
-        import Echo from 'Laravel-echo';
-        import Pusher from 'pusher-js';
-
-        window.Pusher=Pusher;
-
-        const echo = new Echo([
-            broadcaster:'pusher',
-            key:'{{ env('VITE_PUSHER_APP_KEY') }}',
-            cluster:'{{ env('VITE_PUSHER_APP_CLUSTER') }}',
-
-            forceTLS:true
-        ]);
-
-        echo.channel('job-applications')
+        window.Echo.channel('job-applications')
         .listen('JobApplicationUpdated', (e) => {
-            console.log('Event received', e);
+            console.log('Event received:', e);
 
-            if(e.id === {{ $application->id }}){
-                const interviewInput = document.getElementById('taisei_interview');
-                if(interviewInput && e.taisei_interview){
-                    interviewInput.value = e.taisei_interview;
-                }
+            const statusElement = document.querySelector(`.interview-status-${e.id}`);
 
-                const statusElement = document.querySelector('.interview-status');
-                if(statusElement){
-                    statusElement.textContent = e.taisei_interview;
-                    statusElement.classList.remove('bg-orange-500');
-                    statusElement.classList.add('bg-sky-500');
-                }
+            if (statusElement) {
+                statusElement.textContent = e.taisei_interview || '進行中';
+
+                // Toggle classes
+                statusElement.classList.toggle('bg-orange-500', !e.taisei_interview);
+                statusElement.classList.toggle('bg-sky-500', !!e.taisei_interview);
             }
         });
-
-      </script>
-  @endpush --}}
+    </script>
+    @endpush --}}
 
 
 

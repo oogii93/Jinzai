@@ -161,35 +161,38 @@
                 <div class="bg-gray-100">
 
 
-                <div class="relative -mt-8 z-10">
-                    <form id="searchForm" class="flex items-center w-full max-w-3xl mx-auto h-16 border-2 border-indigo-500 rounded-lg bg-white shadow-md">
-                        <!-- Search Icon -->
-                        <div class="relative flex items-center px-4">
-                            <svg class="h-6 w-6 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <!-- Input Field -->
-                        <input
-                            type="text"
-                            name="search"
-                            id="searchInput"
-                            value="{{ request('search') }}"
-                            class="flex-grow h-full px-4 text-lg text-gray-700 focus:outline-none"
-                            placeholder="職種、企業名など。。。"
-                            autocomplete="off"
-                        />
-                        <!-- Search Button -->
-                        <button
-                            type="submit"
-                            class="flex items-center justify-center px-6 bg-indigo-500 hover:bg-indigo-600 text-white font-medium h-full rounded-r-lg transition-all duration-300"
-                        >
-                            <svg class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                    </form>
-                </div>
+                    <div class="relative -mt-8 z-10">
+                        <form id="searchForm" class="flex items-center w-[95%] max-w-3xl mx-auto h-14 sm:h-16 border-2 border-indigo-500 rounded-lg bg-white shadow-md overflow-hidden">
+                            <!-- Search Icon -->
+                            <div class="hidden sm:flex relative items-center px-3 sm:px-4">
+                                <svg class="h-5 w-5 sm:h-6 sm:w-6 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+
+                            <!-- Input Field -->
+                            <input
+                                type="text"
+                                name="search"
+                                id="searchInput"
+                                value="{{ request('search') }}"
+                                class="flex-grow h-full px-3 sm:px-4 text-base sm:text-lg text-gray-700 focus:outline-none"
+                                placeholder="職種、企業名など。。。"
+                                autocomplete="off"
+                            />
+
+                            <!-- Search Button -->
+                            <button
+                                type="submit"
+                                class="flex items-center justify-center px-4 sm:px-6 bg-indigo-500 hover:bg-indigo-600 text-white font-medium h-full rounded-r-lg transition-all duration-300 group"
+                            >
+                                <span class="hidden sm:block">検索</span>
+                                <svg class="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
             </div>
 
 
@@ -422,15 +425,43 @@
                                                     @endauth
 
                                                     <a href="{{ route('jobpost.show', $jobpost->id) }}"
-                                                       aria-label="View job post details"
-                                                       class="inline-flex items-center px-6 py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white font-semibold text-lg shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all duration-200 hover:-translate-y-0.5">
-                                                        詳細
-                                                        <svg class="ml-3 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/>
-                                                        </svg>
+                                                        aria-label="View job post details"
+                                                        class="group relative inline-flex items-center justify-center overflow-hidden rounded-lg
+                                                               bg-gradient-to-br from-green-500 to-blue-600 p-0.5
+                                                               shadow-md hover:shadow-lg
+                                                               transition-all duration-300 ease-in-out
+                                                               transform hover:scale-[1.02]">
+                                                         <span class="relative flex items-center px-5 py-2.5
+                                                                      bg-white dark:bg-gray-800
+                                                                      group-hover:bg-gradient-to-br group-hover:from-green-500 group-hover:to-blue-600
+                                                                      rounded-md
+                                                                      text-gray-700 dark:text-white
+                                                                      group-hover:text-white
+                                                                      transition-all duration-300
+                                                                      font-semibold text-base
+                                                                      space-x-2
+                                                                      tracking-wider">
+                                                             <span class="text-md">詳細</span>
+                                                             <svg class="w-5 h-5
+                                                                         text-blue-500
+                                                                         group-hover:text-white
+                                                                         transition-colors duration-300"
+                                                                  viewBox="0 0 24 24"
+                                                                  fill="none"
+                                                                  xmlns="http://www.w3.org/2000/svg">
+                                                                 <path d="M11 16L15 12M15 12L11 8M15 12H3M4.51555 17C6.13007 19.412 8.87958 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C8.87958 3 6.13007 4.58803 4.51555 7"
+                                                                       stroke="currentColor"
+                                                                       stroke-width="2"
+                                                                       stroke-linecap="round"
+                                                                       stroke-linejoin="round"/>
+                                                             </svg>
+                                                         </span>
+                                                     </a>
+
+
                                                     </a>
                                                 </div>
-                                            <div class="mt-2 text-sm text-gray-500">
+                                            <div class="mt-4 text-sm text-gray-500">
                                              公開情報:
                                                 @if ($jobpost->status === '承認')
                                                     <span class="text-white bg-green-600 px-2 py-2 rounded-lg font-bold">公開中</span>

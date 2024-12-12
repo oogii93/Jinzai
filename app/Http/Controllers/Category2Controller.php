@@ -35,22 +35,35 @@ class Category2Controller extends Controller
 
         Category2::create($validated);
 
-        return redirect()->route('categories2.index')->with('success','サブカテゴリ');
+        return redirect()->route('categories2.index')->with('success','サブカテゴリ作成完了しました。');
     }
 
 
-    public function update()
+    public function edit(Category2 $category2)
     {
 
+        $categories=Category::all();
+        return view('admin.categories2.edit', compact('category2','categories'));
     }
-    public function show()
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Category2 $category2)
     {
+        $validatedData = $request->validate([
+            'category_id'=>'required|exists:categories,id',
+            'name' => 'required|unique:categories,name,' . $category2->id,
+        ]);
 
+        $category2->update($validatedData);
+
+        return redirect()->route('categories2.index')->with('success', 'カテゴリが正常に更新されました。');
     }
+
 
     public function destroy(Category2 $category2)
     {
         $category2->delete();
-        return redirect()->route('categories2.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('categories2.index')->with('success', 'サブカテゴリが正常に削除されました。');
     }
 }

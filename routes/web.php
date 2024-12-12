@@ -417,10 +417,10 @@ Route::middleware(['auth', 'role:company'])->group(function () {
 
 
 
-                Route::get('/categories2/{category}/edit', [Category2Controller::class, 'edit'])
+                Route::get('/categories2/{category2}/edit', [Category2Controller::class, 'edit'])
                     ->name('categories2.edit');
 
-                Route::put('/categories2/{category}', [Category2Controller::class, 'update'])
+                Route::put('/categories2/{category2}', [Category2Controller::class, 'update'])
                     ->name('categories2.update');
 
                 Route::delete('/categories2/{category2}', [Category2Controller::class, 'destroy'])
@@ -458,6 +458,9 @@ Route::middleware(['auth', 'role:company'])->group(function () {
                 Route::get('/admin/user', [UserController::class, 'index'])
                 ->name('admin.user.index');
 
+                Route::delete('/admin/user{user}', [UserController::class, 'destroy'])
+                ->name('admin.user.destroy');
+
                 // Route::get('/admin/user/{user}/show', [UserController::class, 'show'])
                 // ->name('admin.user.show');
 
@@ -466,6 +469,8 @@ Route::middleware(['auth', 'role:company'])->group(function () {
 
             Route::get('/admin/company/{user}/show', [UserController::class, 'companyShow'])
                 ->name('admin.company.show');
+
+
 
                 //Admin route for approval
 

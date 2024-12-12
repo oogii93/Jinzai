@@ -97,8 +97,8 @@
 
         <div >
             <div>
-                <img src="https://drive.google.com/uc?export=view&id=1MFiKAExRFF0-2YNpAZzIu1Sh52J8r16v"
-                    class="w-mx-auto" />
+                {{-- <img src="https://drive.google.com/uc?export=view&id=1MFiKAExRFF0-2YNpAZzIu1Sh52J8r16v"
+                    class="w-mx-auto" /> --}}
             </div>
             <div class="mt-12 flex flex-col items-center">
                 <div class="w-full flex-1 mt-8">

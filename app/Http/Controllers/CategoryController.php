@@ -30,7 +30,7 @@ class CategoryController extends Controller
 
         Category::create($validatedData);
 
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route('categories.index')->with('success', 'カテゴリが正常に作成されました。');
     }
 
     /**
@@ -44,26 +44,22 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
-        return view('categories.edit', compact('category'));
+        return view('admin.categories.edit', compact('category'));
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        $category = Category::findOrFail($id);
-
         $validatedData = $request->validate([
             'name' => 'required|unique:categories,name,' . $category->id,
         ]);
 
         $category->update($validatedData);
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('categories.index')->with('success', 'カテゴリが正常に更新されました。');
     }
 
 
@@ -73,7 +69,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('categories.index')->with('success', 'カテゴリが正常に削除されました。');
     }
 
 

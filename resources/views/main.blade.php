@@ -232,13 +232,12 @@
 
 
 
-                        <div class="md:w-1/5 sm:w-3/5 bg-white p-4 shadow rounded-lg px-2">
-                            <h2 class="text-2xl font-semibold mb-4 text-center text-sky-700">業種</h2>
-                            <ul class="space-y-2">
-
-
-
-                                @foreach ($categories as $category)
+                        <div class="flex flex-col md:flex-row gap-4 w-full max-w-7xl mx-auto">
+                            <!-- Categories Column (Left) -->
+                            <div class="md:w-1/4 w-full bg-white p-4 shadow-md rounded-lg">
+                                <h2 class="text-2xl font-bold mb-4 text-center text-sky-700 border-b pb-3">業種</h2>
+                                <ul class="space-y-2">
+                                    @foreach ($categories as $category)
                                     <li class="rounded-md">
                                         {{-- Main Category --}}
                                         <div class="px-2 py-2 bg-sky-100 border border-sky-200 hover:bg-gray-100 flex justify-between items-center">
@@ -291,12 +290,9 @@
 
 
 
-
-                        <!-- Right Column (3/5 width) -->
-
-
-                        <div class="md:w-3/5 sm:w-3/5 mx-auto p-6">
-                            <div class="space-y-6">
+    <!-- Job Posts Column (Right) -->
+    <div class="md:w-3/4 w-full p-6 bg-white shadow-md rounded-lg">
+        <div class="space-y-6">
                                 @foreach ($jobposts as $jobpost)
                                     <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-500 overflow-hidden border border-gray-200">
                                         <div class="flex flex-col sm:flex-row items-start p-6 space-y-4 sm:space-y-0 sm:space-x-6">

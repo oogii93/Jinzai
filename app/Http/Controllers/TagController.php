@@ -32,7 +32,7 @@ class TagController extends Controller
 
         Tag::create($validatedData);
 
-        return redirect()->route('tags.index')->with('success', 'Tag created successfully.');
+        return redirect()->route('tags.index')->with('success', 'タグが正常に作成されました。');
     }
 
     /**
@@ -40,7 +40,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        return view('tags.edit', compact('tag'));
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -54,7 +54,7 @@ class TagController extends Controller
 
         $tag->update($validatedData);
 
-        return redirect()->route('tags.index')->with('success', 'Tag updated successfully.');
+        return redirect()->route('tags.index')->with('success', 'タグが正常に更新されました。');
     }
 
     /**
@@ -64,6 +64,6 @@ class TagController extends Controller
     {
         $tag->delete();
 
-        return redirect()->route('tags.index')->with('success', 'Tag deleted successfully.');
+        return redirect()->route('tags.index')->with('success', 'タグが正常に削除されました。');
     }
 }

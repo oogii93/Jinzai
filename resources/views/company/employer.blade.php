@@ -117,7 +117,7 @@
 
                 <!-- Table Section -->
                 <div class="overflow-x-auto px-2 bg-green-200">
-                    <img src="{{ asset('images/Group 3.svg') }}" alt="" class="px-5 py-4">
+                    <img src="{{ asset('images/Group3.svg') }}" alt="" class="px-5 py-4">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50/50">
                             <tr>

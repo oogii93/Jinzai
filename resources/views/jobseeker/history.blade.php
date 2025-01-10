@@ -135,7 +135,7 @@
 
 
         <div class="overflow-x-auto bg-orange-100">
-            <img src="{{ asset('images/Group 3.svg') }}" alt="" class="justify-center w-full py-4 px-2  mb-10">
+            <img src="{{ asset('images/Group3.svg') }}" alt="" class="justify-center w-full py-4 px-2  mb-10">
             <!-- Status Tabs -->
 
             <table class="min-w-full border border-gray-400 ">

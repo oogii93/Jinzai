@@ -165,7 +165,7 @@
 
             <div class="bg-white rounded-lg shadow overflow-hidden w-full">
                 <div class="overflow-x-auto bg-white">
-                    <img src="{{ asset('images/Group 3.svg') }}" alt="" class="justify-center w-full py-4 px-2 ml-60 mb-10">
+                    <img src="{{ asset('images/Group3.svg') }}" alt="" class="justify-center w-full py-4 px-2 ml-60 mb-10">
 
 
                     <table class="w-full table-auto shadow-xl rounded-lg overflow-hidden">

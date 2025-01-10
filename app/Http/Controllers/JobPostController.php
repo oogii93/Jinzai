@@ -301,7 +301,9 @@ class JobPostController extends Controller
         if (auth()->user()->role === 'admin' ||
             (auth()->user()->role === 'company' && auth()->id() === $jobpost->user_id)) {
             $categories = Category::all();
-            return view('jobpost.edit', compact('jobpost', 'categories'));
+            $categories2=Category2::all();
+            $tags = Tag::all(); // Include tags
+            return view('jobpost.edit', compact('jobpost', 'categories', 'categories2', 'tags'));
         }
 
         abort(403, 'Unauthorized action.');

@@ -10,8 +10,9 @@
                     <h1 class="text-2xl font-semibold text-gray-900">新規投稿</h1>
                 </div>
 
-                <form action="{{ route('jobpost.store') }}" method="POST" class="p-8 space-y-6">
+                <form action="{{ route('jobpost.update',$jobpost->id) }}" method="POST" class="p-8 space-y-6">
                     @csrf
+                    @method('PUT')
 
                     <!-- Basic Information Section -->
                     <div class="space-y-6">
@@ -37,8 +38,9 @@
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="title" id="title"
+                            value="{{ $jobpost->title }}"
                                 class="w-full rounded-md border border-gray-400"
-                                placeholder="投稿タイトルを入力してください" required>
+                                placeholder="投稿タイトルを入力してください" >
                         </div>
 
 
@@ -48,8 +50,9 @@
                                 <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="company_name" id="company_name"
+                            value="{{ $jobpost->company_name }}"
                                 class="w-full rounded-md border border-gray-400"
-                                placeholder="会社名を入力してください" required>
+                                placeholder="会社名を入力してください" >
                         </div>
 
 
@@ -60,7 +63,8 @@
                             </label>
                             <input type="text" name="company_furigana" id="company_furigana"
                                 class="w-full rounded-md border border-gray-400"
-                                placeholder="フリガナを入力してください" required>
+                                value="{{ $jobpost->company_furigana }}"
+                                placeholder="フリガナを入力してください" >
                         </div>
 
 
@@ -72,7 +76,8 @@
                             </label>
                             <input type="text" name="company_address" id="company_address"
                                 class="w-full rounded-md border border-gray-400"
-                                placeholder="所在地を入力" required>
+                                value="{{ $jobpost->company_address }}"
+                                placeholder="所在地を入力">
                         </div>
 
 
@@ -84,7 +89,8 @@
                             </label>
                             <input type="url" name="homepage_url" id="homepage_url"
                                 class="w-full rounded-md border border-gray-400"
-                                placeholder="URLを入力" required>
+                                value="{{ $jobpost->homepage_url }}"
+                                placeholder="URLを入力" >
                         </div>
 
 
@@ -95,7 +101,9 @@
                                         class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">業種選択</option>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}"
+                                            {{ old('category_id', $jobpost->category_id) ==$category->id ? 'selected' : '' }}
+                                            >{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -118,7 +126,9 @@
                         </label>
                         <textarea name="job_detail" id="job_detail" rows="6"
                             class="w-full rounded-md border border-gray-400"
-                            placeholder="仕事内容を入力してください。" required></textarea>
+                            placeholder="仕事内容を入力してください。">
+                        {{ $jobpost->job_detail }}
+                        </textarea>
                     </div>
 
 
@@ -145,7 +155,8 @@
                         </label>
                         <input type="text" name="working_location" id="working_location"
                             class="w-full rounded-md border border-gray-400"
-                            placeholder="就業場所を入力" required>
+                        value="{{ $jobpost->working_location }}"
+                            placeholder="就業場所を入力">
                     </div>
 
                     <div class="space-y-2">
@@ -155,10 +166,13 @@
                         </label>
                         <select name="my_car" id="my_car" class="w-full rounded-md border border-gray-400">
                             <option value="">選択</option>
-                            <option value="可">可</option>
-                            <option value="不可">不可</option>
+                            <option value="可"  {{ old('my_car', $jobpost->my_car) === '可' ? 'selected' : '' }}>可</option>
+                            <option value="不可" {{ old('my_car', $jobpost->mycar)=== '不可' ? 'selected' : '' }}>不可</option>
                         </select>
                     </div>
+
+
+
 
                     <!-- data ni baigaa -->
                     <div class="space-y-2">
@@ -168,7 +182,8 @@
                         </label>
                         <input type="text" name="qualification" id="qualification"
                             class="w-full rounded-md border border-gray-400"
-                            placeholder="資格を入力してください" required>
+                            value="{{ $jobpost->qualification }}"
+                            placeholder="資格を入力してください" >
                      </div>
 
 
@@ -179,7 +194,8 @@
                     </label>
                     <input type="text" name="trial_period" id="trial_period"
                         class="w-full rounded-md border border-gray-400"
-                        placeholder="試用期間を入力してください" required>
+                        value="{{ $jobpost->trial_period }}"
+                        placeholder="試用期間を入力してください" >
                 </div>
 
 
@@ -191,7 +207,8 @@
                     </label>
                     <input type="text" name="salary" id="salary"
                         class="w-full rounded-md border border-gray-400"
-                        placeholder="給料を入力してください" required>
+                        value="{{ $jobpost->salary }}"
+                        placeholder="給料を入力してください" >
                 </div>
 
 
@@ -200,7 +217,8 @@
 
                         <!-- 賃金締切日 -->
                 <div class="flex flex-col lg:flex-row lg:justify-between gap-4">
-                    <!-- 賃金締切日 -->
+                    <!-- 賃金締切日
+                    zasaHHHH-->
                     <div class="flex-1">
                         <label for="salary_deadline" class="block text-sm font-mono text-gray-700">
                             賃金締切日
@@ -224,8 +242,8 @@
                             <!-- Month Selector -->
                             <select name="salary_payment_month" id="salary_payment_month" class="w-1/3 mt-1 block rounded-md border border-gray-400 shadow-sm " required>
                                 <option value="">選択してください。</option>
-                                <option value="当月">当月</option>
-                                <option value="翌月">翌月</option>
+                                <option value="当月"{{ old('salary_payment_month', $jobpost->salary_payment_month)==='当月' ? 'selected' : ''}}>当月</option>
+                                <option value="翌月" {{ old('salary_payment_month', $jobpost->salary_payment_month) ==='翌月' ? 'selected' : '' }}>翌月</option>
                             </select>
                             <!-- Day Selector -->
                             <select name="salary_payment_day" id="salary_payment_day" class="w-2/3 mt-1 block rounded-md border border-gray-400 shadow-sm " required>
@@ -254,7 +272,7 @@
                             type="radio"
                             name="working_hour"
                             id="working_hour"
-                            value="固定"
+                            value="固定"{{ old('working_hour', $jobpost->working_hour) ==='固定' ? 'checked' : '' }}
                             class="rounded border-gray-400"
                             onclick="toggleWorkingHours('fixed')">
 
@@ -267,7 +285,7 @@
                                 type="radio"
                                 name="working_hour"
                                 id="working_hour"
-                                value="シフト制"
+                                value="シフト制"{{ old('working_hour', $jobpost->working_hour)==='シフト制' ? 'checked' : '' }}
                                 class="rounded border-gray-400"
                                 onclick="toggleWorkingHours('shift')">
 
@@ -284,6 +302,7 @@
                                     id="working_hour_a"
                                     name="working_hour_a"
                                     class="rounded-md border border-gray-400 p-2 w-full"
+                                    value="{{ $jobpost->working_hour_a }}"
                                     placeholder="例: 9:00～18:00">
                         </div>
                     </div>
@@ -297,6 +316,7 @@
                                    id="working_hour_b_1"
                                    name="working_hour_b_1"
                                    class="rounded-md border border-gray-400 p-2 w-full"
+                                   value="{{ $jobpost->working_hour_b_1 }}"
                                    placeholder="例: 早番 8:00～16:00">
                         </div>
 
@@ -307,6 +327,7 @@
                                    id="working_hour_b_2"
                                    name="working_hour_b_2"
                                    class="rounded-md border border-gray-400 p-2 w-full"
+                                     value="{{ $jobpost->working_hour_b_2 }}"
                                    placeholder="例: 日勤 11:00～19:00">
                         </div>
 
@@ -316,6 +337,8 @@
                             <input type="text"
                                    id="working_hour_b_3"
                                    name="working_hour_b_3"
+
+                                     value="{{ $jobpost->working_hour_b_3 }}"
                                    class="rounded-md border border-gray-400 p-2 w-full"
                                    placeholder="例: 遅番 16:00～24:00">
                         </div>
@@ -440,7 +463,8 @@
                     </label>
                     <input type="text" name="overtime_hour" id="overtime_hour"
                         class="w-full rounded-md border border-gray-400"
-                        placeholder="月平均〇〇時間" required>
+                        value="{{ $jobpost->overtime_hour }}"
+                        placeholder="月平均〇〇時間" >
                 </div>
 
                 <div class="space-y-2">
@@ -450,7 +474,8 @@
                     </label>
                     <input type="text" name="break" id="break"
                         class="w-full rounded-md border border-gray-400"
-                        placeholder="〇〇分" required>
+                        value="{{ $jobpost->break }}"
+                        placeholder="〇〇分" >
                 </div>
 
                 <div class="space-y-2">
@@ -460,7 +485,8 @@
                     </label>
                     <input type="text" name="holidays" id="holidays"
                         class="w-full rounded-md border border-gray-400"
-                        placeholder="休日を入力してください。" required>
+                        value="{{ $jobpost->holidays }}"
+                        placeholder="休日を入力してください。" >
                 </div>
 
                 <div class="space-y-2">
@@ -470,7 +496,8 @@
                     </label>
                     <input type="text" name="holiday_type" id="holiday_type"
                         class="w-full rounded-md border border-gray-400"
-                        placeholder="休暇を入力してください" required>
+                        value="{{ $jobpost->holiday_type }}"
+                        placeholder="休暇を入力してください" >
                 </div>
 
                 <div class="space-y-2">
@@ -480,7 +507,8 @@
                     </label>
                     <input type="text" name="insurance" id="insurance"
                         class="w-full rounded-md border border-gray-400"
-                        placeholder="加入保険を入力してください。" required>
+                        value="{{ $jobpost->insurance }}"
+                        placeholder="加入保険を入力してください。" >
                 </div>
 
                 <div class="space-y-2">
@@ -491,12 +519,12 @@
 
                     <div class="flex items-center space-x-4">
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="fire_option" id="fire_option" value="可"
+                            <input type="radio" name="fire_option" id="fire_option" value="可" {{ old('fire_option', $jobpost->fire_option) ==='可' ? 'checked' :'' }}
                                    class="rounded border-gray-400" >
                             <span>あり</span>
                         </label>
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="fire_option" id="fire_option" value="不可"
+                            <input type="radio" name="fire_option" id="fire_option" value="不可" {{ old('fire_option', $jobpost->fire_option) ==='不可' ? 'checked' : ''}}
                                    class="rounded border-gray-400" >
                             <span>なし</span>
                         </label>
@@ -512,12 +540,12 @@
 
                     <div class="flex items-center space-x-4">
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="house_option" id="house_option" value="可"
+                            <input type="radio" name="house_option" id="house_option" value="可" {{ old('house_option', $jobpost->house_option) === '可' ? 'checked' : '' }}
                                    class="rounded border-gray-400" >
                             <span>あり</span>
                         </label>
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="house_option" id="house_option" value="不可"
+                            <input type="radio" name="house_option" id="house_option" value="不可" {{ old('house_option', $jobpost->house_option) ==='不可' ? 'checked' : '' }}
                                    class="rounded border-gray-400" >
                             <span>なし</span>
                         </label>
@@ -532,12 +560,12 @@
 
                     <div class="flex items-center space-x-4">
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="childcare_option" id="childcare_option" value="可"
+                            <input type="radio" name="childcare_option" id="childcare_option" value="可" {{ old('childcare_option', $jobpost->childcare_option) === '可' ? 'checked' : '' }}
                                    class="rounded border-gray-400" >
                             <span>あり</span>
                         </label>
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="childcare_option" id="childcare_option" value="不可"
+                            <input type="radio" name="childcare_option" id="childcare_option" value="不可" {{ old('childcare_option', $jobpost->childcare_option) ==='不可' ? 'checked' : '' }}
                                    class="rounded border-gray-400" >
                             <span>なし</span>
                         </label>
@@ -553,12 +581,12 @@
 
                     <div class="flex items-center space-x-4">
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="smoke_option" id="smoke_option" value="可"
+                            <input type="radio" name="smoke_option" id="smoke_option" value="可" {{ old('smoke_option', $jobpost->smoke_option) === '可' ? 'checked' : '' }}
                                    class="rounded border-gray-400" >
                             <span>あり</span>
                         </label>
                         <label class="flex items-center space-x-2">
-                            <input type="radio" name="smoke_option" id="smoke_option" value="不可"
+                            <input type="radio" name="smoke_option" id="smoke_option" value="不可" {{  old('smoke_option', $jobpost->smoke_option) ==='不可' ? 'checked' : '' }}
                                    class="rounded border-gray-400" >
                             <span>なし</span>
                         </label>
@@ -572,7 +600,9 @@
                     </label>
                     <textarea name="other" id="other" rows="4"
                         class="w-full rounded-md border border-gray-400"
-                        placeholder="その他の情報を入力してください。"></textarea>
+                        placeholder="その他の情報を入力してください。">
+                    {{ $jobpost->other }}
+                    </textarea>
                 </div>
 
                 <div class="space-y-2">

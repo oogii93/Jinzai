@@ -61,12 +61,12 @@
                 ['label' => 'ウェブサイト', 'id' => 'website', 'type' => 'url', 'placeholder' => 'ウェブサイトのURLを入力してください。'],
             ] as $field)
                 <div class="relative">
-                    <label for="{{ $field['id'] }}" class="absolute -top-3 left-3 text-gray-500 text-sm px-1 bg-white">
+                    <label for="{{ $field['id'] }}" class="absolute -top-3 left-3 text-gray-500 text-sm px-1 bg-gray-100 rounded-md">
                         {{ $field['label'] }}
                     </label>
                     <input type="{{ $field['type'] }}" id="{{ $field['id'] }}" name="{{ $field['id'] }}"
                            placeholder="{{ $field['placeholder'] }}"
-                           class="w-full px-4 py-3 mt-1 border-gray-300 rounded-md focus:ring focus:ring-green-500 text-gray-800"
+                           class="w-full px-4 py-3 mt-1 border border-gray-400 rounded-md focus:ring focus:ring-green-200 text-gray-800"
                            value="{{ old($field['id']) }}">
                     @error($field['id'])
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -92,7 +92,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
-            戻り
+            戻る
         </a>
     </div>
 </div>

@@ -286,6 +286,35 @@
                         </li>
                     @endif
 
+                    @if (Auth::check() && Auth::user()->role === 'jobseeker')
+
+                    <li class="relative group list-none">
+                        <a href="{{ route('jobseeker.history') }}"
+                            class="relative block transform transition-all duration-300 hover:-translate-y-1">
+                            <div
+                                class="flex flex-col items-center justify-center w-24 h-16 cursor-pointer bg-white border border-gray-200 hover:bg-gray-100 transition-all duration-300">
+
+                                {{-- Main Icon SVG with hover animation --}}
+                                <svg
+                                class="w-10 h-10"
+                                viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" version="1.1" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#D0CEA9;stroke:#222222;stroke-width:2" d="M 4,88 C 4,87 3.6,25 3.6,25 3.6,25 3,20 8,20 c -1,0 6,0 6,0 l 0,-6 c 0,0 0,-3 3,-3 l 17,0 c 0,0 3,0 3,3 l 0,6 43,0 c 0,0 4,0 4,4 l -2,64 z"></path> <path style="fill:#E8DC88;stroke:#222222;stroke-width:2;fill-opacity:0.8" d="M 4,88 15,40 c 0,0 0,-7 8,-7 10,0 66,0 66,0 0,0 9,-1 7,6 -2,7 -12,49 -12,49 z"></path> <path style="fill:#555555;stroke:#222222;stroke-width:2" d="m 73,67 c 0,0 27,18 25,31 C 86,100 66,73 66,73"></path> <circle cx="51" cy="51" r="26" fill="none" stroke="#222222" style="stroke-width:2"></circle> <circle cx="51" cy="51" r="23" fill="none" stroke="#999999" style="stroke-width:4"></circle> <circle cx="51" cy="51" r="21" fill="#eeeeee" stroke="#222222" style="stroke-width:1;fill-opacity:0.5"></circle> </g></svg>
+
+                                {{-- Label with hover effect --}}
+                                <span
+                                    class="mr-2 mt-1 text-gray-800 text-[11px] font-semibold group-hover:text-blue-600 transition-colors duration-300">
+                                    申請歴
+                                </span>
+
+                                {{-- Subtle hover indicator line --}}
+                                <div
+                                    class="absolute bottom-0 left-0 w-full h-[2px] bg-blue-500 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100">
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+                    @endif
+
 
 
 
@@ -635,6 +664,9 @@
                                 </div>
                         </li>
                     @endif
+
+
+
 
 
 

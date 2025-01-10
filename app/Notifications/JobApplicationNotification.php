@@ -54,15 +54,13 @@ class JobApplicationNotification extends Notification
      */
     public function toDatabase($notifiable)
     {
-        $jobPost = $this->jobApplication->jobPost;
 
-
-       return [
-        'job_application_id' => $this->jobApplication->id,
-
-
-        'message' => '新しい求人応募を受理しました'
-    ];
+        $user = User::find($this->jobApplication->user_id);
+        return [
+            'job_application_id' => $this->jobApplication->id,
+            // 'name' => $user ? $user->name : 'Unknown User',
+            'message' => '新しい求人応募を受理しました'
+        ];
     }
 
     // public function toMail($notifiable)

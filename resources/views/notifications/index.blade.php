@@ -144,6 +144,8 @@
                                                     </p>
                                                 </div>
 
+
+
                                                 @elseif($notification->type === 'App\Notifications\JobSeekerApprovalStatusNotification')
                                                     <div class="flex items-center mb-3">
                                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-md font-medium
@@ -157,14 +159,11 @@
                                                     </div>
 
                                                     <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                                                        求職者アカウントステータス
+                                                        管理者承認通知
                                                     </h3>
 
                                                     <div class="text-sm text-gray-600 space-y-1">
-                                                        <p>
-                                                            <span class="font-medium">管理者:</span>
-                                                            {{ $notification->data['admin_name'] }}
-                                                        </p>
+
                                                         <p>
                                                             {{ $notification->data['message'] }}
                                                         </p>
@@ -172,17 +171,25 @@
 
 
                                                     @elseif($notification->type === 'App\Notifications\JobApplicationNotification')
-
-
                                                     <div class="flex items-center mb-3 p-4 bg-white shadow rounded-lg">
                                                         <div class="notification-content">
-                                                            <p class="font-semibold text-gray-600">新しい申請通知</p>
+                                                            <p class="font-semibold text-gray-600">新しい求人応募通知</p>
                                                             <p>
-                                                                <span class="font-semibold"></span>
                                                                 {{ $notification->data['message'] }}
-                                                                henees henrvvg ni ajiluulah
-                                                            </p>
 
+
+                                                            </p>
+                                                            <p>
+
+
+
+                                                            </p>
+                                                            <div class="mt-2">
+                                                                {{-- <a href="{{ $notification->data['view_application_url'] }}"
+                                                                   class="text-blue-600 hover:underline">
+                                                                    応募詳細を確認する
+                                                                </a> --}}
+                                                            </div>
                                                         </div>
                                                     </div>
 

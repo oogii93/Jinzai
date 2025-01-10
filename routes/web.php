@@ -10,15 +10,16 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Chat1Controller;
 use App\Http\Controllers\Chat2Controller;
+
+
+
 use App\Http\Controllers\JobPostController;
-
-
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LanguageController;
 
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Category2Controller;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\VideoProfileController;
@@ -102,6 +103,10 @@ Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showBy
 
 // 6. Update routes in web.php
 Route::middleware(['auth'])->group(function () {
+
+
+
+
 
     Route::get('/jobs/{id}', [JobPostController::class, 'show'])->name('jobpost.show');
     Route::post('/jobs/{id}/apply', [JobPostController::class, 'apply'])->name('job.apply');

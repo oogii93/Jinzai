@@ -154,9 +154,12 @@
 
                 @php
                     $profile_details = [
-                        ['label' => '情報', 'value' => $user->companyProfile->company_description ?? ''],
-                        ['label' => '業種', 'value' => $user->companyProfile->industry],
-                        ['label' => 'ウェブサイト', 'value' => $user->companyProfile->website]
+                        ['label' => '業種', 'value' => $user->companyProfile->industry ?? ''],
+                        ['label' => 'ウェブサイト', 'value' => $user->companyProfile->website ?? ''],
+                        ['label'=>'従業員数', 'value'=>$user->companyProfile->employee_number ?? ''],
+                        ['label'=>'売上高', 'value'=>$user->companyProfile->profit ?? ''],
+                        ['label'=>'設立', 'value'=>$user->companyProfile->stablished ?? ''],
+                        ['label'=>'事業内容', 'value'=>$user->companyProfile->details ?? ''],
                     ];
                 @endphp
 

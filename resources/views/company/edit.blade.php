@@ -83,19 +83,11 @@
                 </div>
 
                 <!-- Company-specific fields -->
-                <div>
-                    <label for="company_description" class="block text-sm font-medium text-gray-700 mb-2">会社説明</label>
-                    <textarea name="company_description" id="company_description" rows="4"
-                              class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500
-                              @error('company_description') border-red-500 focus:ring-red-500 @enderror">{{ old('company_description', $companyProfile->company_description ?? '') }}</textarea>
-                    @error('company_description')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="industry" class="block text-sm font-medium text-gray-700 mb-2">業界</label>
+                        <label for="industry" class="block text-sm font-medium text-gray-700 mb-2">業種</label>
                         <input type="text" name="industry" id="industry"
                                value="{{ old('industry', $companyProfile->industry ?? '') }}"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500
@@ -115,6 +107,51 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="employee_number" class="block text-sm font-medium text-gray-700 mb-2">従業員数</label>
+                        <input type="number" name="employee_number" id="employee_number"
+                               value="{{ old('employee_number', $companyProfile->employee_number ?? '') }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500
+                               @error('employee_number') border-red-500 focus:ring-red-500 @enderror">
+                        @error('employee_number')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="profit" class="block text-sm font-medium text-gray-700 mb-2">売上高</label>
+                        <input type="text" name="profit" id="profit"
+                               value="{{ old('profit', $companyProfile->profit ?? '') }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500
+                               @error('profit') border-red-500 focus:ring-red-500 @enderror">
+                        @error('profit')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+                    <div>
+                        <label for="stablished" class="block text-sm font-medium text-gray-700 mb-2">設立</label>
+                        <input type="date" name="stablished" id="stablished"
+                               value="{{ old('stablished', $companyProfile->stablished ?? '') }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500
+                               @error('stablished') border-red-500 focus:ring-red-500 @enderror">
+                        @error('stablished')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="details" class="block text-sm font-medium text-gray-700 mb-2">事業内容</label>
+                        <textarea name="details" id="details"
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('details', $companyProfile->details ?? '') }}</textarea>
+                        @error('details')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
                 </div>
 
                 <div class="flex justify-end pt-4">

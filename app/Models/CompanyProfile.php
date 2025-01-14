@@ -10,7 +10,13 @@ class CompanyProfile extends Model
         'user_id',
         // 'company_description',
         'industry',
-        'website'
+
+        'website',
+
+        'employee_number',
+        'profit',
+        'stablished',
+        'details'
     ];
 
     public function user()

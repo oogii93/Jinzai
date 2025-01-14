@@ -106,6 +106,10 @@ class CompanyDashboardController extends Controller
             // 'company_description' => ['required', 'string'],
             'industry' => ['required', 'string'],
             'website' => ['nullable', 'url'],
+            'employee_number'=>['nullable', 'string'],
+            'profit'=>['nullable','string'],
+            'stablished'=>['nullable','date'],
+            'details'=>['nullable','string']
         ];
 
         $validatedDate=$request->validate($rules);
@@ -143,6 +147,10 @@ class CompanyDashboardController extends Controller
             'company_description' => $request->company_description,
             'industry' => $request->industry,
             'website' => $request->website,
+            'employee'=>$request->employee_number,
+            'profit'=>$request->profit,
+            'stablished'=>$request->stablished,
+            'details'=>$request->details
 
         ]);
 

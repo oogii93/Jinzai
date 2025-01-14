@@ -59,15 +59,27 @@
                 // ['label' => '企業情報', 'id' => 'company_description', 'type' => 'text', 'placeholder' => '企業情報を入力してください。'],
                 ['label' => '業種', 'id' => 'industry', 'type' => 'text', 'placeholder' => '業種を入力してください。'],
                 ['label' => 'ウェブサイト', 'id' => 'website', 'type' => 'url', 'placeholder' => 'ウェブサイトのURLを入力してください。'],
+                ['label'=>'従業員数','id'=>'employee_number', 'type'=>'number','placeholder'=>''],
+                ['label'=>'売上高', 'id'=>'profit', 'type'=>'text','placeholder'=>''],
+                ['label'=>'設立','id'=>'stablished', 'type'=>'date','placeholder'=>''],
+                ['label'=>'事業内容','id'=>'details', 'type'=>'long','placeholder'=>'']
+
             ] as $field)
                 <div class="relative">
                     <label for="{{ $field['id'] }}" class="absolute -top-3 left-3 text-gray-500 text-sm px-1 bg-gray-100 rounded-md">
                         {{ $field['label'] }}
                     </label>
+                    @if($field['type'] === 'long')
+                    <textarea id="{{ $field['id'] }}" name="{{ $field['id'] }}"
+                              placeholder="{{ $field['placeholder'] }}"
+                              class="w-full px-4 py-3 mt-1 border border-gray-400 rounded-md focus:ring focus:ring-green-200 text-gray-800"
+                              rows="4">{{ old($field['id']) }}</textarea>
+                @else
                     <input type="{{ $field['type'] }}" id="{{ $field['id'] }}" name="{{ $field['id'] }}"
                            placeholder="{{ $field['placeholder'] }}"
                            class="w-full px-4 py-3 mt-1 border border-gray-400 rounded-md focus:ring focus:ring-green-200 text-gray-800"
                            value="{{ old($field['id']) }}">
+                @endif
                     @error($field['id'])
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror

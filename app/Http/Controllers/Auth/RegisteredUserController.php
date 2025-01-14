@@ -186,6 +186,10 @@ class RegisteredUserController extends Controller
             // 'company_description' => ['required', 'string'],
             'industry' => ['required', 'string'],
             'website' => ['nullable', 'url'],
+            'employee_number'=>['nullable','string'],
+            'profit'=>['nullable','string'],
+            'stablished'=>['nullable','date'],
+            'details'=>['nullable','string']
         ];
     } else {
 
@@ -324,6 +328,10 @@ class RegisteredUserController extends Controller
                     // 'company_description' => $request->company_description,
                     'industry' => $request->industry,
                     'website' => $request->website,
+                    'employee_number'=>$request->employee_number,
+                    'profit'=>$request->profit,
+                    'stablished'=>$request->stablished,
+                    'details'=>$request->details
                 ]);
             }
 
@@ -436,13 +444,17 @@ class RegisteredUserController extends Controller
         }else{
 
 
-     $user->companyProfile()->create(
-        [
-            // 'company_description'=>$request->company_description,
-            'industry'=>$request->industry,
-            'website'=>$request->website,
-        ]
-     );
+    //  $user->companyProfile()->create(
+    //     [
+    //         // 'company_description'=>$request->company_description,
+    //         'industry'=>$request->industry,
+    //         'website'=>$request->website,
+    //         'employee_number'=>$request->employee_number,
+    //         'profit'=>$request->profit,
+    //         'stablished'=>$request->stablished,
+    //         'details'=>$request->details
+    //     ]
+    //  );
         }
 
 

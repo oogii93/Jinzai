@@ -183,7 +183,7 @@ class RegisteredUserController extends Controller
             // For company, we only need the company-specific fields
     if ($request->role === 'company') {
         $additionalRules = [
-            'company_description' => ['required', 'string'],
+            // 'company_description' => ['required', 'string'],
             'industry' => ['required', 'string'],
             'website' => ['nullable', 'url'],
         ];
@@ -321,7 +321,7 @@ class RegisteredUserController extends Controller
             // For company users, create company profile
             if ($request->role === 'company') {
                 $user->companyProfile()->create([
-                    'company_description' => $request->company_description,
+                    // 'company_description' => $request->company_description,
                     'industry' => $request->industry,
                     'website' => $request->website,
                 ]);
@@ -438,7 +438,7 @@ class RegisteredUserController extends Controller
 
      $user->companyProfile()->create(
         [
-            'company_description'=>$request->company_description,
+            // 'company_description'=>$request->company_description,
             'industry'=>$request->industry,
             'website'=>$request->website,
         ]

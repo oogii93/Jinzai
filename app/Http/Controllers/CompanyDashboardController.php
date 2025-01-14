@@ -103,7 +103,7 @@ class CompanyDashboardController extends Controller
             'phone_number' => ['nullable', 'string'],
             'mobile_number' => ['nullable', 'string'],
             // Company-specific fields
-            'company_description' => ['required', 'string'],
+            // 'company_description' => ['required', 'string'],
             'industry' => ['required', 'string'],
             'website' => ['nullable', 'url'],
         ];

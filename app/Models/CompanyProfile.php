@@ -8,7 +8,7 @@ class CompanyProfile extends Model
 {
     protected $fillable=[
         'user_id',
-        'company_description',
+        // 'company_description',
         'industry',
         'website'
     ];

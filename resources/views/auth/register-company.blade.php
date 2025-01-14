@@ -56,7 +56,7 @@
                 ['label' => '電話番号', 'id' => 'phone_number', 'type' => 'text', 'placeholder' => '電話番号を入力してください。'],
                 ['label' => '携帯電話番号', 'id' => 'mobile_number', 'type' => 'text', 'placeholder' => '携帯電話番号を入力してください。'],
                 ['label' => '企業名', 'id' => 'name', 'type' => 'text', 'placeholder' => '企業名を入力してください。'],
-                ['label' => '企業情報', 'id' => 'company_description', 'type' => 'text', 'placeholder' => '企業情報を入力してください。'],
+                // ['label' => '企業情報', 'id' => 'company_description', 'type' => 'text', 'placeholder' => '企業情報を入力してください。'],
                 ['label' => '業種', 'id' => 'industry', 'type' => 'text', 'placeholder' => '業種を入力してください。'],
                 ['label' => 'ウェブサイト', 'id' => 'website', 'type' => 'url', 'placeholder' => 'ウェブサイトのURLを入力してください。'],
             ] as $field)

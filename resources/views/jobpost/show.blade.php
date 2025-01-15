@@ -148,13 +148,13 @@
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
 
-                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">賃金支払い日</dt>
+                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">賃金支払い月</dt>
                         <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->salary_payment_month}}</dd>
 
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 border border-gray-100">
 
-                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">日付け</dt>
+                        <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">賃金支払い日</dt>
                         <dd class="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->salary_payment_day}}</dd>
                     </div>
 

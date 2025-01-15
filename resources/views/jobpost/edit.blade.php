@@ -229,6 +229,7 @@
                             @for ($i = 1; $i <= 31; $i++)
                                 <option class="" value="{{ $i }}">{{ $i }}</option>
                             @endfor
+                            <option class="" value="末">末</option>
                         </select>
                     </div>
 
@@ -251,6 +252,8 @@
                                 @for ($i = 1; $i <= 31; $i++)
                                     <option class="" value="{{ $i }}">{{ $i }}</option>
                                 @endfor
+
+                                <option class="" value="末">末</option>
                             </select>
                         </div>
                     </div>
@@ -609,12 +612,12 @@
                     <label for="tags" class="block text-sm font-medium text-gray-700">
                        分類
                     </label>
-                    {{-- <select name="tags[]" multiple
+                    <select name="tags[]" multiple
                         class="w-full rounded-md border border-gray-400 ">
                         @foreach($tags as $tag)
                             <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                         @endforeach
-                    </select> --}}
+                    </select>
                     @error('tags')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror

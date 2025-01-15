@@ -176,37 +176,11 @@ class JobPostController extends Controller
             'tags' => 'nullable|array',  // Changed validation rule
             'tags.*' => 'exists:tags,id', // Added validation for each tag ID
 
-            'salary_deadline'=>'nullable|integer|min:1|max:31',
+            'salary_deadline'=>'nullable|string',
             'salary_payment_month'=>'nullable|in:当月,翌月',
-            'salary_payment_day'=>'nullable|integer|min:1|max:31',
+            'salary_payment_day'=>'nullable|string',
 
             'smoke_option' => 'required|in:可,不可',
-
-
-
-
-
-        // Required if "yes"
-
-
-
-
-
-            // 'overtime'=>'required',
-            // 'other_allowance'=>'required',
-
-            // 'salary_increase_option' => 'required|in:可,不可', // Validates radio selection
-            // 'salary_increase_from' => 'nullable|string|required_if:salary_increase_option,可', // Required if "yes"
-            // 'salary_increase_to' => 'nullable|string|required_if:salary_increase_option,可', // Required if "yes"
-
-            // 'bonus_increase_option' => 'required|in:可,不可', // Validates radio selection
-            // 'bonus_increase_from' => 'nullable|string|required_if:bonus_increase_option,可', // Required if "yes"
-            // 'bonus_increase_to' => 'nullable|string|required_if:bonus_increase_option,可', // Required if "yes"
-
-
-
-
-
 
         ]);
 
@@ -327,7 +301,11 @@ class JobPostController extends Controller
             'qualification' => 'required',
             'other' => 'nullable',
             'category_id' => 'required|exists:categories,id',
+            'salary_deadline'=>'nullable|string',
+            'salary_payment_month'=>'nullable|in:当月,翌月',
+            'salary_payment_day'=>'nullable|string',
         ]);
+
 
         $jobpost->update($validatedData);
 

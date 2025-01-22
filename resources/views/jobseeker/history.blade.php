@@ -113,7 +113,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="/images/group 3.png" alt="自己紹介動画" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group3.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>採用位置</span>
                             </div>
@@ -123,7 +123,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="/images/group 4.png" alt="自己紹介動画" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group4.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>太成HDS面接日付</span>
                             </div>
@@ -133,7 +133,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="/images/group 5.png" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group5.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>太成HDS面接結果</span>
                             </div>
@@ -150,7 +150,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="/images/group 6.png" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group6.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>面接・採用試験日</span>
                             </div>
@@ -161,7 +161,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="/images/group 9.png" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group9.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>最終結果</span>
                             </div>
@@ -171,7 +171,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="/images/group 10.png" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group10.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>入社日付</span>
                             </div>

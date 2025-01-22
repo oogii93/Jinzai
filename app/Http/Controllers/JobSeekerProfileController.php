@@ -151,7 +151,7 @@ class JobSeekerProfileController extends Controller
           
 
 
-        //   $profileImagePath = $user->profile_image;
+          $profileImagePath = $user->profile_image;
 
           if($request->hasFile('profile_image')){
 
@@ -160,7 +160,7 @@ class JobSeekerProfileController extends Controller
                     Storage::disk('public')->delete($user->profile_image);
                 }
                 catch(\Exception $e){
-                    \Log::error('Failed to delete old profile image: ' . $e->getMessage());
+                    // \Log::error('Failed to delete old profile image: ' . $e->getMessage());
                 }
                
 
@@ -293,7 +293,7 @@ $validatedData['profile_image']=$profileImagePath;
 
 
             if ($admins->isEmpty()) {
-                \Log::info('No admin users found.');
+                // \Log::info('No admin users found.');
             } else {
                 Notification::send($admins, new JobSeekerProfileNotification($user, $request->role));
             }

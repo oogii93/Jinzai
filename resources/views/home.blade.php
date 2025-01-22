@@ -84,16 +84,37 @@
                     </a> --}}
                <!-- Language Switcher -->
             <!-- Language Switcher -->
-            <div class="flex items-center space-x-3 text-sm">
+            <div class="flex items-center space-x-3 text-sm ml-20">
                 <a href="{{ route('language.switch', 'jp') }}"
-                   class="text-gray-800 hover:text-blue-600 font-medium {{ app()->getLocale() == 'jp' ? 'font-bold' : '' }}">
-                    JP
-                </a>
-                <span class="text-gray-300">|</span>
+                class="flex items-center space-x-2 text-gray-800 hover:text-blue-600 font-medium {{ app()->getLocale() == 'jp' ? 'font-bold' : '' }}">
+                <span>JP</span>
+                <img
+                     src="{{ asset('images/jap.png') }}"
+                     alt="Japanese"
+                     class="w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 px-2 py-2 shadow-md">
+
+             </a>
+
+
+                <span class="text-gray-400">|</span>
+
+                <a href="{{ route('language.switch', 'en') }}"
+                class="flex items-center space-x-2 text-gray-800 hover:text-blue-600 font-medium {{ app()->getLocale() == 'en' ? 'font-bold' : '' }}">
+                <img
+                     src="{{ asset('images/eng.png') }}"
+                     alt="English"
+                     class="w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 px-2 py-2 shadow-md">
+                <span>EN</span>
+
+
+             </a>
+                {{-- <img src="{{ asset('images/eng.png') }}" alt="" class="w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 px-2 py-2 shadow-md">
+
+
                 <a href="{{ route('language.switch', 'en') }}"
                    class="text-gray-800 hover:text-blue-600 font-medium {{ app()->getLocale() == 'en' ? 'font-bold' : '' }}">
                     EN
-                </a>
+                </a> --}}
             </div>
 
 

@@ -163,7 +163,7 @@
             @endif
             </div>
 
-            <div class="bg-white rounded-lg shadow overflow-hidden w-full "> 
+            <div class="bg-white rounded-lg shadow overflow-hidden w-full ">
                 <div class="overflow-x-auto bg-sky-100">
                     {{-- <img src="{{ asset('images/Group3.svg') }}" alt="" class="w-4/5 py-4 px-2 ml-128 mb-10"> --}}
 
@@ -181,7 +181,7 @@
                                 <th class="px-6 py-4 border-b border-gray-200">
                                     <div class="flex flex-col items-center">
                                         <span class="mt-32">採用会社</span>
-                                        
+
                                     </div>
                                 </th>
                                 <th class="px-6 py-4 border-b border-gray-200">

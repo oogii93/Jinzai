@@ -1,17 +1,19 @@
 <div id="chatBox" class="fixed bottom-4 right-5 z-50 bg-white shadow-lg border border-gray-200 rounded-xl w-20 h-20 overflow-hidden transition-all duration-300">
     <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-            <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        </div>
+
+        <span class="text-gray-100 font-semibold text-sm">Chat</span>
+
+        <button id="toggleChatSize" class="text-white hover:bg-white/20 rounded-full p-1 transition">
+
+             <svg
+             id="toggleIcon"
+             class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 10.5H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
                 <path d="M8 14H13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
                 <path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-            </svg>
-            {{-- <span>hello</span> --}}
-        </div>
-
-        <button id="toggleChatSize" class="text-white hover:bg-white/20 rounded-full p-1 transition">
-            <svg id="toggleIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
             </svg>
         </button>
     </div>
@@ -49,7 +51,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                         </svg>
-                        <span>チャットを開始</span>
+                        <span>管理者に問い合わせ</span>
                     </a>
                 </div>
             @else

@@ -197,7 +197,7 @@
                                 <th class="px-6 py-4 border-b border-gray-200">
                                     <div class="flex flex-col items-center space-y-4">
                                         <div class="w-32 h-32  rounded-lg p-2">
-                                            <img src="/images/group3.png" alt="" class="w-full h-full object-contain">
+                                            <img src="{{ asset('images/group3.png') }}" alt="" class="w-full h-full object-contain">
                                         </div>
                                         <span>自己紹介動画</span>
                                     </div>
@@ -205,7 +205,7 @@
                                 <th class="px-6 py-4 border-b border-gray-200">
                                     <div class="flex flex-col items-center space-y-4">
                                         <div class="w-32 h-32  rounded-lg p-2">
-                                            <img src="/images/group4.png" alt="" class="w-full h-full object-contain">
+                                            <img src="{{ asset('images/group4.png') }}" alt="" class="w-full h-full object-contain">
                                         </div>
                                         <span>面談日付け</span>
                                     </div>
@@ -226,7 +226,7 @@
                                 <th class="px-6 py-4 border-b border-gray-200">
                                     <div class="flex flex-col items-center space-y-4">
                                         <div class="w-32 h-32  rounded-lg p-2">
-                                            <img src="/images/group6.png" alt="" class="w-full h-full object-contain">
+                                            <img src="{{ asset('images/group6.png') }}" alt="" class="w-full h-full object-contain">
                                         </div>
                                         <span>採用試験日</span>
                                     </div>
@@ -234,7 +234,7 @@
                                 <th class="px-6 py-4 border-b border-gray-200">
                                     <div class="flex flex-col items-center space-y-4">
                                         <div class="w-32 h-32  rounded-lg p-2">
-                                            <img src="/images/group9.png" alt="" class="w-full h-full object-contain">
+                                            <img src="{{ asset('images/group9.png') }}" alt="" class="w-full h-full object-contain">
                                         </div>
                                         <span>最終結果</span>
                                     </div>
@@ -242,7 +242,7 @@
                                 <th class="px-6 py-4 border-b border-gray-200">
                                     <div class="flex flex-col items-center space-y-4">
                                         <div class="w-32 h-32  rounded-lg p-2">
-                                            <img src="/images/group10.png" alt="" class="w-full h-full object-contain">
+                                            <img src="{{ asset('images/group10.png') }}" alt="" class="w-full h-full object-contain">
                                         </div>
                                         <span>入社日付</span>
                                     </div>

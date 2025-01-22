@@ -32,6 +32,7 @@ class RegisteredUserController extends Controller
 
      protected $jobseekerFields = [
         'furigana',
+        'country',
         'date_of_birth',
         'gender',
         'address',
@@ -196,6 +197,7 @@ class RegisteredUserController extends Controller
 
             $additionalRules = [
                 'furigana' => ['nullable', 'string'],
+                'country'=>['required','string'],
                 'year' => ['required', 'integer'],
                 'month' => ['required', 'integer'],
                 'day' => ['required', 'integer'],
@@ -348,6 +350,7 @@ class RegisteredUserController extends Controller
 
         $user->update([
             'furigana' => $request->furigana,
+            'country' => $request->country,
             'date_of_birth' => $date_of_birth,
             'gender' => $request->gender,
             'education_year_1' => $request->education_year_1,

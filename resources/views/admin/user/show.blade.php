@@ -120,6 +120,14 @@
 
 
                     </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-semibold text-gray-700">国籍</label>
+                        <p class="px-4 py-2 border border-gray-300 rounded-md bg-gray-100">
+                            {{ $user->country ?? '未設定' }}
+                        </p>
+
+
+                    </div>
                 </div>
 
 

@@ -163,29 +163,92 @@
             @endif
             </div>
 
-            <div class="bg-white rounded-lg shadow overflow-hidden w-full">
-                <div class="overflow-x-auto bg-white">
-                    <img src="{{ asset('images/Group3.svg') }}" alt="" class="justify-center w-full py-4 px-2 ml-60 mb-10">
+            <div class="bg-white rounded-lg shadow overflow-hidden w-full "> 
+                <div class="overflow-x-auto bg-sky-100">
+                    {{-- <img src="{{ asset('images/Group3.svg') }}" alt="" class="w-4/5 py-4 px-2 ml-128 mb-10"> --}}
+
+                    {{-- <img src="{{ asset('images/Group3.svg') }}" alt="" class="justify-end ml-80 px-2" style="width: 500px; "> --}}
 
 
-                    <table class="w-full table-auto shadow-xl rounded-lg overflow-hidden">
-                        <thead class="bg-gradient-to-r from-green-500 to-blue-600 text-white uppercase text-xs font-bold tracking-wider">
-                            <tr>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">ID</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">採用会社</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">採用投稿</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">申請者</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">自己紹介動画</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">面談日付け</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">面談結果</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">書類選考</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">採用試験日</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">最終結果</th>
-                                <th class="px-6 py-3 text-left border-b-2 border-gray-300">入社日付</th>
-                                {{-- <th class="px-6 py-3 text-left border-b-2 border-gray-300">作動</th> --}}
+                    <table class="w-full table-auto border-collapse shadow-xl rounded-lg overflow-hidden">
+                        <thead class="bg-green-300 text-gray-500 uppercase text-sm font-semibold">
+                            <tr class="divide-x divide-gray-200">
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32 ">ID</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32">採用会社</span>
+                                        
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32">採用投稿</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32">申請者</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 3.png" alt="自己紹介動画" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>自己紹介動画</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 4.png" alt="面談日付け" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>面談日付け</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32">面談結果</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 5.png" alt="書類選考" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>書類選考</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 6.png" alt="採用試験日" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>採用試験日</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 9.png" alt="最終結果" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>最終結果</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 10.png" alt="入社日付" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>入社日付</span>
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
-
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($applications as $application)
                                 <tr class="hover:bg-gray-100 transition ease-in-out duration-150">

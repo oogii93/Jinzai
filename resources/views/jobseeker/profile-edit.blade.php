@@ -133,6 +133,17 @@
 
 
                 </div>
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700">国籍</label>
+                    <input type="text"
+                           name="country"
+                            id="country"
+                            value="{{ old('country',$user->country) }}"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md "
+                       >
+
+
+                </div>
             </div>
 
 
@@ -1263,27 +1274,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-//    document.addEventListener("DOMContentLoaded", () => {
-//     let visibleRows = 3; // Initially show 3 rows
-//     const maxRows = 15;
 
-//     // Row Addition Functionality
-//     const addRowButton = document.getElementById("add-row");
-//     const removeRowButton = document.getElementById("remove-row");
-
-//     addRowButton.addEventListener("click", () => {
-//         if (visibleRows < maxRows) {
-//             visibleRows++;
-//             document.getElementById(`row-${visibleRows}`).style.display = "grid";
-//         }
-//     });
-
-//     removeRowButton.addEventListener("click", () => {
-//         if (visibleRows > 1) {
-//             document.getElementById(`row-${visibleRows}`).style.display = "none";
-//             visibleRows--;
-//         }
-//     });
 
     // Image Preview Functionality
     document.addEventListener('DOMContentLoaded', () => {
@@ -1315,88 +1306,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-    // const fileInput = document.getElementById('imageUpload');
-    // const imageElement = document.getElementById('selectedImage');
-    // const placeholderText = document.getElementById('placeholderText');
-
-    // fileInput.addEventListener('change', (event) => {
-    //     const input = event.target;
-    //     const file = input.files[0];
-
-    //     if (file) {
-    //         const reader = new FileReader();
-
-    //         reader.onload = function(e) {
-    //             imageElement.src = e.target.result;
-    //             imageElement.classList.remove('hidden');
-    //             placeholderText.classList.add('hidden');
-    //         };
-
-    //         reader.readAsDataURL(file);
-    //     } else {
-    //         // If no file is selected, reset to original state
-    //         imageElement.src = '';
-    //         imageElement.classList.add('hidden');
-    //         placeholderText.classList.remove('hidden');
-    //     }
-    // });
 
 </script>
 
-{{-- <script>
-
-document.addEventListener("DOMContentLoaded", () => {
-let visibleRows = 3; // Initially show 1 row
-const maxRows = 15;
-
-document.getElementById("add-row").addEventListener("click", () => {
-if (visibleRows < maxRows) {
-    visibleRows++;
-    document.getElementById(`row-${visibleRows}`).style.display = "grid";
-}
-});
-
-document.getElementById("remove-row").addEventListener("click", () => {
-if (visibleRows > 1) {
-    document.getElementById(`row-${visibleRows}`).style.display = "none";
-    visibleRows--;
-}
-});
-
-
-function previewImage(event) {
-        const input = event.target;
-        const reader = new FileReader();
-        const imageElement = document.getElementById('selectedImage');
-        const placeholderText = document.getElementById('placeholderText');
-
-        reader.onload = function() {
-            imageElement.src = reader.result;
-            imageElement.classList.remove('hidden');
-            placeholderText.classList.add('hidden');
-        };
-
-        if (input.files && input.files[0]) {
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-        // Get the current date
-        const today = new Date();
-    // Format the date to 'YYYY-MM-DD'
-    const formattedDate = today.toISOString().split('T')[0];
-    // Set the formatted date as the default value for the input
-    document.getElementById('currentDate').value = formattedDate;
-
-
-
-
-
-
-
-
-});
-
-</script> --}}
 </x-app-layout>
 
 

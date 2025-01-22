@@ -73,7 +73,7 @@
     </script>
 @endif
 
-<div class="min-h-screen bg-gray-50/50">
+<div class="min-h-screen bg-gray-200">
 <div class="p-4 sm:p-6 lg:p-8">
     <!-- Page Header -->
     <div class="sm:flex sm:items-center sm:justify-between mb-8 bg-gradient-to-r from-sky-600 to-blue-500 rounded-lg ">
@@ -84,83 +84,101 @@
     </div>
 
 
+    
 
     <!-- Table Section -->
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-lg shadow overflow-x-auto">
 
             <!-- Search and Filter Section -->
-            <div class="md:w-3/5 sm:w-full mt-8 mb-5 px-2">
-                <form action="" method="GET" class="relative">
-                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
+      
 
-                    <input
-                        type="search"
-                        name="search"
-                        value=""
-                        placeholder="検索（名前、メール、電話番号）"
-                        class="block w-full py-3 pl-10 pr-24 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 transition duration-300 ease-in-out"
-                    >
-
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-                        @if(request('search'))
-                            <a href="" class="mr-2 text-gray-500 hover:text-gray-700 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </a>
-                        @endif
-
-                        <button
-                            type="submit"
-                            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 transition duration-300 ease-in-out"
-                        >
-                            検索
-                        </button>
-                    </div>
-                </form>
-
-                @if(request('search'))
-                <div class="mt-2 text-sm text-gray-500">
-                    <span>検索結果: </span>
-                    <span class="font-semibold">{{ $applications->total() }}件</span>
-                    <span class="ml-2 text-gray-400">"|"</span>
-                    <span class="ml-2">検索キーワード: "{{ request('search') }}"</span>
-                </div>
-            @endif
-            </div>
-
-
-        <div class="overflow-x-auto bg-orange-100">
-            <img src="{{ asset('images/Group3.svg') }}" alt="" class="justify-center w-full py-4 px-2  mb-10">
             <!-- Status Tabs -->
 
-            <table class="min-w-full border border-gray-400 ">
-                <thead class="bg-green-200 ">
-                    <tr class="">
+            <table class="w-full table-auto border-collapse shadow-xl rounded-lg overflow-hidden">
+                <thead class="bg-green-300 text-gray-500 uppercase text-sm font-semibold">
+                    <tr class="divide-x divide-gray-200">
 
-                        {{-- <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">採用会社</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">求人情報</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">面接状況</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">選考結果</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">入社日</th>
-                        </tr> --}}
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">採用会社名</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">採用位置</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">太成HDS面接日付</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">太成HDS面接結果</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">書類選考結果</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">面接・採用試験日</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">最終結果</th>
+        
+                        <th class="px-6 py-4 border-b border-gray-200">
+                            <div class="flex flex-col items-center">
+                                <span class="mt-32 ">ID</span>
+                            </div>
+                        </th>
+                        <th class="px-6 py-4 border-b border-gray-200">
+                            <div class="flex flex-col items-center">
+                                <span class="mt-32 ">採用会社名</span>
+                            </div>
+                        </th>
+                        <th class="px-6 py-4 border-b border-gray-200">
 
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="w-32 h-32  rounded-lg p-2">
+                                    <img src="/images/group 3.png" alt="自己紹介動画" class="w-full h-full object-contain">
+                                </div>
+                                <span>採用位置</span>
+                            </div>
+                          
+                        </th>
+                        <th class="px-6 py-4 border-b border-gray-200">
 
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">入社日付</th>
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="w-32 h-32  rounded-lg p-2">
+                                    <img src="/images/group 4.png" alt="自己紹介動画" class="w-full h-full object-contain">
+                                </div>
+                                <span>太成HDS面接日付</span>
+                            </div>
+                            
+                        </th>
+                        <th class="px-6 py-4 border-b border-gray-200">
+
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="w-32 h-32  rounded-lg p-2">
+                                    <img src="/images/group 5.png" alt="" class="w-full h-full object-contain">
+                                </div>
+                                <span>太成HDS面接結果</span>
+                            </div>
+
+                        
+                        </th>
+                        <th class="px-6 py-4 border-b border-gray-200">
+                            <div class="flex flex-col items-center">
+                                <span class="mt-32 ">書類選考結果</span>
+                            </div>
+                        </th>
+
+                        <th class="px-6 py-4 border-b border-gray-200">
+
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="w-32 h-32  rounded-lg p-2">
+                                    <img src="/images/group 6.png" alt="" class="w-full h-full object-contain">
+                                </div>
+                                <span>面接・採用試験日</span>
+                            </div>
+
+                        </th>
+
+                        <th class="px-6 py-4 border-b border-gray-200">
+
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="w-32 h-32  rounded-lg p-2">
+                                    <img src="/images/group 9.png" alt="" class="w-full h-full object-contain">
+                                </div>
+                                <span>最終結果</span>
+                            </div>
+                         
+                        </th>
+                        <th class="px-6 py-4 border-b border-gray-200">
+
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="w-32 h-32  rounded-lg p-2">
+                                    <img src="/images/group 10.png" alt="" class="w-full h-full object-contain">
+                                </div>
+                                <span>入社日付</span>
+                            </div>
+                         
+                        </th>
+
+                   
                     </tr>
                 </thead>
                 <tbody class="bg-white">

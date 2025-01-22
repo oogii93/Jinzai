@@ -94,7 +94,7 @@
                 <!-- Search and Filter Section -->
                 <div class="p-6 border-b border-gray-100">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div class="relative">
+                        {{-- <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -103,7 +103,7 @@
                             <input type="text"
                                    class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                    placeholder="検索...">
-                        </div>
+                        </div> --}}
 {{--
                         <div class="flex items-center space-x-2">
                             <select class="block w-full py-2 pl-3 pr-10 text-base border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
@@ -116,20 +116,85 @@
                 </div>
 
                 <!-- Table Section -->
-                <div class="overflow-x-auto px-2 bg-green-200">
-                    <img src="{{ asset('images/Group3.svg') }}" alt="" class="px-5 py-4">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50/50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">ID</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">応募した仕事</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">応募者</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">自己紹介動画</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-blue-300">太成HDs面談結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">書類選考結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">面接・採用試験日</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">最終結果</th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider border border-gray-400 bg-orange-200">入社日付</th>
+                <div class="overflow-x-auto px-2 bg-white">
+
+                    <table class="w-full table-auto border-collapse shadow-xl rounded-lg overflow-hidden">
+                        <thead class="bg-green-300 text-gray-500 uppercase text-sm font-semibold">
+                            <tr class="divide-x divide-gray-200">
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32 ">ID</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+
+                                    
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32 ">応募した仕事</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 3.png" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>応募者</span>
+                                    </div>
+                                 
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32 ">自己紹介動画</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 5.png" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>太成HDs面談結果</span>
+                                    </div>
+                                   
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center">
+                                        <span class="mt-32 ">書類選考結果</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 6.png" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>面接・採用試験日</span>
+                                    </div>
+                                   
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 9.png" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>最終結果</span>
+                                    </div>
+                                  
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="/images/group 10.png" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>入社日付</span>
+                                    </div>
+
+                                 
+                                </th>
+
+
+
                             </tr>
                         </thead>
                         <tbody class="bg-white">

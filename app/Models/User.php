@@ -23,7 +23,9 @@ class User extends Authenticatable
         'email',
         'password',
 
+
         'furigana',
+        'country',
         'profile_image',
         'date_of_birth',
         'gender',

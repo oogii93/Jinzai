@@ -62,6 +62,21 @@
                              <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
                            @enderror
                 </div>
+
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700">国籍</label>
+                    <input type="text"
+                           name="country"
+                            id="country"
+                            value="{{ old('country') }}"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-md "
+                           placeholder="国籍を入れて下さい。">
+
+                           @error('country')
+                             <p class="text-red-300 text-xs mt-1">{{ $message }}</p>
+                           @enderror
+                </div>
             </div>
 
             <!-- Image Upload Section -->

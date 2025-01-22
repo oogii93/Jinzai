@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Models\User;
 use Exception;
+use Illuminate\View\Component;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

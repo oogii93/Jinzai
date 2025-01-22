@@ -40,7 +40,8 @@ class JobSeekerProfileController extends Controller
 
           $commonRules=[
             'name'=>['required', 'string', 'max:255'],
-            'profile_image'=>['nullable', 'image', 'mimes:jpeg,pngmjpgm gif,svg', 'max:20480'],
+            
+            'profile_image'=>['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:20480'],
             'address'=>['nullable', 'string'],
             'phone_number'=>['nullable', 'string'],
             'mobile_number'=>['nullable', 'string'],
@@ -49,6 +50,8 @@ class JobSeekerProfileController extends Controller
 
           $additionalRules=[
             'furigana'=>['nullable', 'string'],
+
+            'country'=>['nullable', 'string'],
             'year'=>['required', 'integer'],
             'month'=>['required', 'integer'],
             'day'=>['required', 'integer'],
@@ -144,26 +147,34 @@ class JobSeekerProfileController extends Controller
           $validatedData=$request->validate(array_merge($commonRules, $additionalRules));
 
 
-          $profileImagePath = $user->profile_image;
+
+          
+
+
+        //   $profileImagePath = $user->profile_image;
 
           if($request->hasFile('profile_image')){
+
+            if($user->profile_image){
+                try{
+                    Storage::disk('public')->delete($user->profile_image);
+                }
+                catch(\Exception $e){
+                    \Log::error('Failed to delete old profile image: ' . $e->getMessage());
+                }
+               
+
+            }
+
               // Delete existing image if it exists
 
-              $request->validate([
-                'profile_image' => 'image|mimes:jpeg,png,jpg,gif|max:204800' // 2MB max
-            ]);
- // Delete existing image if it exists
- if($profileImagePath){
-    try {
-        Storage::disk('public')->delete($profileImagePath);
-    } catch (\Exception $e) {
-        // Optional: Log the error
-        \Log::error('Failed to delete old profile image: ' . $e->getMessage());
-    }
-}
+       
+
 
 // Store new image
 $profileImagePath = $request->file('profile_image')->store('profile-images', 'public');
+
+$validatedData['profile_image']=$profileImagePath;
 }
 
                     // Prepare date of birth
@@ -178,6 +189,7 @@ $profileImagePath = $request->file('profile_image')->store('profile-images', 'pu
 
              $user->update([
                 'name' => $request->name,
+                'country' => $request->country,
                 'profile_image' => $profileImagePath,
                 'address' => $request->address,
                 'phone_number' => $request->phone_number,

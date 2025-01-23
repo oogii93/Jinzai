@@ -255,8 +255,46 @@
                         <dt class="text-md font-semibold text-gray-500 bg-blue-200 px-5 py-5 rounded-lg">備考</dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jobpost->other }}</dd>
                     </div>
+
+
+@if($jobpost->image_1 ||$jobpost->image_2)
+                    <div class="bg-white shadow-md rounded-lg p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">会社写真</h3>
+
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <div class="text-sm font-medium text-gray-600 mb-2">会社内部の写真</div>
+                                <div class="relative group">
+                                    <div class="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-transparent group-hover:border-sky-500 transition-all">
+                                        @if($jobpost->image_1)
+                                            <img src="{{ Storage::url($jobpost->image_1) }}"
+                                                 alt="Company Interior"
+                                                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform">
+
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="text-sm font-medium text-gray-600 mb-2">追加写真</div>
+                                <div class="relative group">
+                                    <div class="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden border-2 border-transparent group-hover:border-sky-500 transition-all">
+                                        @if($jobpost->image_2)
+                                            <img src="{{ Storage::url($jobpost->image_2) }}"
+                                                 alt="Company Additional Photo"
+                                                 class="w-full h-full object-cover transform group-hover:scale-105 transition-transform">
+
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </dl>
             </div>
+
+            @endif
 
 
 

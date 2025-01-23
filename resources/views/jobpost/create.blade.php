@@ -10,7 +10,7 @@
                         <h1 class="text-2xl font-semibold text-gray-900">新規投稿</h1>
                     </div>
 
-                    <form action="{{ route('jobpost.store') }}" method="POST" class="p-8 space-y-6">
+                    <form action="{{ route('jobpost.store') }}" method="POST" class="p-8 space-y-6" enctype="multipart/form-data">
                         @csrf
 
                         <!-- Basic Information Section -->
@@ -602,6 +602,50 @@
                         @enderror
                     </div>
 
+                    <div class="w-full border-2 border-b border-blue-400 ">
+
+                    </div>
+
+                <div class="flex justify-between">
+
+                    <div class="space-y-2">
+
+                        <div class="w-85">
+                            <div class="text-sm font-semibold text-gray-700 mb-2">会社内部の写真</div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-orange-500 transition-colors cursor-pointer">
+                                <label for="imageUpload" class="cursor-pointer">
+                                    <div class="w-80 h-80 bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
+                                        <img id="selectedImage" alt="Selected Image" class="hidden w-120 h-120 object-cover">
+                                        <span class="text-gray-500" id="placeholderText">写真選択</span>
+                                    </div>
+                                </label>
+                                <input type="file" id="imageUpload" name="image_1" class="hidden" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+
+                        <div class="w-85">
+                            <div class="text-sm font-semibold text-gray-700 mb-2">写真</div>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-orange-500 transition-colors cursor-pointer">
+                                <label for="imageUpload2" class="cursor-pointer">
+                                    <div class="w-80 h-80 bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
+                                        <img id="selectedImage2" alt="Selected Image" class="hidden w-80 h-80 object-cover">
+                                        <span class="text-gray-500" id="placeholderText2">写真選択</span>
+                                    </div>
+                                </label>
+                                <input type="file" id="imageUpload2" name="image_2" class="hidden" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    </div>
+
+
+
+
                         <!-- Form Actions -->
                         <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-100">
                             <a href="{{ route('jobpost.index') }}"
@@ -715,6 +759,44 @@
     });
 });
 
+
+ // Image Preview Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const setupImageUpload=(inputId, imageId, placeholderId)=>{
+        const fileInput=document.getElementById(inputId);
+        const imageElement=document.getElementById(imageId);
+        const placeholderText=document.getElementById(placeholderId);
+
+        fileInput.addEventListener('change', (event)=>{
+            const input=event.target;
+            const file=input.files[0];
+
+            if(file){
+
+                const reader=new FileReader();
+
+                reader.onload=function(e){
+                    imageElement.src=e.target.result;
+                    imageElement.classList.remove('hidden');
+                    placeholderText.classList.add('hidden');
+                };
+
+                reader.readAsDataURL(file);
+
+            }else{
+                imageElement.src = '';
+                imageElement.classList.add('hidden');
+                placeholderText.classList.remove('hidden');
+            }
+        });
+    };
+
+        // Setup for first image upload
+        setupImageUpload('imageUpload', 'selectedImage', 'placeholderText');
+
+    // Setup for second image upload
+    setupImageUpload('imageUpload2', 'selectedImage2', 'placeholderText2');
+});
 
 
         </script>

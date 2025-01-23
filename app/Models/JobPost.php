@@ -51,7 +51,10 @@ class JobPost extends Model
         'salary_deadline',
         'salary_payment_month',
         'salary_payment_day',
-        'smoke_option'
+        'smoke_option',
+        //
+        'image_1',
+        'image_2',
 
 
 

@@ -134,7 +134,7 @@ class JobPostController extends Controller
         // dd($request->all());
 
 
-
+// \Log::info($request->all());
 
 
         $validatedData = $request->validate([
@@ -181,10 +181,20 @@ class JobPostController extends Controller
             'salary_payment_day'=>'nullable|string',
 
             'smoke_option' => 'required|in:可,不可',
+            'image_1'=>['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:20480'],
+            'image_2'=>['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:20480'],
+            // 'profile_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:20480'],
 
         ]);
 
     //  dd($validatedData);
+
+
+  $profileImagePath=$request->file('image_1')->store('image_1', 'public');
+  $profileImagePath2=$request->file('image_2')->store('image_2', 'public');
+
+
+    // \Log::info($profileImagePath);
 
 
 
@@ -237,7 +247,10 @@ class JobPostController extends Controller
             'salary_deadline'=>$validatedData['salary_deadline'],
             'salary_payment_month'=>$validatedData['salary_payment_month'],
             'salary_payment_day'=>$validatedData['salary_payment_day'],
-            'smoke_option'=>$validatedData['smoke_option']
+            'smoke_option'=>$validatedData['smoke_option'],
+
+            'image_1'=>$profileImagePath,
+            'image_2'=>$profileImagePath2,
 
         ]);
 
@@ -304,7 +317,23 @@ class JobPostController extends Controller
             'salary_deadline'=>'nullable|string',
             'salary_payment_month'=>'nullable|in:当月,翌月',
             'salary_payment_day'=>'nullable|string',
+
+            'image_1'=>['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:20480'],
+            'image_2'=>['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:20480'],
         ]);
+
+        $image1Path = null;
+        if ($request->hasFile('image_1')) {
+            $image1Path = $request->file('image_1')->store('image_1', 'public');
+        }
+
+        $image2Path = null;
+        if ($request->hasFile('image_2')) {
+            $image2Path = $request->file('image_2')->store('image_2', 'public');
+        }
+
+        $validatedData['image_1'] = $image1Path;
+        $validatedData['image_2'] = $image2Path;
 
 
         $jobpost->update($validatedData);

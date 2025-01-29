@@ -27,7 +27,7 @@
         <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
             <!-- Form Header -->
             <div class="bg-gradient-to-r from-sky-500 to-sky-500 px-8 py-6">
-                <h2 class="text-2xl font-bold text-white text-center">企業おお問い合わせ</h2>
+                <h2 class="text-2xl font-bold text-white text-center">企業お問い合わせ</h2>
                 <p class="text-sky-100 mt-2 text-sm">以下の情報をご記入ください</p>
             </div>
 

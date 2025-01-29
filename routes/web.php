@@ -15,10 +15,12 @@ use App\Http\Controllers\Chat2Controller;
 
 
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\JobPostController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CategoryController;
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Contact2Controller;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Category2Controller;
 use App\Http\Controllers\NotificationController;
@@ -38,6 +40,20 @@ Route::get('/language/{locale}', [LanguageController::class, 'switchLang'])
 
 Route::get('/', [HomeController::class, 'index'])
 ->name('home');
+
+    //Contact route 1
+
+    Route::get('/contact', [ContactController::class, 'show'])
+    ->name('contact');
+    ;
+    Route::post('/contact', [ContactController::class, 'send']);
+
+    //Contact route 2
+
+    Route::get('/contact2', [Contact2Controller::class, 'show'])
+    ->name('contact2');
+    ;
+    Route::post('/contact2', [Contact2Controller::class, 'send']);
 
 
 //new
@@ -501,10 +517,10 @@ Route::middleware(['auth', 'role:company'])->group(function () {
                 });
 
 
-                Route::middleware(['auth'])->group(function () {
-                    Route::post('/send-message', [Chat2Controller::class, 'sendMessage'])->name('send.message');
-                    Route::get('/get-chat-history/{receiverId}', [Chat2Controller::class, 'getChatHistory'])->name('chat.history');
-                });
+                // Route::middleware(['auth'])->group(function () {
+                //     Route::post('/send-message', [Chat2Controller::class, 'sendMessage'])->name('send.message');
+                //     Route::get('/get-chat-history/{receiverId}', [Chat2Controller::class, 'getChatHistory'])->name('chat.history');
+                // });
 
 
 

@@ -1109,9 +1109,9 @@
     </form>
 
 
-    <div class="mt-10">
+    <div class="mt-8 ml-4">
         <a href="{{ route('home') }}"
-           class="inline-flex items-center px-6 py-2 text-gray-50 hover:text-white bg-gray-600 hover:bg-gray-800 rounded-lg font-semibold text-lg shadow-md transition ease-in-out duration-300">
+           class=" mb-2 inline-flex items-center px-6 py-2 text-gray-50 hover:text-white bg-gray-600 hover:bg-gray-800 rounded-lg font-semibold text-md shadow-md transition ease-in-out duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>

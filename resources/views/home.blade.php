@@ -24,6 +24,80 @@
     }
     </style>
 </head>
+
+@if (session('success') || session('error'))
+<div id="statusToast" class="fixed top-16 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
+    <div class="bg-gray-100 border-l-4 @if(session('success')) border-blue-500 @else border-red-500 @endif rounded-r-lg shadow-md overflow-hidden">
+        <div class="p-4 flex items-center">
+            <div class="flex-shrink-0">
+                @if (session('success'))
+                    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                @else
+                    <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                @endif
+            </div>
+            <div class="ml-3 w-0 flex-1">
+                @if (session('success'))
+                    <p class="text-lg font-semibold text-blue-900">
+                        {!! session('success') !!}
+                    </p>
+                @endif
+                @if (session('error'))
+                    <p class="text-sm font-medium text-gray-900">
+                        {{ session('error') }}
+                    </p>
+                @endif
+
+
+            </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button id="closeToast" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
+                閉じる
+            </button>
+        </div>
+    </div>
+</div>
+@endif
+
+<style>
+    @keyframes slideDown {
+        from { transform: translate(-50%, -100%); }
+        to { transform: translate(-50%, 0); }
+    }
+    #statusToast {
+        animation: slideDown 0.5s ease-out;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var statusToast = document.getElementById('statusToast');
+        var closeToast = document.getElementById('closeToast');
+
+        var hideTimeout = setTimeout(function() {
+            hideToast();
+        }, 8000);
+
+        closeToast.addEventListener('click', function() {
+            clearTimeout(hideTimeout);
+            hideToast();
+        });
+
+        function hideToast() {
+            statusToast.style.transform = 'translate(-50%, -100%)';
+            statusToast.style.transition = 'transform 0.5s ease-in-out';
+            setTimeout(function() {
+                statusToast.style.display = 'none';
+            }, 500);
+        }
+    });
+</script>
+
 <body class="min-h-screen bg-white">
 
     <div class="fixed bottom-4 right-5 z-50 hidden md:flex">
@@ -91,7 +165,7 @@
                 <img
                      src="{{ asset('images/jap.png') }}"
                      alt="Japanese"
-                     class="w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 px-2 py-2 shadow-md">
+                     class="w-12 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 px-2 py-2 shadow-md">
 
              </a>
 
@@ -103,7 +177,7 @@
                 <img
                      src="{{ asset('images/eng.png') }}"
                      alt="English"
-                     class="w-10 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 px-2 py-2 shadow-md">
+                     class="w-12 h-10 rounded-lg bg-gray-100 hover:bg-gray-200 px-2 py-2 shadow-md">
                 <span>EN</span>
 
 
@@ -1184,26 +1258,58 @@
         </div>
         </div>
         </div>
-    <div id="contact" class="relative bg-cover bg-center min-h-[24rem] border border-t-4 border-green-600">
-        <div class="absolute inset-0 bg-sky-900 bg-opacity-80">
-            <div class="container mx-auto px-4 h-full flex flex-col md:flex-row items-center justify-between py-8 md:py-0">
-                <!-- Text Section -->
-                <div class="text-center md:text-left mb-8 md:mb-0 md:ml-20">
+        <div id="contact" class="relative bg-cover bg-center min-h-[24rem] border-t-4 border-green-600">
+            <div class="absolute inset-0 bg-sky-900 bg-opacity-80">
+                <div class="container mx-auto px-4 h-full flex flex-col md:flex-row items-center justify-between py-12 md:py-0">
+                    <!-- Text Section -->
+                    <div class="text-center md:text-left mb-8 md:mb-0 md:ml-20">
+                        <h1 class="text-3xl md:text-4xl text-white font-bold mb-4">{{ __('Contact') }}</h1>
+                        <p class="text-lg md:text-xl font-semibold text-white">{{ __('Please feel free to contact us here') }}</p>
+                    </div>
 
-                    <h1 class="text-3xl md:text-4xl text-white font-bold py-3">{{ __('Contact') }}</h1>
-                    <p class="text-base md:text-medium font-semibold py-3 text-white">{{ __('Please feel free to contact us here') }}</p>
+                    <!-- Button Section -->
+                    <div class="md:mr-20">
+
+                        <button type="button"
+                        onclick="openContactModal()"
+                        class="inline-block px-12 py-6 bg-sky-600 hover:bg-sky-700 shadow-lg rounded-lg text-2xl text-white font-semibold transition duration-300 transform hover:scale-105">
+                        {{ __('Contact Us') }}
+                        </button>
+
+
+
+                         <!-- Modal -->
+                                    <div id="contactModal"
+                                    class="hidden fixed inset-0 bg-black bg-opacity-90 overflow-y-auto h-full w-full z-50">
+                                <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-lg bg-white">
+                                    <div class="mt-3 text-center">
+                                        <h3 class="text-2xl font-semibold text-gray-700 mb-6">お問い合わせ</h3>
+                                        <div class="space-y-4">
+                                            <a href="{{ route('contact') }}"
+                                                class="block w-full px-6 py-4 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition duration-200">
+                                                求職者様お問い合わせ
+                                            </a>
+                                            <a href="{{ route('contact2') }}"
+                                                class="block w-full px-6 py-4 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition duration-200">
+                                                企業側お問い合わせ
+                                            </a>
+                                        </div>
+                                        <button onclick="closeContactModal()"
+                                                class="mt-4 px-4 py-2 text-red-500 hover:text-red-700">
+                                         閉じる
+                                        </button>
+                                    </div>
+                                </div>
+                                </div>
+
+
+
+                        {{-- <a href="{{ route('contact') }}" class="inline-block px-12 py-6 bg-sky-600 hover:bg-sky-700 shadow-lg rounded-lg text-2xl text-white font-semibold transition duration-300 transform hover:scale-105"> --}}
+
+                        </a>
+                    </div>
                 </div>
-
-                <!-- Button Section -->
-
-                    <!-- Contact/Consultation Button -->
-            <div class="mt-12 flex justify-center">
-
             </div>
-
-            </div>
-        </div>
-    </div>
         </div>
     <footer>
         <div class="w-auto bg-white flex-justify-center text-gray-800 text-sm font-semibold text-center py-5">
@@ -1326,6 +1432,23 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     });
+
+
+    function openContactModal(){
+        document.getElementById('contactModal').classList.remove('hidden');
+    }
+    function closeContactModal(){
+        document.getElementById('contactModal').classList.add('hidden');
+    }
+
+
+
+    window.onclick=function(event){
+        let modal=document.getElementById('contactModal');
+        if(event.target ==modal){
+            closeContactModal();
+        }
+    }
 
 
 </script>

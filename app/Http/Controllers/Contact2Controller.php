@@ -25,7 +25,7 @@ class Contact2Controller extends Controller
         ]);
 
 
-        Mail::to('dashnyamnyamochir@gmail.com')->send(new \App\Mail\ContactForm2($validatedData));
+        Mail::to('marino.sato@taisei-hds.co.jp')->send(new \App\Mail\ContactForm2($validatedData));
 
 
         return redirect()->route('home')->with('success', '送信されました。ありがとうございました。');

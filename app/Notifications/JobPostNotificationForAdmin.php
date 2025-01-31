@@ -8,17 +8,20 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\JobPost;
 
-class NewPostNotification extends Notification
+
+class JobPostNotificationForAdmin extends Notification
 {
     use Queueable;
-    protected $jobPost;
+
+
+    public $jobpost;
 
     /**
      * Create a new notification instance.
      */
     public function __construct(JobPost $jobPost)
     {
-        $this->jobPost=$jobPost->load('user');
+        $this->jobpost=$jobPost;
     }
 
     /**
@@ -26,7 +29,7 @@ class NewPostNotification extends Notification
      *
      * @return array<int, string>
      */
-    public function via($notifiable)
+    public function via(object $notifiable): array
     {
         return ['database'];
     }
@@ -47,14 +50,14 @@ class NewPostNotification extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toDatabase($notifiable)
+    public function toDatabase(object $notifiable): array
     {
         return [
-            'type'=>'jobPost_created',
+            'type'=>'jobPostNotification_forAdmin',
+            'company_name'=>$this->jobpost->company_name,
+            'title'=>$this->jobpost->title,
+            'job_post_id'=>$this->jobpost->id,// store jobpost id
 
-            'title' => $this->jobPost->title,
-            'company_name' => $this->jobPost->company_name,
-            'job_post_id'=>$this->jobPost->id,// store jobpost id
 
         ];
     }

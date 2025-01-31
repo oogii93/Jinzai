@@ -2,23 +2,25 @@
 
 namespace App\Notifications;
 
+use App\Models\JobApplication;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\JobPost;
 
-class NewPostNotification extends Notification
+class Taisei_interview_Notification extends Notification
 {
     use Queueable;
-    protected $jobPost;
+
+
+    public $application;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(JobPost $jobPost)
+    public function __construct(JobApplication $application)
     {
-        $this->jobPost=$jobPost->load('user');
+        $this->application=$application;
     }
 
     /**
@@ -26,9 +28,9 @@ class NewPostNotification extends Notification
      *
      * @return array<int, string>
      */
-    public function via($notifiable)
+    public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database']; // but for now !! maybe will be changed in the future
     }
 
     /**
@@ -47,15 +49,12 @@ class NewPostNotification extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toDatabase($notifiable)
+    public function toDatabase(object $notifiable): array
     {
         return [
-            'type'=>'jobPost_created',
-
-            'title' => $this->jobPost->title,
-            'company_name' => $this->jobPost->company_name,
-            'job_post_id'=>$this->jobPost->id,// store jobpost id
-
+            'type'=>'taisei_interview_notification',
+            'date'=>$this->application->taisei_interview,
+            'message'=>'時刻または日付けを忘れないようにお願いいたします。'
         ];
     }
 }

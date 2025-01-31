@@ -11,6 +11,7 @@ use App\Notifications\JobApplicationNotification;
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
 use App\Notifications\CompanyNotificationForJobPostApproval;
+use App\Notifications\JobPostNotificationForAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -187,11 +188,25 @@ class JobPostController extends Controller
 
         ]);
 
-    //  dd($validatedData);
+            $profileImagePath=null;
+            $profileImagePath2=null;
 
 
-  $profileImagePath=$request->file('image_1')->store('image_1', 'public');
-  $profileImagePath2=$request->file('image_2')->store('image_2', 'public');
+            if($request->hasFile('image_1')){
+                $profileImagePath=$request->file('image_1')->store('image_1','public');
+            }
+            if($request->hasFile('image_2')){
+                $profileImagePath2=$request->file('image_2')->store('image_2','public');
+            }
+
+
+
+
+
+
+
+//   $profileImagePath=$request->file('image_1')->store('image_1', 'public');
+//   $profileImagePath2=$request->file('image_2')->store('image_2', 'public');
 
 
     // \Log::info($profileImagePath);
@@ -255,20 +270,22 @@ class JobPostController extends Controller
         ]);
 
 
-        $users=User::where('id', '!=', auth()->id())->get();
+        // $users=User::where('id', '!=', auth()->id())->get();
 
-        Notification::send($users, new NewPostNotification($jobpost));
+        // Notification::send($users, new NewPostNotification($jobpost));
 
         //
+        $admins=User::where('role', 'admin')->get();
 
-
-
-
+        foreach ($admins as $admin)
+        {
+            $admin->notify(new JobPostNotificationForAdmin($jobpost));
+        }
 
 
 
         return redirect()->route('jobpost.index')->with('success', '求人投稿が正常に作成されました。
-管理者の承認後、Web サイトに掲載されます。');
+            管理者の承認後、Web サイトに掲載されます。');
     }
 
 
@@ -425,22 +442,23 @@ class JobPostController extends Controller
 
 
 
-    public function approve($id)
-{
-    if (auth()->user()->role !== 'admin') {
-        abort(403, 'Unauthorized action.');
+public function approve($id){
+    if(auth()->user()->role !=='admin'){
+        abort(403, 'Unauthorized action');
     }
 
-    $jobPost = JobPost::findOrFail($id);
-    $jobPost->update(['status' => '承認']);
+    $jobPost=JobPost::findOrFail($id);
+    $jobPost->update(['status'=>'承認']);
+
+    //notify post creator
+
+    $jobPost->user->notify(new CompanyNotificationForJobPostApproval($jobPost));
 
 
-   // Notify the user who created the job post
-   $jobPost->user->notify(new CompanyNotificationForJobPostApproval($jobPost));
+    $users=User::where('role','jobseeker')->get();// ugashi
+    Notification::send($users, new NewPostNotification($jobPost));
 
-
-
-    return redirect()->back()->with('success', '求人投稿が正常に承認されました。');
+    return redirect()->back()->with('success','求人投稿が正常に承認されました。');
 }
 
 

@@ -16,14 +16,14 @@ class JobApplicationNotification extends Notification
 
 
 
-    protected $jobApplication;
+    protected $application;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(JobApplication $jobApplication)
+    public function __construct(JobApplication $application)
     {
-        $this->jobApplication=$jobApplication;
+        $this->application=$application->load(['jobPost','user']);
     }
 
     /**
@@ -36,40 +36,27 @@ class JobApplicationNotification extends Notification
         return ['database']; // Start with just database
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
-    // public function toMail(object $notifiable): MailMessage
-    // {
-    //     return (new MailMessage)
-    //                 ->line('The introduction to the notification.')
-    //                 ->action('Notification Action', url('/'))
-    //                 ->line('Thank you for using our application!');
-    // }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
     public function toDatabase($notifiable)
     {
 
-        $user = User::find($this->jobApplication->user_id);
+        // $user = User::find($this->application->user_id);
+
+        $jobPost=$this->application->jobPost;
         return [
-            'job_application_id' => $this->jobApplication->id,
-            // 'name' => $user ? $user->name : 'Unknown User',
-            'message' => '新しい求人応募を受理しました'
+            'type'=>'job_application',
+            'title'=>$this->application->jobPost->title,
+            'company_name'=>$this->application->jobPost->company_name,
+            'applicant_name'=>$this->application->user->name,
+        //    'created_at'=>$this->application->created_at->format('Y-m-d H:i'),
+        'created_at'=>now()->toDateTimeString()
+
+
+
+
+
         ];
     }
 
-    // public function toMail($notifiable)
-    // {
-    //     return (new MailMessage)
-    //         ->subject('New Job Application')
-    //         ->line('A new job application has been submitted')
-    //         ->action('View Application', route('admin.job-applications.show', $this->jobApplication->id));
-    // }
 
 
 }

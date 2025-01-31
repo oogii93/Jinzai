@@ -7,8 +7,15 @@ use App\Models\JobPost;
 
 use Illuminate\Http\Request;
 use App\Models\JobApplication;
+use App\Notifications\Company_Result_Notification;
+use App\Notifications\Company_Result_NotificationForAdmin;
+use App\Notifications\Company_Result_NotificationForCompany;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\JobApplicationNotification;
+use App\Notifications\Work_Start_Notification;
+use App\Notifications\Work_Start_NotificationForAdmin;
+use App\Notifications\Work_Start_NotificationForCompany;
+
 
 class JobApplicationController extends Controller
 {
@@ -71,6 +78,30 @@ class JobApplicationController extends Controller
             'company_result_updated_at' => \Carbon\Carbon::now()
         ]);
 
+
+        //notifications
+
+        $applicantUser=$application->user;
+        $companyUser=$application->jobPost->user;
+
+        // dd($companyUser);
+        $adminUser=User::where('role', 'admin')->get();
+
+
+        if($applicantUser){
+            $applicantUser->notify(new Company_Result_Notification($application));
+        }
+
+        if($companyUser){
+            $companyUser->notify(new Company_Result_NotificationForCompany($application));
+        }
+
+
+        foreach ($adminUser as $admin){
+            $admin->notify(new Company_Result_NotificationForAdmin($application));
+        }
+
+
         return redirect()->back()->with('success','Documentの結果が設定されました。');
 
     }
@@ -88,6 +119,30 @@ class JobApplicationController extends Controller
             'work_start_updated_by'=>Auth::id(),
             'work_start_updated_at' => \Carbon\Carbon::now()
         ]);
+
+
+         //notifications
+
+         $applicantUser=$application->user;
+         $companyUser=$application->jobPost->user;
+
+         // dd($companyUser);
+         $adminUser=User::where('role', 'admin')->get();
+
+
+         if($applicantUser){
+             $applicantUser->notify(new Work_Start_Notification($application));
+         }
+
+         if($companyUser){
+             $companyUser->notify(new Work_Start_NotificationForCompany($application));
+         }
+
+
+         foreach ($adminUser as $admin){
+             $admin->notify(new Work_Start_NotificationForAdmin($application));
+         }
+
 
         return redirect()->back()->with('success','Documentの結果が設定されました。');
 

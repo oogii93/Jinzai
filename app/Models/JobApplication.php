@@ -38,7 +38,11 @@ class JobApplication extends Model
         'web_interview_updated_by',
         'web_interview_updated_at',
         'work_start_updated_by',
-        'work_start_updated_at'
+        'work_start_updated_at',
+
+        'is_checked',
+        'check_date'
+
 
 
 

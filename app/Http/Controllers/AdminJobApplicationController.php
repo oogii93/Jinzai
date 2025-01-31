@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Events\JobApplicationUpdated;
 use App\Notifications\ApplicationApproved;
 use App\Notifications\ApplicationRejected;
+use App\Notifications\Taisei_interview_Notification;
+use App\Notifications\TaiseiInterviewResultNotification;
+use App\Notifications\TaiseiInterviewResultNotificationForCompany;
+use App\Notifications\DocumentResultNotification;
+use App\Notifications\DocumentResultNotificationForCompany;
+use App\Notifications\DocumentResultNotificationForAdmin;
+use App\Notifications\WebInterviewNotification;
+use App\Notifications\WebInterviewNotificationForAdmin;
+use App\Notifications\WebInterviewNotificationForCompany;
 
 class AdminJobApplicationController extends Controller
 {
@@ -257,43 +266,121 @@ class AdminJobApplicationController extends Controller
         public function setDate(Request $request, JobApplication $application)
         {
             $request->validate([
-                'taisei_interview' => 'required|date'
+              'taisei_interview' => 'required|date_format:Y-m-d\TH:i'
             ]);
 
             $application->update([
-                'taisei_interview' => $request->taisei_interview
+                'taisei_interview' => Carbon::parse($request->taisei_interview)
             ]);
 
-            // \Log::info('JobApplicationUpdated event triggered', [
-            //     'application_id' => $application->id,
-            //     'taisei_interview' => $application->taisei_interview
-            // ]);
 
-            // // Log the broadcast event
-            // event(new JobApplicationUpdated($application));
 
-            // Broadcast the update
-            // broadcast(new JobApplicationUpdated($application))->toOthers();
+            //notify post creator
 
-            // dd($request->all(), $application);
+            // $jobPost->user->notify(new CompanyNotificationForJobPostApproval($jobPost));
+
+            $application->user->notify(new Taisei_interview_Notification($application));
+
+
 
             return redirect()->back()->with('success', '面接日程が設定されました。');
         }
 
+        public function setTaiseiInterviewResult(Request $request, JobApplication $application)
+        {
+            $request->validate([
+                'taisei_result' => 'required|in:合格,不合格'
+            ]);
 
+            // Debug the job post relationship
+            // \Log::info('Job Post:', [
+            //     'job_post_id' => $application->jobPost->id ?? 'null',
+            //     'job_post_exists' => isset($application->jobPost)
+            // ]);
 
-            public function setTaiseiInterviewResult(Request $request, JobApplication $application)
-            {
-              $request->validate([
-                'taisei_result'=>'required|in:合格,不合格'
-              ]);
+            // Get company user with more detailed debugging
+            $companyUser = $application->jobPost->user;
 
-              $application->update([
-                'taisei_result'=>$request->taisei_result
-              ]);
+            // \Log::info('Company User Details:', [
+            //     'company_user_type' => get_class($companyUser),
+            //     'company_user_id' => $companyUser->id ?? 'null',
+            //     'has_notifiable_trait' => method_exists($companyUser, 'notify')
+            // ]);
 
-              return redirect()->back()->with('success', '面接の結果が設定されました。');
+            $application->update([
+                'taisei_result' => $request->taisei_result
+            ]);
+
+            // Notify applicant (this part works)
+            if ($application->user) {
+                $application->user->notify(new TaiseiInterviewResultNotification($application));
+                // \Log::info('Applicant notified successfully');
             }
+
+            // Notify company user with extra checks
+            if ($companyUser && method_exists($companyUser, 'notify')) {
+                try {
+                    $companyUser->notify(new TaiseiInterviewResultNotificationForCompany($application));
+                    // \Log::info('Company user notified successfully');
+                } catch (\Exception $e) {
+                    // \Log::error('Failed to notify company user:', [
+                    //     'error' => $e->getMessage(),
+                    //     'trace' => $e->getTraceAsString()
+                    // ]);
+                }
+            } else {
+                // \Log::error('Company user notification failed:', [
+                //     'user_exists' => isset($companyUser),
+                //     'has_notify_method' => $companyUser ? method_exists($companyUser, 'notify') : false
+                // ]);
+            }
+
+            return redirect()->back()->with('success', '面接の結果が設定されました。');
+        }
+
+    //         public function setTaiseiInterviewResult(Request $request, JobApplication $application)
+    //         {
+    //           $request->validate([
+    //             'taisei_result'=>'required|in:合格,不合格'
+    //           ]);
+
+
+    //           // Debug the job post relationship
+    // \Log::info('Job Post:', [
+    //     'job_post_id' => $application->jobPost->id ?? 'null',
+    //     'job_post_exists' => isset($application->jobPost)
+    // ]);
+    //           $companyUser=$application->jobPost->user;
+
+    //           \Log::info('Company User Details:', [
+    //             'company_user_type' => get_class($companyUser),
+    //             'company_user_id' => $companyUser->id ?? 'null',
+    //             'has_notifiable_trait' => method_exists($companyUser, 'notify')
+    //         ]);
+
+
+    //         //   dd($companyUser);
+
+
+    //           $application->update([
+    //             'taisei_result'=>$request->taisei_result
+    //           ]);
+
+
+    //           if($application->user){
+    //             $application->user->notify(new TaiseiInterviewResultNotification($application));
+
+    //           }
+
+    //           if($companyUser){
+    //             $application->notify(new TaiseiInterviewResultNotificationForCompany($application));
+    //           }
+
+
+
+
+    //           return redirect()->back()->with('success', '面接の結果が設定されました。');
+    //         }
 
 
             public function setDocumentResult(Request $request, JobApplication $application)
@@ -305,9 +392,31 @@ class AdminJobApplicationController extends Controller
                 $application->update([
                     'document_result'=>$request->document_result,
                     'document_result_updated_by'=>Auth::id(),
-          'document_result_updated_at' => \Carbon\Carbon::now()
+                    'document_result_updated_at' => \Carbon\Carbon::now()
 
                 ]);
+
+                $applicantUser=$application->user;
+                $companyUser=$application->jobPost->user;
+
+                // dd($companyUser);
+                $adminUser=User::where('role', 'admin')->get();
+
+
+                if($applicantUser){
+                    $applicantUser->notify(new DocumentResultNotification($application));
+                }
+
+                if($companyUser){
+                    $companyUser->notify(new DocumentResultNotificationForCompany($application));
+                }
+
+
+                foreach ($adminUser as $admin){
+                    $admin->notify(new DocumentResultNotificationForAdmin($application));
+                }
+
+
                 // dd($request->all(),$application);
 
                 return redirect()->back()->with('success','Documentの結果が設定されました。');
@@ -326,7 +435,69 @@ class AdminJobApplicationController extends Controller
                 'web_interview_updated_at' => \Carbon\Carbon::now()
             ]);
 
+
+            $applicantUser=$application->user;
+            $companyUser=$application->jobPost->user;
+
+            // dd($companyUser);
+            $adminUser=User::where('role', 'admin')->get();
+
+
+            if($applicantUser){
+                $applicantUser->notify(new WebInterviewNotification($application));
+            }
+
+            if($companyUser){
+                $companyUser->notify(new WebInterviewNotificationForCompany($application));
+            }
+
+
+
+
+            foreach ($adminUser as $admin){
+                $admin->notify(new WebInterviewNotificationForAdmin($application));
+            }
+
             return redirect()->back()->with('success', '面接日が設定されました。'); // Success message in Japanese
+        }
+
+        public function PaymentCheck(Request $request ,JobApplication $application){
+
+                        $request->validate([
+                            'is_checked'=>'required|in:0,1'
+                        ]);
+
+                        $isChecked=(bool)$request->is_checked;
+
+                    $application->update([
+                        'is_checked'=>(bool)$request->is_checked,
+                        'check_date' => $isChecked ? $application->check_date : null
+
+                    ]);
+
+
+            return redirect()->back()->with('success','支払い確認が登録されました。');
+
+        }
+
+
+        public function PaymentDate(Request $request, JobApplication $application){
+
+
+            if(!$application->is_checked){
+                return redirect()->back()->with('error', '先にチェックボックスを選択してください。');
+            }
+
+
+            $request->validate([
+                'check_date'=>'required|date'
+            ]);
+
+            $application->update([
+                'check_date'=>$request->check_date
+            ]);
+
+            return redirect()->back()->with('success','入金日が登録されました。');
         }
 
 

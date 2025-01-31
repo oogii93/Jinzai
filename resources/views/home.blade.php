@@ -1291,7 +1291,7 @@
                                             </a>
                                             <a href="{{ route('contact2') }}"
                                                 class="block w-full px-6 py-4 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition duration-200">
-                                                企業側お問い合わせ
+                                                企業様お問い合わせ
                                             </a>
                                         </div>
                                         <button onclick="closeContactModal()"

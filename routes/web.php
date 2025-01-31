@@ -70,21 +70,6 @@ Route::middleware('guest')->group(function () {
 
 
 
-//vndesn zar haruulah
-
-Route::get('/main', [MainController::class, 'index']
-
-)->middleware(['auth', 'verified','jobseeker.approved'])
-->name('main');
-
-
-
-Route::get('/jobpost/{id}/show', [JobPostController::class, 'show'])
-->name('jobpost.show');
-
-Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showByCategory'])
-
-->name('categories.jobPosts');
 
 
 
@@ -102,12 +87,39 @@ Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showBy
 
 
     Route::middleware(['auth'])->group(function () {
+
+
+
+        //vndesn zar haruulah
+
+        Route::get('/main', [MainController::class, 'index']
+
+        )->middleware(['auth', 'verified','jobseeker.approved'])
+        ->name('main');
+
+
+
+        Route::get('/jobpost/{id}/show', [JobPostController::class, 'show'])
+        ->name('jobpost.show');
+
+        Route::get('/categories/{category}/jobPosts', [JobPostController::class, 'showByCategory'])
+
+        ->name('categories.jobPosts');
+
+
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-        Route::patch('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
+
+        Route::get('/notifications/{notification}/mark-as-read', [NotificationController::class, 'markAsRead'])
+        ->name('notifications.markAsRead');
+
+        // Route::patch('/notifications/{id}/mark-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
 
 
         Route::post('/job-posts/{jobPost}/like', [LikeController::class, 'like'])->name('job-post.like');
         Route::delete('/job-posts/{jobPost}/unlike', [LikeController::class, 'unlike'])->name('job-post.unlike');
+        Route::get('/liked-posts', [LikeController::class, 'index'])
+        ->name('liked.index');
+
     });
 
 
@@ -128,6 +140,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/jobs/{id}/apply', [JobPostController::class, 'apply'])->name('job.apply');
 
 
+
+
     // Jobseeker routes
     Route::middleware(['check.role:jobseeker'])->group(function () {
         Route::post('/jobs/{jobPost}/apply', [JobApplicationController::class, 'store'])
@@ -137,7 +151,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Admin routes
-    Route::middleware(['check.role:admin'])->group(function () {
+    Route::middleware(['check.role:admin','auth'])->group(function () {
 
 
             Route::get('/admin/applications', [AdminJobApplicationController::class, 'index'])
@@ -151,6 +165,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/admin/applications/reviewed', [AdminJobApplicationController::class, 'showReviewed'])
 
             ->name('admin.applications.reviewed');
+
+            Route::post('/application/{application}/payment-check', [AdminJobApplicationController::class, 'PaymentCheck'])
+            ->name('application.payment-check');
+
+            Route::post('/application/{application}/payment-date', [AdminJobApplicationController::class, 'PaymentDate'])
+            ->name('application.payment-date');
 
 
             //New Application Routes for actions
@@ -189,7 +209,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     // Company routes
-    Route::middleware(['check.role:company'])->group(function () {
+    Route::middleware(['check.role:company','auth'])->group(function () {
 
         Route::get('/company/applications', [JobApplicationController::class, 'employerApplications'])
             ->name('company.employer');
@@ -199,6 +219,9 @@ Route::middleware(['auth'])->group(function () {
             // Route::patch('/applications/{application}/company-start-date', [JobApplicationController::class, 'companyStartDate'])
             // ->name('applications.company-start-date');
     });
+
+
+
 });
 
 
@@ -313,27 +336,33 @@ require __DIR__.'/auth.php';
 
 // Default redirect after login
 Route::get('/dashboard', function () {
+    // Check if user is authenticated
+    if (!auth()->check()) {
+        return redirect()->route('login')->with('error', 'Please login to access the dashboard');
+    }
+
+    // Check if user has a role assigned
+    if (!auth()->user()->role) {
+        return redirect()->route('login')->with('error', 'Access denied. No role assigned.');
+    }
+
+    // Route based on role
+    switch(auth()->user()->role) {
+        case 'jobseeker':
+            return redirect()->route('jobseeker.dashboard');
+        case 'company':
+            return redirect()->route('company.dashboard');
+        case 'admin':
+            return redirect()->route('admin.dashboard');
+        default:
+            return redirect()->route('login')->with('error', 'Invalid role type');
+    }
 
 
-    if (auth()->user()->role === 'jobseeker')
-     {
-        return redirect()->route('jobseeker.dashboard');
-    }
-     elseif (auth()->user()->role === 'company')
-     {
-        return redirect()->route('company.dashboard');
-
-    }
-    elseif(auth()->user()->role === 'admin')
-    {
-        return redirect()->route('admin.dashboard');
-    }
 
 })->middleware(['auth'])->name('dashboard');
 
 
-Route::get('/liked-posts', [LikeController::class, 'index'])
-->name('liked.index');
 
 // Jobseeker Routes
 Route::middleware(['auth', 'role:jobseeker'])->group(function () {
@@ -350,7 +379,7 @@ Route::middleware(['auth', 'role:jobseeker'])->group(function () {
     Route::get('/jobseeker/profile/edit', [JobSeekerProfileController::class, 'edit'])
     ->name('jobseeker.profile.edit');
 
-Route::put('/jobseeker/profile/update', [JobSeekerProfileController::class, 'update'])
+    Route::put('/jobseeker/profile/update', [JobSeekerProfileController::class, 'update'])
     ->name('jobseeker.profile.update');
 
 
@@ -396,7 +425,7 @@ Route::middleware(['auth', 'role:company'])->group(function () {
 
 
                 // Routes for Admins
-                Route::middleware(['auth', 'role:admin'])->group(function () {
+            Route::middleware(['auth', 'role:admin'])->group(function () {
                    Route::get('/admin/dashboard', [AdminJobApplicationController::class, 'dashboard'])
                    ->name('admin.dashboard');
 
@@ -515,6 +544,8 @@ Route::middleware(['auth', 'role:company'])->group(function () {
 
 
                 });
+
+            //end of admin ROute GRoup
 
 
                 // Route::middleware(['auth'])->group(function () {

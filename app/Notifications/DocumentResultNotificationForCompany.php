@@ -6,19 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\JobPost;
 
-class NewPostNotification extends Notification
+use App\Models\JobApplication;
+
+class DocumentResultNotificationForCompany extends Notification
 {
     use Queueable;
-    protected $jobPost;
+
+    public $application;
+
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(JobPost $jobPost)
+    public function __construct(JobApplication $application)
     {
-        $this->jobPost=$jobPost->load('user');
+        $this->application=$application;
     }
 
     /**
@@ -26,9 +29,9 @@ class NewPostNotification extends Notification
      *
      * @return array<int, string>
      */
-    public function via($notifiable)
+    public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['Database'];
     }
 
     /**
@@ -47,15 +50,15 @@ class NewPostNotification extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toDatabase($notifiable)
+    public function toDatabase(object $notifiable): array
     {
         return [
-            'type'=>'jobPost_created',
-
-            'title' => $this->jobPost->title,
-            'company_name' => $this->jobPost->company_name,
-            'job_post_id'=>$this->jobPost->id,// store jobpost id
-
+            'type'=>'DocumentResultNotificationForCompany',
+            'document_result'=>$this->application->document_result,
+            'job_post_title'=>$this->application->jobPost->title,
+            'company_name'=>$this->application->jobpost->company_name,
+            'user_name'=>$this->application->user->name,
+            'message'=>'dfsadf',
         ];
     }
 }

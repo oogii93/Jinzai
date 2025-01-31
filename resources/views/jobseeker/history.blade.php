@@ -84,13 +84,13 @@
     </div>
 
 
-    
+
 
     <!-- Table Section -->
     <div class="bg-white rounded-lg shadow overflow-x-auto">
 
             <!-- Search and Filter Section -->
-      
+
 
             <!-- Status Tabs -->
 
@@ -98,7 +98,7 @@
                 <thead class="bg-green-300 text-gray-500 uppercase text-sm font-semibold">
                     <tr class="divide-x divide-gray-200">
 
-        
+
                         <th class="px-6 py-4 border-b border-gray-200">
                             <div class="flex flex-col items-center">
                                 <span class="mt-32 ">ID</span>
@@ -117,7 +117,7 @@
                                 </div>
                                 <span>採用位置</span>
                             </div>
-                          
+
                         </th>
                         <th class="px-6 py-4 border-b border-gray-200">
 
@@ -127,7 +127,7 @@
                                 </div>
                                 <span>太成HDS面接日付</span>
                             </div>
-                            
+
                         </th>
                         <th class="px-6 py-4 border-b border-gray-200">
 
@@ -138,7 +138,7 @@
                                 <span>太成HDS面接結果</span>
                             </div>
 
-                        
+
                         </th>
                         <th class="px-6 py-4 border-b border-gray-200">
                             <div class="flex flex-col items-center">
@@ -165,7 +165,7 @@
                                 </div>
                                 <span>最終結果</span>
                             </div>
-                         
+
                         </th>
                         <th class="px-6 py-4 border-b border-gray-200">
 
@@ -175,10 +175,10 @@
                                 </div>
                                 <span>入社日付</span>
                             </div>
-                         
+
                         </th>
 
-                   
+
                     </tr>
                 </thead>
                 <tbody class="bg-white">
@@ -233,8 +233,8 @@
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
                                 <span class="interview-status-{{ $application->id }} {{ empty($application->taisei_interview)
                                     ? 'bg-orange-500 rounded-xl px-2 text-white font-semibold py-1'
-                                    : 'bg-sky-500 rounded-xl px-2 text-white font-semibold py-1' }}">
-                                    {{ $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d') : '進行中' }}
+                                    : 'bg-sky-600 rounded-xl px-2 text-white font-semibold py-1' }}">
+                                    {{ $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d 時刻-H:i') : '進行中' }}
                                 </span>
                             </td>
 

@@ -81,19 +81,25 @@
                     </h1>
                 </div>
 
-                <div class="p-6">
+
+                <div class="space-y-6 mt-2 px-2 py-3 mb-2">
                     @if($notifications->count() > 0)
-                        <div class="space-y-6">
+
+
+
                             @forelse($notifications as $notification)
+
                                 <div class="
                                     {{ $notification->unread()
-                                        ? 'bg-blue-50 border-blue-200 hover:bg-blue-100'
-                                        : 'bg-gray-50 border-gray-200 hover:bg-gray-100' }}
+                                        ? 'bg-blue-100 border-blue-200 hover:bg-blue-100'
+                                        : 'bg-gray-100 border-gray-200 hover:bg-gray-200' }}
                                     border rounded-xl p-6  hover:shadow-lg
                                     relative group
                                 ">
-                                    <div class="flex justify-between items-start">
-                                        <div class="flex-1 pr-4">
+
+
+
+
                                             @if($notification->type === 'App\Notifications\NewUserRegisterNotification')
                                                 <div class="flex items-center mb-3">
                                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-md font-medium bg-green-100 text-green-800 mr-3">
@@ -119,35 +125,95 @@
                                                     </p>
                                                 </div>
 
-                                            @elseif($notification->type === 'App\Notifications\NewPostNotification')
-                                                <div class="flex items-center mb-3">
-                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 mr-3">
-                                                        求人情報
-                                                    </span>
-                                                    <span class="text-sm text-gray-500">
-                                                        {{ $notification->created_at->diffForHumans() }}
-                                                    </span>
+                                            {{-- @elseif($notification->type === 'App\Notifications\NewPostNotification') --}}
+
+                                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'jobPost_created')
+
+                                                     <p class="text-lg font-semibold text-gray-700 text-center mb-4">新しい求人情報通知</p>
+
+
+                                                <!-- Notification Content Container -->
+                                                <div class="flex justify-between items-start space-x-6 mb-4">
+
+                                                    <!-- Left Section: Job Details -->
+                                                    <div class="flex-1">
+                                                        <p class="  text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p>
+                                                        <p class=" text-md">
+                                                            投稿企業名: {{ $notification->data['company_name'] ?? '企業名なし' }}
+                                                        </p>
+                                                    </div>
+
+                                                    <!-- Right Section: Applicant Details -->
+                                                    <div class="flex-1">
+                                                            <p>
+                                                            投稿日時: {{ $notification->created_at->diffForHumans() }}
+
+                                                            </p>
+                                                    </div>
+
+                                                </div>
+                                                <div class="text-center">
+                                                    <a href="{{ route('notifications.markAsRead', ['notification' => $notification->id, 'jobPostId' => $notification->data['job_post_id']]) }}"
+                                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                                        詳しくは
+                                                    </a>
                                                 </div>
 
-                                                <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                                                    新しい求人情報
-                                                </h3>
+                                                {{-- <div class="text-center">
+                                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                                        詳しくは
+                                                    </a>
+                                                </div> --}}
 
-                                                <div class="text-sm text-gray-600 space-y-1">
-                                                    <p>
-                                                        <span class="font-medium">求人タイトル:</span>
-                                                        "{{ $notification->data['title'] }}"
-                                                    </p>
-                                                    <p>
-                                                        <span class="font-medium">作成者:</span>
-                                                        {{ $notification->data['created_by'] }}
-                                                    </p>
+
+                        <!-- Notification For admin when jobpost is created from company users -->
+
+                                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'jobPostNotification_forAdmin')
+
+                                                     <p class="text-lg font-semibold text-gray-700 text-center mb-4">企業様から新しい求人投稿通知</p>
+                                                                  {{-- {{ $notification->created_at->diffForHumans() }} --}}
+
+                                                <div class="flex justify-between items-start space-x-6 mb-4">
+
+                                                    <!-- Left Section: Job Details -->
+                                                    <div class="flex-1">
+                                                        {{-- <p class="  text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                                        <p class=" text-md">
+                                                            投稿企業名: {{ $notification->data['company_name'] ?? '企業名なし' }}
+                                                        </p>
+                                                        <p class="text-sm mt-2">
+                                                            投稿タイトル: {{ $notification->data['title'] ?? 'なし' }}
+                                                        </p>
+                                                    </div>
+
+                                                    <!-- Right Section: Applicant Details -->
+                                                    <div class="flex-1">
+                                                            <p>
+                                                            投稿日時: {{ $notification->created_at->diffForHumans() }}
+
+                                                            </p>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- Action Button -->
+                                                <div class="text-center">
+                                                    <a href="{{ route('notifications.markAsRead', ['notification' => $notification->id, 'jobPostId' => $notification->data['job_post_id']]) }}"
+                                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                                        詳しくは
+                                                    </a>
                                                 </div>
 
 
 
-                                                @elseif($notification->type === 'App\Notifications\JobSeekerApprovalStatusNotification')
-                                                    <div class="flex items-center mb-3">
+
+
+
+
+                                         @elseif($notification->type === 'App\Notifications\JobSeekerApprovalStatusNotification')
+
+                                                    {{-- <div class="flex items-center mb-3"> --}}
                                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-md font-medium
                                                             {{ $notification->data['approval_status'] ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}
                                                             mr-3">
@@ -156,7 +222,7 @@
                                                         <span class="text-sm text-gray-500">
                                                             {{ $notification->created_at->diffForHumans() }}
                                                         </span>
-                                                    </div>
+                                                    {{-- </div> --}}
 
                                                     <h3 class="text-lg font-semibold text-gray-800 mb-2">
                                                         管理者承認通知
@@ -168,30 +234,48 @@
                                                             {{ $notification->data['message'] }}
                                                         </p>
                                                     </div>
-
-
-                                                    @elseif($notification->type === 'App\Notifications\JobApplicationNotification')
-                                                    <div class="flex items-center mb-3 p-4 bg-white shadow rounded-lg">
-                                                        <div class="notification-content">
-                                                            <p class="font-semibold text-gray-600">新しい求人応募通知</p>
-                                                            <p>
-                                                                {{ $notification->data['message'] }}
-
-
-                                                            </p>
-                                                            <p>
+                                                           <!-- Action Button -->
+                                                <div class="text-center">
+                                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                                        閉じる
+                                                    </a>
+                                                </div>
 
 
 
-                                                            </p>
-                                                            <div class="mt-2">
-                                                                {{-- <a href="{{ $notification->data['view_application_url'] }}"
-                                                                   class="text-blue-600 hover:underline">
-                                                                    応募詳細を確認する
-                                                                </a> --}}
-                                                            </div>
-                                                        </div>
+
+                                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'job_application')
+                                                <!-- Notification Title -->
+                                                <p class="text-lg font-semibold text-gray-700 text-center mb-4">新規申請者通知</p>
+
+                                                <!-- Notification Content Container -->
+                                                <div class="flex justify-between items-start space-x-6 mb-4">
+
+                                                    <!-- Left Section: Job Details -->
+                                                    <div class="flex-1">
+                                                        <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p>
+                                                        <p class="text-gray-600 font-semibold text-md">投稿企業名: {{ $notification->data['company_name'] }}</p>
                                                     </div>
+
+                                                    <!-- Right Section: Applicant Details -->
+                                                    <div class="flex-1">
+                                                        <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['applicant_name'] }}</p>
+
+                                                            申請日時: {{ \Carbon\Carbon::parse($notification->data['created_at'])->setTimezone('Asia/Tokyo')->format('Y-m-d H:i') }}
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- Action Button -->
+                                                <div class="text-center">
+                                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                                        詳しくは
+                                                    </a>
+                                                </div>
+
 
                                                     @elseif($notification->type === 'App\Notifications\CompanyNotificationForJobPostApproval')
                                                     <div class="flex items-center mb-3 p-4 bg-white shadow rounded-lg">
@@ -228,73 +312,687 @@
 
                                                     @elseif($notification->type === 'App\Notifications\JobSeekerProfileNotification')
 
-                                                    <div class="flex items-center mb-3">
+
                                                         <span class="inline-flex items-center px-3 py-1 rounded-full text-md font-medium bg-green-100 text-green-800 mr-3">
                                                             履歴書編集通知
                                                         </span>
                                                         <span class="text-sm text-gray-500">
                                                             {{ $notification->created_at->diffForHumans() }}
                                                         </span>
-                                                    </div>
 
 
 
-                                                    <div class="text-sm text-gray-600 space-y-1">
                                                         <p>
 
                                                             {{ $notification->data['name'] }}さんが履歴書の内容を変更しました。
                                                         </p>
 
-                                                        @if (!empty($notification->data['link']))
-                                                        <p>
-                                                            <a href="{{ $notification->data['link'] }}" class="text-blue-500 underline hover:text-blue-700">
-                                                                履歴書を見る
-                                                            </a>
-                                                        </p>
-                                                    @endif
+                                                            @if (!empty($notification->data['link']))
+                                                            <p>
+                                                                <a href="{{ $notification->data['link'] }}" class="text-blue-500 underline hover:text-blue-700">
+                                                                    履歴書を見る
+                                                                </a>
+                                                            </p>
+                                                            @endif
 
-                                                    </div>
 
-                                            @endif
+                            <!--Taisei interview notification-->
 
-                                            @if($notification->unread())
-                                                <div class="mt-4">
-                                                    <form
-                                                        action="{{ route('notifications.mark-as-read', $notification->id) }}"
-                                                        method="POST"
-                                                        class="inline-block"
-                                                    >
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button
-                                                            type="submit"
-                                                            class="
-                                                                px-4 py-2
-                                                                bg-blue-500 text-white
-                                                                rounded-lg
-                                                                text-sm
-                                                                hover:bg-blue-600
-                                                                transition-colors
-                                                                focus:outline-none
-                                                                focus:ring-2
-                                                                focus:ring-blue-400
-                                                            "
-                                                        >
-                                                            既読にする
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            @endif
-                                        </div>
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'taisei_interview_notification')
+                            <div class="flex flex-col items-center space-y-4 max-w-md mx-auto">
+                                <!-- Notification Title -->
+                                <div class="flex items-center gap-2">
+                                    <svg class="h-8 w-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <p class="text-base font-semibold text-gray-700">太成Holdingsの面接時刻通知</p>
+                                </div>
 
-                                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            @if($notification->unread())
-                                                <span class="h-3 w-3 bg-blue-500 rounded-full animate-pulse"></span>
-                                            @endif
-                                        </div>
+                                <!-- Notification Content -->
+                                <div class="w-full flex flex-col items-center space-y-3">
+                                    <p class="bg-yellow-200 px-3 py-1.5 rounded-lg shadow-sm text-sm w-auto">
+                                        <span class="text-gray-800 font-semibold">面接日付け:</span>
+                                        {{ Carbon\Carbon::parse($notification->data['date'])
+                                            ->setTimeZone('Asia/Tokyo')
+                                            ->format('Y年m月d日 時刻-H:i') }}
+                                    </p>
+
+                                    <small class="text-gray-600 text-center">{{ $notification->data['message'] }}</small>
+                                </div>
+
+                                <!-- Action Button -->
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+                            </div>
+
+                             <!---Notification ends-->
+
+                                <!--Taisei Result notification-->
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'TaiseiInterviewResultNotification')
+                            <div class="flex flex-col items-center space-y-4 max-w-md mx-auto">
+                                <!-- Notification Title -->
+                                <div class="flex items-center gap-2">
+                                    <svg class="h-8 w-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <p class="text-base font-semibold text-gray-700">太成Holdingsの面談結果通知</p>
+                                </div>
+
+                                <!-- Notification Content -->
+                                <div class="w-full flex flex-col items-center space-y-3">
+                                    <p class="bg-yellow-200 px-3 py-1.5 rounded-lg shadow-sm text-sm w-auto">
+                                        <span class="text-gray-800 font-semibold">面談結果: </span>
+                                        {{ $notification->data['taisei_result'] }}
+                                        {{-- {{ Carbon\Carbon::parse($notification->data['date'])
+                                            ->setTimeZone('Asia/Tokyo')
+                                            ->format('Y年m月d日 時刻-H:i') }} --}}
+                                    </p>
+
+
+                                </div>
+
+                                <!-- Action Button -->
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+                            </div>
+
+                 <!-- TaiseiResult notification for company -->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'TaiseiInterviewResultNotification_forCompany')
+
+                                <p class="text-center font-semibold text-gray-700 " >企業様への通知太成ホールディングスの面接結果通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p>
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">面接結果: {{ $notification->data['taisei_result'] }}</span></p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p>
+
+                                        </p>
                                     </div>
                                 </div>
-                            @endforeach
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+                 <!-- DOcumentResult  notification for applicant -->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'DocumentResultNotification')
+
+                                <p class="text-center font-semibold text-gray-700 " >書類選考通知</p>
+                                <div class="flex justify-normal items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="mb-1 rounded-xl shadow-md px-2 py-2 bg-yellow-200">書類選考結果: {{ $notification->data['document_result'] }}</span>
+
+
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1 ml-10">
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                        <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                        <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+                 <!-- DOcumentResult  notification for Admin -->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'DocumentResultNotificationForAdmin')
+
+                                <p class="text-center font-semibold text-gray-700 " >管理者の書類選考通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">書類選考結果: {{ $notification->data['document_result'] }}</span></p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+                 <!-- DOcumentResult  notification for Company -->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'DocumentResultNotificationForCompany')
+
+                                <p class="text-center font-semibold text-gray-700 " >企業様への書類選考通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">書類選考結果: {{ $notification->data['document_result'] }}</span></p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+                 <!-- WEB_interview   notification  for applicant-->
+{{--
+                                        {{
+                                        Carbon\Carbon::parse($notification->data['date'])
+                                                    ->setTimeZone('Asia/Tokyo')
+                                                    ->format('Y年m月d日 時刻-H:i')
+                                        }} --}}
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'WebInterviewNotification')
+
+                                <p class="text-center font-semibold text-gray-700 " >面接・採用試験日通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            面接・採用試験日:
+
+                                            {{
+                                                Carbon\Carbon::parse($notification->data['web_interview'])
+                                                    ->setTimezone('Asia/Tokyo')
+                                                    ->format('Y年m月d日 時刻-H:i')
+                                            }}
+
+                                        </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+
+                 <!-- WEB_interview   notification  for Admin-->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'WebInterviewNotificationForAdmin')
+
+                                <p class="text-center font-semibold text-gray-700 " >管理者の面接・採用試験日通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            面接・採用試験日:
+                                            {{
+                                                Carbon\Carbon::parse($notification->data['web_interview'])
+                                                    ->setTimezone('Asia/Tokyo')
+                                                    ->format('Y年m月d日 時刻-H:i')
+                                            }}
+                                                                                  </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+                 <!-- WEB_interview   notification  for CompanyCompany-->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'WebInterviewNotificationForCompany')
+
+                                <p class="text-center font-semibold text-gray-700 " >企業様の面接・採用試験日通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            面接・採用試験日:
+                                            {{
+                                                Carbon\Carbon::parse($notification->data['web_interview'])
+                                                    ->setTimezone('Asia/Tokyo')
+                                                    ->format('Y年m月d日 時刻-H:i')
+                                            }}
+                                                                                 </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+                 <!-- Company_Result   notification  for applicant-->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'Company_Result_Notification')
+
+                                <p class="text-center font-semibold text-gray-700 " >申請者への最終結果通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            最終結果:
+                                            {{
+                                              $notification->data['company_result']
+
+                                            }}
+                                                                                 </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+                 <!-- Company_Result   notification  for Company-->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'Company_Result_NotificationForCompany')
+
+                                <p class="text-center font-semibold text-gray-700 " >企業様への最終結果通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            最終結果:
+                                            {{
+                                              $notification->data['company_result']
+
+                                            }}
+                                                                                 </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+                 <!-- Company_Result   notification  for Admin-->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'Company_Result_NotificationForAdmin')
+
+                                <p class="text-center font-semibold text-gray-700 " >管理者への最終結果通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            最終結果:
+                                            {{
+                                              $notification->data['company_result']
+
+                                            }}
+                                                                                 </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+
+                 <!-- WorkSTart   notification  for Applicant-->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'WorkStartNotification')
+
+                                <p class="text-center font-semibold text-gray-700 " >申請者への入社日通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            入社日付:
+                                            {{
+                                              Carbon\Carbon::parse($notification->data['work_start'])
+                                                        ->setTimezone('Asia/Tokyo')
+                                                        ->format('Y年m月d日')
+
+
+                                            }}
+                                                                                 </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+                 <!-- WorkSTart   notification  for Company-->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'WorkStartNotificationForCompany')
+
+                                <p class="text-center font-semibold text-gray-700 " >企業様への入社日通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            入社日付:
+                                            {{
+                                              Carbon\Carbon::parse($notification->data['work_start'])
+                                                        ->setTimezone('Asia/Tokyo')
+                                                        ->format('Y年m月d日')
+
+
+                                            }}
+                                                                                 </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+                 <!-- WorkSTart   notification  for Admin-->
+
+
+                            @elseif(isset($notification->data['type']) && $notification->data['type'] === 'WorkStartNotificationForAdmin')
+
+                                <p class="text-center font-semibold text-gray-700 " >管理者への入社日通知</p>
+                                <div class="flex justify-between items-start space-x-6 mb-4">
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">投稿タイトル: {{ $notification->data['title'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md"><span class="bg-yellow-200 rounded-xl shadow-md px-2 py-2">
+                                            入社日付:
+                                            {{
+                                              Carbon\Carbon::parse($notification->data['work_start'])
+                                                        ->setTimezone('Asia/Tokyo')
+                                                        ->format('Y年m月d日')
+
+
+                                            }}
+                                                                                 </span>
+                                        </p>
+                                        <br>
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                         <span class="px-2">投稿タイトル: {{ $notification->data['job_post_title'] }}</span>
+                                        </p>
+                                    </div>
+
+                                    <!-- Right Section: Applicant Details -->
+                                    <div class="flex-1">
+                                        {{-- <p class="text-gray-600 font-semibold text-md mb-2">申請者名: {{ $notification->data['user_name'] }}</p> --}}
+                                        <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">企業名: {{ $notification->data['company_name'] }}</span>
+                                            </p>
+                                            <br>
+                                            <p class="text-gray-600 font-semibold text-md ">
+                                            <span class="">申請者: {{ $notification->data['user_name'] }}</span>
+                                            </p>
+
+                                        </p>
+
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <a href="{{ route('notifications.markAsRead', $notification->id) }}"
+                                       class="inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out">
+                                        閉じる
+                                    </a>
+                                </div>
+
+
+
+                    @endif
+
+
+
+
+
+
+
+                <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    @if($notification->unread())
+                        <span class="h-3 w-3 bg-blue-500 rounded-full animate-pulse"></span>
+                    @endif
+                </div>
+            </div>
+    @endforeach
 
                             <div class="mt-6">
                                 {{ $notifications->links('pagination::tailwind') }}
@@ -310,8 +1008,5 @@
                             </p>
                         </div>
                     @endif
-                </div>
-            </div>
-        </div>
     </div>
 </x-app-layout>

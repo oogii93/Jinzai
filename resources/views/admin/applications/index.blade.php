@@ -247,6 +247,23 @@
                                         <span>入社日付</span>
                                     </div>
                                 </th>
+
+                                <th class="px-6 py-4 border-b border-gray-200 bg-sky-400">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="{{ asset('images/Group10.png') }}" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>請求書発行</span>
+                                    </div>
+                                </th>
+                                <th class="px-6 py-4 border-b border-gray-200 bg-sky-400">
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="{{ asset('images/Group10.png') }}" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>入金日</span>
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -366,11 +383,11 @@
                                             <div class="flex justify-normal items-center space-x-2">
 
                                                 <input
-                                                type="date"
+                                                type="datetime-local"
                                                 name="taisei_interview"
                                                 id="taisei_interview"
                                                 class="border-2 border-gray-300 rounded-md p-1 text-sm"
-                                                value="{{ old('taisei_interview', $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d') : '') }}"
+                                               value="{{ old('taisei_interview', $application->taisei_interview ? Carbon\Carbon::parse($application->taisei_interview)->format('Y-m-d\TH:i') : '') }}"
                                                           onchange="this.form.submit();"
                                             >
 
@@ -657,6 +674,52 @@
                                         @endif
                                     </td>
 
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+
+                                        <form
+                                        id="checkboxForm-{{ $application->id }}"
+                                        action="{{ route('application.payment-check', $application) }}" method="POST">
+                                            @csrf
+                                            <!-- Hidden input to ensure a value is always sent -->
+                                            <input type="hidden" name="is_checked" value="0">
+
+                                            <input type="checkbox"
+                                                   name="is_checked"
+                                                    id="checkbox-{{ $application->id }}"
+                                                   value="1"
+                                                   {{ $application->is_checked ? 'checked' : '' }}
+                                                   onchange="this.form.submit();"
+                                                   class="w-5 h-5 rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                        </form>
+                                    </td>
+
+
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
+
+                                        <form
+                                        id="dateForm-{{ $application->id }}"
+                                        action="{{ route('application.payment-date',$application) }}"
+                                        method="POST">
+                                            @csrf
+                                            <div class="flex justify-normal items-center space-x-2">
+                                                <input
+                                                type="date"
+                                                name="check_date"
+                                                id="date-{{ $application->id }}"
+                                                    class="border-2 border-gray-300 rounded-md p-1 text-sm"
+                                                    value="{{ old('check_date', $application->check_date ? Carbon\Carbon::parse($application->check_date)->format('Y-m-d') : '') }}"
+                                                    onchange="this.form.submit();"
+                                                >
+
+
+                                            </div>
+
+
+
+                                        </form>
+
+                                    </td>
+
 
 
 
@@ -797,6 +860,32 @@
     });
     </script>
     @endpush --}}
+
+    <script>
+        function handleCheckboxChange(applicationId){
+            document.getElementById(`checkboxForm-${applicationId}`).submit();
+
+            //
+            const dateInput=document.getElementById(`date-${application}`);
+            const checkbox=document.getElementById(`checkbox-${application}`);
+
+            dateInput.disabled=!checkbox.checked;
+        }
+
+
+        document.addEventListener('DOMContentLoaded',function(){
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][id^="checkbox-"]');
+            checkboxes.forEach(checkbox=>{
+                const applicationId=checkbox.id.split('-')[1];
+                const dateInput=document.getElementById(`date-${applicationId}`);
+
+                if(dateInput){
+                    dateInput.disabled=!checkbox.checked;
+                }
+            });
+        });
+
+    </script>
 </x-app-layout>
 
 

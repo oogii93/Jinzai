@@ -66,8 +66,7 @@ return [
     */
 
     // 'timezone' => env('APP_TIMEZONE', 'UTC'),
-    'timezone' => 'Asia/Tokyo',
-
+        'timezone' => 'Asia/Tokyo',  // Make sure this is set correctly for Japan
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration

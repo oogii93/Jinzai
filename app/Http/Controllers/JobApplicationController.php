@@ -69,7 +69,7 @@ class JobApplicationController extends Controller
 
           // Validate the request
         $request->validate([
-            'company_result' => 'required|in:合格,不合格',
+            'company_result' => 'required|in:合格,不合格,辞退',
         ]);
 
         $application->update([
@@ -102,7 +102,7 @@ class JobApplicationController extends Controller
         }
 
 
-        return redirect()->back()->with('success','Documentの結果が設定されました。');
+        return redirect()->back()->with('success','最終の結果が設定されました。');
 
     }
 

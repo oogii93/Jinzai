@@ -627,6 +627,8 @@
                                                     <option value="">選択</option>
                                                     <option value="合格" {{ $application->company_result === '合格' ? 'selected' : '' }} class="bg-sky-400 text-white font-semibold">合格</option>
                                                     <option value="不合格" {{ $application->company_result === '不合格' ? 'selected' : '' }} class="bg-red-400 text-white font-semibold">不合格</option>
+                                                    <option value="辞退" {{ $application->company_result === '辞退' ? 'selected' : '' }} class="bg-yellow-400 text-white font-semibold">辞退</option>
+
                                                 </select>
 
 

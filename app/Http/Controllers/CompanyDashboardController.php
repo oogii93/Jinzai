@@ -285,18 +285,47 @@ class CompanyDashboardController extends Controller
 
         // Update company profile
         $companyProfile = $user->companyProfile;
-        $oldEmail2 = $companyProfile->email_2 ?? ''; // Fixed: Get the old email_2 value
 
-        $companyProfile->update([
-            'company_description' => $request->company_description,
-            'industry' => $request->industry,
-            'website' => $request->website,
-            'employee_number' => $request->employee_number,
-            'profit' => $request->profit,
-            'stablished' => $request->stablished,
-            'details' => $request->details,
-            'email_2' => $request->email_2
-        ]);
+
+        // $oldEmail2 = $companyProfile->email_2 ?? ''; // Fixed: Get the old email_2 value
+
+        // $companyProfile->update([
+        //     'company_description' => $request->company_description,
+        //     'industry' => $request->industry,
+        //     'website' => $request->website,
+        //     'employee_number' => $request->employee_number,
+        //     'profit' => $request->profit,
+        //     'stablished' => $request->stablished,
+        //     'details' => $request->details,
+        //     'email_2' => $request->email_2
+        // ]);
+
+        // Add this check
+if (!$companyProfile) {
+    // Either create a new company profile
+    $companyProfile = $user->companyProfile()->create([
+        'industry' => $request->industry,
+        'website' => $request->website,
+        'employee_number' => $request->employee_number,
+        'profit' => $request->profit,
+        'stablished' => $request->stablished,
+        'details' => $request->details,
+        'email_2' => $request->email_2
+    ]);
+} else {
+    $oldEmail2 = $companyProfile->email_2 ?? '';
+
+    $companyProfile->update([
+        'company_description' => $request->company_description,
+        'industry' => $request->industry,
+        'website' => $request->website,
+        'employee_number' => $request->employee_number,
+        'profit' => $request->profit,
+        'stablished' => $request->stablished,
+        'details' => $request->details,
+        'email_2' => $request->email_2
+    ]);
+}
 
         // Handle second user creation/update
         if ($request->filled('email_2') && $request->email_2 !== $oldEmail2) {

@@ -285,7 +285,7 @@ class CompanyDashboardController extends Controller
 
         // Update company profile
         $companyProfile = $user->companyProfile;
-        $oldEmail2 = $companyProfile->email_2; // Fixed: Get the old email_2 value
+        $oldEmail2 = $companyProfile->email_2 ?? ''; // Fixed: Get the old email_2 value
 
         $companyProfile->update([
             'company_description' => $request->company_description,

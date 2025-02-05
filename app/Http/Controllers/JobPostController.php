@@ -50,6 +50,9 @@ class JobPostController extends Controller
 
     public function index(Request $request)
     {
+
+        $authUser = auth()->user();
+        $effectiveUserId = $authUser->parent_company_id ?? $authUser->id;
         if(auth()->user()->role === 'admin')
         {
             $query=JobPost::query();
@@ -70,7 +73,7 @@ class JobPostController extends Controller
         }
 
         elseif(auth()->user()->role === 'company'){
-            $query=JobPost::where('user_id', auth()->id());
+            $query=JobPost::where('user_id', $effectiveUserId);
 
 
          if ($request->filled('search')) {
@@ -100,9 +103,14 @@ class JobPostController extends Controller
     public function create()
     {
 
+        $authUser = auth()->user();
+
     if(!in_array(auth()->user()->role, ['admin', 'company'])){
         abort(403, 'unauthorized action.');
     }
+
+    $companyUser = $authUser->parent_company_id ? $authUser->parentCompany : $authUser;
+
         $categories=Category::all();
         $categories2=Category2::all();
 
@@ -115,6 +123,17 @@ class JobPostController extends Controller
     {
         $jobpost = JobPost::with('applications','category', 'user', 'tags')->findOrFail($id);
 
+        $authUser = auth()->user();
+        $effectiveUserId = $authUser->parent_company_id ?? $authUser->id;
+
+
+        if (!in_array($authUser->role, ['admin']) &&
+            $jobpost->user_id !== $authUser->id &&
+            $jobpost->user_id !== $effectiveUserId->parent_company_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+
 
         return view('jobpost.show', compact('jobpost'));
     }
@@ -126,6 +145,8 @@ class JobPostController extends Controller
     {
 
 
+        $authUser = auth()->user();
+
 
         if (!in_array(auth()->user()->role, ['admin', 'company'])) {
             abort(403, 'Unauthorized action.');
@@ -136,7 +157,7 @@ class JobPostController extends Controller
 
 
 // \Log::info($request->all());
-
+$effectiveUserId = $authUser->parent_company_id ?? $authUser->id;
 
         $validatedData = $request->validate([
             // 'title' => 'nullable',
@@ -220,7 +241,7 @@ class JobPostController extends Controller
             'qualification' => $validatedData['qualification'],
             'other' => $validatedData['other'],
             'category_id' => $validatedData['category_id'],
-            'user_id' => Auth::id(),
+            'user_id' => $effectiveUserId,
 
             'company_name' => $validatedData['company_name'],
             'company_furigana' => $validatedData['company_furigana'],
@@ -300,13 +321,17 @@ class JobPostController extends Controller
     public function edit(string $id)
     {
         $jobpost = JobPost::findOrFail($id);
+        $authUser = auth()->user();
+        $effectiveUserId = $authUser->parent_company_id ?? $authUser->id;
 
         // Check if user can edit this job post
-        if (auth()->user()->role === 'admin' ||
-            (auth()->user()->role === 'company' && auth()->id() === $jobpost->user_id)) {
+        if ($authUser->role === 'admin' ||
+            ($authUser->role === 'company' &&
+             ($authUser->id === $jobpost->user_id || $effectiveUserId === $jobpost->user_id))) {
+
             $categories = Category::all();
-            $categories2=Category2::all();
-            $tags = Tag::all(); // Include tags
+            $categories2 = Category2::all();
+            $tags = Tag::all();
             return view('jobpost.edit', compact('jobpost', 'categories', 'categories2', 'tags'));
         }
 
@@ -316,11 +341,14 @@ class JobPostController extends Controller
     public function update(Request $request, string $id)
     {
         $jobpost = JobPost::findOrFail($id);
+        $authUser=auth()->user();
+        $effectiveUserId = $authUser->parent_company_id ?? $authUser->id;
      // Check if user can update this job post
-     if (!(auth()->user()->role === 'admin' ||
-     (auth()->user()->role === 'company' && auth()->id() === $jobpost->user_id))) {
-     abort(403, 'Unauthorized action.');
- }
+     if (!($authUser->role === 'admin' ||
+     ($authUser->role === 'company' &&
+      ($authUser->id === $jobpost->user_id || $effectiveUserId === $jobpost->user_id)))) {
+   abort(403, 'Unauthorized action.');
+}
 
         $validatedData = $request->validate([
             'title' => 'required',

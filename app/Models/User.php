@@ -117,6 +117,7 @@ class User extends Authenticatable
         'education_month_15',
         'education_school_15',
         'education_startEnd_15',
+        'parent_company_id'
 
 
 
@@ -172,12 +173,22 @@ public function companyProfile()
 }
 public function jobPosts()
 {
+    if ($this->parent_company_id) {
+        // If this is a sub-account, get parent's job posts
+        return $this->parentCompany->jobPosts();
+    }
+
     return $this->hasMany(JobPost::class);
 }
 
 
 public function jobApplications()
 {
+
+    if ($this->parent_company_id) {
+        // If this is a sub-account, get parent's applications
+        return $this->parentCompany->jobApplications();
+    }
     return $this->hasMany(JobApplication::class);
 }
 
@@ -211,6 +222,17 @@ public function unreadNotificationsCount()
     public function likedJobPosts()
 {
     return $this->belongsToMany(JobPost::class, 'likes')->withTimestamps();
+}
+
+
+public function parentCompany()
+{
+    return $this->belongsTo(User::class, 'parent_company_id');
+}
+
+public function subAccounts()
+{
+    return $this->hasMany(User::class, 'parent_company_id');
 }
 
 

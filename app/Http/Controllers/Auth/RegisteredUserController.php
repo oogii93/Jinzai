@@ -129,6 +129,7 @@ class RegisteredUserController extends Controller
 
 
     protected $companyFields = [
+        'email2',
         'company_name' => 'name',  // maps to name field
         'address',
         'phone_number',
@@ -328,6 +329,7 @@ class RegisteredUserController extends Controller
             if ($request->role === 'company') {
                 $user->companyProfile()->create([
                     // 'company_description' => $request->company_description,
+
                     'industry' => $request->industry,
                     'website' => $request->website,
                     'employee_number'=>$request->employee_number,

@@ -52,6 +52,7 @@
             <!-- Field Template -->
             @foreach([
                 ['label' => 'メール', 'id' => 'email', 'type' => 'email', 'placeholder' => '会社のメールアドレスを入力してください'],
+
                 ['label' => '現住所', 'id' => 'address', 'type' => 'text', 'placeholder' => '企業の住所を入力してください。'],
                 ['label' => '電話番号', 'id' => 'phone_number', 'type' => 'text', 'placeholder' => '電話番号を入力してください。'],
                 ['label' => '携帯電話番号', 'id' => 'mobile_number', 'type' => 'text', 'placeholder' => '携帯電話番号を入力してください。'],

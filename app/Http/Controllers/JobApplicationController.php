@@ -162,8 +162,14 @@ class JobApplicationController extends Controller
     {
         $authUser = auth()->user(); // Get the authenticated user
 
+        $effectiveUserId=$authUser->parent_company_id ?? $authUser->id;
+
+
+        // For jobseekers to view their applications
+
+
         $jobpost = JobPost::with(['category', 'user']) // Add user to eager loading
-            ->where('user_id', $authUser->id) // Only fetch job posts created by the authenticated user
+            ->where('user_id', $effectiveUserId) // Only fetch job posts created by the authenticated user
             ->latest()
             ->get();
 
@@ -179,8 +185,8 @@ class JobApplicationController extends Controller
                 'jobPost',
                 'user'
             ])
-            ->whereHas('jobPost', function ($query) use ($authUser) {
-                $query->where('user_id', $authUser->id); // Only applications for the authenticated user's job posts
+            ->whereHas('jobPost', function ($query) use ($effectiveUserId) {
+                $query->where('user_id', $effectiveUserId); // Only applications for the authenticated user's job posts
             })
             ->when($status !== 'all', function ($query) use ($status) {
                 return $query->where('admin_status', $status);
@@ -189,14 +195,14 @@ class JobApplicationController extends Controller
             ->paginate();
 
         $counts = [
-            'pending' => JobApplication::whereHas('jobPost', function ($query) use ($authUser) {
-                $query->where('user_id', $authUser->id); // Count only applications for this user's job posts
+            'pending' => JobApplication::whereHas('jobPost', function ($query) use ($effectiveUserId) {
+                $query->where('user_id', $effectiveUserId); // Count only applications for this user's job posts
             })->where('admin_status', 'pending')->count(),
-            'approved' => JobApplication::whereHas('jobPost', function ($query) use ($authUser) {
-                $query->where('user_id', $authUser->id); // Count only applications for this user's job posts
+            'approved' => JobApplication::whereHas('jobPost', function ($query) use ($effectiveUserId) {
+                $query->where('user_id', $effectiveUserId); // Count only applications for this user's job posts
             })->where('admin_status', 'approved')->count(),
-            'rejected' => JobApplication::whereHas('jobPost', function ($query) use ($authUser) {
-                $query->where('user_id', $authUser->id); // Count only applications for this user's job posts
+            'rejected' => JobApplication::whereHas('jobPost', function ($query) use ($effectiveUserId) {
+                $query->where('user_id', $effectiveUserId); // Count only applications for this user's job posts
             })->where('admin_status', 'rejected')->count(),
         ];
         // dd($applications);

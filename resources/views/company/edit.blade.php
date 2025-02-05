@@ -37,6 +37,17 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <div>
+
+                        <p class="bg-yellow-200 px-2 py-2 rounded-md shadow-md mb-2">会社に別のアカウントを追加する場合は、メールアドレス2を入力して更新してください。</p>
+                        <label for="email_2" class="block text-sm font-medium text-gray-700 mb-2 mt-2">メールアドレス2</label>
+                        <input type="email" name="email_2" id="email_2"
+                               value="{{ old('email_2', $companyProfile->email_2) }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500
+                               @error('email') border-red-500 focus:ring-red-500 @enderror">
+
+                    </div>
                 </div>
 
                 <div>

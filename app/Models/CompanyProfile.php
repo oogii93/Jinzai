@@ -16,7 +16,9 @@ class CompanyProfile extends Model
         'employee_number',
         'profit',
         'stablished',
-        'details'
+        'details',
+        'email_2'
+
     ];
 
     public function user()

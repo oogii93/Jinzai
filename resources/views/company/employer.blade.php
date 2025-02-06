@@ -152,7 +152,7 @@
                                     </div>
 
                                 </th>
-                                <th class="px-6 py-4 border-b border-gray-200">
+                                {{-- <th class="px-6 py-4 border-b border-gray-200">
 
                                     <div class="flex flex-col items-center space-y-4">
                                         <div class="w-32 h-32  rounded-lg p-2">
@@ -161,7 +161,7 @@
                                         <span>応募者</span>
                                     </div>
 
-                                </th>
+                                </th> --}}
 
 
                                 <th class="px-6 py-4 border-b border-gray-200">
@@ -255,58 +255,60 @@
                                                         <span class="text-blue-500 font-semibold">応募日付け</span>
                                                         {{ $application->created_at->format('Y-m') }}月-{{ $application->created_at->format('d') }}日
                                                     </small>
+                                                    <br>
+                                                    @if ($application->user && $application->user->videoProfile)
+                                                    <a href="{{ asset('storage/' . $application->user->videoProfile->video_path) }}"
+                                                       class="inline-flex items-center text-sm text-indigo-600 hover:text-indigo-900"
+                                                       target="_blank">
+                                                        <svg class="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        動画
+                                                    </a>
+                                                @else
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                        動画がない
+                                                    </span>
+                                                @endif
+
+                                                <a href="{{ route('admin.user.show', $application->user) }}"
+                                                   class="inline-flex items-center text-pink-600 hover:text-pink-700 text-sm px-2 mt-2">
+                                                    <svg class="mr-1 h-5 w-5" fill="#f52ea2" viewBox="0 0 32 32">
+                                                        <rect height="1" width="12" x="10" y="29"></rect>
+                                                        <rect height="1" width="12" x="10" y="2"></rect>
+                                                        <rect height="1" width="4" x="9" y="5"></rect>
+                                                        <rect height="1" width="4" x="9" y="9"></rect>
+                                                        <rect height="1" width="10" x="13" y="12"></rect>
+                                                        <rect height="1" width="3" x="9" y="12"></rect>
+                                                        <rect height="1" width="10" x="13" y="15"></rect>
+                                                        <rect height="1" width="3" x="9" y="15"></rect>
+                                                        <rect height="1" width="10" x="13" y="18"></rect>
+                                                        <rect height="1" width="3" x="9" y="18"></rect>
+                                                        <rect height="1" width="10" x="13" y="21"></rect>
+                                                        <rect height="1" width="3" x="9" y="21"></rect>
+                                                        <rect height="1" width="10" x="13" y="24"></rect>
+                                                        <rect height="1" width="3" x="9" y="24"></rect>
+                                                        <rect height="1" transform="translate(9.5 41.5) rotate(-90)" width="20" x="15.5" y="15.5"></rect>
+                                                        <path d="M22,2V3h2a1,1,0,0,1,1,1V6h1V4a2,2,0,0,0-2-2Z"></path>
+                                                        <rect height="1" transform="translate(-9.5 22.5) rotate(-90)" width="20" x="-3.5" y="15.5"></rect>
+                                                        <path d="M10,2V3H8A1,1,0,0,0,7,4V6H6V4A2,2,0,0,1,8,2Z"></path>
+                                                        <path d="M22,30V29h2a1,1,0,0,0,1-1V26h1v2a2,2,0,0,1-2,2Z"></path>
+                                                        <path d="M10,30V29H8a1,1,0,0,1-1-1V26H6v2a2,2,0,0,0,2,2Z"></path>
+                                                        <rect height="5" width="1" x="9" y="5"></rect>
+                                                        <rect height="5" width="1" x="12" y="5"></rect>
+                                                    </svg>
+                                                    履歴書
+                                                </a>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
 
-
+{{--
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
-                                        @if ($application->user && $application->user->videoProfile)
-                                            <a href="{{ asset('storage/' . $application->user->videoProfile->video_path) }}"
-                                               class="inline-flex items-center text-sm text-indigo-600 hover:text-indigo-900"
-                                               target="_blank">
-                                                <svg class="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                                                動画
-                                            </a>
-                                        @else
-                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                                動画がない
-                                            </span>
-                                        @endif
 
-                                        <a href="{{ route('admin.user.show', $application->user) }}"
-                                           class="inline-flex items-center text-pink-600 hover:text-pink-700 text-sm px-2 mt-2">
-                                            <svg class="mr-1 h-5 w-5" fill="#f52ea2" viewBox="0 0 32 32">
-                                                <rect height="1" width="12" x="10" y="29"></rect>
-                                                <rect height="1" width="12" x="10" y="2"></rect>
-                                                <rect height="1" width="4" x="9" y="5"></rect>
-                                                <rect height="1" width="4" x="9" y="9"></rect>
-                                                <rect height="1" width="10" x="13" y="12"></rect>
-                                                <rect height="1" width="3" x="9" y="12"></rect>
-                                                <rect height="1" width="10" x="13" y="15"></rect>
-                                                <rect height="1" width="3" x="9" y="15"></rect>
-                                                <rect height="1" width="10" x="13" y="18"></rect>
-                                                <rect height="1" width="3" x="9" y="18"></rect>
-                                                <rect height="1" width="10" x="13" y="21"></rect>
-                                                <rect height="1" width="3" x="9" y="21"></rect>
-                                                <rect height="1" width="10" x="13" y="24"></rect>
-                                                <rect height="1" width="3" x="9" y="24"></rect>
-                                                <rect height="1" transform="translate(9.5 41.5) rotate(-90)" width="20" x="15.5" y="15.5"></rect>
-                                                <path d="M22,2V3h2a1,1,0,0,1,1,1V6h1V4a2,2,0,0,0-2-2Z"></path>
-                                                <rect height="1" transform="translate(-9.5 22.5) rotate(-90)" width="20" x="-3.5" y="15.5"></rect>
-                                                <path d="M10,2V3H8A1,1,0,0,0,7,4V6H6V4A2,2,0,0,1,8,2Z"></path>
-                                                <path d="M22,30V29h2a1,1,0,0,0,1-1V26h1v2a2,2,0,0,1-2,2Z"></path>
-                                                <path d="M10,30V29H8a1,1,0,0,1-1-1V26H6v2a2,2,0,0,0,2,2Z"></path>
-                                                <rect height="5" width="1" x="9" y="5"></rect>
-                                                <rect height="5" width="1" x="12" y="5"></rect>
-                                            </svg>
-                                            履歴書
-                                        </a>
-                                    </td>
+                                    </td> --}}
 
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border border-gray-400">
                                         <span class="{{ empty($application->taisei_result)

@@ -409,9 +409,36 @@
                         </button>
                     </form>
 
-                    <a href="{{ route('admin.user.index') }}"
-                        class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition duration-300">戻り</a>
+                    <a class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition duration-300"
+                    href="javascript:void(0)"
+                    onclick="window.history.back()">
+                    戻る
+                </a>
+
+
                 </div>
+
+
+            @else
+
+            {{-- <div class="mt-2">
+                <a href="{{ route('admin.user.index') }}"
+                class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition duration-300">戻り</a>
+            </div> --}}
+
+
+            <div class="mt-3 items-center justify-center" style="width:120px; height:40px;">
+                <a class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition duration-300"
+                    href="javascript:void(0)"
+                    onclick="window.history.back()">
+                    戻る
+                </a>
+            </div>
+
+
+
+
+
             @endif
         @endauth
 

@@ -126,28 +126,44 @@
                                         <span class="mt-32 ">ID</span>
                                     </div>
                                 </th>
+
+
+
+
+
                                 <th class="px-6 py-4 border-b border-gray-200">
 
-                                    
-                                    <div class="flex flex-col items-center">
-                                        <span class="mt-32 ">応募した仕事</span>
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="{{ asset('images/Group16.png') }}" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>応募した仕事</span>
                                     </div>
+
                                 </th>
+
                                 <th class="px-6 py-4 border-b border-gray-200">
-                                    
+
                                     <div class="flex flex-col items-center space-y-4">
                                         <div class="w-32 h-32  rounded-lg p-2">
                                             <img src="{{ asset('images/Group3.png') }}" alt="" class="w-full h-full object-contain">
                                         </div>
                                         <span>応募者</span>
                                     </div>
-                                 
+
                                 </th>
                                 <th class="px-6 py-4 border-b border-gray-200">
-                                    <div class="flex flex-col items-center">
-                                        <span class="mt-32 ">自己紹介動画</span>
+
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="{{ asset('images/Group17.png') }}" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>応募者</span>
                                     </div>
+
                                 </th>
+
+
                                 <th class="px-6 py-4 border-b border-gray-200">
 
                                     <div class="flex flex-col items-center space-y-4">
@@ -156,13 +172,20 @@
                                         </div>
                                         <span>太成HDs面談結果</span>
                                     </div>
-                                   
+
                                 </th>
+
                                 <th class="px-6 py-4 border-b border-gray-200">
-                                    <div class="flex flex-col items-center">
-                                        <span class="mt-32 ">書類選考結果</span>
+
+                                    <div class="flex flex-col items-center space-y-4">
+                                        <div class="w-32 h-32  rounded-lg p-2">
+                                            <img src="{{ asset('images/Group18.png') }}" alt="" class="w-full h-full object-contain">
+                                        </div>
+                                        <span>書類選考結果</span>
                                     </div>
+
                                 </th>
+
                                 <th class="px-6 py-4 border-b border-gray-200">
 
                                     <div class="flex flex-col items-center space-y-4">
@@ -171,7 +194,7 @@
                                         </div>
                                         <span>面接・採用試験日</span>
                                     </div>
-                                   
+
                                 </th>
                                 <th class="px-6 py-4 border-b border-gray-200">
                                     <div class="flex flex-col items-center space-y-4">
@@ -180,7 +203,7 @@
                                         </div>
                                         <span>最終結果</span>
                                     </div>
-                                  
+
                                 </th>
                                 <th class="px-6 py-4 border-b border-gray-200">
                                     <div class="flex flex-col items-center space-y-4">
@@ -190,7 +213,7 @@
                                         <span>入社日付</span>
                                     </div>
 
-                                 
+
                                 </th>
 
 

@@ -95,7 +95,7 @@
             <!-- Status Tabs -->
 
             <table class="w-full table-auto border-collapse shadow-xl rounded-lg overflow-hidden">
-                <thead class="bg-green-300 text-gray-500 uppercase text-sm font-semibold">
+                <thead class="bg-sky-400 text-gray-500 uppercase text-sm font-semibold">
                     <tr class="divide-x divide-gray-200">
 
 
@@ -104,16 +104,22 @@
                                 <span class="mt-32 ">ID</span>
                             </div>
                         </th>
+
                         <th class="px-6 py-4 border-b border-gray-200">
-                            <div class="flex flex-col items-center">
-                                <span class="mt-32 ">採用会社名</span>
+
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="w-32 h-32  rounded-lg p-2">
+                                    <img src="{{ asset('images/Group37.png') }}" alt="" class="w-full h-full object-contain">
+                                </div>
+                                <span>採用会社名</span>
                             </div>
+
                         </th>
                         <th class="px-6 py-4 border-b border-gray-200">
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="{{ asset('images/Group3.png') }}" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group33.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>採用位置</span>
                             </div>
@@ -123,7 +129,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="{{ asset('images/Group4.png') }}" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Frame2.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>太成HDS面接日付</span>
                             </div>
@@ -133,7 +139,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="{{ asset('images/Group5.png') }}" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group30.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>太成HDS面接結果</span>
                             </div>
@@ -141,16 +147,23 @@
 
                         </th>
                         <th class="px-6 py-4 border-b border-gray-200">
-                            <div class="flex flex-col items-center">
-                                <span class="mt-32 ">書類選考結果</span>
+
+                            <div class="flex flex-col items-center space-y-4">
+                                <div class="w-32 h-32  rounded-lg p-2">
+                                    <img src="{{ asset('images/Group32.png') }}" alt="" class="w-full h-full object-contain">
+                                </div>
+                                <span>書類選考結果</span>
                             </div>
+
+
                         </th>
+
 
                         <th class="px-6 py-4 border-b border-gray-200">
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="{{ asset('images/Group6.png') }}" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group29.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>面接・採用試験日</span>
                             </div>
@@ -161,7 +174,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="{{ asset('images/Group9.png') }}" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group27.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>最終結果</span>
                             </div>
@@ -171,7 +184,7 @@
 
                             <div class="flex flex-col items-center space-y-4">
                                 <div class="w-32 h-32  rounded-lg p-2">
-                                    <img src="{{ asset('images/Group10.png') }}" alt="" class="w-full h-full object-contain">
+                                    <img src="{{ asset('images/Group26.png') }}" alt="" class="w-full h-full object-contain">
                                 </div>
                                 <span>入社日付</span>
                             </div>

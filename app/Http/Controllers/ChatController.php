@@ -92,6 +92,10 @@ class ChatController extends Controller
                 'content'=>$request->content,
             ]);
 
+            $receiver->notify(new \App\Notifications\NewChatNotification($message, $user));
+
+            // \Log::info('Message created: ' . $message->id);
+
 
 
 

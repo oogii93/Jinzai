@@ -125,6 +125,32 @@
                                                     </p>
                                                 </div>
 
+
+                                                @elseif($notification->type === 'App\Notifications\NewChatNotification')
+                                                <div class="flex items-center mb-3">
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-md font-medium bg-green-100 text-green-800 mr-3">
+                                                        新規チャト通知
+                                                    </span>
+                                                    <span class="text-sm text-gray-500">
+                                                        {{ $notification->created_at->diffForHumans() }}
+                                                    </span>
+                                                </div>
+
+                                                <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                                                    {{ $notification->data['sender_name'] }}からのメッセージ
+                                                </h3>
+
+                                                <div class="text-sm text-gray-600 space-y-1">
+                                                    <p>
+                                                        <span class="font-medium">内容:</span>
+                                                        {{ $notification->data['content'] }}
+                                                    </p>
+                                                    <p>
+                                                        <span class="font-medium">送信日時:</span>
+                                                        {{ $notification->data['created_at'] }}
+                                                    </p>
+                                                </div>
+
                                             {{-- @elseif($notification->type === 'App\Notifications\NewPostNotification') --}}
 
                                             @elseif(isset($notification->data['type']) && $notification->data['type'] === 'jobPost_created')

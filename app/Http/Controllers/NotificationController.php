@@ -41,6 +41,9 @@ class NotificationController extends Controller
 
             return redirect()->route('jobpost.show', ['id'=>$notification->data['job_post_id']]);
         }
+        if(isset($notification->data['type'] ) && $notification->data['type']==='ChatNotification'){
+            return redirect()->route('chat.show', ['id'=>$notification->data['message_id']]);
+        }
 
 
 
